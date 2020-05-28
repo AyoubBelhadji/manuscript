@@ -149,10 +149,173 @@
 \newpage
 %\section{Introduction en français}
 \section{Introduction}
-\subsection{Sensing on budget} 
-Many problems in applied mathematics can be reformulated as a problem of sensing under  budget constraints.
+%\subsection{Sensing on budget} 
+Many tasks in data analysis, signal processing or machine learning can be reformulated as problems of sensing under budget constraints, i.e. the estimation of some function of the data based on a partial knowledge of the available data. This is the case of subset selection problems, numerical integration problems or interpolation problems. 
+
+When dealing with such approximation problems, the main concern would be the numerical implementation and the theoretical guarantees of such an algorithm. In particular, algorithms that are optimal in some sense are sought ...
+
+A plausible solution of one of these approximation problems is an algorithm that...
+
+
 (3 pages)
 \subsection{Design problems in applied mathematics}
+In order to situate the contributions of this thesis, we give a very brief review on  matrix sparsification techniques and ......
+\subsubsection{Matrix sparsification}
+The problem of matrix sparsification is at the heart of many applications in data analysis and machine learning: pre-conditioning of linear systems [??], subsampling for linear regression \citep*{DrMaMu06}, low rank approximations \citep*{DrMaMu07}, NystrÖm approximations [??], linear systems on graphs \citep*{SpTe04,SpSr11} and signal recovery on graphs \citep*{PuTrGrVa18}. All these problems start with an s.d.p matrix that writes
+\begin{equation}
+\bm{M} = \sum\limits_{n \in [N]} v_{n}v_{n}^{\Tran},
+\end{equation}
+and it is required to sparsify $\bm{M}$ i.e. find a vector $\bm{w} \in \mathbb{R}^{N}$ such that the spectral properties of the matrix
+
+\begin{equation}
+\bm{M}_{\bm{w}} = \sum\limits_{n \in [N]} w_{n} v_{n}v_{n}^{\Tran},
+\end{equation}
+are similar to the spectral properties of $\bm{M}$ with the constraint that the support size of $\bm{w}$ is as small as possible. 
+The vectors $v_{n}$ may have different interpretation depending on the context of the problem. For example, in the context of linear regression on budget, $N$ is the number of initial observations that lives in dimension $d$, the $v_{i}$ are the observations, and $\bm{M}$ is simply the empirical covariance matrix; another example in the case of Graph sparsification, the $N$ represents the number of edges, $d$ the number of vertices, the $v_{i}$ are ..., and $\bm{M}$ is the Laplacian matrix.
+
+
+
+
+The similarity between $\bm{M}_{\bm{w}}$ and $\bm{M}$ are measured by the similarity of the respective eigenvalues a condition that can be formalized using the Lowner order: $\bm{M}_{\bm{w}}$ and $\bm{M}$  are similar if there exists $\alpha,\beta>0$ such that
+
+\begin{equation}\label{eq:matrix_similarity_condition}
+\alpha \bm{M} \prec \bm{M}_{\bm{w}} \prec \beta \bm{M}.
+\end{equation}
+This spectral similarity is essential and defines a class of "good" matrix sparsifiers. For example, the condition~\eqref{eq:matrix_similarity_condition} guarantees that the null-spaces of $\bm{M}$ and $\bm{M}_{\bm{w}}$ are the same. More interestingly, this condition implies that $\rank(\bm{M}) = \rank(\bm{M}_{\bm{w}})$ and thus guarantees that the respective pseudo-inverses are similar \citep{MiAk77}:
+\begin{equation}
+\frac{1}{\beta} \bm{M}^{+} \prec \bm{M}_{\bm{w}}^{+} \prec \frac{1}{\alpha} \bm{M}^{+}.
+\end{equation}
+
+Also, it guarantees that 
+\begin{equation}
+\forall \bm{x} \in \mathbb{R}^{d}, \:\:
+\alpha \bm{x}^{\Tran}\bm{M}\bm{x} \leq \bm{x}^{\Tran}\bm{M}_{\bm{w}}\bm{x} \leq \beta \bm{x}^{\Tran}\bm{M}\bm{x}.
+\end{equation}
+
+the preservation of many other "spectral quantities" related to the initial matrix $\bm{M}$: flows ?? in graph 
+
+
+
+
+
+this condition is equivalent to
+\begin{equation}
+\alpha \mathbb{I}_{d} \prec \bm{M}^{-1/2}\bm{M}_{\bm{w}} \bm{M}^{-1/2} \prec \beta \mathbb{I}_{d}
+\end{equation}
+
+\begin{equation}
+ \bm{M}^{-1/2}\bm{M}_{\bm{w}} \bm{M}^{-1/2}  = \sum\limits_{n \in [N]} w_{n} \bm{M}^{-1/2} v_{n} (\bm{M}^{-1/2} v_{n})^{\Tran}
+\end{equation}
+
+
+Therefore, the problem is equivalent to the sparsification of $\mathbb{I}_{d}$:
+
+\begin{equation}\label{eq:sum_to_identity}
+\mathbb{I}_{d} = \sum\limits_{n \in [N]}v_{n}v_{n}^{\Tran},
+\end{equation}
+
+Consider the following problem: let $v_{1}, \dots, v_{N} \in \mathbb{R}^{d}$ such that
+\begin{equation}
+ \sum\limits_{n \in [N]} v_{n} v_{n}^{\Tran} = \mathbb{I}_{d},
+\end{equation}
+we ask for an algorithm that outputs a set $S \subset [N]$ and a vector of weights $\bm{w}\in \mathbb{R}^{N}$ such that
+\begin{equation}
+m \mathbb{I}_{d} \leq \sum\limits_{n \in [N]} w_{n}v_{n}v_{n}^{\Tran} \leq M \mathbb{I}_{d}.
+\end{equation} 
+
+
+The condition~\eqref{eq:sum_to_identity} 
+
+First let's comment the 
+
+
+\paragraph{Random sparsification}
+Random sampling algorithms are widely used in matrix sparsification. The popularity of these algorithms stems from the fact that they are relatively easy to implement and they benefits from theoretical guarantees.  Typically, the theoretical guarantees of such an algorithm goes through matrix concentration inequalities [??]. We give in the following an example of a matrix concentration inequality. 
+
+
+\begin{theorem}\label{thm:matrix_bernstein}
+Consider a finite sequence $(X_{j})_{j}$ of independent, random, self-adjoint $d\times d$ matrices . Assume that each matrix $X_{j}$
+satisfies 
+\begin{align}
+ \EX X_{j} &= \mathbb{0}_{d \times d},\\
+ \|X_{j}\|_{2} &\leq \tau,
+\end{align}
+where $\tau >0$ and define $\sigma^{2} = \|\EX \sum\limits_{j} X_{j}^{2}\|$.
+% and 
+% Let $\rho_{j} = \max(\|\EX X_{j} X_{j}^{\Tran}\|_{2}, \|\EX X_{j}^{\Tran}X_{j}\|_{2})$, and $\max\limits_{j \in [c]} $.
+ Then for $\epsilon >0$, 
+
+\begin{equation}
+\Prb \left( \|\sum\limits_{j} X_{j}\|_{2} \geq \epsilon \right) \leq 2 d e^{-\frac{3}{2} \frac{\epsilon^{2}}{3\sigma^{2} + \tau \epsilon}}.
+\end{equation}
+
+\end{theorem}
+
+This result is widely known under the name of \emph{Matrix Bernstein concentration inequality} because it is the natural extension of the Bernstein concentration inequality. Similarly, other scalar concentration inequalities extend to matrices. For instance, the Chernoff concentration inequality or the Azuma-Hoeffding concentration inequality. We refer the reader to [??] for a review on this topic. 
+
+% matrix concentration inequalities that extend scalar concentration inequalities such as Matrix Chernoff concentration inequality or Matrix Azuma concentration inequality.
+
+
+An application of Theorem~\ref{thm:matrix_bernstein} is the following sparsification result.
+
+\begin{theorem}\label{thm:matrix_bernstein_identity_sparsification}
+Let $v_{1}, \dots, v_{N} \in \mathbb{R}^{d}$, that satisfies the condition~\eqref{eq:sum_to_identity}. Define the matrix $\bm{M}_{c}~\in~\mathbb{R}^{d\times d}$ as
+\begin{equation}
+\bm{M}_{c} = \sum\limits_{j \in [c]} \frac{1}{p_{i(j)}}v_{i(j)}v_{i(j)},
+\end{equation} 
+where
+\begin{equation}\label{eq:conditions_on_the_vector_p}
+\sum\limits_{j} p_{j} = 1, \:\: p_{j}>0,
+\end{equation}
+and the $(i(j))_{j \in [c]}$ are independent random variables that follows the multinomial distribution of parameter $\bm{p} = (p_{j})_{j \in [N]}$. Let $\delta >0$, and $c \geq d \log d ...$, then with probability higher than $1-\delta$,
+
+\begin{equation}
+ (1-\epsilon) \mathbb{I}_{d} \prec \bm{M}_{c} \prec (1+\epsilon) \mathbb{I}_{d}.
+\end{equation}
+
+\end{theorem}
+
+The matrix $\bm{M}_{c}$ in the theorem can be written as a sum $\displaystyle \sum\limits_{n \in [N]}w_{n}v_{n}v_{n}^{\Tran}$ where $|\mathrm{Supp}(\bm{w})|~=~...$ and it is indeed a sparsification of the identity matrix $\mathbb{I}_{d}$. Moreover, any vector $\bm{p}$ satisfying the two conditions~\eqref{eq:conditions_on_the_vector_p} can be used for sampling. Yet, the bound on the size of the support of $\bm{w}$ is only significant for a class of vectors $\bm{p}$. To see this, assume that $\bm{p} = (1/N)_{j \in [N]}$ that represents uniform sampling. Then, in order to obtain the guarantees of Theorem~\ref{thm:matrix_bernstein_identity_sparsification}, it is required to have  $c \geq ... d \log d $. When the \emph{coherence} $\mu$ is low $(\mu \approx 1)$, the sparsification is guaranteed with $\mathcal{O}(d \log d)$ independently of the initial number $N$. This reduction is significant, especially for large values of $N$. Yet, in the worst case $\mu = N$, and it is required that $c \geq N$. In other words, the sparsification using uniform sampling is only guaranteed if the coherence is low.
+
+We can see the issue with the uniform distribution 
+
+\begin{equation}
+...
+\end{equation}
+
+are interesting. To see this, consider $p$
+
+ and as we have seen, the distribution of the elements of the support of $\bm{w}$ are chosen according to some multinomial distribution of parameter $\bm{p}$.
+
+To summarize, random sampling allows to obtain almost optimal sparisifiers with a budget that scales as $\mathcal{O}(d \log d)$. The logarithmic term in the matrix concentration inequalities was shown to be almost optimal in [??]. 
+In the following, we review a class of sparsifiers that achieves sparsification budget that scales as $\mathcal{O}(d)$.
+
+\paragraph{Greedy sparsification}
+An alternative approach to sparisification was proposed in \citep*{BaSpSr12}. While the primary motivation of the authors was graph sparsification, they proved a general result for the sparisification of the identity matrix.
+\begin{theorem}\citep*{BaSpSr12}
+Let $v_{1}, \dots, v_{N} \in \mathbb{R}^{d}$ , that satisfies the condition~\eqref{eq:sum_to_identity}, and let $\alpha >1$. Then there exists $\bm{w} \in \mathbb{R}_{+}^{N}$ such that
+\begin{equation}
+\mathbb{I}_{d} \prec \sum\limits_{n \in [N]}w_{n}v_{n}v_{n}^{\Tran} \prec \frac{\alpha +1 +2\sqrt{\alpha}}{\alpha +1 -2\sqrt{\alpha}} \mathbb{I}_{d},
+\end{equation}
+and
+\begin{equation}
+|\{n \in [N], w_{n} \neq 0\}| \leq \alpha d.
+\end{equation}
+\end{theorem}
+
+
+The proof given in \citep{BaSpSr12} provides a deterministic greedy algorithm for computing the vector $\bm{w}$ in $\mathcal{O}(\alpha d^{3} N)$ time. The proof is based on the following observation: let $\bm{A}$ a $d\times d$ p.s.d matrix and $v \in \mathbb{R}^{d}$, and denote $\pi_{\bm{A}}$,$\pi_{\bm{A}+vv^{\Tran}}$ the characteristic polynomials of the matrices $\bm{A}$ and $\bm{A}+vv^{\Tran}$ respectively, then 
+\begin{equation}
+\pi_{\bm{A}+vv^{\Tran}}(\lambda) =  \pi_{\bm{A}}(\lambda) \bigg( 1- \sum\limits_{\delta \in [d]} \frac{\langle v,u_{\delta} \rangle^{2}}{\lambda-\lambda_{\delta}} \bigg), 
+\end{equation}
+where the $\lambda_{\delta}$ are the eigenvalues of $\bm{A}$ and the $u_{\delta}$ are the respective eigenvectors.
+
+
+
+control of the eigenvalues of the matrices ... under rank-one updates.
+
+
+\subsubsection{Operator discretization}
 (3-6 pages)
 \subsection{Mathematical framework: Determinantal point processes}
 (7-10 pages)
@@ -170,11 +333,21 @@ Before giving the definitions of DPPs, we recall some basic properties of determ
 
 \subsubsection{The determinant and the volume}
 We recall this elementary result:
-\begin{theorem}
-Let $...$ be a parallelepiped ... and denote by $\bm{X}$ the matrix ....
-Then
+\begin{theorem}\label{thm:link_det_vol}
+Let $v_{1}, \dots, v_{d} \in \mathbb{R}^{d}$ a collection of vectors, and denote $\mathcal{P}$ the parallelepiped spanned by the $v_{\delta}$, i.e. the convex hull of $(v_{\delta})_{\delta \in [d]}$ and denote by $\bm{G}$ the gram matrix of the $v_{\delta}$. Then
 \begin{equation}
-\Det \bm{X} \bm{X}^{\Tran} = Vol^{2} \mathcal{P}
+\Det \bm{G} = \mathrm{Vol}^{2} \mathcal{P}. \nonumber
+\end{equation}
+\end{theorem}
+Theorem~\ref{thm:link_det_vol} establishes the link between the geometric notion of volume and the determinant of Gram matrices: the higher the determinant of $\bm{G}$ the higher the volume of $\mathcal{P}$ and vice-versa. The volume of the parallelepiped $\mathcal{P}$ is a convenient 
+
+One important, yet elementary, consequence of Theorem~\ref{thm:link_det_vol} is the 
+
+
+\begin{theorem}\label{thm:vol_base_times_height}
+Let $v_{1}, \dots, v_{d} \in \mathbb{R}^{d}$ a collection of vectors, and denote $\mathcal{P}$ the parallelepiped spanned by the $v_{\delta}$, i.e. the convex hull of $(v_{\delta})_{\delta \in [d]}$ and denote by $\bm{G}$ the gram matrix of the $v_{\delta}$. Then
+\begin{equation}
+\Det \bm{G} = \mathrm{Vol}^{2} \mathcal{P}. \nonumber
 \end{equation}
 \end{theorem}
 
@@ -2322,38 +2495,67 @@ An easier route than de-symmetrization could be to replace the product in \eqref
 
 In comparison with \cite{Bac17}, we emphasize that the dependence of our bound on the eigenvalues of the kernel $k$, via $r_{N}$, is explicit. This is in contrast with Proposition~\ref{p:bach} that depends on the eigenvalues of $\bm{\Sigma}$ through the degree of freedom $d_{\lambda}$ so that the necessary number of samples $N$ diverges when $\lambda \rightarrow 0$. On the contrary, our quadrature requires a finite number of points for $\lambda =0$. It would be interesting to extend the analysis of our quadrature in the regime $\lambda >0$.
 
+\clearpage
 
-
-\subsection{Numerical simulations}
+\subsection{The numerical simulation of a projection DPP}
 We review in this section the literature on the numerical simulation of projection Determinantal point processes. Recall that a random set that follows the distribution of a projection DPP of marginal kernel $\KDPP$ have a deterministic cardinal equals to $N$, where $N$ is the rank of the integral operator associated to the kernel $\KDPP$. For this reason, we can identify such a random set with a sample from a random variable defined on $\mathcal{X}^{N}$.
 
 Let $\bm{x} = \{x_{1}, \dots, x_{N}\}$ a random set that follows the distribution of a projection DPP of marginal kernel $\KDPP_{N}$. The joint distribution of the random variable $(x_{1}, \dots, x_{N}) \in \X^{N}$ have a density with respect to the measure $\mathrm{d}\bm{\omega}(\bm{x}) = \otimes_{n\in [N]}\mathrm{d}\omega(x_{n})$:
-\begin{equation}
+\begin{equation}\label{eq:det_density}
 f_{\KDPP}(\bm{x}) = \frac{1}{N!}\Det \bm{\KDPP}(\bm{x}).
 \end{equation}
 
 As we shall see, the landscape on this topic is 
 
 \paragraph{Algorithms based on random matrix models}
-The eigenvalues of some random matrix models corresponds to some specific projection DPPs. 
+% As we have seen in the introduction, the eigenvalues of a random unitary matrix ... 
+The eigenvalues of some random matrix models corresponds to some specific projection DPPs. This includes the case of the Circular Unitary Ensemble defined in the introduction.
 In particular, when $d=1$, and $\omega$ is a Gaussian, gamma \cite{DuEd02}, or beta \cite{KiNe04} pdf, and $(\psi_n)$ are the orthonormal polynomials with respect to $\omega$, the corresponding DPP can be sampled by tridiagonalizing a matrix with independent entries, which takes the cost to $\mathcal{O}(N^2)$ and bypasses the need for rejection sampling. 
 
 
+
+
+\begin{figure}[!ht]
+ \centerline{
+ \scalebox{0.9}{
+\begin{algorithm}{$\Algo{RME}\big(N)$}
+\Aitem $n \longleftarrow  N$
+\Aitem $\mu_{N}(x) \longleftarrow  \frac{1}{N} \KDPP(x,x)\mathrm{d}\omega(x)$
+\Aitem $\bm{x} \longleftarrow  \emptyset$
+\Aitem \While $n > 0 $
+\Aitem \mt $\mu_{n}(x) = \frac{1}{n} \left( \KDPP(x,x) - \KDPP(x,\bm{x})^{\Tran}\bm{\KDPP}(\bm{x})^{-1} \KDPP(x,\bm{x}) \right) \mathrm{d}\omega(x)$ \ar{Chain rule}
+\Aitem \mt  Pick $x_{n}$ from $\mathcal{X}$ from $\mu_{n}$ \ar{Sample from the conditional}
+\Aitem \mt  $\bm{x} \longleftarrow  \bm{x} \cup \{x_{n}\}$
+\Aitem \mt $n \longleftarrow  n-1$
+\Aitem \Return $\bm{x}$
+\end{algorithm}
+ }
+ }
+\caption{Pseudocode a sampler of projection DPP based on a random matrix model.}
+\label{alg:RME_SAMPLER}
+\end{figure}
+
+
 \paragraph{The sequential algorithm HKPV}
-Consider $(\psi_{m})_{m \in \mathbb{N}^{*}}$ an orthonormal family with respect to the measure $\mathrm{d}\omega$. In \citep*{HoKrPeVi06}, a sequential algorithm was proposed for the numerical simulation of a random set that follows the distribution of the projection DPP of marginal kernel
+Consider $(\psi_{m})_{m \in [N]}$ an orthonormal family with respect to the measure $\mathrm{d}\omega$. In \citep*{HoKrPeVi06}, a sequential algorithm was proposed for the numerical simulation of a random set that follows the distribution of the projection DPP of marginal kernel
 \begin{equation}
-\KDPP_{N}(x,y) = \sum\limits_{n \in [N]} \psi_{n}(x)\psi_{n}(y).
+\KDPP(x,y) = \sum\limits_{m \in [N]} \psi_{m}(x)\psi_{m}(y).
 \end{equation}
  
-Using the chain rule, this density factorises as the product of $N$ conditionals
+Indeed, the idea behind this algorithm is to see $\bm{\KDPP}(\bm{x})$ as the Gram matrix of the family $\KDPP(x_{n},.)_{n \in [N]}$, whose $i,j$ entry is given by the scalar product of $\KDPP(x_{i},.)$ and $\KDPP(x_{j},.)$ with respect to the scalar product defined by $\mathrm{d}\omega$. In fact, by the orthonormality of $(\psi_{m})_{m \in [N]}$:
 \begin{equation}
-f_{\KDPP}(x_{1},\dots,x_{N}) = \prod\limits_{n \in [N]} f_{\KDPP}(x_{n} | x_{1}, \dots, x_{n-1}),
+\int_{\mathcal{X}} \KDPP(x_{i},x) \KDPP(x_{j},x) \mathrm{d}\omega(x) = \sum\limits_{m \in [N]}\sum\limits_{m' \in [N]} \int_{\mathcal{X}} \psi_{m}(x_{i}) \psi_{m}(x) \psi_{m'}(x_{j}) \psi_{m'}(x) \mathrm{d}\omega(x)  = \KDPP(x_{i},x_{j}).
+\end{equation}
+
+Hence, $\Det \bm{\KDPP}(\bm{x})$ corresponds to the volume of the parallelepiped determined by the vectors $(\KDPP(x_{n},.))_{n \in [N]}$; and using "base times height" formula, the authors proved that the density~\eqref{eq:det_density} factorises as the product of $N$ conditionals
+\begin{equation}
+f_{\KDPP}(x_{1},\dots,x_{N}) = \prod\limits_{n \in [N]} f_{\KDPP,n}(x_{n} | x_{1}, \dots, x_{n-1}),
 \end{equation}
 for every $n \in [N]$ the conditional expresses as
 \begin{equation}
-f_{\KDPP}(x | x_{1} \dots x_{n-1}) = \frac{1}{n} \left( \KDPP_{N}(x,x) - \KDPP_{N}(x,\bm{x})^{\Tran}\bm{\KDPP}(\bm{x})^{-1} \KDPP_{N}(x,\bm{x}) \right),
+f_{\KDPP,n}(x | x_{1} \dots x_{n-1}) = \frac{1}{n} \left( \KDPP(x,x) - \KDPP(x,\bm{x})^{\Tran}\bm{\KDPP}(\bm{x})^{-1} \KDPP(x,\bm{x}) \right),
 \end{equation}
-where $\KDPP_{N}(x,\bm{x}) = (\KDPP_{N}(x,x_{\ell}))_{\ell \in |\bm{x}|}$.
+where $\KDPP(x,\bm{x}) = (\KDPP(x,x_{\ell}))_{\ell \in |\bm{x}|}$. In particular, the Algorithm~\ref{alg:HKPV_SAMPLER} output a random set that follows the distribution of the projection DPP of marginal kernel $\KDPP$.
 
 
 
@@ -2362,21 +2564,26 @@ where $\KDPP_{N}(x,\bm{x}) = (\KDPP_{N}(x,x_{\ell}))_{\ell \in |\bm{x}|}$.
  \scalebox{0.9}{
 \begin{algorithm}{$\Algo{HKPV}\big(\KDPP_{N}(x,y) = \sum\limits_{m \in [N]} \psi_{m}(x)\psi_{m}(y))$}
 \Aitem $n \longleftarrow  N$
-\Aitem $\mu_{N}(x) \longleftarrow  \frac{1}{N} \KDPP_{N}(x,x)\mathrm{d}\omega(x)$
+\Aitem $\mu_{N}(x) \longleftarrow  \frac{1}{N} \KDPP(x,x)\mathrm{d}\omega(x)$
 \Aitem $\bm{x} \longleftarrow  \emptyset$
 \Aitem \While $n > 0 $
+\Aitem \mt $\mu_{n}(x) = \frac{1}{n} \left( \KDPP(x,x) - \KDPP(x,\bm{x})^{\Tran}\bm{\KDPP}(\bm{x})^{-1} \KDPP(x,\bm{x}) \right) \mathrm{d}\omega(x)$ \ar{Chain rule}
 \Aitem \mt  Pick $x_{n}$ from $\mathcal{X}$ from $\mu_{n}$ \ar{Sample from the conditional}
-\Aitem \mt $\mu_{n}(x) = \frac{1}{n} \left( \KDPP_{N}(x,x) - \KDPP_{N}(x,\bm{x})^{\Tran}\bm{\KDPP}(\bm{x})^{-1} \KDPP_{N}(x,\bm{x}) \right) \mathrm{d}\omega(x)$ \ar{Chain rule}
 \Aitem \mt  $\bm{x} \longleftarrow  \bm{x} \cup \{x_{n}\}$
 \Aitem \mt $n \longleftarrow  n-1$
 \Aitem \Return $\bm{x}$
 \end{algorithm}
  }
  }
-\caption{Pseudocode of the HKPV algorithm for sampling from a projection DPP of marginal kernel $\KDPP_{N}$.}
+\caption{Pseudocode of the HKPV algorithm for sampling from a projection DPP of marginal kernel $\KDPP$.}
 \label{alg:HKPV_SAMPLER}
 \end{figure}
-The authors proved that the Algorithm~\ref{alg:HKPV_SAMPLER} output a random set that follows the distribution of the projection DPP of marginal kernel $\KDPP_{N}$. In practice, the numerical implementation of this algorithm goes through sampling the conditional distributions. This problem was considered in \citep{BaHa16}. 
+ In practice, the numerical implementation of this algorithm goes through sampling the conditional distributions (Step 5 in Algorithm~\ref{alg:HKPV_SAMPLER}). An implementation of this step was proposed in \citep{BaHa16} based on rejection sampling and the observation that
+ \begin{equation}
+f_{\KDPP,n}(x | x_{1} \dots x_{n-1}) \leq \frac{N}{n}f_{\KDPP,N}(x).
+ \end{equation} 
+
+In fact, if a sampler of the distribution $f_{\KDPP,N}$ is known, samplers from the conditionals can be implemented by rejection sampling. This is the case when the $(\psi_{n})$ is a family of orthogonal polynomials and $\mathcal{X} = [0,1]^{d}$.  
 
 
 One advantage of DPPs is that they can be sampled exactly. Because of the orthonormality of $(\psi_n)$, one can write the chain rule for \eqref{eq:pdpp_definition}; see \cite{HKPV06}. Sampling each conditional in turn, using e.g. rejection sampling \cite{RoCa04}, then yields an exact sampling algorithm. Rejection sampling aside, the cost of this algorithm is cubic in $N$ without further assumptions on the kernel. Simplifying assumptions can take many forms. 
