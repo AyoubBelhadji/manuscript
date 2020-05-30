@@ -152,7 +152,21 @@
 %\subsection{Sensing on budget} 
 Many tasks in data analysis, signal processing or machine learning can be reformulated as problems of sensing under budget constraints, i.e. the estimation of some function of the data based on a partial knowledge of the available data. This is the case of subset selection problems, numerical integration problems or interpolation problems. 
 
-When dealing with such approximation problems, the main concern would be the numerical implementation and the theoretical guarantees of such an algorithm. In particular, algorithms that are optimal in some sense are sought ...
+Subset selection initially were used for the pre-conditioning of linear solvers [??]. Yet, the use of this paradigm expanded and covered different problems in various settings: coresets for a learning task, subset selection in numerical linear algebra especially for regression tasks and for efficient factorization of gram kernel matrices, signal recovery on graphs, low rank matrices, efficient implementations of Bayesian inference algorithms based on Markov chain Monte Carlo samplers...
+
+Numerical integration problems deal with the numerical approximation of intractable integrals. This problem exists, at least, since the invention of calculus .... by Newton. Since then, several approaches
+
+
+Interpolation problems are closely tied to numerical integration problems. These deep connections between the two fields do not prevent the first one to develop in its own way especially for questions emerging in numerical communication. The case of Shannon-??-?? is as an example of such independent development
+
+
+
+
+When dealing with such approximation problems, the main concern would be the numerical implementation and the theoretical guarantees of such an algorithm. Many algorithms were proposed
+
+
+
+In particular, algorithms that are optimal in some sense are sought ...
 
 A plausible solution of one of these approximation problems is an algorithm that...
 
@@ -460,6 +474,70 @@ DPPs and $k$-DPPs are closely related but different objects. For starters, $k$-D
 
 
 \subsection{The layout}
+Now, we are ready to summarize the contributions of this thesis.
+\subsubsection{Projection DPPs for column subset selection}
+The first contribution of this thesis was to propose and analyse a column subset selection algorithm for low rank factorization based on a projection DPP. In fact, the initial objective was to understand whether the well-known result on the litterature is improvable.
+
+\begin{theorem}[\citealp{DRVW06}]
+  \label{thrm:volume_sampling_theorem_introduction}
+Let $S$ be a random subset of $[d]$, chosen with probability
+\begin{equation}
+\Prb_{\VS}(S) = Z^{-1} \,\Det(\bm{X}_{:,S}^{\Tran}\bm{X}_{:,S}^{})\, \mathbb{1}_{\{|S| = k \}},
+\label{e:vs}
+\end{equation}
+where $Z = \sum\limits_{|S| = k} \Det(\bm{X}_{:,S}^{\Tran}\bm{X}_{:,S}^{})$.
+Then
+\begin{equation}
+\EX_{\VS} \| \bm{X} - \Pi_{S}^{\Fr}\bm{X} \|_{\Fr}^{2} \leq (k+1)\| \bm{X} - \Pi_{k}\bm{X} \|_{\Fr}^{2}
+\label{e:vsBoundFr}
+\end{equation}
+and
+\begin{equation}
+\EX_{\VS} \| \bm{X} - \Pi_{S}^{2}\bm{X} \|_{2}^{2} \leq (d-k)(k+1)\| \bm{X} - \Pi_{k}\bm{X} \|_{\Fr}^{2} .
+\label{e:vsBound2}
+\end{equation}
+\end{theorem}
+
+In particular, we give a geometric analysis of the the lower bound proven in [??] that allow us to propose a column subset selection algorithm based on a projection DPP that improves on volume sampling under some conditions. The improvement is expressed both using the Frobenius and the spectral norm. Moreover, the conducted analysis allows us to study the bias of regression using the selected features.
+
+A major contribution of this work is to highlight the importance of geometric quantities called the principal angles between subspaces. We show that this principal angles appear simultaneously on the the terms of approximation error and in the projection DPP. This enables, in particular, to calculate in a closed form the upper bound of the expected value of the approximation under the projection DPP distribution, along with a geometric intuition that we exploit in the next work.
+
+\subsubsection{DPPs for kernel quadrature}
+
+In this work we proposed to analyze optimal kernel quadratures based on nodes that follows the distribution of projection DPP. 
+In this work we leverage the intuitions developed in the previous work to work out the theoretical analysis of the algorithm. More precisely, we prove that once again, principal angles can be used in the analysis of the approximation error ...
+
+In particular, we highlight the importance of the eigenvalues of integration operators on the convergence rates in a similar fashion than the work of ??
+
+
+
+\begin{table}
+\centering
+ \begin{tabular}{| c| c| c| c|}
+ \hline
+  Distribution/ Setting & Matrix & Operator\\
+ \hline
+ Projection DPP& \cite{BeBaCh18} & \cite{BeBaCh19} \\
+ \hline
+ Volume sampling& \cite{DRVW06} & ... \\
+ \hline
+ R-leverage scores & \cite{Bac13}  & \cite{Bac17}  \\
+ &  \cite{AlMa15} &   \\
+\hline
+\end{tabular}
+\caption{....\label{table:matrix_operator_duality}}
+\end{table}
+
+
+\subsubsection{Volume sampling for kernel interpolation}
+In this work, we continue the line of research initiated in [??] and we prove that continuous volume sampling (the continuous version of the algorithm proposed by ??) into kernel quadrature and kernel interpolation.
+
+In particular, we show closed formulas for the expected interpolation error under the distribution of the continuous volume sampling ....
+
+These closed formulas allow us to prove sharp upper bounds ... In particular, we prove the optimality...
+
+\subsubsection{Applications in signal processing}
+\subsubsection{The richest Hermite kernel}
 (2 pages)
 
 
