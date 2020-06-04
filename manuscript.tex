@@ -437,40 +437,6 @@ In the definition~\eqref{eq:def_dpp}, the kernel $\kappa$ governs the statistica
 
 \clearpage
 
-In this section, we introduce discrete determinantal point processes (DPPs) and the related $k$-DPPs, of which volume sampling is an example. 
-
-
-For all the definitions in this section, we refer the reader to \citep{KuTa12}. Recall that $[d] = \{1,\dots,d\}$.% A point process on $[d]$ is a probability measure over subsets of $[d]$.
-\begin{definition}[DPP]
-Let $\bm{K} \in \mathbb{R}^{d\times d}$ be a positive semi-definite matrix.
-A random subset $Y \subseteq [d]$ is drawn from a DPP of marginal kernel $\bm{K}$ if and only if
-\begin{equation}\label{eq:def_dpp}
-\forall S \subseteq [d],\quad \Prb(S \subseteq Y) = \Det(\bm{K}_{S}),
-\end{equation}
-where $\bm{K}_{S} = [\bm{K}_{i,j}]_{i,j \in S}$. We take as a convention $\Det(\bm{K}_{\emptyset}) = 1$.
-\end{definition}
-%In this paper, we use a definition of DPPs through their ...
-%Note that it is also common to see in the literature a related definition called an $\bm{L}$-ensemble \citet{KuTa12}.
-For a given matrix $\bm{K}$, it is not obvious that \eqref{eq:def_dpp} consistently defines a point process. One sufficient condition is that $\bm{K}$ is symmetric and its spectrum is in $[0,1]$; see \citep{Mac75} and \citep{Sos00}[Theorem 3]. In particular, when the spectrum of $\bm{K}$ is included in $\{0,1\}$, we call $\bm{K}$ a projection kernel and the corresponding DPP a \emph{projection} DPP\footnote{All projection DPPs in this paper have symmetric kernels}. Letting $r$ be the number of unit eigenvalues of its kernel, samples from a projection DPP have fixed cardinality $r$ with probability 1 \cite*[Lemma 17]{HoKrPeVi06}.
-
-For symmetric kernels $\bm{K}$, a DPP can be seen as a \emph{repulsive} distribution, in the sense that for all $i,j\in [d]$,
-\begin{align}
-  \Prb(\{i,j\} \subseteq Y) &= \bm{K}_{i,i} \bm{K}_{j,j} - \bm{K}^2_{i,j}\\
-  &= \Prb(\{i\} \subseteq Y)\Prb(\{j\} \subseteq Y) - \bm{K}^2_{i,j}\\
-  &\leq \Prb(\{i\} \subseteq Y)\Prb(\{j\} \subseteq Y).
-\end{align}
-
-Besides projection DPPs, there is another natural way of using a kernel matrix to define a random subset of $[d]$ with prespecified cardinality $k$.
-\begin{definition}[$k$-DPP]\label{def:kDPP}
-Let $\bm{L} \in \mathbb{R}^{d\times d}$ be a positive semidefinite matrix.
-A random subset $Y \subseteq [d]$ is drawn from a $k$-DPP of kernel $\bm{L}$ if and only if
-\begin{equation}\label{eq:def_kdpp}
-\forall S \subseteq [d],\quad \Prb(Y = S) \propto \mathbb{1}_{\{\vert S\vert = k\}}\Det(\bm{L}_{S})
-\end{equation}
-where $\bm{L}_{S} = [\bm{L}_{i,j}]_{i,j \in S}$.
-\end{definition}
-DPPs and $k$-DPPs are closely related but different objects. For starters, $k$-DPPs are always well-defined provided $\bm{L}$ has a nonzero minor of size $k$.
-
 
 
 \subsection{The layout}
@@ -540,6 +506,131 @@ These closed formulas allow us to prove sharp upper bounds ... In particular, we
 \subsubsection{The richest Hermite kernel}
 (2 pages)
 
+\clearpage
+\section{Determinantal point processes}
+
+In this section, we introduce discrete determinantal point processes (DPPs) and the related $k$-DPPs, of which volume sampling is an example. 
+
+
+For all the definitions in this section, we refer the reader to \citep{KuTa12}. Recall that $[d] = \{1,\dots,d\}$.% A point process on $[d]$ is a probability measure over subsets of $[d]$.
+\begin{definition}[DPP]
+Let $\bm{K} \in \mathbb{R}^{d\times d}$ be a positive semi-definite matrix.
+A random subset $Y \subseteq [d]$ is drawn from a DPP of marginal kernel $\bm{K}$ if and only if
+\begin{equation}\label{eq:def_dpp}
+\forall S \subseteq [d],\quad \Prb(S \subseteq Y) = \Det(\bm{K}_{S}),
+\end{equation}
+where $\bm{K}_{S} = [\bm{K}_{i,j}]_{i,j \in S}$. We take as a convention $\Det(\bm{K}_{\emptyset}) = 1$.
+\end{definition}
+%In this paper, we use a definition of DPPs through their ...
+%Note that it is also common to see in the literature a related definition called an $\bm{L}$-ensemble \citet{KuTa12}.
+For a given matrix $\bm{K}$, it is not obvious that \eqref{eq:def_dpp} consistently defines a point process. One sufficient condition is that $\bm{K}$ is symmetric and its spectrum is in $[0,1]$; see \citep{Mac75} and \citep{Sos00}[Theorem 3]. In particular, when the spectrum of $\bm{K}$ is included in $\{0,1\}$, we call $\bm{K}$ a projection kernel and the corresponding DPP a \emph{projection} DPP\footnote{All projection DPPs in this paper have symmetric kernels}. Letting $r$ be the number of unit eigenvalues of its kernel, samples from a projection DPP have fixed cardinality $r$ with probability 1 \cite*[Lemma 17]{HoKrPeVi06}.
+
+For symmetric kernels $\bm{K}$, a DPP can be seen as a \emph{repulsive} distribution, in the sense that for all $i,j\in [d]$,
+\begin{align}
+  \Prb(\{i,j\} \subseteq Y) &= \bm{K}_{i,i} \bm{K}_{j,j} - \bm{K}^2_{i,j}\\
+  &= \Prb(\{i\} \subseteq Y)\Prb(\{j\} \subseteq Y) - \bm{K}^2_{i,j}\\
+  &\leq \Prb(\{i\} \subseteq Y)\Prb(\{j\} \subseteq Y).
+\end{align}
+
+Besides projection DPPs, there is another natural way of using a kernel matrix to define a random subset of $[d]$ with prespecified cardinality $k$.
+\begin{definition}[$k$-DPP]\label{def:kDPP}
+Let $\bm{L} \in \mathbb{R}^{d\times d}$ be a positive semidefinite matrix.
+A random subset $Y \subseteq [d]$ is drawn from a $k$-DPP of kernel $\bm{L}$ if and only if
+\begin{equation}\label{eq:def_kdpp}
+\forall S \subseteq [d],\quad \Prb(Y = S) \propto \mathbb{1}_{\{\vert S\vert = k\}}\Det(\bm{L}_{S})
+\end{equation}
+where $\bm{L}_{S} = [\bm{L}_{i,j}]_{i,j \in S}$.
+\end{definition}
+DPPs and $k$-DPPs are closely related but different objects. For starters, $k$-DPPs are always well-defined provided $\bm{L}$ has a nonzero minor of size $k$.
+
+
+\subsection{The numerical simulation of a projection DPP}
+We review in this section the literature on the numerical simulation of projection Determinantal point processes. Recall that a random set that follows the distribution of a projection DPP of marginal kernel $\KDPP$ have a deterministic cardinal equals to $N$, where $N$ is the rank of the integral operator associated to the kernel $\KDPP$. For this reason, we can identify such a random set with a sample from a random variable defined on $\mathcal{X}^{N}$.
+
+Let $\bm{x} = \{x_{1}, \dots, x_{N}\}$ a random set that follows the distribution of a projection DPP of marginal kernel $\KDPP_{N}$. The joint distribution of the random variable $(x_{1}, \dots, x_{N}) \in \X^{N}$ have a density with respect to the measure $\mathrm{d}\bm{\omega}(\bm{x}) = \otimes_{n\in [N]}\mathrm{d}\omega(x_{n})$:
+\begin{equation}\label{eq:det_density}
+f_{\KDPP}(\bm{x}) = \frac{1}{N!}\Det \bm{\KDPP}(\bm{x}).
+\end{equation}
+
+As we shall see, the landscape on this topic is 
+
+\paragraph{Algorithms based on random matrix models}
+% As we have seen in the introduction, the eigenvalues of a random unitary matrix ... 
+The eigenvalues of some random matrix models corresponds to some specific projection DPPs. This includes the case of the Circular Unitary Ensemble defined in the introduction.
+In particular, when $d=1$, and $\omega$ is a Gaussian, gamma \cite{DuEd02}, or beta \cite{KiNe04} pdf, and $(\psi_n)$ are the orthonormal polynomials with respect to $\omega$, the corresponding DPP can be sampled by tridiagonalizing a matrix with independent entries, which takes the cost to $\mathcal{O}(N^2)$ and bypasses the need for rejection sampling. 
+
+
+
+
+\begin{figure}[!ht]
+ \centerline{
+ \scalebox{0.9}{
+\begin{algorithm}{$\Algo{RME}\big(N)$}
+\Aitem $n \longleftarrow  N$
+\Aitem $\mu_{N}(x) \longleftarrow  \frac{1}{N} \KDPP(x,x)\mathrm{d}\omega(x)$
+\Aitem $\bm{x} \longleftarrow  \emptyset$
+\Aitem \While $n > 0 $
+\Aitem \mt $\mu_{n}(x) = \frac{1}{n} \left( \KDPP(x,x) - \KDPP(x,\bm{x})^{\Tran}\bm{\KDPP}(\bm{x})^{-1} \KDPP(x,\bm{x}) \right) \mathrm{d}\omega(x)$ \ar{Chain rule}
+\Aitem \mt  Pick $x_{n}$ from $\mathcal{X}$ from $\mu_{n}$ \ar{Sample from the conditional}
+\Aitem \mt  $\bm{x} \longleftarrow  \bm{x} \cup \{x_{n}\}$
+\Aitem \mt $n \longleftarrow  n-1$
+\Aitem \Return $\bm{x}$
+\end{algorithm}
+ }
+ }
+\caption{Pseudocode a sampler of projection DPP based on a random matrix model.}
+\label{alg:RME_SAMPLER}
+\end{figure}
+
+
+\paragraph{The sequential algorithm HKPV}
+Consider $(\psi_{m})_{m \in [N]}$ an orthonormal family with respect to the measure $\mathrm{d}\omega$. In \citep*{HoKrPeVi06}, a sequential algorithm was proposed for the numerical simulation of a random set that follows the distribution of the projection DPP of marginal kernel
+\begin{equation}
+\KDPP(x,y) = \sum\limits_{m \in [N]} \psi_{m}(x)\psi_{m}(y).
+\end{equation}
+ 
+Indeed, the idea behind this algorithm is to see $\bm{\KDPP}(\bm{x})$ as the Gram matrix of the family $\KDPP(x_{n},.)_{n \in [N]}$, whose $i,j$ entry is given by the scalar product of $\KDPP(x_{i},.)$ and $\KDPP(x_{j},.)$ with respect to the scalar product defined by $\mathrm{d}\omega$. In fact, by the orthonormality of $(\psi_{m})_{m \in [N]}$:
+\begin{equation}
+\int_{\mathcal{X}} \KDPP(x_{i},x) \KDPP(x_{j},x) \mathrm{d}\omega(x) = \sum\limits_{m \in [N]}\sum\limits_{m' \in [N]} \int_{\mathcal{X}} \psi_{m}(x_{i}) \psi_{m}(x) \psi_{m'}(x_{j}) \psi_{m'}(x) \mathrm{d}\omega(x)  = \KDPP(x_{i},x_{j}).
+\end{equation}
+
+Hence, $\Det \bm{\KDPP}(\bm{x})$ corresponds to the volume of the parallelepiped determined by the vectors $(\KDPP(x_{n},.))_{n \in [N]}$; and using "base times height" formula, the authors proved that the density~\eqref{eq:det_density} factorises as the product of $N$ conditionals
+\begin{equation}
+f_{\KDPP}(x_{1},\dots,x_{N}) = \prod\limits_{n \in [N]} f_{\KDPP,n}(x_{n} | x_{1}, \dots, x_{n-1}),
+\end{equation}
+for every $n \in [N]$ the conditional expresses as
+\begin{equation}
+f_{\KDPP,n}(x | x_{1} \dots x_{n-1}) = \frac{1}{n} \left( \KDPP(x,x) - \KDPP(x,\bm{x})^{\Tran}\bm{\KDPP}(\bm{x})^{-1} \KDPP(x,\bm{x}) \right),
+\end{equation}
+where $\KDPP(x,\bm{x}) = (\KDPP(x,x_{\ell}))_{\ell \in |\bm{x}|}$. In particular, the Algorithm~\ref{alg:HKPV_SAMPLER} output a random set that follows the distribution of the projection DPP of marginal kernel $\KDPP$.
+
+
+
+\begin{figure}[!ht]
+ \centerline{
+ \scalebox{0.9}{
+\begin{algorithm}{$\Algo{HKPV}\big(\KDPP_{N}(x,y) = \sum\limits_{m \in [N]} \psi_{m}(x)\psi_{m}(y))$}
+\Aitem $n \longleftarrow  N$
+\Aitem $\mu_{N}(x) \longleftarrow  \frac{1}{N} \KDPP(x,x)\mathrm{d}\omega(x)$
+\Aitem $\bm{x} \longleftarrow  \emptyset$
+\Aitem \While $n > 0 $
+\Aitem \mt $\mu_{n}(x) = \frac{1}{n} \left( \KDPP(x,x) - \KDPP(x,\bm{x})^{\Tran}\bm{\KDPP}(\bm{x})^{-1} \KDPP(x,\bm{x}) \right) \mathrm{d}\omega(x)$ \ar{Chain rule}
+\Aitem \mt  Pick $x_{n}$ from $\mathcal{X}$ from $\mu_{n}$ \ar{Sample from the conditional}
+\Aitem \mt  $\bm{x} \longleftarrow  \bm{x} \cup \{x_{n}\}$
+\Aitem \mt $n \longleftarrow  n-1$
+\Aitem \Return $\bm{x}$
+\end{algorithm}
+ }
+ }
+\caption{Pseudocode of the HKPV algorithm for sampling from a projection DPP of marginal kernel $\KDPP$.}
+\label{alg:HKPV_SAMPLER}
+\end{figure}
+ In practice, the numerical implementation of this algorithm goes through sampling the conditional distributions (Step 5 in Algorithm~\ref{alg:HKPV_SAMPLER}). An implementation of this step was proposed in \citep{BaHa16} based on rejection sampling and the observation that
+ \begin{equation}
+f_{\KDPP,n}(x | x_{1} \dots x_{n-1}) \leq \frac{N}{n}f_{\KDPP,N}(x).
+ \end{equation} 
+
+In fact, if a sampler of the distribution $f_{\KDPP,N}$ is known, samplers from the conditionals can be implemented by rejection sampling. This is the case when the $(\psi_{n})$ is a family of orthogonal polynomials and $\mathcal{X} = [0,1]^{d}$.  
 
 \clearpage
 \section{The column subset selection problem}\label{chapter:cssp}
@@ -1099,7 +1190,7 @@ $\bm K:=\bm{V}^{}_{k}\bm{V}_{k}^{\Tran}$. This paper is about column subset sele
 Finally, we recap the difference between volume sampling and the DPP with kernel $\bm K$ with a graphical depiction in Figure~\ref{f:sampling} of the two procedures to sample from them that we introduced in Section~\ref{subsec:sampling_from_a_dpp}. Figure~\ref{f:sampling} is another illustration of the decomposition of volume sampling as a mixture of projection DPPs.
 % \subsubsection{The projection DPPs}
 % \subsubsection{The intuitions}
-\subsection{Principal angles between subspaces}
+\paragraph{Principal angles between subspaces}
 This section surveys the notion of principal angles between subspaces, see \cite[Section 6.4.3]{GoVa96} for details.
 \begin{definition}
   \label{d:angles}
@@ -2087,6 +2178,150 @@ converges to $\displaystyle \mathcal{N}(0,\frac{2}{N}\sum\limits_{n \in \mathbb{
 \caption{Three realizations from the CUE of 15 particles (top) compared to 15 particles sampled i.i.d in the unit circle (bottom).}
 \end{figure}
 
+\paragraph{CLT using Orthogonal Polynomial Ensembles}
+
+In \citep{BaHa16}, the authors proved the first CLT for a quadrature based on determinantal point process nodes in a high-dimensional setting. This work deals with quadratures defined on the integration domain $[-1,1]^{d}$ for the approximation of integrals that write
+\begin{equation}
+\int_{[-1,1]^{d}} f(\bm{u}) \mathrm{d}\omega(\bm{u}),
+\end{equation}
+where $\mathrm{d}\omega$ is a measure that can be factorized as
+\begin{equation}
+\mathrm{d}\omega(\bm{u}) = \prod\limits_{\delta \in [d]} \mathrm{d}\omega_{\delta}(\bm{u_{\delta}}),
+\end{equation}
+where the measures $\mathrm{d}\omega_{\delta}$, defined on $[-1,1]$, satisfy some regularity conditions that we precise in the following.
+
+Let $\mathrm{d}\omega$ a measure on the real line supported on $[-1,1]$. Denote by $(a_{m})_{m \in \mathbb{N}}$ and $(b_{m})_{m \in \mathbb{N}}$ the sequences of coefficients appearing in the three-term recurrence relation:
+\begin{equation}
+x P_{m}(x) = a_{m}P_{m+1}(x) + b_{m}P_{m}(x) + a_{m-1}P_{m-1}(x),
+\end{equation}
+associated to the sequence of orthogonal polynomials $(P_{m})_{m \in \mathbb{N}}$ with respect to $\mathrm{d}\omega$.
+
+\begin{definition}
+
+
+
+
+The measure $\mathrm{d}\omega$ is said to be of Nevai class if and only if
+\begin{equation}
+\lim\limits_{m \rightarrow +\infty} a_{m} = 1/2, \:\:\: \lim\limits_{m \rightarrow +\infty} b_{m} = 0.
+\end{equation}
+\end{definition}
+The extreme case when 
+\begin{equation}
+\forall m \in \mathbb{N}, \:\: a_{m} = \frac{1}{2}, \:\: b_{m} =0,
+\end{equation}
+corresponds to the Chebyshev orthogonal polynomials of the first kind; and the corresponding measure $\mathrm{d}\omega$ admits a density $\omega$ with respect to the Lebesgue measure:
+\begin{equation}
+\omega(x) = \frac{1}{\sqrt{1-x^{2}}}.
+\end{equation}
+
+In other words, the measures belonging to the Nevai class have three terms coefficients that converges to the corresponding coefficients of the measure $\mathrm{d}\omega$.
+
+A sufficient condition for a measure to be Nevai class is given in the following result.
+\begin{theorem}
+Let $\mathrm{d}\omega$ be a measure supported on $[-1,1]$, and consider its Lebesgue decomposition:
+\begin{equation}
+\mathrm{d}\omega = \omega(x) \mathrm{d}x + \mathrm{d}\omega_{s}.
+\end{equation}
+If $\omega(x) >0$ almost everywhere, then $\mathrm{d}\omega$ is Nevai-class.
+\end{theorem}
+
+Now for a given measure $\mathrm{d}\omega$ that decomposes as the product of $d$ Nevai class measures $\mathrm{d}\omega_{\delta}$, define ....
+
+and the projection kernel
+\begin{equation}
+\KDPP(x,y) = \sum\limits_{n \in [N]} ...
+\end{equation} 
+
+\begin{theorem}
+Let $\mu$ be a reference measure such that it's support is included in $[0,1]^{d}$, and assume that $\mu = \mu_{1} \otimes \dots \otimes \mu_{d}$, where each $\mu_{\delta}$ is Nevai class. 
+
+
+Then for every $f \in \mathcal{C}^{1}([0,1]^{d}, \mathbb{R})$,
+
+\begin{equation}
+\frac{1}{\sqrt{N^{1-1/d}}} \big( \sum\limits_{n \in [N]}f(x_{n}) - ... \big) \rightarrow \mathcal{N}(0,\sigma^{2}(f)),
+\end{equation}
+where
+\begin{equation}
+\sigma^{2}(f) = \frac{1}{2} \sum\limits_{m_{1}, \dots , m_{d} = 0}^{+\infty} (m_{1}+\dots +m_{d}) \hat{f}(m_{1}, \dots, m_{d})^{2},
+\end{equation}
+and 
+\begin{equation}
+\hat{f}(m_{1},\dots,m_{d}) = \int_{[-1,1]^{d}} f(u_{1}, \dots, u_{d}) \prod\limits_{\delta \in [d]} T_{m_{\delta}}(u_{\delta}) \frac{1}{\pi \sqrt{1-u_{\delta}^{2}}} \mathrm{d}u_{\delta}
+\end{equation}
+
+\end{theorem}
+
+\paragraph{CLT using the Dirichlet kernel}
+In \citep*{CoMaAm20}, the authors proposed to study a quadrature based on a different projection DPP and using uniform weights. The integrand $f$ was assumed to be square integrable and periodic on the hypercube $[0,1]^{d}$. The repulsion kernel $\KDPP$ is constructed as following. The authors assumed that there exists $N_{1}, \dots, N_{d} \in \mathbb{N}^{*}$ such that $N = \prod\limits_{\delta \in [d]}N_{\delta}$; and the projection DPP is defined by
+\begin{equation}\label{eq:Dirichlet_kernel}
+\KDPP(x,x) = \sum\limits_{\bm{m} \in \mathcal{M}_{N}}e^{2i \pi \bm{m}^{\Tran}(x-y) },
+\end{equation}
+where 
+\begin{equation}
+\mathcal{M}_{N} = \prod\limits_{\delta \in [d]} \{0, \dots, N_{\delta}-1 \}.
+\end{equation}
+The definition of the set $\mathcal{M}_{N}$ is not canonical and can be replaced by
+\begin{equation}
+\mathcal{M}_{N} = \prod\limits_{\delta \in [d]} \{-\lfloor{N_{\delta}/2}\rfloor, \dots, \lfloor{N_{\delta}/2}\rfloor \},
+\end{equation}
+if the $N_{\delta}$ are odds, which lead to the tensor product of Dirichlet kernels. For this reason, the authors adopted the name of $(N,d)$-Dirichlet DPP for the projection DPP associated to the kernel~\eqref{eq:Dirichlet_kernel}.
+
+The quadrature defined this way defines an unbiased estimator of the integral $\int_{[0,1]^{d}} f(\bm{u}) \mathrm{d}\bm{u}$ with a variance that depends on the Fourier coefficients of $f$. 
+\begin{proposition}\label{prop:dirichlet_estimator} [Proposition 3.1, \citep{CoMaAm20} ]
+Let $\bm{x}$ a random set of $[0,1]^{d}$ that follows the distribution of $(N,d)$-Dirichlet DPP, and $f \in \mathbb{L}_{2}([0,1]^{d})$ and periodic; and define, 
+\begin{equation}
+\hat{I}_{N}(f) =  \frac{1}{N} \sum\limits_{n \in [N]}f(x_{n}).
+\end{equation}
+Then, $\hat{I}_{N}(f)$ is an unbiased estimator of $\displaystyle \int_{[0,1]^{d}} f(\bm{u})\mathrm{d}\bm{u}$, and
+\begin{equation}
+\Var (\hat{I}_{N}(f)) = \frac{1}{N}\sum\limits_{\bm{m} \in \mathbb{Z}^{d}} |\hat{f}_{\bm{m}}|^{2} - \frac{1}{N^2} \sum\limits_{\bm{m}_{1},\bm{m}_{2} \in \mathcal{M}_{N}} |\hat{f}_{\bm{m}_{1}-\bm{m}_{2}}|^{2},
+\end{equation}
+where
+\begin{equation}
+ \hat{f}_{\bm{m}} = \int_{[0,1]^{d}}f(\bm{u}) e^{- 2\pi i \bm{m}^{\Tran}\bm{u}} \mathrm{d}\bm{u}.
+\end{equation}
+
+% where
+% \begin{equation}
+% \mathcal{M}_{N} = \{\bm{m} \in \mathbb{Z}^{d}, \: m_{\delta} \leq N_{\delta} -1, \delta \in [d]\}.
+% \end{equation}
+
+\end{proposition}
+
+
+This result was the first step for the asymptotic analysis of the variance of $\hat{I}_{N}(f)$ under the assumption that $N_{\delta} = N_{\delta}(N)$, and there exists constants $\alpha_{1}, \dots, \alpha_{d}$ such that
+\begin{equation}
+\forall \delta \in [d], \:\:\lim\limits_{N \rightarrow +\infty} N_{\delta}(N)N^{-1/d} = \alpha_{\delta}.
+\end{equation}
+
+Define $\mathcal{F}_{s}([0,1]^{d})$ to be the subspace of periodic elements of $\mathbb{L}_{2}([0,1]^{d})$ that satisfy the condition
+\begin{equation}
+\sum\limits_{\bm{m} \in \mathbb{Z}^{d}} (1+ \|\bm{m}\|_{\infty})^{2s} |\hat{f}(\bm{m})|^{2} < +\infty.
+\end{equation}
+
+
+
+
+\begin{theorem}
+Let $\bm{x}$ and $f$ as in Proposition~\ref{prop:dirichlet_estimator}. Assume that $f \in \mathcal{F}_{s}([0,1]^{d})$, then
+\begin{itemize}
+\item if $s \in [0,1/2]$, then 
+\begin{equation}
+\Var (\hat{I}_{N}(f))  = \mathcal{O}(N^{-1-\frac{2s}{d}}),
+\end{equation}
+\item If $s>1/2$, then
+\begin{equation}
+\lim\limits_{N \rightarrow +\infty} N^{1+1/d} \Var (\hat{I}_{N}(f)) = \sigma^{2}(f) := \sum\limits_{\bm{m} \in \mathbb{Z}^{d}}(\sum\limits_{\delta = 1}^{d} \frac{|m_{\delta}|}{\alpha_{\delta}} ) |\hat{f}_{\bm{m}}|^{2}.
+\end{equation}
+\item Moreover, if $s>1/2$ and $ \|f\|_{\infty} < +\infty$, then
+\begin{equation}
+\sqrt{N^{1+1/d}} \left(\hat{I}_{N}(f) - \int_{[0,1]^{d}}f(\bm{u})\mathrm{d}\bm{u} \right) \rightarrow \mathcal{N}(0,\sigma^{2}(f)).
+\end{equation}
+\end{itemize}
+
+\end{theorem}
 \subsection{The kernel framework for quadratures}
 
 The analysis of quadratures using kernel methods is convenient and elegant at the same time and it is expressed using functional analysis tools similarly to DPPs. Added to that, many results in quasi-Monte Carlo theory have an interpretation within the kernel quadrature framework. In order to present this framework, we introduce some notations.
@@ -2276,10 +2511,10 @@ where
 \begin{equation}
 	\bm{\Phi}:(w_{j})_{j \in [N]} \mapsto \sum_{j \in [N]} w_{j} k(x_{j},.)
 \end{equation}
- is the reconstruction operator\footnote{The reconstruction operator $\bm{\Phi}$ depends on the nodes $x_{j}$, although our notation doesn't reflect it for simplicity.}. In Section~\ref{subsec:unreg_opt_problem} we prove that \eqref{eq:unreg_opt_problem} almost surely has a unique solution $\hat{\bm{w}}$ and state our main result, an upper bound on the expected approximation error $\|\mu_{g} - \bm{\Phi}\hat{\bm{w}}\|^{2}_{\mathcal{F}}$ under the proposed Projection DPP. Section~\ref{subsec:dpp_quadrature_error} gives a sketch of the proof of this bound.
+ is the reconstruction operator\footnote{The reconstruction operator $\bm{\Phi}$ depends on the nodes $x_{j}$, although our notation doesn't reflect it for simplicity.}. In Section~\ref{subsec:unreg_opt_problem} we prove that \eqref{eq:unreg_opt_problem} almost surely has a unique solution $\hat{\bm{w}}$ and state our main result, an upper bound on the expected approximation error $\|\mu_{g} - \bm{\Phi}\hat{\bm{w}}\|^{2}_{\mathcal{F}}$ under the proposed Projection DPP. The sketch of the proofs of the main results are given in Section~\ref{subsec:dpp_quadrature_error_weak} and  Section~\ref{subsec:dpp_quadrature_error_strong}.
 
  %%%%%%%%
-\subsubsection{Main result}
+\subsubsection{Main results}
 \label{subsec:unreg_opt_problem}
 Assuming that nodes $(x_{j})_{j \in [N]}$ are known, we first need to solve the optimization problem \eqref{eq:unreg_opt_problem} that relates to problem~\eqref{eq:reg_kernel_opt_problem} without regularization ($\lambda = 0$).
 %
@@ -2310,7 +2545,7 @@ The proof of Proposition~\ref{prop:K_N_non_singular} is given in Appendix~\ref{a
 Since the pdf \eqref{eq:pdpp_definition} of the projection DPP with kernel \eqref{e:kernel} is proportional to $\Det^2\bm{E}(\bm{x})$, the following corollary immediately follows.
 
 \begin{corollary}
-  Let $\bm{x} = \{x_{1}, \dots , x_{N}\}$ be a projection DPP with reference measure $\mathrm{d}\omega$ and kernel \eqref{e:kernel}. Then $\bm{K}(\bm{x})$ is a.s. invertible, so that \eqref{eq:unreg_opt_problem} has unique solution $\hat{\bm{w}} = \bm{K}(\bm{x})^{-1}\mu_{g}(x_{j})_{j \in [N]}$ a.s.
+  Let $\bm{x} = \{x_{1}, \dots , x_{N}\}$ be a projection DPP with reference measure $\mathrm{d}\omega$ and kernel $\KDPP$ defined in \eqref{e:kernel}. Then $\bm{K}(\bm{x})$ is a.s. invertible, so that \eqref{eq:unreg_opt_problem} has unique solution $\hat{\bm{w}} = \bm{K}(\bm{x})^{-1}\mu_{g}(x_{j})_{j \in [N]}$ a.s.
 \label{c:regularization}
 \end{corollary}
 We now give our main result that uses nodes $(x_{j})_{j \in [N]}$ drawn from a well-chosen projection DPP.
@@ -2384,13 +2619,213 @@ Moreover, if $g = e_{n}$ for some $m \in \Ns$, then
 Of course, the results in Theorem~\ref{thm:main_theorem_refined} are stronger compared to the ones in Theorem~\ref{thm:main_theorem}. Yet, we think that the proof of Theorem~\ref{thm:main_theorem_refined} will become clearer if we recall the proof of Theorem~\ref{thm:main_theorem} and the intuitions behind. Section~\ref{subsec:dpp_quadrature_error_weak} contains the sketch of the proof of the weak version of our results, while Section~\ref{subsec:dpp_quadrature_error_strong} contains the sketch of the proof of the strong version of our results.
 
 
+
 \subsubsection{Bounding the approximation error under the DPP: the weak version}
 \label{subsec:dpp_quadrature_error_weak}
 
 In this section, we give the skeleton of the proof of Theorem~\ref{thm:main_theorem}, referring to the appendices for technical details. The proof is in two steps. First, we give an upper bound for the approximation error $\|\mu_{g} - \bm{\Phi}\hat{\bm{w}}\|^{2}_{\mathcal{F}}$ that involves the maximal principal angle between the functional subspaces of $\mathcal{F}$
 $$\mathcal{E}_N^{\mathcal{F}} = \Span(e_{n}^{\mathcal{F}})_{n \in [N]} \quad\text{ and }\quad \mathcal{T}(\bm{x}) = \Span(k(x_{j},.))_{j \in [N]}.$$
-DPPs allow closed form expressions for the expectation of trigonometric functions of such angles; see \cite{BeBaCh18Sub} and Appendix~\ref{app:geometric_intuition} for the geometric intuition behind the proof.
-The second step thus consists in developing the expectation of the bound under the DPP.
+The second step consists in developing the expectation of the bound under the projection DPP in a similar fashion as in Chapter ??: projection DPPs allow closed form expressions for the expectation of some trigonometric functions of the principal angles.
+
+As for now, we recall some properties of the principal angles between subspaces of a Hilbert space and we give the corresponding instantiation of these results when the Hilbert space is $\F$.
+ % and Appendix~\ref{app:geometric_intuition} for the geometric intuition behind the proof
+
+
+
+\paragraph{Principal angles between subspaces in a Hilbert space}
+\label{subsec:principalangles}
+We recall in this section the definition of principal angles between subspaces in Hilbert spaces and connect them to the determinant of the Gramian matrix of their orthonormal bases.
+
+%%% PROPOSITION
+
+\begin{proposition}\label{prop:cos_between_subspaces}
+Let $\mathcal{H}$ be a Hilbert space. Let $\mathcal{P}_{1}$ and $\mathcal{P}_{2}$ be two finite-dimensional subspaces of $\mathcal{H}$ with $N = \dim \mathcal{P}_{1} = \dim \mathcal{P}_{2}$. Denote $\bm{\Pi}_{\mathcal{P}_{1}}$ and $\bm{\Pi}_{\mathcal{P}_{2}}$ the orthogonal projections of $\mathcal{H}$ onto these two subspaces. There exist two orthonormal bases for $\mathcal{P}_{1}$ and $\mathcal{P}_{2}$ denoted $(\bm{v}_{i}^{1})_{i \in [N]}$ and $(\bm{v}_{i}^{2})_{i \in [N]}$, and a set of angles $\theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2}) \in [0,\frac{\pi}{2}]$ such that
+\begin{equation}
+\cos \theta_{N}(\mathcal{P}_{1},\mathcal{P}_{2}) \leq \dots \leq \cos \theta_{1}(\mathcal{P}_{1},\mathcal{P}_{2}) ,
+\end{equation}
+
+
+and for $i \in [1,...,N]$
+\begin{equation}
+\langle \bm{v}_{i}^{1}, \bm{v}_{i}^{2} \rangle_{\mathcal{H}} = \cos \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2}),
+\end{equation}
+and
+\begin{equation}\label{eq:principal_vectors_projection_relationship}
+ \bm{\Pi}_{\mathcal{P}_{1}}\bm{v}_{i}^{2} = \cos \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2}) \bm{v}_{i}^{1},
+\end{equation}
+and
+\begin{equation}
+ \bm{\Pi}_{\mathcal{P}_{2}}\bm{v}_{i}^{1} = \cos \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2}) \bm{v}_{i}^{2}.
+\end{equation}
+In particular
+\begin{equation}\label{eq:costhetaN}
+\cos \theta_{N}(\mathcal{P}_{1},\mathcal{P}_{2}) = \inf\limits_{\bm{v} \in \mathcal{P}_{1},\|\bm{v}\|_{\mathcal{H}} = 1} \|\bm{\Pi}_{\mathcal{P}_{2}}\bm{v}\|_{\mathcal{H}}.
+\end{equation}
+\end{proposition}
+We refer to \cite{GoVa12} for the proof when $\mathcal{H}$ is finite-dimensional. We give a proof in the general case in ??; see also \cite{DaKa70}.
+% \begin{proof}
+% Assume that $\mathcal{P}_{1} \cap \mathcal{P}_{2} \neq \{\bm{0} \}$ and put $p = \dim \mathcal{P}_{1} \cap \mathcal{P}_{2}$. Let $(\bm{v}^{1}_{i})_{i \in [p]} = (\bm{v}^{2}_{i})_{i \in [p]}$ an orthonormal basis of $\mathcal{P}_{1} \cap \mathcal{P}_{2}$, and denote for $i \in [p], \: \theta_{i} = 0$. If $p = N$, $\mathcal{P}_{1} = \mathcal{P}_{2} = \mathcal{P}_{1} \cap \mathcal{P}_{2}$ and $\theta_{1} = \dots = \theta_{N} = 0$. If not, the subspace $\mathcal{P}_{1} \cap \mathcal{P}_{2}$ is strictly included in $\mathcal{P}_{1}$ and $\mathcal{P}_{2}$ such that the subspaces $\mathcal{P}_{1} \cap (\mathcal{P}_{1} \cap \mathcal{P}_{2})^{\perp}$ and $\mathcal{P}_{2} \cap (\mathcal{P}_{1} \cap \mathcal{P}_{2})^{\perp}$ are non-trivial. Now, let
+% \begin{equation}
+% \mathcal{P}_{1}^{0} = \mathcal{P}_{1} \cap (\mathcal{P}_{1} \cap \mathcal{P}_{2})^{\perp},
+% \end{equation}
+% and
+% \begin{equation}
+% \mathcal{P}_{2}^{0} = \mathcal{P}_{2} \cap (\mathcal{P}_{1} \cap \mathcal{P}_{2})^{\perp}.
+% \end{equation}
+%
+% Define $(\bm{v}^{1}_{p +1}, \bm{v}^{2}_{p +1}) \in \mathcal{P}_{1}^{0} \times \mathcal{P}_{2}^{0}$ such that
+% \begin{equation}
+% \langle \bm{v}^{1}_{p +1}, \bm{v}^{2}_{p +1} \rangle_{\mathcal{H}} = \max\limits_{\substack{\bm{v}^{1} \in \mathcal{P}_{1}^{0},\bm{v}^{2} \in \mathcal{P}_{2}^{0}\\ \|\bm{v}^{1}\| = 1, \|\bm{v}^{2}\| = 1}} \langle \bm{v}^{1}, \bm{v}^{2} \rangle_{\mathcal{H}},
+% \end{equation}
+% and put $\theta_{p+1} \in [0, \frac{\pi}{2}]$ such that $\cos \theta_{p+1} = \langle \bm{v}^{1}_{p +1}, \bm{v}^{2}_{p +1} \rangle_{\mathcal{H}}$. Now if $p+1 < N$, define for $\ell \in [N-p]$ recursively the subspaces
+% \begin{equation}
+% \mathcal{P}_{1}^{\ell} = \mathcal{P}_{1}^{\ell-1} \cap \bm{v}^{1 \perp}_{p+\ell},
+% \end{equation}
+% and
+% \begin{equation}
+% \mathcal{P}_{2}^{\ell} = \mathcal{P}_{2}^{\ell-1} \cap \bm{v}^{2 \perp}_{p+\ell},
+% \end{equation}
+% along with  $(\bm{v}^{1}_{p+\ell+1},\bm{v}^{2}_{p+\ell+1}) \in \mathcal{P}_{1}^{\ell} \times \mathcal{P}_{2}^{\ell}$ such that
+% \begin{equation}
+% \langle \bm{v}^{1}_{p +\ell+1}, \bm{v}^{2}_{p +\ell+1} \rangle_{\mathcal{H}} = \max\limits_{\substack{\bm{v}^{1} \in \mathcal{P}_{1}^{\ell},\bm{v}^{2} \in \mathcal{P}_{2}^{\ell}\\ \|\bm{v}^{1}\| = 1, \|\bm{v}^{2}\| = 1}} \langle \bm{u}, \bm{v} \rangle_{\mathcal{H}} ,
+% \end{equation}
+% and let $\theta_{p +\ell+1} \in [0, \frac{\pi}{2}]$ such that $\langle \bm{v}^{1}_{p +\ell+1}, \bm{v}^{2}_{p +\ell+1} \rangle_{\mathcal{H}} = \cos \theta_{p +\ell+1}$. By construction $(\bm{v}^{1}_{\ell})_{\ell \in [N]}$ is an orthonormal basis of $\mathcal{P}_{1}$ and $(\bm{v}^{2}_{\ell})_{\ell \in [N]}$ is an orthonormal basis of $\mathcal{P}_{2}$ such that
+% \begin{equation}
+% \forall i \in [N], \: \langle \bm{v}^{1}_{i}, \bm{v}^{2}_{i} \rangle_{\mathcal{H}} = \cos \theta_{i}.
+% \end{equation}
+% \end{proof}
+The following result shows that the principal angles are somewhat independent of the choice of orthonormal bases. It can be found in \cite{BjGo73,MiBe92} for the finite dimensional case. We give here the proof for the general case, for the sake of completeness.
+\begin{corollary}\label{cor:cos_det_relationship}
+Let $(\bm{w}^{1}_{i})_{i \in [N]}$ be any orthonormal basis of $\mathcal{P}_{1}$ and $(\bm{w}^{2}_{i})_{i \in [N]}$ be any orthonormal basis of $\mathcal{P}_{2}$, and let $\bm{W} = (\langle \bm{w}^{1}_{i},\bm{w}^{2}_{j} \rangle_{\mathcal{H}})_{1\leq i,j \leq N}$ and $\bm{G} = \bm{W}\bm{W}^{\Tran}$. Then
+the eigenvalues of $\bm{G}$ are the $\cos^{2} \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2})$. In particular, $\Det^{2} \bm{W} = \Det \bm{G} =  \prod\limits_{i \in [N]} \cos^{2} \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2})$.
+\end{corollary}
+
+\begin{proof}
+Let $(\bm{v}^{i}_{i})_{i \in [N]}$, $i\in\{1,2\}$, be the bases of Proposition~\ref{prop:cos_between_subspaces}. Let $\bm{U}^{1} \in \mathbb{O}_{N}(\mathbb{R})$ be such that
+\begin{equation}
+\forall i \in [N], \: \bm{w}^{1}_{i} = \sum\limits_{j \in [N]} u^{1}_{i,j} \bm{v}^{1}_{j}.
+\end{equation}
+Similarly, there exists a matrix $\bm{U}^{2} \in \mathbb{O}_{N}(\mathbb{R})$ such that
+\begin{equation}
+\forall i \in [N], \: \bm{w}^{2}_{i} = \sum\limits_{j \in [N]} u^{2}_{i,j} \bm{v}^{2}_{j}.
+\end{equation}
+This implies that
+\begin{equation}
+\bm{W} = \bm{U}^{1}\bm{V}\bm{U}^{2 \Tran},
+\end{equation}
+where $\displaystyle \bm{V} = (\langle \bm{v}^{1}_{i}, \bm{v}^{2}_{j} \rangle_{\mathcal{H}})_{1 \leq i,j \leq N}$. Then
+\begin{equation}
+\bm{G} = \bm{W}\bm{W}^{\Tran} = \bm{U}^{1}\bm{V}\bm{V}^{\Tran}\bm{U}^{1 \Tran}.
+\end{equation}
+Thus the eigenvalues of $\bm{G}$ are the eigenvalues of $\bm{V}\bm{V}^{\Tran}$. By Proposition~\ref{prop:cos_between_subspaces}, the diagonal elements of $\bm{V}$ are
+\begin{equation}\label{eq:diagonal_of_V}
+v_{i,i} = \langle \bm{v}^{1}_{i}, \bm{v}^{2}_{i} \rangle_{\mathcal{H}} = \cos \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2}).
+\end{equation}
+We finish the proof by showing that the anti-diagonal elements satisfy
+\begin{equation}\label{eq:anti_diagonal_of_V}
+v_{i,j} = \langle \bm{v}^{1}_{i}, \bm{v}^{2}_{j} \rangle_{\mathcal{H}} = 0.
+\end{equation}
+By \eqref{eq:principal_vectors_projection_relationship},
+\begin{equation}
+\forall i \in [N], \:\sum\limits_{j \in [N]} \langle \bm{v}_{i}^{2}, \bm{v}_{j}^{1}\rangle_{\mathcal{H}}^{2} = \|\bm{\Pi}_{\mathcal{P}_{1}}\bm{v}_{i}^{2}\|_{\mathcal{H}}^{2} = \cos^{2} \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2}).
+\end{equation}
+Then
+\begin{equation}
+ \sum\limits_{i \in [N]}\sum\limits_{j \in [N]} \langle \bm{v}_{i}^{2}, \bm{v}_{j}^{1}\rangle_{\mathcal{H}}^{2} = \sum\limits_{i \in [N]} \cos^{2} \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2}) = \sum\limits_{i \in [N]} \langle \bm{v}_{i}^{2}, \bm{v}_{i}^{1}\rangle_{\mathcal{H}}^{2} .
+\end{equation}
+Thus
+\begin{equation}
+\sum\limits_{\substack{i,j \in [N]\\ i \neq j}} \langle \bm{v}_{i}^{2}, \bm{v}_{i}^{1}\rangle_{\mathcal{H}}^{2} = 0 .
+\end{equation}
+Finally, $\bm{V}$ is a diagonal matrix and the eigenvalues of $\bm{G}$ are the $\cos^{2} \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2})$.
+% For $i \in \{1,2\}$, consider the following operator:
+% \begin{equation}
+%  \bm{P}_{\mathcal{P}_{i}} =   \left\{
+% \begin{array}{ll}
+%       \mathbb{R}^{d} \rightarrow  \mathcal{H}& \\
+%       \bm{c} \rightarrow \sum\limits_{j \in [N]} c_{j} \bm{u}^{i}_{j} & \\
+% \end{array}
+% \right. ,
+% \end{equation}
+% along with its adjoint:
+% \begin{equation}
+%  \bm{P}_{\mathcal{P}_{i}}^{*} =   \left\{
+% \begin{array}{ll}
+%       \mathcal{H} \rightarrow  \mathbb{R}^{d}& \\
+%       \bm{x} \rightarrow  (\langle \bm{x}, \bm{u}_{j}^{i} \rangle )_{j \in [N]}& \\
+% \end{array}
+% \right. .
+% \end{equation}
+% Observe that
+% \begin{equation}
+% \bm{W} = \bm{P}_{\mathcal{P}_{1}}^{*}\bm{P}_{\mathcal{P}_{2}}
+% \end{equation}
+% Now, for $j \in [d_1]$,
+% \begin{equation}
+% \bm{P}_{\mathcal{P}_{2}}^{*}\bm{P}_{\mathcal{P}_{1}} \bm{e}_{j}^{1} = \cos \theta_{j} \bm{e}_{j}^{2}
+% \end{equation}
+\end{proof}
+
+A simple application of Corollary~\ref{cor:cos_det_relationship}, in the case $\mathcal{H} = \F$, $\mathcal{P}_{1} = \mathcal{E}_{N}^{\F}$ and $\mathcal{P}_{2} = \mathcal{T}(\bm{x})$ leads to the following result.
+
+\begin{lemma}\label{lemma:cos_ratio_det}
+Let $\bm{x} =  (x_{1}, \dots , x_{N}) \in \mathcal{X}^{N} $ such that $\Det^{2} \bm{E}(\bm{x}) \neq 0$. Then,
+\begin{equation}
+\prod\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell} \left(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \right)} = \frac{\Det \bm{K}(\bm{x})}{\Det^{2} \bm{E}^{\mathcal{F}}(\bm{x})}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The condition $\Det^{2} \bm{E}(\bm{x}) \neq 0$ yields by Proposition~\ref{prop:K_N_non_singular} that $\bm{K}(\bm{x})$ is non singular. Thus $\dim \mathcal{T}(\bm{x}) = N$. Let $(t_{i})_{i \in [N]}$ be an orthonormal basis of $\mathcal{T}(\bm{x})$ with respect to $\langle ., . \rangle_{\mathcal{F}}$.
+%
+Using Corollary~\ref{cor:cos_det_relationship}, and the fact that $(e_{n}^{\mathcal{F}})_{n \in [N]}$ is an orthonormal basis of $\mathcal{E}^{\mathcal{F}}_{N}$ according to $\langle ., . \rangle_{\mathcal{F}}$,
+\begin{equation}\label{eq:prod_cos_det_E}
+\prod\limits_{\ell \in [N]} \cos^{2} \theta_{\ell} \left(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \right) = \Det^{2} (\langle e_{n}^{\mathcal{F}}, t_{i} \rangle_{\mathcal{F}})_{(n,i) \in [N]\times[N]}.
+\end{equation}
+Now, write for $i \in [N]$,
+\begin{equation}\label{eq:t_as_function_of_kx}
+t_{i} = \sum\limits_{j \in [N]} c_{i,j} k(x_{j},.).
+\end{equation}
+%
+Thus
+\begin{align}
+\langle e_{n}^{\mathcal{F}}, t_{i} \rangle_{\mathcal{F}} = & \sum\limits_{j \in [N]} c_{i,j} \langle e_{n}^{\mathcal{F}}, k(x_{j},.) \rangle_{\mathcal{F}} \\
+= &\sum\limits_{j \in [N]} c_{i,j}  e_{n}^{\mathcal{F}}(x_{j}).
+\end{align}
+%
+Then
+\begin{equation}
+(\langle e_{n}^{\mathcal{F}}, t_{i} \rangle_{\mathcal{F}})_{(n,i) \in [N]\times[N]} = \bm{E}^{\mathcal{F}}(\bm{x}) \bm{C}(\bm{x})^{\Tran} ,
+\end{equation}
+where
+\begin{equation}
+\bm{C}(\bm{x}) = (c_{i,j})_{1 \leq i,j \leq N}.
+\end{equation}
+%
+Thus
+\begin{equation}\label{eq:AN_times_EN}
+\Det^{2} (\langle e_{n}^{\mathcal{F}}, t_{i} \rangle_{\mathcal{F}})_{(n,i) \in [N]\times[N]} = \Det^{2} \bm{C}(\bm{x}) \Det^{2} \bm{E}^{\mathcal{F}}(\bm{x}).
+\end{equation}
+%%%%
+Now, let $\bm{c}_{i}$ the columns of the matrix $\bm{C}(\bm{x})$. $(t_{i})_{i \in [N]}$ is an orthonormal basis of $\mathcal{T}(\bm{x})$ with respect to $\langle .,. \rangle_{\mathcal{F}}$, then by \eqref{eq:t_as_function_of_kx}
+\begin{equation}
+  \delta_{i,i'} = \langle t_{i}, t_{i'} \rangle_{\mathcal{F}} = \bm{c}_{i}^{\Tran} \bm{K}(\bm{x}) \bm{c}_{i'}  .
+\end{equation}
+Therefore
+\begin{equation}
+\bm{C}(\bm{x})^{\Tran} \bm{K}(\bm{x}) \bm{C}(\bm{x}) = \mathbb{I}_{N}.
+\end{equation}
+Thus
+\begin{equation}\label{eq:det_AN_det_KN_relationship}
+\Det^{2} \bm{C}(\bm{x}) = \frac{1}{\Det \bm{K}(\bm{x})}.
+\end{equation}
+Combining \eqref{eq:prod_cos_det_E}, \eqref{eq:AN_times_EN} and \eqref{eq:det_AN_det_KN_relationship} concludes the proof of Lemma~\ref{lemma:cos_ratio_det}:
+\begin{equation}
+\prod\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell} \left(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \right)} = \frac{\Det \bm{K}(\bm{x})}{\Det^{2} \bm{E}^{\mathcal{F}}(\bm{x})}.
+\end{equation}
+\end{proof}
+
+
 
 \paragraph{Bounding the approximation error using principal angles}
 \label{subsec:approximation_error_principal_angle}
@@ -2575,93 +3010,6 @@ In comparison with \cite{Bac17}, we emphasize that the dependence of our bound o
 
 \clearpage
 
-\subsection{The numerical simulation of a projection DPP}
-We review in this section the literature on the numerical simulation of projection Determinantal point processes. Recall that a random set that follows the distribution of a projection DPP of marginal kernel $\KDPP$ have a deterministic cardinal equals to $N$, where $N$ is the rank of the integral operator associated to the kernel $\KDPP$. For this reason, we can identify such a random set with a sample from a random variable defined on $\mathcal{X}^{N}$.
-
-Let $\bm{x} = \{x_{1}, \dots, x_{N}\}$ a random set that follows the distribution of a projection DPP of marginal kernel $\KDPP_{N}$. The joint distribution of the random variable $(x_{1}, \dots, x_{N}) \in \X^{N}$ have a density with respect to the measure $\mathrm{d}\bm{\omega}(\bm{x}) = \otimes_{n\in [N]}\mathrm{d}\omega(x_{n})$:
-\begin{equation}\label{eq:det_density}
-f_{\KDPP}(\bm{x}) = \frac{1}{N!}\Det \bm{\KDPP}(\bm{x}).
-\end{equation}
-
-As we shall see, the landscape on this topic is 
-
-\paragraph{Algorithms based on random matrix models}
-% As we have seen in the introduction, the eigenvalues of a random unitary matrix ... 
-The eigenvalues of some random matrix models corresponds to some specific projection DPPs. This includes the case of the Circular Unitary Ensemble defined in the introduction.
-In particular, when $d=1$, and $\omega$ is a Gaussian, gamma \cite{DuEd02}, or beta \cite{KiNe04} pdf, and $(\psi_n)$ are the orthonormal polynomials with respect to $\omega$, the corresponding DPP can be sampled by tridiagonalizing a matrix with independent entries, which takes the cost to $\mathcal{O}(N^2)$ and bypasses the need for rejection sampling. 
-
-
-
-
-\begin{figure}[!ht]
- \centerline{
- \scalebox{0.9}{
-\begin{algorithm}{$\Algo{RME}\big(N)$}
-\Aitem $n \longleftarrow  N$
-\Aitem $\mu_{N}(x) \longleftarrow  \frac{1}{N} \KDPP(x,x)\mathrm{d}\omega(x)$
-\Aitem $\bm{x} \longleftarrow  \emptyset$
-\Aitem \While $n > 0 $
-\Aitem \mt $\mu_{n}(x) = \frac{1}{n} \left( \KDPP(x,x) - \KDPP(x,\bm{x})^{\Tran}\bm{\KDPP}(\bm{x})^{-1} \KDPP(x,\bm{x}) \right) \mathrm{d}\omega(x)$ \ar{Chain rule}
-\Aitem \mt  Pick $x_{n}$ from $\mathcal{X}$ from $\mu_{n}$ \ar{Sample from the conditional}
-\Aitem \mt  $\bm{x} \longleftarrow  \bm{x} \cup \{x_{n}\}$
-\Aitem \mt $n \longleftarrow  n-1$
-\Aitem \Return $\bm{x}$
-\end{algorithm}
- }
- }
-\caption{Pseudocode a sampler of projection DPP based on a random matrix model.}
-\label{alg:RME_SAMPLER}
-\end{figure}
-
-
-\paragraph{The sequential algorithm HKPV}
-Consider $(\psi_{m})_{m \in [N]}$ an orthonormal family with respect to the measure $\mathrm{d}\omega$. In \citep*{HoKrPeVi06}, a sequential algorithm was proposed for the numerical simulation of a random set that follows the distribution of the projection DPP of marginal kernel
-\begin{equation}
-\KDPP(x,y) = \sum\limits_{m \in [N]} \psi_{m}(x)\psi_{m}(y).
-\end{equation}
- 
-Indeed, the idea behind this algorithm is to see $\bm{\KDPP}(\bm{x})$ as the Gram matrix of the family $\KDPP(x_{n},.)_{n \in [N]}$, whose $i,j$ entry is given by the scalar product of $\KDPP(x_{i},.)$ and $\KDPP(x_{j},.)$ with respect to the scalar product defined by $\mathrm{d}\omega$. In fact, by the orthonormality of $(\psi_{m})_{m \in [N]}$:
-\begin{equation}
-\int_{\mathcal{X}} \KDPP(x_{i},x) \KDPP(x_{j},x) \mathrm{d}\omega(x) = \sum\limits_{m \in [N]}\sum\limits_{m' \in [N]} \int_{\mathcal{X}} \psi_{m}(x_{i}) \psi_{m}(x) \psi_{m'}(x_{j}) \psi_{m'}(x) \mathrm{d}\omega(x)  = \KDPP(x_{i},x_{j}).
-\end{equation}
-
-Hence, $\Det \bm{\KDPP}(\bm{x})$ corresponds to the volume of the parallelepiped determined by the vectors $(\KDPP(x_{n},.))_{n \in [N]}$; and using "base times height" formula, the authors proved that the density~\eqref{eq:det_density} factorises as the product of $N$ conditionals
-\begin{equation}
-f_{\KDPP}(x_{1},\dots,x_{N}) = \prod\limits_{n \in [N]} f_{\KDPP,n}(x_{n} | x_{1}, \dots, x_{n-1}),
-\end{equation}
-for every $n \in [N]$ the conditional expresses as
-\begin{equation}
-f_{\KDPP,n}(x | x_{1} \dots x_{n-1}) = \frac{1}{n} \left( \KDPP(x,x) - \KDPP(x,\bm{x})^{\Tran}\bm{\KDPP}(\bm{x})^{-1} \KDPP(x,\bm{x}) \right),
-\end{equation}
-where $\KDPP(x,\bm{x}) = (\KDPP(x,x_{\ell}))_{\ell \in |\bm{x}|}$. In particular, the Algorithm~\ref{alg:HKPV_SAMPLER} output a random set that follows the distribution of the projection DPP of marginal kernel $\KDPP$.
-
-
-
-\begin{figure}[!ht]
- \centerline{
- \scalebox{0.9}{
-\begin{algorithm}{$\Algo{HKPV}\big(\KDPP_{N}(x,y) = \sum\limits_{m \in [N]} \psi_{m}(x)\psi_{m}(y))$}
-\Aitem $n \longleftarrow  N$
-\Aitem $\mu_{N}(x) \longleftarrow  \frac{1}{N} \KDPP(x,x)\mathrm{d}\omega(x)$
-\Aitem $\bm{x} \longleftarrow  \emptyset$
-\Aitem \While $n > 0 $
-\Aitem \mt $\mu_{n}(x) = \frac{1}{n} \left( \KDPP(x,x) - \KDPP(x,\bm{x})^{\Tran}\bm{\KDPP}(\bm{x})^{-1} \KDPP(x,\bm{x}) \right) \mathrm{d}\omega(x)$ \ar{Chain rule}
-\Aitem \mt  Pick $x_{n}$ from $\mathcal{X}$ from $\mu_{n}$ \ar{Sample from the conditional}
-\Aitem \mt  $\bm{x} \longleftarrow  \bm{x} \cup \{x_{n}\}$
-\Aitem \mt $n \longleftarrow  n-1$
-\Aitem \Return $\bm{x}$
-\end{algorithm}
- }
- }
-\caption{Pseudocode of the HKPV algorithm for sampling from a projection DPP of marginal kernel $\KDPP$.}
-\label{alg:HKPV_SAMPLER}
-\end{figure}
- In practice, the numerical implementation of this algorithm goes through sampling the conditional distributions (Step 5 in Algorithm~\ref{alg:HKPV_SAMPLER}). An implementation of this step was proposed in \citep{BaHa16} based on rejection sampling and the observation that
- \begin{equation}
-f_{\KDPP,n}(x | x_{1} \dots x_{n-1}) \leq \frac{N}{n}f_{\KDPP,N}(x).
- \end{equation} 
-
-In fact, if a sampler of the distribution $f_{\KDPP,N}$ is known, samplers from the conditionals can be implemented by rejection sampling. This is the case when the $(\psi_{n})$ is a family of orthogonal polynomials and $\mathcal{X} = [0,1]^{d}$.  
 
 
 One advantage of DPPs is that they can be sampled exactly. Because of the orthonormality of $(\psi_n)$, one can write the chain rule for \eqref{eq:pdpp_definition}; see \cite{HKPV06}. Sampling each conditional in turn, using e.g. rejection sampling \cite{RoCa04}, then yields an exact sampling algorithm. Rejection sampling aside, the cost of this algorithm is cubic in $N$ without further assumptions on the kernel. Simplifying assumptions can take many forms. 
