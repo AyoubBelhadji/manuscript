@@ -2268,7 +2268,7 @@ The definition of the set $\mathcal{M}_{N}$ is not canonical and can be replaced
 \end{equation}
 if the $N_{\delta}$ are odds, which lead to the tensor product of Dirichlet kernels. For this reason, the authors adopted the name of $(N,d)$-Dirichlet DPP for the projection DPP associated to the kernel~\eqref{eq:Dirichlet_kernel}.
 
-The quadrature defined this way defines an unbiased estimator of the integral $\int_{[0,1]^{d}} f(\bm{u}) \mathrm{d}\bm{u}$ with a variance that depends on the Fourier coefficients of $f$. 
+This quadrature defines an unbiased estimator of the integral $\int_{[0,1]^{d}} f(\bm{u}) \mathrm{d}\bm{u}$ with a variance that depends on the Fourier coefficients of $f$. 
 \begin{proposition}\label{prop:dirichlet_estimator} [Proposition 3.1, \citep{CoMaAm20} ]
 Let $\bm{x}$ a random set of $[0,1]^{d}$ that follows the distribution of $(N,d)$-Dirichlet DPP, and $f \in \mathbb{L}_{2}([0,1]^{d})$ and periodic; and define, 
 \begin{equation}
@@ -2324,13 +2324,43 @@ Let $\bm{x}$ and $f$ as in Proposition~\ref{prop:dirichlet_estimator}. Assume th
 \end{theorem}
 \subsection{The kernel framework for quadratures}
 
-The analysis of quadratures using kernel methods is convenient and elegant at the same time and it is expressed using functional analysis tools similarly to DPPs. Added to that, many results in quasi-Monte Carlo theory have an interpretation within the kernel quadrature framework. In order to present this framework, we introduce some notations.
+The analysis of quadratures using kernel methods is convenient and elegant at the same time and it is expressed using functional analysis tools similarly to DPPs. Added to that, many results in quasi-Monte Carlo theory have an interpretation within the kernel quadrature framework. 
 
+The strength of this framework is its flexibility: the integration domain $\mathcal{X}$ is assumed to be a metric space endowed with a Borel measure $\mathrm{d}\omega$, and we consider approximating an integral $\displaystyle \int_{\X} f(x)g(x)\mathrm{d}\omega(x)$, where $f,g \in \mathbb{L}_{2}(\mathrm{d}\omega)$ and $f$  is continuous, using a quadrature rule $(\bm{x}, \bm{w}) \in \X^{N} \times \mathbb{R}^{N}$:
+\begin{equation}\label{eq:int_error}
+\int_{\X} f(x)g(x)\mathrm{d}\omega(x) \approx \sum\limits_{n \in [N]} w_{n} f(x_{n}),
+\end{equation}
+
+where $\mathbb{L}_{2}(\mathrm{d}\omega)$ is the Hilbert space of square integrable, real-valued functions defined on $\mathcal{X}$, with the usual inner product denoted by $\langle \cdot, \cdot \rangle_{\mathrm{d}\omega}$, and the associated norm by $\|.\|_{\mathrm{d}\omega}$.
+
+As we shall see, the analysis of the integration error in~\eqref{eq:int_error} is convenient if $f$ belongs to an RKHS.
+An RKHS over $\mathcal{X}$ is a Hilbert space $\mathcal{F}$ that satisfies the following continuity property: for every $x \in \mathcal{X}$, the evaluation function $f \mapsto f(x)$ is continuous with respect to the norm of $\mathcal{F}$: 
+
+\begin{equation}
+\forall x \in \mathcal{X}, \: \exists M_{x} >0 , \: \forall f \in \mathcal{F}, \: |f(x)| \leq M_{x} \|f\|_{\mathcal{F}}.
+\end{equation}
+
+This guarantees [??]that for every $x \in \mathcal{X}$ there exists an element $k_{x} \in \mathcal{F}$ such that
+\begin{equation}
+\forall f \in \mathcal{F}, \: f(x) = \langle f, k_{x} \rangle_{\mathcal{F}}.
+\end{equation}
+
+...
+The requirement that can be embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$
+
+
+ To see this, let $k : \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}_{+}$ be a symmetric and continuous function such that, for any finite set of points in $\mathcal{X}$, the matrix of pairwise kernel evaluations is positive semi-definite. Denote by $\mathcal{F}$ the associated reproducing kernel Hilbert space (RKHS) of real-valued functions \cite{BeTh11}. We assume that $x \mapsto k(x,x)$ is integrable with respect to the measure $\mathrm{d}\omega$ so that $\mathcal{F} \subset \mathbb{L}_{2}(\mathrm{d}\omega)$.
+
+
+
+% In order to present this framework, we introduce some notations.
+
+% First, we denote by $\mathcal{X}$ . $\mathcal{X}$ is assumed to be a metric space endowed with a Borel measure $\mathrm{d}\omega$.
 % This analysis is based on the following observation: if $f : $
-
-
-
-
+% Denote by $(e_{k})_{k \in \mathbb{N}}$ an orthonormal family of $\mathbb{L}_{2}(\mathrm{d}\omega)$.
+%
+ 
+%$$\mathcal{F} = \overline{\Span \bigg( k(x,.),\: x \in \mathcal{X} \bigg)}$$
 \begin{figure}[]
     \centering
 \includegraphics[width= 0.45\textwidth]{img/Sobolev/Bernoulli_kernels_same_node_s_1_5.pdf}
@@ -2340,17 +2370,8 @@ The analysis of quadratures using kernel methods is convenient and elegant at th
 
 
 
-Let $\mathbb{L}_{2}(\mathrm{d}\omega)$ be the Hilbert space of square integrable, real-valued functions defined on $\mathcal{X}$, with the usual inner product denoted by $\langle \cdot, \cdot \rangle_{\mathrm{d}\omega}$, and the associated norm by $\|.\|_{\mathrm{d}\omega}$.
-% Denote by $(e_{k})_{k \in \mathbb{N}}$ an orthonormal family of $\mathbb{L}_{2}(\mathrm{d}\omega)$.
-%
-Let $k : \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}_{+}$ be a symmetric and continuous function such that, for any finite set of points in $\mathcal{X}$, the matrix of pairwise kernel evaluations is positive semi-definite. Denote by $\mathcal{F}$ the associated reproducing kernel Hilbert space (RKHS) of real-valued functions \cite{BeTh11}. We assume that $x \mapsto k(x,x)$ is integrable with respect to the measure $\mathrm{d}\omega$ so that $\mathcal{F} \subset \mathbb{L}_{2}(\mathrm{d}\omega)$.
-%$$\mathcal{F} = \overline{\Span \bigg( k(x,.),\: x \in \mathcal{X} \bigg)}$$
 
 
-Now consider approximating an integral $\int_{\X} f(x)g(x)\mathrm{d}(x)$, where $g \in \mathbb{L}_{2}(\mathrm{d}\omega)$, using a quadrature rule $(\bm{x}, \bm{w}) \in \X^{N} \times \mathbb{R}^{N}$:
-\begin{equation}
-\int_{\X} f(x)g(x)\mathrm{d}(x) \approx \sum\limits_{n \in [N]} w_{n} f(x_{n}).
-\end{equation}
 When the integrand $f$ belongs to the RKHS $\mathcal{F}$ of kernel $k$ \citep{CrSh04}, the quadrature error reads \citep{SmGrSoSc07}
 \begin{align}
 \label{eq:integral_bound_mean_element}
@@ -2363,8 +2384,8 @@ where
 \begin{equation}
 \mu_{g} = \int_{\mathcal{X}} k(x,.) g(x) \mathrm{d}\omega(x),
 \end{equation}
- is the so-called \emph{mean element} \citep{DiPi14,MuFuSrSc17} of the measure $g \mathrm{d}\omega$. The approximation error of the embedding $\mu_{g}$ by the kernel translates $\displaystyle \sum\limits_{n \in [N]} w_{n}k(x_{n},.)$ in the RKHS norm gives an upper bound on the integration error of the quadrature $(\bm{x}, \bm{w})$ independently on the integrand $f$: it is the worst case integration error in the unit ball of $\F$:
-\begin{equation}
+ is the so-called \emph{mean element} \citep{DiPi14,MuFuSrSc17} of the measure $g \mathrm{d}\omega$. The approximation error of the embedding $\mu_{g}$ by the kernel translates $\displaystyle \sum\limits_{n \in [N]} w_{n}k(x_{n},.)$ in the RKHS norm gives an upper bound on the integration error of the quadrature $(\bm{x}, \bm{w})$ independently of the integrand $f$: it is the worst case integration error in the unit ball of $\F$:
+\begin{equation}\label{eq:wce_kquadrature}
 \|\mu_{g} - \sum\limits_{n \in [N]}w_{n} k(x_{n},.) \|_{\mathcal{F}} = \sup\limits_{\substack{f \in \mathcal{F}\\ \|f\|_{\mathcal{F}} \leq 1}} \bigg|\int_{\mathcal{X}} f(x)g(x)\mathrm{d}\omega(x) - \sum\limits_{j \in [N]} w_{j}f(x_{j}) \bigg|.
 \end{equation}
 
@@ -2372,17 +2393,38 @@ where
 
 
 
-This idea can be tracked to Hickernell [??] who introduced reproducing kernels to the QMC community. Indeed, in [??] the author derived a tractable formula for the worst-case integration error of a quasi-Monte Carlo rule:
+This idea can be tracked to Hickernell \citep{Hic96,Hic98} who introduced reproducing kernels to the QMC community. Indeed, in \citep{Hic96} the author derived a tractable formula for the worst-case integration error of a quasi-Monte Carlo rule ($\X=[0,1]^{d}$, $g$ is the constant function that take the value $1$ and $w_{n}= 1/N$):
 
 \begin{equation}\label{eq:wce_qmc}
  \sup\limits_{\substack{f \in \mathcal{F}\\ \|f\|_{\mathcal{F}} \leq 1}} \bigg|\int_{[0,1]^{d}} f(x)\mathrm{d}\bm{x} - \frac{1}{N}\sum\limits_{n \in [N]} f(x_{n}) \bigg|^{2},
 \end{equation}
-he ended up by proving that \eqref{eq:wce_qmc} is equal to 
+he proved that \eqref{eq:wce_qmc} is equal to 
 \begin{equation}\label{eq:wce_qmc_2}
- \int_{[0,1]^{d}}\int_{[0,1]^{d}} k(\bm{x},\bm{y}) \mathrm{d}\bm{x} \mathrm{d}\bm{y} - \frac{1}{N}\sum\limits_{n \in [N]} \int_{[0,1]^{d}} k(x_{n},\bm{y}) \mathrm{d} \bm{y} + \frac{1}{N^2}\sum\limits_{n,n'=1}k(x_{n},k_{n'}).
+ \int_{[0,1]^{d}}\int_{[0,1]^{d}} k(\bm{x},\bm{y}) \mathrm{d}\bm{x} \mathrm{d}\bm{y} - \frac{2}{N}\sum\limits_{n \in [N]} \int_{[0,1]^{d}} k(x_{n},\bm{y}) \mathrm{d} \bm{y} + \frac{1}{N^2}\sum\limits_{n,n'=1}^{N}k(x_{n},k_{n'}).
 \end{equation}
 
-We can see that \eqref{eq:wce_qmc_2} is an instantiation of .... by taking $g = 1$ and $\X=[0,1]^{d}$, and the $w_{n}= 1/N $.
+The generalization of \eqref{eq:wce_qmc_2} can be easily derived using properties of reproducing kernels:
+\begin{align}
+\|\mu_{g} - \sum\limits_{n \in [N]}w_{n} k(x_{n},.) \|_{\mathcal{F}}^{2} & = \|\mu_{g}\|_{\mathcal{F}}^{2} - 2 \langle \mu_{g}, \sum\limits_{n \in [N]}w_{n} k(x_{n},.)  \rangle_{\mathcal{F}} + \|\sum\limits_{n \in [N]}w_{n} k(x_{n},.)\|_{\mathcal{F}}^{2}\\
+& = \|\mu_{g}\|_{\mathcal{F}}^{2} - 2 \sum\limits_{n \in [N]} w_{n} \mu_{g}(x_{n}) + \sum\limits_{n,n'=1}^{N}w_{n}k(x_{n},x_{n'})w_{n'}\\
+& = \|\mu_{g}\|_{\mathcal{F}}^{2} - 2 \bm{w}^{\Tran} \mu_{g}(\bm{x}) + \bm{w}^{\Tran} \bm{K}(\bm{x})\bm{w},
+\end{align}
+
+where $\bm{K}(\bm{x}) = (k(x_{n},x_{n'}))_{(n,n') \in [N] \times [N]} \in \mathbb{R}^{N \times N}$ and $\mu_{g}(\bm{x}) = (\mu_{g}(x_{n}))_{n \in [N]} \in \mathbb{R}^{N}$.
+
+
+In order to prove that \eqref{eq:wce_qmc_2} is a consequence of \eqref{eq:wce_qmc}, it is sufficient to observe that
+
+\begin{align}
+\|\mu_{g}\|_{\mathcal{F}}^{2} & = 
+\|\bm{\Sigma} g\|_{\mathcal{F}}^{2}\\
+& = \langle g, \bm{\Sigma} g \rangle_{\mathrm{d}\omega}
+\end{align}
+
+
+
+
+We can see that  is an instantiation of~\eqref{eq:wce_qmc} by taking .
 
 By considering the kernel $k_{QMC}$ defined by
 
@@ -2393,9 +2435,20 @@ k_{QMC}(\bm{x},\bm{y}) = \prod\limits_{\delta \in [d]} (2-\min(x_{\delta},y_{\de
 A tight approximation of the mean element by a linear combination of functions $k(x_{j},.)$ thus guarantees low quadrature error.
 \subsubsection{Examples of typical kernels}
 
+\paragraph{Periodic Sobolev spaces and Korobov spaces}
 Let $\mathrm{d}\omega$ be the uniform measure on $\mathcal{X} = [0,1]$, and let the RKHS kernel be \citep{BeTh11}
-$$k_{s}(x,y) = 1+ 2\sum\limits_{m \in \mathbb{N}^{*}} \frac{1}{m^{2s}} \cos(2\pi m(x-y)),$$
-so that $\mathcal{F}=\mathcal{F}_{s}$ is the Sobolev space of order $s$ on $[0,1]$. Note that $k_{s}$ can be expressed in closed form using Bernoulli polynomials \cite{Wah90}:
+\begin{equation}
+k_{s}(x,y) = 1+ 2\sum\limits_{m \in \mathbb{N}^{*}} \frac{1}{m^{2s}} \cos(2\pi m(x-y)).
+\end{equation}
+The corresponding RKHS $\mathcal{F}=\mathcal{F}_{s}$ is the Sobolev space of order $s$ on $[0,1]$:
+
+\begin{equation}
+\mathcal{F}_{s} = \{f \in ... \}
+\end{equation}
+
+
+
+ Note that $k_{s}$ can be expressed in closed form using Bernoulli polynomials \cite{Wah90}:
 \begin{equation}
 k_{s}(x,y) = 1 + \frac{(-1)^{s-1}(2 \pi)^{2s}}{(2s)!} B_{2s}(\{x-y\}).
 \end{equation}
@@ -2427,19 +2480,27 @@ Figure~\ref{fig:mean_element} illustrates the mean-element for three different w
 \subsubsection{Ridge leverage score quadrature}
 \label{s:bach}
 
-
-In \cite{Bac17}, the author proposed to sample the nodes $(x_j)$ i.i.d. from some proposal distribution $q$, and then pick weights $\hat{\bm{w}}$ in \eqref{e:quadrature} that solve the optimization problem
+The work of \cite{Bac17} highlights the fundamental role played by the spectral decomposition of the operator $\bm{\Sigma}$ in designing and analyzing kernel quadrature rules.
+In fact, the author proposed to sample the nodes $(x_j)$ i.i.d. from some proposal distribution $q$, and then take the vector of weights $\bm{w}$ to be the vector $\bm{w}_{\lambda}$ that solve the optimization problem
 \begin{equation}\label{eq:reg_kernel_opt_problem}
 \min\limits_{w \in \mathbb{R}^{N}} \Big\| \mu_{g} - \sum\limits_{j \in [N]} \frac{w_{j}}{q(x_{j})^{1/2}} k(x_{j},.) \Big\|_{\mathcal{F}}^{2} + \lambda N \|w\|_{2}^{2},
 \end{equation}
-for some regularization parameter $\lambda>0$. The idea of the author was to make use of the spectral decomposition of the integral operator $\bm{\Sigma}: \mathbb{L}_{2}(\mathrm{d}\omega) \rightarrow \mathbb{L}_{2}(\mathrm{d}\omega)$ defined by
-\begin{equation}
-\bm{\Sigma} f (\cdot) = \int_{\mathcal{X}} k(\cdot,y)f(y) \mathrm{d}\omega(y), \quad f \in \mathbb{L}_{2}(\mathrm{d}\omega),
-\end{equation}
-in the design of the quadrature. Finally, we note that Proposition~\ref{p:bach} highlights the fundamental role played by the spectral decomposition of the operator $\bm{\Sigma}$ in designing and analyzing kernel quadrature rules.
+for some regularization parameter $\lambda>0$. 
+
+% The idea of the author was to make use of the spectral decomposition of the integral operator $\bm{\Sigma}: \mathbb{L}_{2}(\mathrm{d}\omega) \rightarrow \mathbb{L}_{2}(\mathrm{d}\omega)$ defined by
+% \begin{equation}
+% \bm{\Sigma} f (\cdot) = \int_{\mathcal{X}} k(\cdot,y)f(y) \mathrm{d}\omega(y), \quad f \in \mathbb{L}_{2}(\mathrm{d}\omega),
+% \end{equation}
+% in the design and the analysis of the worst integration error of the quadrature. 
+
+% In fact, 
+
+% Finally, we note that Proposition~\ref{p:bach} highlights the fundamental role played by the spectral decomposition of the operator $\bm{\Sigma}$ in designing and analyzing kernel quadrature rules.
  
 
-In the analysis in \cite{Bac17}, any proposal distribution $q$ could be used to sample $N$ i.i.d. nodes that constitutes the design $\bm{x}$. Indeed, the author proved the following result.
+% In order to understand the importance of the spectral decomposition of $\bm{\Sigma}$ in the design of the quadrature, 
+
+Within this analysis, any proposal distribution $q$, with $q>0$, could be used to sample $N$ i.i.d. nodes that constitutes the design $\bm{x}$: this follows from the following result.
 
 \begin{proposition}[Proposition 1 in \cite{Bac17}]
 \label{p:bach_general_proposal}
@@ -2455,13 +2516,13 @@ Assume that $N \geq 5 d_{\max}(q,\lambda) \log(16 d_{\max}(q,\lambda) / \delta)$
 
 
 
-In other words, Proposition~\ref{p:bach_general_proposal} gives a uniform  control on the approximation error $\mu_{g}$ by the subspace spanned by the $k(x_{j},.)$ for $g$ belonging to the unit ball of $\mathbb{L}_{2}(\mathrm{d}\omega)$, where the $(x_{j})$ are sampled i.i.d. from $q$. The required number of nodes is equal to $\mathcal{O}(d_{\max}(q,\lambda)\log d_{\max}(q,\lambda))$ for a given approximation error $\lambda$. This bound is relevant if an upper bound of the \emph{maximal ridge leverage score} $d_{\max}(q,\lambda)$ is known. This is possible in some cases; yet in general this quantity is hard to control. Nevertheless, the author showed that one may use a specific choice of $q$, namely the  leverage scores the ridge leverage score distribution $q_{\lambda}^{*}$ defined as
+In other words, Proposition~\ref{p:bach_general_proposal} gives a uniform  control on the approximation error $\mu_{g}$ by the subspace spanned by the $k(x_{j},.)$ for $g$ belonging to the unit ball of $\mathbb{L}_{2}(\mathrm{d}\omega)$, where the $(x_{j})$ are sampled i.i.d. from $q$. The required number of nodes is equal to $\mathcal{O}(d_{\max}(q,\lambda)\log d_{\max}(q,\lambda))$ for a given approximation error $\lambda$. This bound is relevant if an upper bound of the \emph{maximal ridge leverage score} $d_{\max}(q,\lambda)$ is known. This is possible in some cases; yet in general this quantity is hard to control. Nevertheless, the author showed that one may use a specific choice of $q$, namely the ridge leverage score distribution $q_{\lambda}^{*}$ defined as
 
 \begin{equation}
 q_{\lambda}^*(x) \propto \langle k(x,.), \bm{\Sigma}^{-1/2}(\bm{\Sigma}+ \lambda \mathbb{I}_{\mathbb{L}_{2}(\mathrm{d}\omega)})^{-1}\bm{\Sigma}^{-1/2} k(x,.) \rangle_{\mathbb{L}_{2}(\mathrm{d}\omega)} = \sum\limits_{m \in \mathbb{N}^{*}} \frac{\sigma_{m}}{\sigma_{m}+\lambda} e_{m}(x)^{2}.
 \label{e:proposalBach}
 \end{equation}
-Indeed, for this specific choice 
+Indeed, for this specific choice of $q$
 \begin{align}
 d_{\max}(q_{\lambda}^{*},\lambda) & = \int_{\X}\langle k(x,.), \bm{\Sigma}^{-1/2}(\bm{\Sigma}+ \lambda \mathbb{I}_{\mathbb{L}_{2}(\mathrm{d}\omega)})^{-1}\bm{\Sigma}^{-1/2} k(x,.) \rangle_{\mathbb{L}_{2}(\mathrm{d}\omega)} \mathrm{d}\omega(x) \nonumber \\
 & = \sum\limits_{m \in \mathbb{N}^{*}} \frac{\sigma_{m}}{\sigma_{m}+\lambda} \nonumber\\
@@ -2482,10 +2543,50 @@ Let $\delta \in ]0,1]$. Assume that $N \geq 5 d_\lambda \log(16 d_\lambda / \del
 \end{equation}
 \end{proposition}
 
-However, for fixed $\lambda$, the approximation error in Proposition~\ref{p:bach} does not go to zero when $N$ increases. One theoretical  workaround is to make $\lambda=\lambda(N)$ decrease with $N$. However, the coupling of $N$ and $\lambda$ through $d_\lambda$ makes it very intricate to derive a convergence rate from Proposition~\ref{p:bach}.
+Now, for fixed $\lambda$, the approximation error in Proposition~\ref{p:bach} does not go to zero when $N$ increases. One theoretical  workaround is to make $\lambda=\lambda(N)$ decrease with $N$. However, the coupling of $N$ and $\lambda$ through $d_\lambda$ makes it very intricate to derive a convergence rate from Proposition~\ref{p:bach}.
 Moreover, the optimal density $q_{\lambda}^*$ is in general only available as the limit \eqref{e:proposalBach}, which makes sampling and evaluation difficult. 
 
-
+\subsection{The Mercer decomposition}
+\label{subsec:mercer}
+In this section we recall Mercer's theorem and its extensions to non-compact spaces. Let $\mathcal{X}$ be a measurable space and $\mathrm{d}\omega$ a measure on $\mathcal{X}$. Assume $k$ is a positive definite kernel on $\mathcal{X}$. Whenever it is well-defined, we consider the operator
+\begin{equation}
+\bm{\Sigma} f(x) = \int\limits_{\mathcal{X}} k(x,y)f(y) \mathrm{d}\omega(y).
+\end{equation}
+\begin{theorem}\label{thm:Mercer_for_compact}
+Assume that $\mathcal{X}$ is a compact space and $\mathrm{d}\omega$ is a finite Borel measure on $\mathcal{X}$.
+Then, there exists an orthonormal basis $(e_{n})_{n \in \mathbb{N}^{*}}$ of $\mathbb{L}_{2}(\mathrm{d}\omega)$ consisting of eigenfunctions of $\bm{\Sigma}$, and the corresponding eigenvalues are non-negative.
+The eigenfunctions corresponding to non-vanishing eigenvalues can be taken to be continuous, and the kernel $k$ writes
+\begin{equation}
+k(x,y) = \sum\limits_{n \in \mathbb{N}^{*}} \sigma_{n} e_{n}(x)e_{n}(y),
+\end{equation}
+where the convergence is absolute and uniform.
+\end{theorem}
+Theorem~\ref{thm:Mercer_for_compact} was first proven when $\mathcal{X} = [0,1]$ and $\mathrm{d}\omega$ is the Lebesgue measure in \cite{Mer1909}. A modern proof can be found in \cite{Lax02}, while the proof in the general case can be found in \cite{CuZh07}.  Note, however, that the compactness assumption in Theorem~\ref{thm:Mercer_for_compact} excludes kernels such as the Gaussian or the Laplace kernels.
+Hence, extensions to non-compact spaces are usually required in ML.
+In \cite{Sun05}, the author extended Theorem~\ref{thm:Mercer_for_compact} to $\mathcal{X} = \cup_{i \in \mathbb{N}} \mathcal{X}_{i}$, with the $\mathcal{X}_{i}$s compact and $\mathrm{d}\omega(\mathcal{X}_{i})<\infty$. One can also extend Mercer's theorem under a \textit{compact embedding} assumption \citep{StSc12}: the RKHS $\mathcal{F}$ associated to $k$ is said to be compactly embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$ if the application
+\begin{align*}
+  I_{\mathcal{F}}: \mathcal{F}&\longrightarrow \mathbb{L}_{2}(\mathrm{d}\omega) \\
+  f &\longmapsto f
+\end{align*}
+is compact.
+A sufficient condition for this assumption is the integrability of the diagonal (Lemma 2.3, \citep{StSc12}):
+\begin{equation}
+\int_{\mathcal{X}} k(x,x) \mathrm{d}\omega(x) < \infty.
+\end{equation}
+Note that this condition is not necessary (Example 2.9, \citep{StSc12}). Now, under the compact embedding assumption, the pointwise convergence of the Mercer decomposition to the kernel $k$ is equivalent to the injectivity of the embedding $I_{\mathcal{F}}$ (Theorem 3.1, \citep{StSc12}).
+% This condition is satisfied whenever $k$ is bounded and $\mathrm{d}\omega(\mathcal{X}) < \infty$.
+% \begin{theorem}[Theorem 3.1, \cite{StSc12}]
+% Let $\mathcal{X}$ be a measurable space and $\mathrm{d}\omega$ a measure on $\mathcal{X}$. Let $k$ be a measurable positive kernel on $\mathcal{X}$ with an RKHS $\mathcal{F}$. Assume that $\mathcal{F}$ is compactly embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$. Define the integral operator $\bm{\Sigma}$:
+% \begin{equation}
+% \bm{\Sigma} f(x) = \int\limits_{\mathcal{X}} k(x,y)f(y) \mathrm{d}\omega(y).
+% \end{equation}
+% Then, there exists an orthonormal basis $(e_{n})_{n \in \mathbb{N}}$ of $\mathbb{L}_{2}(\mathrm{d}\omega)$ consisting of eigenfunctions of $\bm{\Sigma}$ and the corresponding eigenvalues are non negatives. The eigenfunctions corresponding to non-vanishing eigenvalues can be taken as continuous functions and the kernel $k$ writes
+% \begin{equation}
+% k(x,y) = \sum\limits_{n \in \mathbb{N}} \sigma_{n} e_{n}(x)e_{n}(y),
+% \end{equation}
+% where the convergence is absolute and uniform.
+% \end{theorem}
+% % \subsection{The results}
 
 \subsection{Projection DPP for kernel quadrature}
 % \subsubsection{The proposed algorithm}
@@ -3039,7 +3140,7 @@ Recall the Mercer decomposition of $k$:
 \begin{equation}\label{eq:Mercer_decomposition_1}
 k(x,y) = \sum\limits_{m \in \mathbb{N}^{*}} \sigma_{m} e_{m}(x)e_{m}(y),
 \end{equation}
-where the convergence is point-wise on $\mathcal{X}$.
+where the convergence is point-wise on $\mathcal{X} \times \mathcal{X}$.
 Define for $M \in \mathbb{N}^{*}, \: M \geq N$ the $M$-th truncated kernel
 \begin{equation}
 k_{M}(x,y) = \sum\limits_{m \in [M]} \sigma_{m} e_{m}(x)e_{m}(y).
@@ -3060,7 +3161,7 @@ Thus to prove that $\Det \bm{K}(\bm{x}) > 0$, it is enough to prove that the $\D
 \begin{equation}
   \bm{K}_{M}(\bm{x}) = \bm{F}_{M}(\bm{x})^{\Tran}\bm{\Sigma}_{M}\bm{F}_{M}(\bm{x}),
 \end{equation}
-with $\bm{F}_{M}(\bm{x}) = (e_{i}(x_{j}))_{(i,j) \in [M]\times[N]}$ and $\Sigma_{M}$ is a diagonal matrix containing the first $M$ eigenvalues $(\sigma_{m})$. The Cauchy-Binet identity yields
+with $\bm{F}_{M}(\bm{x}) = (e_{i}(x_{j}))_{(i,j) \in [M]\times[N]}$ and $\bm{\Sigma}_{M}$ is a diagonal matrix containing the first $M$ eigenvalues $(\sigma_{m})$. The Cauchy-Binet identity yields
 \begin{align}
   \Det \bm{K}_{M}(\bm{x}) & = \sum\limits_{T \subset [M], |T| = N} \prod\limits_{i \in T} \sigma_{i} \Det^{2} (e_{i}(x_{j}))_{(i,j)\in T \times [N]} \\
 & \geq \prod\limits_{i \in [N]} \sigma_{i} \Det^{2}\bm{E}(\bm{x})>0.
@@ -3069,7 +3170,7 @@ Therefore,
 \begin{equation}
 \Det \bm{K}(\bm{x}) = \lim\limits_{M \rightarrow \infty} \Det \bm{K}_{M}(\bm{x}) \geq \prod\limits_{i \in [N]} \sigma_{i} \Det^{2} \bm{E}(\bm{x}) > 0.
 \end{equation}
-so that $\bm{K}(\bm{x})$ is a.s. invertible.
+so that $\bm{K}(\bm{x})$ is invertible.
 \end{proof}
 
 
@@ -3230,27 +3331,18 @@ Let us write
 \end{equation}
 where the $c_{i}$ are the elements of the vector $\bm{c} = \bm{K}(\bm{x})^{-1}e_{n}^{\mathcal{F}}(\bm{x})$. Then
 \begin{align}
-\bm{\Pi}_{\mathcal{T}(\bm{x})}e_{n}^{\mathcal{F}} & =  \sum\limits_{i \in [N]}c_{i}\sum\limits_{m \in \mathbb{N}^{*}} \sigma_{m}e_{m}(x_{i})e_{m}(.)\\
-& = \sum\limits_{m \in \mathbb{N}^{*}} \sqrt{\sigma_{m}}\left(\sum\limits_{i \in [N]}c_{i} e_{m}(x_{i}) \right) e_{m}^{\mathcal{F}}(.) \nonumber.
+\|\bm{\Pi}_{\mathcal{T}(\bm{x})}e_{n}^{\mathcal{F}}\|_{\mathcal{F}}^{2} & =  \|\sum\limits_{i \in [N]} c_{i}k(x_{i},.)\|_{\mathcal{F}}^{2}\\
+& =  \bm{c}^{\Tran} \bm{K}(\bm{x})\bm{c} \nonumber\\
+& =  e_{n}^{\mathcal{F}}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1} \bm{K}(\bm{x}) \bm{K}(\bm{x})^{-1} e_{n}^{\mathcal{F}}(\bm{x}) \nonumber\\
+& = e_{n}^{\mathcal{F}}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1} e_{n}^{\mathcal{F}}(\bm{x}) \nonumber \\
+& = \Delta_{n}^{\mathcal{F}}(\bm{x}) \nonumber.
 \end{align}
-Since $(e_m^{\cal F})_{m\in \mathbb{N}^{*}}$ is orthonormal,
-\begin{align}\label{eq:interpolation_error_and_vector_c}
-\|\bm{\Pi}_{\mathcal{T}(\bm{x})}e_{n}^{\mathcal{F}}\|^{2}_{\mathcal{F}} & = \sum\limits_{m \in \mathbb{N}^{*}} \sigma_{m} \left(\sum\limits_{i \in [N]}c_{i} e_{m}(x_{i}) \right)^{2}\\
-& = \sum\limits_{m \in \mathbb{N}^{*}} \sigma_{m} \sum\limits_{i \in [N]} \sum\limits_{j \in [N]}c_{i}c_{j} e_{m}(x_{i})e_{m}(x_{j}) \nonumber\\
-& = \sum\limits_{m \in \mathbb{N}^{*}} \bm{c}^{\Tran} e_{m}^{\mathcal{F}}(\bm{x})e_{m}^{\mathcal{F}}(\bm{x})^{\Tran} \bm{c} \nonumber\\
-& = \bm{c}^{\Tran} \sum\limits_{m \in \mathbb{N}^{*}}  e_{m}^{\mathcal{F}}(\bm{x})e_{m}^{\mathcal{F}}(\bm{x})^{\Tran} \bm{c} \nonumber.
-\end{align}
-Using Mercer's theorem, see \eqref{eq:truncated_kernel_limit},
-\begin{equation}\label{eq:matricial_mercer_decomposition}
-  \bm{K}(\bm{x}) = \sum\limits_{m \in \mathbb{N}^{*}}  e_{m}^{\mathcal{F}}(\bm{x})e_{m}^{\mathcal{F}}(\bm{x})^{\Tran}.
+Moreover, since $\|e_{n}^{\mathcal{F}}\|_{\mathcal{F}} = 1$, we have
+\begin{equation}
+\|\bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}}e_{n}^{\mathcal{F}}\|^{2}_{\mathcal{F}} = \|e_{n}^{\mathcal{F}}\|^{2}_{\mathcal{F}}- \|\bm{\Pi}_{\mathcal{T}(\bm{x})}e_{n}^{\mathcal{F}}\|^{2}_{\mathcal{F}} = 1 - \|\bm{\Pi}_{\mathcal{T}(\bm{x})}e_{n}^{\mathcal{F}}\|^{2}_{\mathcal{F}} = 1-\Delta_{n}^{\mathcal{F}}(\bm{x}).
 \end{equation}
-Combining \eqref{eq:interpolation_error_and_vector_c} and \eqref{eq:matricial_mercer_decomposition} along with the definition of the vector $\bm{c} = \bm{K}(\bm{x})^{-1}e_{n}^{\mathcal{F}}(\bm{x})$ yields
-\begin{align}
-\|\bm{\Pi}_{\mathcal{T}(\bm{x})}e_{n}^{\mathcal{F}}\|^{2}_{\mathcal{F}} & = \bm{c}^{\Tran} \bm{K}(\bm{x}) \bm{c}\\
-& = e_{n}^{\mathcal{F}}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1} \bm{K}(\bm{x}) \bm{K}(\bm{x})^{-1}e_{n}^{\mathcal{F}}(\bm{x}) \nonumber\\
-& = e_{n}^{\mathcal{F}}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1}e_{n}^{\mathcal{F}}(\bm{x}) \nonumber\\
-& = \Delta_n^{\cal F}(\bm{x}) \nonumber.
-\end{align}
+
+
 \end{proof}
 % END PROOF
 
@@ -3265,7 +3357,7 @@ By Lemma~\ref{lemma:interpolation_error_matricial_form}, the inequality~\eqref{e
 \begin{equation}\label{eq:kernel_perturbation_inequality_reformulated}
 \forall n \in [N], \: \sigma_{n} \left(1- \Delta_n^{\cal F}(\bm{x}) \right) \leq \sigma_{1} \left(1- \Delta_n^{\tilde{\cal F}}(\bm{x})\right) .
 \end{equation}
-As an intermediate remark, note that in the special case $n =1$, by construction
+As an intermediate remark, note that in the special case $n =1$, by construction $\tilde{k}-k$ is positive definite kernel on $\X$, therefore
 \begin{equation}
   \bm{K}(\bm{x}) \prec \tilde{\bm{K}}(\bm{x}),
 \end{equation}
@@ -3359,13 +3451,13 @@ Let $n \in [N]$ such that $n \neq 1$.
 We first remark that $\mathcal{F}=\tilde{\mathcal{F}}_{1} $ and use $(n-2)$ times inequality \eqref{eq:graded_RKHS_inequality_2} of Proposition~\ref{prop:graded_RKHS}:
 \begin{align}
   \sigma_{n} \left(1- \Delta_n^{\cal F}(\bm{x}) \right) & = \sigma_{n}  \left(1- \Delta_n^{\tilde{\cal F}_{1}}(\bm{x}) \right) \\
-  & \leq  \sigma_{n} \left(1-\Delta_n^{\tilde{\cal F}_{n-1}}(\bm{x}) \right) \nonumber
+  & \leq  \sigma_{n} \left(1-\Delta_n^{\tilde{\cal F}_{n-1}}(\bm{x}) \right). \nonumber
 \end{align}
 Then we use \eqref{eq:graded_RKHS_inequality_1} that is connected to the rank-one update from the kernel $k^{(n-1)}$ to $k^{(n)}$ so that
 \begin{equation}
   \sigma_{n} \left(1-\Delta_n^{\tilde{\cal F}_{n-1}}(\bm{x}) \right)
   \leq
-  \sigma_{1} \left(1-\Delta_n^{\tilde{\cal F}_{n}}(\bm{x}) \right)
+  \sigma_{1} \left(1-\Delta_n^{\tilde{\cal F}_{n}}(\bm{x}) \right).
 \end{equation}
 Then we apply \eqref{eq:graded_RKHS_inequality_2} to the r.h.s. again $N-n-1$ times to finally get:
 \begin{align}
@@ -3379,6 +3471,58 @@ since $\tilde{k}^{(N)}=\tilde{k}$ and $\tilde{\mathcal{F}}_{N} = \tilde{\mathcal
 %% End proof of Proposition 4
 
 %% Proof of Proposition 6
+
+\subsection{Leverage score changes under rank 1 updates}\label{subsec:lv_score_updates}
+In this section we prove a lemma inspired from Lemma 5 in \cite{Coh15}. This lemma concerns the changes of leverage scores under rank 1 updates.
+
+We start by recalling the definition of leverage scores, which play an important role in randomized linear algebra \citep{DrMaMu06}. Let $N,M \in \mathbb{N}^{*}$, $M \geq N$. Let $\bm{A} \in \mathbb{R}^{N \times M}$ be a matrix of full rank.
+For $i \in [M]$, denote $\bm{a}_{i}$ the $i$-th column of the matrix $\bm{A}$. Now, the $i$-th leverage score of the matrix $\bm{A}$ is defined by
+\begin{equation}\label{eq:def_matrix_leverage_score}
+\tau_{i}(\bm{A}) = \bm{a}_{i}^{\Tran} (\bm{A}\bm{A}^{\Tran})^{-1}\bm{a}_{i},
+\end{equation}
+while the cross-leverage score between the $i$-th column and the $j$-th column is defined by
+\begin{equation}
+\tau_{i,j}(\bm{A}) = \bm{a}_{i}^{\Tran} (\bm{A}\bm{A}^{\Tran})^{-1}\bm{a}_{j}.
+\end{equation}
+It holds \citep{DrMaMu06}
+\begin{equation}\label{eq:bounds_on_lv_scores}
+\forall i \in [M], \: \tau_{i}(\bm{A}) \in [0,1],
+\end{equation}
+and we have the following result.
+\begin{lemma}\label{lemma:rank1_leverage_score}
+Let $N,M \in \mathbb{N}^{*}$, $M \geq N$. Let $\bm{A} \in \mathbb{R}^{N \times M}$ of full rank and $\rho \in \mathbb{R}_{+}^{*}$ and $i \in [M]$. Let $\bm{W} \in \mathbb{R}^{M \times M}$ a diagonal matrix such that $\bm{W}_{i,i} = \sqrt{1+\rho}$ and $\bm{W}_{j,j} = 1$ for $j \neq i$. Then
+\begin{equation}\label{eq:lv_score_update}
+\tau_{i}(\bm{A}\bm{W}) = \frac{(1+\rho)\tau_{i}(\bm{A})}{1+\rho \tau_{i}(\bm{A})} \geq \tau_{i}(\bm{A}),
+\end{equation}
+and
+\begin{equation}\label{eq:cross_lv_score_update}
+\forall j \in [M]-\{i\}, \: \tau_{j}(\bm{A}\bm{W}) = \tau_{j}(\bm{A}) -\frac{\rho \tau_{i,j}(\bm{A})^{2}}{1+\rho \tau_{i}(\bm{A})} \leq \tau_{j}(\bm{A}).
+\end{equation}
+\end{lemma}
+The proof of this lemma is similar to Lemma 5 in \cite{Coh15}. We recall the proof for completeness.
+\begin{proof}(Adapted from \cite{Coh15})
+The Sherman-Morrison formula applied to $\bm{A}\bm{W}\bm{W}^{\Tran}\bm{A}^{\Tran}$ and the vector $\sqrt{\rho} \bm{a}_{i}$ yields
+\begin{align}
+(\bm{A}\bm{W}\bm{W}^{\Tran}\bm{A}^{\Tran})^{-1} &  = (\bm{A}\bm{A}^{\Tran} + \rho \bm{a}_{i}\bm{a}_{i}^{\Tran})^{-1} \\
+& = (\bm{A}\bm{A}^{\Tran})^{-1} - \frac{(\bm{A}\bm{A}^{\Tran})^{-1}\rho \bm{a}_{i}\bm{a}_{i}^{\Tran} (\bm{A}\bm{A}^{\Tran})^{-1}}{1+ \rho \bm{a}_{i}^{\Tran}(\bm{A}\bm{A}^{\Tran})^{-1}\bm{a}_{i}}.
+\end{align}
+By definition of $\tau_{i}(\bm{A}\bm{W})$
+\begin{align}
+\tau_{i}(\bm{A}\bm{W}) & = \sqrt{1 + \rho} \bm{a}_{i}^{\Tran}(\bm{A}\bm{W}\bm{W}^{\Tran}\bm{A}^{\Tran})^{-1}\bm{a}_{i}\sqrt{1 + \rho}\\
+& = (1+\rho)\bm{a}_{i}^{\Tran} \left( (\bm{A}\bm{A}^{\Tran})^{-1} - \frac{(\bm{A}\bm{A}^{\Tran})^{-1}\rho \bm{a}_{i}\bm{a}_{i}^{\Tran} (\bm{A}\bm{A}^{\Tran})^{-1}}{1+ \rho \bm{a}_{i}^{\Tran}(\bm{A}\bm{A}^{\Tran})^{-1}\bm{a}_{i}} \right) \bm{a}_{i} \nonumber\\
+& = (1+\rho) \left(\tau_{i}(\bm{A}) - \frac{\rho \tau_{i}(\bm{A})^{2}}{1+\rho \tau_{i}(\bm{A})} \right) \nonumber\\
+& = (1+\rho)\frac{\tau_{i}(\bm{A})}{1+\rho \tau_{i}(\bm{A})} \nonumber.
+\end{align}
+Now let $j \in [M]-\{i\}$. By definition of $\tau_{j}(\bm{A}\bm{W})$
+\begin{align}
+\tau_{j}(\bm{A}\bm{W}) & =  \bm{a}_{j}^{\Tran}(\bm{A}\bm{W}\bm{W}^{\Tran}\bm{A}^{\Tran})^{-1}\bm{a}_{j}\\
+& = \bm{a}_{j}^{\Tran} \left( (\bm{A}\bm{A}^{\Tran})^{-1} - \frac{(\bm{A}\bm{A}^{\Tran})^{-1}\rho \bm{a}_{i}\bm{a}_{i}^{\Tran} (\bm{A}\bm{A}^{\Tran})^{-1}}{1+ \rho \bm{a}_{i}^{\Tran}(\bm{A}\bm{A}^{\Tran})^{-1}\bm{a}_{i}} \right) \bm{a}_{j} \nonumber\\
+& =  \tau_{j}(\bm{A}) - \frac{\rho \tau_{i,j}(\bm{A})^{2}}{1+\rho \tau_{i}(\bm{A})} \nonumber\\
+& \leq \tau_{j}(\bm{A}) \nonumber.
+\end{align}
+\end{proof}
+
+
 \paragraph{Proof of Proposition~\ref{prop:graded_RKHS}}
 %
 %Now we give the proof of Proposition~\ref{prop:graded_RKHS}.
@@ -3943,9 +4087,9 @@ Let $g \in \mathbb{S}^{N-1}$, we have
 & = \sum\limits_{n_{1} \in [N]}\sum\limits_{n_{2} \in [N]} g_{n_{1}}g_{n_{2}} \sqrt{\sigma_{n_{1}}}\sqrt{\sigma_{n_{2}}} e_{n_{1}}^{\mathcal{F}}(\bm{x})^{\Tran}\bm{K}(\bm{x})^{-1}e_{n_{2}}^{\mathcal{F}}(\bm{x})\\
 & = \sum\limits_{n_{1} \in [N]}\sum\limits_{n_{2} \in [N]} g_{n_{1}}g_{n_{2}} \sqrt{\sigma_{n_{1}}}\sqrt{\sigma_{n_{2}}} \tau_{n_{1},n_{2}}^{\mathcal{F}}(\bm{x})\\
 \end{align}
-\begin{proposition}\label{prop:graded_RKHS}
+\begin{proposition}\label{prop:graded_RKHS_2}
 For $n \in [N]\smallsetminus\{1\}$, we have
-\begin{equation}\label{eq:graded_RKHS_inequality_1}
+\begin{equation}\label{eq:graded_RKHS_inequality_1_2}
 \forall g \in \mathbb{S}^{N-1}, \:\|\bm{\Pi}_{\tilde{\mathcal{T}}_{n-1}(\bm{x})^{\perp}} \tilde{\bm{\Sigma}}_{N,n-1}^{\frac{1}{2}} \sum\limits_{\ell \in [N]}g_{\ell} e_{\ell}^{\tilde{\mathcal{F}}_{n-1}}\|_{\tilde{\mathcal{F}}_{n-1}}^{2} \leq \|\bm{\Pi}_{\tilde{\mathcal{T}}_{n}(\bm{x})^{\perp}} \tilde{\bm{\Sigma}}_{N,n}^{\frac{1}{2}} \sum\limits_{\ell \in [N]}g_{\ell} e_{\ell}^{\tilde{\mathcal{F}}_{n}}\|_{\tilde{\mathcal{F}}_{n}}^{2}.
 \end{equation}
 \end{proposition}
