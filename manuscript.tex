@@ -2334,6 +2334,8 @@ The strength of this framework is its flexibility: the integration domain $\math
 where $\mathbb{L}_{2}(\mathrm{d}\omega)$ is the Hilbert space of square integrable, real-valued functions defined on $\mathcal{X}$, with the usual inner product denoted by $\langle \cdot, \cdot \rangle_{\mathrm{d}\omega}$, and the associated norm by $\|.\|_{\mathrm{d}\omega}$.
 
 As we shall see, the analysis of the integration error in~\eqref{eq:int_error} is convenient if $f$ belongs to an RKHS.
+
+\subsubsection{RKHS}
 An RKHS over $\mathcal{X}$ is a Hilbert space $\mathcal{F}$ that satisfies the following continuity property: for every $x \in \mathcal{X}$, the evaluation function $f \mapsto f(x)$ is continuous with respect to the norm of $\mathcal{F}$: 
 
 \begin{equation}
@@ -2370,7 +2372,49 @@ The requirement that can be embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$
 
 
 
+\subsubsection{The Mercer decomposition}
+\label{subsec:mercer}
+In this section we recall Mercer's theorem and its extensions to non-compact spaces. Let $\mathcal{X}$ be a measurable space and $\mathrm{d}\omega$ a measure on $\mathcal{X}$. Assume $k$ is a positive definite kernel on $\mathcal{X}$. Whenever it is well-defined, we consider the operator
+\begin{equation}
+\bm{\Sigma} f(x) = \int\limits_{\mathcal{X}} k(x,y)f(y) \mathrm{d}\omega(y).
+\end{equation}
+\begin{theorem}\label{thm:Mercer_for_compact}
+Assume that $\mathcal{X}$ is a compact space and $\mathrm{d}\omega$ is a finite Borel measure on $\mathcal{X}$.
+Then, there exists an orthonormal basis $(e_{n})_{n \in \mathbb{N}^{*}}$ of $\mathbb{L}_{2}(\mathrm{d}\omega)$ consisting of eigenfunctions of $\bm{\Sigma}$, and the corresponding eigenvalues are non-negative.
+The eigenfunctions corresponding to non-vanishing eigenvalues can be taken to be continuous, and the kernel $k$ writes
+\begin{equation}
+k(x,y) = \sum\limits_{n \in \mathbb{N}^{*}} \sigma_{n} e_{n}(x)e_{n}(y),
+\end{equation}
+where the convergence is absolute and uniform.
+\end{theorem}
+Theorem~\ref{thm:Mercer_for_compact} was first proven when $\mathcal{X} = [0,1]$ and $\mathrm{d}\omega$ is the Lebesgue measure in \cite{Mer1909}. A modern proof can be found in \cite{Lax02}, while the proof in the general case can be found in \cite{CuZh07}.  Note, however, that the compactness assumption in Theorem~\ref{thm:Mercer_for_compact} excludes kernels such as the Gaussian or the Laplace kernels.
+Hence, extensions to non-compact spaces are usually required in ML.
+In \cite{Sun05}, the author extended Theorem~\ref{thm:Mercer_for_compact} to $\mathcal{X} = \cup_{i \in \mathbb{N}} \mathcal{X}_{i}$, with the $\mathcal{X}_{i}$s compact and $\mathrm{d}\omega(\mathcal{X}_{i})<\infty$. One can also extend Mercer's theorem under a \textit{compact embedding} assumption \citep{StSc12}: the RKHS $\mathcal{F}$ associated to $k$ is said to be compactly embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$ if the application
+\begin{align*}
+  I_{\mathcal{F}}: \mathcal{F}&\longrightarrow \mathbb{L}_{2}(\mathrm{d}\omega) \\
+  f &\longmapsto f
+\end{align*}
+is compact.
+A sufficient condition for this assumption is the integrability of the diagonal (Lemma 2.3, \citep{StSc12}):
+\begin{equation}
+\int_{\mathcal{X}} k(x,x) \mathrm{d}\omega(x) < \infty.
+\end{equation}
+Note that this condition is not necessary (Example 2.9, \citep{StSc12}). Now, under the compact embedding assumption, the pointwise convergence of the Mercer decomposition to the kernel $k$ is equivalent to the injectivity of the embedding $I_{\mathcal{F}}$ (Theorem 3.1, \citep{StSc12}).
+% This condition is satisfied whenever $k$ is bounded and $\mathrm{d}\omega(\mathcal{X}) < \infty$.
+% \begin{theorem}[Theorem 3.1, \cite{StSc12}]
+% Let $\mathcal{X}$ be a measurable space and $\mathrm{d}\omega$ a measure on $\mathcal{X}$. Let $k$ be a measurable positive kernel on $\mathcal{X}$ with an RKHS $\mathcal{F}$. Assume that $\mathcal{F}$ is compactly embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$. Define the integral operator $\bm{\Sigma}$:
+% \begin{equation}
+% \bm{\Sigma} f(x) = \int\limits_{\mathcal{X}} k(x,y)f(y) \mathrm{d}\omega(y).
+% \end{equation}
+% Then, there exists an orthonormal basis $(e_{n})_{n \in \mathbb{N}}$ of $\mathbb{L}_{2}(\mathrm{d}\omega)$ consisting of eigenfunctions of $\bm{\Sigma}$ and the corresponding eigenvalues are non negatives. The eigenfunctions corresponding to non-vanishing eigenvalues can be taken as continuous functions and the kernel $k$ writes
+% \begin{equation}
+% k(x,y) = \sum\limits_{n \in \mathbb{N}} \sigma_{n} e_{n}(x)e_{n}(y),
+% \end{equation}
+% where the convergence is absolute and uniform.
+% \end{theorem}
+% % \subsection{The results}
 
+\subsubsection{The integration error}
 
 When the integrand $f$ belongs to the RKHS $\mathcal{F}$ of kernel $k$ \citep{CrSh04}, the quadrature error reads \citep{SmGrSoSc07}
 \begin{align}
@@ -2407,35 +2451,43 @@ The generalization of \eqref{eq:wce_qmc_2} can be easily derived using propertie
 \begin{align}
 \|\mu_{g} - \sum\limits_{n \in [N]}w_{n} k(x_{n},.) \|_{\mathcal{F}}^{2} & = \|\mu_{g}\|_{\mathcal{F}}^{2} - 2 \langle \mu_{g}, \sum\limits_{n \in [N]}w_{n} k(x_{n},.)  \rangle_{\mathcal{F}} + \|\sum\limits_{n \in [N]}w_{n} k(x_{n},.)\|_{\mathcal{F}}^{2}\\
 & = \|\mu_{g}\|_{\mathcal{F}}^{2} - 2 \sum\limits_{n \in [N]} w_{n} \mu_{g}(x_{n}) + \sum\limits_{n,n'=1}^{N}w_{n}k(x_{n},x_{n'})w_{n'}\\
-& = \|\mu_{g}\|_{\mathcal{F}}^{2} - 2 \bm{w}^{\Tran} \mu_{g}(\bm{x}) + \bm{w}^{\Tran} \bm{K}(\bm{x})\bm{w},
+& \label{eq:wce_kq}= \|\mu_{g}\|_{\mathcal{F}}^{2} - 2 \bm{w}^{\Tran} \mu_{g}(\bm{x}) + \bm{w}^{\Tran} \bm{K}(\bm{x})\bm{w},
 \end{align}
 
 where $\bm{K}(\bm{x}) = (k(x_{n},x_{n'}))_{(n,n') \in [N] \times [N]} \in \mathbb{R}^{N \times N}$ and $\mu_{g}(\bm{x}) = (\mu_{g}(x_{n}))_{n \in [N]} \in \mathbb{R}^{N}$.
 
 
-In order to prove that \eqref{eq:wce_qmc_2} is a consequence of \eqref{eq:wce_qmc}, it is sufficient to observe that
+In order to prove that \eqref{eq:wce_qmc_2} is a consequence of \eqref{eq:wce_kq}, when $\mathcal{X} = [0,1]^{d}$ and $w_{n}=1/N$ and $g=1$ and $\mathrm{d}\omega$ is the uniform measure on $\X$, it is sufficient to observe that
 
 \begin{align}
-\|\mu_{g}\|_{\mathcal{F}}^{2} & = 
-\|\bm{\Sigma} g\|_{\mathcal{F}}^{2}\\
-& = \langle g, \bm{\Sigma} g \rangle_{\mathrm{d}\omega}
+\|\mu_{g}\|_{\mathcal{F}}^{2} & = \langle \bm{\Sigma} g,\bm{\Sigma} g \rangle_{\mathcal{F}}\\
+& = \langle g, \bm{\Sigma} g \rangle_{\mathrm{d}\omega}\\
+& = \int_{\mathcal{X}} g(x) \int_{\mathcal{X}} k(x,y) g(y)\mathrm{d}\omega(y) \mathrm{d}\omega(x)\\
+& = \int_{\mathcal{X}} \int_{\mathcal{X}} k(x,y) g(x) g(y)\mathrm{d}\omega(y) \mathrm{d}\omega(x),
 \end{align}
 
+and that
+
+\begin{equation}
+\bm{w}^{\Tran} \mu_{g}(\bm{x}) = \sum\limits_{n \in [N]} w_{n}\mu_{g}(x_{n}) = \sum\limits_{n \in [N]} w_{n}\int_{\mathcal{X}}g(y)k(x_{n},y) \mathrm{d}\omega(y).
+\end{equation}
+
+
+In other words, the Quasi-Monte Carlo quadrature rules fit within the kernel framework of quadratures. This instantiation will become clearer when we review the kernels widely used in the literature.
 
 
 
-We can see that  is an instantiation of~\eqref{eq:wce_qmc} by taking .
+% A tight approximation of the mean element by a linear combination of functions $k(x_{j},.)$ thus guarantees low quadrature error.
+\subsubsection{Examples of typical kernels}
 
-By considering the kernel $k_{QMC}$ defined by
+\paragraph{Periodic Sobolev spaces and Korobov spaces}
+
 
 \begin{equation}
 k_{QMC}(\bm{x},\bm{y}) = \prod\limits_{\delta \in [d]} (2-\min(x_{\delta},y_{\delta})).
 \end{equation}
 
-A tight approximation of the mean element by a linear combination of functions $k(x_{j},.)$ thus guarantees low quadrature error.
-\subsubsection{Examples of typical kernels}
 
-\paragraph{Periodic Sobolev spaces and Korobov spaces}
 Let $\mathrm{d}\omega$ be the uniform measure on $\mathcal{X} = [0,1]$, and let the RKHS kernel be \citep{BeTh11}
 \begin{equation}
 k_{s}(x,y) = 1+ 2\sum\limits_{m \in \mathbb{N}^{*}} \frac{1}{m^{2s}} \cos(2\pi m(x-y)).
@@ -2546,47 +2598,6 @@ Let $\delta \in ]0,1]$. Assume that $N \geq 5 d_\lambda \log(16 d_\lambda / \del
 Now, for fixed $\lambda$, the approximation error in Proposition~\ref{p:bach} does not go to zero when $N$ increases. One theoretical  workaround is to make $\lambda=\lambda(N)$ decrease with $N$. However, the coupling of $N$ and $\lambda$ through $d_\lambda$ makes it very intricate to derive a convergence rate from Proposition~\ref{p:bach}.
 Moreover, the optimal density $q_{\lambda}^*$ is in general only available as the limit \eqref{e:proposalBach}, which makes sampling and evaluation difficult. 
 
-\subsection{The Mercer decomposition}
-\label{subsec:mercer}
-In this section we recall Mercer's theorem and its extensions to non-compact spaces. Let $\mathcal{X}$ be a measurable space and $\mathrm{d}\omega$ a measure on $\mathcal{X}$. Assume $k$ is a positive definite kernel on $\mathcal{X}$. Whenever it is well-defined, we consider the operator
-\begin{equation}
-\bm{\Sigma} f(x) = \int\limits_{\mathcal{X}} k(x,y)f(y) \mathrm{d}\omega(y).
-\end{equation}
-\begin{theorem}\label{thm:Mercer_for_compact}
-Assume that $\mathcal{X}$ is a compact space and $\mathrm{d}\omega$ is a finite Borel measure on $\mathcal{X}$.
-Then, there exists an orthonormal basis $(e_{n})_{n \in \mathbb{N}^{*}}$ of $\mathbb{L}_{2}(\mathrm{d}\omega)$ consisting of eigenfunctions of $\bm{\Sigma}$, and the corresponding eigenvalues are non-negative.
-The eigenfunctions corresponding to non-vanishing eigenvalues can be taken to be continuous, and the kernel $k$ writes
-\begin{equation}
-k(x,y) = \sum\limits_{n \in \mathbb{N}^{*}} \sigma_{n} e_{n}(x)e_{n}(y),
-\end{equation}
-where the convergence is absolute and uniform.
-\end{theorem}
-Theorem~\ref{thm:Mercer_for_compact} was first proven when $\mathcal{X} = [0,1]$ and $\mathrm{d}\omega$ is the Lebesgue measure in \cite{Mer1909}. A modern proof can be found in \cite{Lax02}, while the proof in the general case can be found in \cite{CuZh07}.  Note, however, that the compactness assumption in Theorem~\ref{thm:Mercer_for_compact} excludes kernels such as the Gaussian or the Laplace kernels.
-Hence, extensions to non-compact spaces are usually required in ML.
-In \cite{Sun05}, the author extended Theorem~\ref{thm:Mercer_for_compact} to $\mathcal{X} = \cup_{i \in \mathbb{N}} \mathcal{X}_{i}$, with the $\mathcal{X}_{i}$s compact and $\mathrm{d}\omega(\mathcal{X}_{i})<\infty$. One can also extend Mercer's theorem under a \textit{compact embedding} assumption \citep{StSc12}: the RKHS $\mathcal{F}$ associated to $k$ is said to be compactly embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$ if the application
-\begin{align*}
-  I_{\mathcal{F}}: \mathcal{F}&\longrightarrow \mathbb{L}_{2}(\mathrm{d}\omega) \\
-  f &\longmapsto f
-\end{align*}
-is compact.
-A sufficient condition for this assumption is the integrability of the diagonal (Lemma 2.3, \citep{StSc12}):
-\begin{equation}
-\int_{\mathcal{X}} k(x,x) \mathrm{d}\omega(x) < \infty.
-\end{equation}
-Note that this condition is not necessary (Example 2.9, \citep{StSc12}). Now, under the compact embedding assumption, the pointwise convergence of the Mercer decomposition to the kernel $k$ is equivalent to the injectivity of the embedding $I_{\mathcal{F}}$ (Theorem 3.1, \citep{StSc12}).
-% This condition is satisfied whenever $k$ is bounded and $\mathrm{d}\omega(\mathcal{X}) < \infty$.
-% \begin{theorem}[Theorem 3.1, \cite{StSc12}]
-% Let $\mathcal{X}$ be a measurable space and $\mathrm{d}\omega$ a measure on $\mathcal{X}$. Let $k$ be a measurable positive kernel on $\mathcal{X}$ with an RKHS $\mathcal{F}$. Assume that $\mathcal{F}$ is compactly embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$. Define the integral operator $\bm{\Sigma}$:
-% \begin{equation}
-% \bm{\Sigma} f(x) = \int\limits_{\mathcal{X}} k(x,y)f(y) \mathrm{d}\omega(y).
-% \end{equation}
-% Then, there exists an orthonormal basis $(e_{n})_{n \in \mathbb{N}}$ of $\mathbb{L}_{2}(\mathrm{d}\omega)$ consisting of eigenfunctions of $\bm{\Sigma}$ and the corresponding eigenvalues are non negatives. The eigenfunctions corresponding to non-vanishing eigenvalues can be taken as continuous functions and the kernel $k$ writes
-% \begin{equation}
-% k(x,y) = \sum\limits_{n \in \mathbb{N}} \sigma_{n} e_{n}(x)e_{n}(y),
-% \end{equation}
-% where the convergence is absolute and uniform.
-% \end{theorem}
-% % \subsection{The results}
 
 \subsection{Projection DPP for kernel quadrature}
 % \subsubsection{The proposed algorithm}
