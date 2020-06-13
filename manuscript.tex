@@ -1884,11 +1884,11 @@ We start by a brief review on quadratures on the real line.
 \paragraph{Newton-Cotes quadrature}
 The approximation of the integral of a function $f$ on some interval $[a,b]$ using some evaluations of $f$ can be tracked to the work of Newton. The idea of the eponymous quadrature is to consider a set of nodes $\bm{x} = \{x_{1}, \dots , x_{N} \} \subset \X^{N}$, and the corresponding interpolating polynomial of degree $N-1$:
 \begin{equation}
-p_{N-1}(X) = \sum\limits_{n \in [N]} f(x_{n}) \ell_{n,\bm{x}}(X),
+p_{N-1}(t) = \sum\limits_{n \in [N]} f(x_{n}) \ell_{n,\bm{x}}(t),
 \end{equation}
 where $\ell_{n,\bm{x}}$ is defined by
 \begin{equation}
-\ell_{n,\bm{x}}(X) = \frac{\prod\limits_{m \in [N], m \neq n }(X-x_{m})}{\prod\limits_{m \in [N], m \neq n }(x_{n}-x_{m})}.
+\ell_{n,\bm{x}}(t) = \frac{\prod\limits_{m \in [N], m \neq n }(t-x_{m})}{\prod\limits_{m \in [N], m \neq n }(x_{n}-x_{m})}.
 \end{equation}
 The idea of Newton was to consider the approximation
 \begin{align}\label{eq:Newton_approx}
@@ -1937,13 +1937,9 @@ The notion of orthogonality between polynomials was pushed further by considerin
 
 
 \subsubsection{Quasi-Monte Carlo methods}
-The weights of a Quasi Monte Carlo quadrature are uniform $\displaystyle w_{i} = \frac{1}{N}$, while the nodes, defined on $\mathcal{X} = [0,1]^{D}$, are deterministic, and "well-spread", such that the quadrature error is small for a certain class of functions. 
-\clearpage
 
+As we have seen previously, several quadrature rules are known for functions defined on the real line. The situation is far more complicated for integration problems in high-dimension. For instance, the uniform grid in the hypercube $[0,1]^{d}$ suffers from the "curse of the dimension": in an informal way, the rate of convergence are typically $\mathcal{O}(N^{-s/d})$ where $s$ is a regularity parameter; so that the required number of nodes necessary to get an integration error lower than some level $\epsilon$ scales as $\epsilon^{1/d}$. This poor scalibility with respect to the dimension $d$ motivated the emergence of a new class of quadratures called quasi-Monte Carlo rules: they are based on "well-spread" low discrepancy sequences and their weights are uniform $\displaystyle w_{n} = \frac{1}{N}$.
 
-
-
-As we have seen previously, several quadrature rules are known for functions defined on the real line. The situation is far more complicated for integration problems in high-dimension. For instance, the uniform grid suffers from the "curse of the dimension". To precise the meaning of the curse in this context, we review some notions on low discrepancy sequences also known as quasi-Monte Carlo methods.
 
 
  
@@ -1961,13 +1957,13 @@ As we have seen previously, several quadrature rules are known for functions def
 
 
 
-  For example, in $\mathcal{X} = [0,1]^{d}$, a typical choice of $\mathcal{S}$ is the set of the Cartesian products $[\bm{0},\bm{u}] = \prod_{\delta \in [d]}[0,u_{\delta}]$ with $\bm{u} \in \mathcal{X}$. In this case, the local discrepancy is defined for all $\bm{u} \in \X$ by 
+  For example, in $\mathcal{X} = [0,1]^{d}$, a typical choice of $\mathcal{S}$ is the set of the Cartesian products $[\bm{0},\bm{u}] = \prod\limits_{\delta \in [d]}[0,u_{\delta}]$ with $\bm{u} \in \mathcal{X}$. In this case, the local discrepancy is defined for all $\bm{u} \in \X$ by 
 \begin{equation}\label{def:discrepancy}
-\Delta_{\bm{x}}(\bm{u}) = \frac{1}{N}\sum\limits_{n \in [N]} \mathbb{1}_{[\bm{0},\bm{u}]}(x_{n}) - \prod\limits_{\delta \in [d]}u_{\delta}.
+\mathcal{D}_{\bm{x}}(\bm{u}) = \frac{1}{N}\sum\limits_{n \in [N]} \mathbb{1}_{[\bm{0},\bm{u}]}(x_{n}) - \prod\limits_{\delta \in [d]}u_{\delta}.
 \end{equation}  
-The term $\displaystyle \frac{1}{N}\sum\limits_{n \in [N]} \mathbb{1}_{[\bm{0},\bm{u}]}(x_{n})$ in \eqref{def:discrepancy} counts the number of the nodes $x_{n}$ that falls into $[\bm{0},\bm{u}]$ divided by the total number $N$; while the second term $\displaystyle  \prod\limits_{\delta \in [d]}u_{\delta}$ measures the volume of $[\bm{0},\bm{u}]$: $\Delta_{\bm{x}}$ measures the difference between the relative number of points that belongs to the interval $[0,\bm{u}]$ and its volume. A design of nodes $\bm{x}$ would be "well-spread" if the discrepancy function $\Delta_{\bm{x}}$ is low in $\X$. A way to quantify this "spreadness" is by taking the $\|.\|_{p}$ norm of the local discrepancy function on $\X$. Indeed, for $p \in [1,\infty]$, $\Delta_{\bm{x}} \in \mathbb{L}_{p}(\mathbb{R}^{d})$ because $[0,1]^{d}$ is a compact set of $\mathbb{R}^{d}$; and the $\mathbb{L}_{p}$-discrepancy of $\bm{x}$ is defined by 
+The term $\displaystyle \frac{1}{N}\sum\limits_{n \in [N]} \mathbb{1}_{[\bm{0},\bm{u}]}(x_{n})$ in \eqref{def:discrepancy} counts the number of the nodes $x_{n}$ that falls into $[\bm{0},\bm{u}]$ divided by the total number $N$; while the second term $\displaystyle  \prod\limits_{\delta \in [d]}u_{\delta}$ measures the volume of $[\bm{0},\bm{u}]$: $\mathcal{D}_{\bm{x}}$ measures the difference between the relative number of points that belongs to the interval $[0,\bm{u}]$ and its volume. A design of nodes $\bm{x}$ would be "well-spread" if the discrepancy function $\mathcal{D}_{\bm{x}}$ takes small values on $\X$. Therefore, a way to quantify the "spreadness" of $\bm{x}$ is to take an $\|.\|_{p}$ norm of $\mathcal{D}_{\bm{x}}$. Indeed, for $p \in [1,\infty]$, $\mathcal{D}_{\bm{x}} \in \mathbb{L}_{p}(\mathbb{R}^{d})$ because $\X = [0,1]^{d}$ is a compact set of $\mathbb{R}^{d}$; and the $\mathbb{L}_{p}$-discrepancy of $\bm{x}$ is defined by 
 \begin{equation}
-\Delta_{p}(\bm{x}) = \bigg(\int_{[0,1]^{d}}\Delta_{\bm{x}}(\bm{u})^{p} \mathrm{d}\bm{u}\bigg)^{1/p}.
+\Delta_{p}(\bm{x}) = \bigg(\int_{[0,1]^{d}}\mathcal{D}_{\bm{x}}(\bm{u})^{p} \mathrm{d}\bm{u}\bigg)^{1/p}.
 \end{equation}
 In particular, the $\|.\|_{\infty}$ norm of the local discrepancy is called the \emph{star-discrepancy} and it is denoted $\Delta_{*}(\bm{x})$.
 
@@ -1983,11 +1979,12 @@ and the local spherical discrepancy is defined by
 \end{equation}
 % where $t \in [-1,1]$ and $\bm{u} \in \mathbb{S}^{d-1}$ 
 \paragraph{Koksma-Hlawka inequalities}
-The discrepancy functions for a design $\bm{x}$ play an important role in the quantification of the integration error based on $\bm{x}$. Indeed, consider the quadrature:
-\begin{equation}
-\frac{1}{N} \sum\limits_{n \in [N]}  f(x_{n}),
-\end{equation}
-as an approximation of $\displaystyle \int_{[0,1]^{d}} f(\bm{u}) \mathrm{d}\bm{u}$. The relationship between the discrepancy functions and the integration error clear up considering the Koksma-Hlawka inequalities.
+The importance of the discrepancy functions on bounding the integration error clears up considering the Koksma-Hlawka inequalities.
+% The discrepancy functions for a design $\bm{x}$ play an important role in the quantification of the integration error based on $\bm{x}$. Indeed, consider the quadrature:
+% \begin{equation}
+% \frac{1}{N} \sum\limits_{n \in [N]}  f(x_{n}),
+% \end{equation}
+% as an approximation of $\displaystyle \int_{[0,1]^{d}} f(\bm{u}) \mathrm{d}\bm{u}$. 
 
 \begin{theorem}\label{thm:KH_ineq}
 Let $p,q \in [1,+\infty]$, such that $1/p+1/q = 1$. Consider $f \in \mathbb{L}_{q}([0,1]^{d})$. Then 
@@ -1995,11 +1992,11 @@ Let $p,q \in [1,+\infty]$, such that $1/p+1/q = 1$. Consider $f \in \mathbb{L}_{
 \bigg| \int_{[0,1]^{d}} f(\bm{u}) \mathrm{d}\bm{u} - \frac{1}{N} \sum\limits_{n \in [N]}  f(x_{n})\bigg| \leq \Delta_{p}(\bm{x}) \|\frac{\partial^{d} f}{\partial \bm{u}}\|_{q}.
 \end{equation}
 \end{theorem}
-The Koksma-Hlawka inequalities gives a decoupled upper bound on the integration error: the $\mathbb{L}_{p}([0,1]^{d})$ discrepancy of the design $\bm{x}$ does not depend on $f$ and the $q$ variation of the function $f$ does not depend on the design $\bm{x}$. This decoupling allows to focus only on the discrepancy of the design. 
+The Koksma-Hlawka inequalities gives a decoupled upper bound for the integration error: the $\mathbb{L}_{p}$-discrepancy of the design $\bm{x}$ does not depend on $f$ and the $q$ variation of the function $f$ does not depend on the design $\bm{x}$. This decoupling allows to focus only on the discrepancy of the design when the function $f$ is sufficiently regular.
 
 Koksma proved these inequalities for $d=1$, latter Hlawka generalised it to arbitrary dimension $d \geq 1$. Note that, initially, these inequalities were proven with the total variation in the sense of Hardy-Krause. Under some conditions ????, the total variation in the sense of Hardy-Krause coincide with $\|\frac{\partial^{d} f}{\partial \bm{u}}\|_{q}$ ??? 
 
-In [Warnock72], the author derived a tractable formula for the $\mathbb{L}_{2}$-discrepancy:
+In \citep{War72}, the author derived a tractable formula for the $\mathbb{L}_{2}$-discrepancy:
 
 \begin{equation}
 \Delta_{2}(\bm{x})^{2} = \frac{1}{3^{d}} - \frac{2}{N} \sum\limits_{n = 1}^{N} \prod\limits_{\delta=1}^{d} \frac{1-x_{n,i}^{2}}{2} + \frac{1}{N^2} \sum\limits_{n=1,n'=1}^{N} \prod\limits_{\delta=1}^{d} \min(1-x_{n,\delta},1-x_{n',\delta}).
@@ -2007,9 +2004,9 @@ In [Warnock72], the author derived a tractable formula for the $\mathbb{L}_{2}$-
 
 We shall give an interpretation of this formula in the context of kernel quadrature. For the moment, it is enough to observe that the minimal value of $\displaystyle  \Delta_{2}(\bm{x})^{2}$ is $\displaystyle \frac{1}{3^{d}}$ achieved when the design $\bm{x}$ is empty.
 
-This situation is to compared to the star discrepancy for witch no tractable formula is known: the computation of the star discrepancy is an NP-hard problem [Gnewuch, Srivastav and Winzen].
+This situation is to be compared to the star discrepancy for witch no tractable formula is known: the computation of the star discrepancy is an NP-hard problem \citep{GnSrWi09}.
 
-From a distance, a regular lattice is "well-spread" in the hypercube $[0,1]$ and would be a good choice for the design $\bm{x}$. Unfortunately, this is a false-intuition regarding the following proposition. 
+From a distance, a regular lattice is "well-spread" in the hypercube $[0,1]^{d}$ and would be a good choice for the design $\bm{x}$. Unfortunately, this is a false-intuition regarding the following proposition. 
 
 \begin{proposition}
 Let $n = \nu^{d}$ where $\nu \in \mathbb{N}^{*}$, and define the regular lattice $\bm{x} \in \mathbb{R^{d}}^{n}$ by 
@@ -2180,42 +2177,40 @@ converges to $\displaystyle \mathcal{N}(0,\frac{2}{N}\sum\limits_{n \in \mathbb{
 
 \paragraph{CLT using Orthogonal Polynomial Ensembles}
 
-In \citep{BaHa16}, the authors proved the first CLT for a quadrature based on determinantal point process nodes in a high-dimensional setting. This work deals with quadratures defined on the integration domain $[-1,1]^{d}$ for the approximation of integrals that write
+In \citep{BaHa16}, the authors proved the first CLT for a quadrature based on nodes that follow the distribution of a determinantal point process for functions defined on high dimension domains. In particular, this work dealed with quadratures defined on the integration domain $[-1,1]^{d}$ for the approximation of integrals that write
 \begin{equation}
-\int_{[-1,1]^{d}} f(\bm{u}) \mathrm{d}\omega(\bm{u}),
+\int_{[-1,1]^{d}} f(x) \mathrm{d}\omega(x),
 \end{equation}
-where $\mathrm{d}\omega$ is a measure that can be factorized as
+for a measure $\mathrm{d}\omega$ that  factorized as
 \begin{equation}
-\mathrm{d}\omega(\bm{u}) = \prod\limits_{\delta \in [d]} \mathrm{d}\omega_{\delta}(\bm{u_{\delta}}),
+\mathrm{d}\omega(x) = \prod\limits_{\delta \in [d]} \mathrm{d}\omega_{\delta}(x_{\delta}),
 \end{equation}
-where the measures $\mathrm{d}\omega_{\delta}$, defined on $[-1,1]$, satisfy some regularity conditions that we precise in the following.
-
-Let $\mathrm{d}\omega$ a measure on the real line supported on $[-1,1]$. Denote by $(a_{m})_{m \in \mathbb{N}}$ and $(b_{m})_{m \in \mathbb{N}}$ the sequences of coefficients appearing in the three-term recurrence relation:
-\begin{equation}
-x P_{m}(x) = a_{m}P_{m+1}(x) + b_{m}P_{m}(x) + a_{m-1}P_{m-1}(x),
-\end{equation}
-associated to the sequence of orthogonal polynomials $(P_{m})_{m \in \mathbb{N}}$ with respect to $\mathrm{d}\omega$.
+where the measures $\mathrm{d}\omega_{\delta}$, defined on $[-1,1]$, belong to what is called \emph{Nevai class}. We recall the definition of this class of measures in the following.
 
 \begin{definition}
 
 
+Let $\mathrm{d}\tilde{\omega}$ a measure on the real line supported on $[-1,1]$. Denote by $(a_{m})_{m \in \mathbb{N}}$ and $(b_{m})_{m \in \mathbb{N}}$ the sequences of coefficients appearing in the three-term recurrence relation:
+\begin{equation}
+t P_{m}(t) = a_{m}P_{m+1}(t) + b_{m}P_{m}(t) + a_{m-1}P_{m-1}(t),
+\end{equation}
+associated to the sequence of orthogonal polynomials $(P_{m})_{m \in \mathbb{N}}$ with respect to $\mathrm{d}\tilde{\omega}$.
 
-
-The measure $\mathrm{d}\omega$ is said to be of Nevai class if and only if
+The measure $\mathrm{d}\tilde{\omega}$ is said to be of Nevai class if and only if
 \begin{equation}
 \lim\limits_{m \rightarrow +\infty} a_{m} = 1/2, \:\:\: \lim\limits_{m \rightarrow +\infty} b_{m} = 0.
 \end{equation}
 \end{definition}
-The extreme case when 
+The particular case when 
 \begin{equation}
 \forall m \in \mathbb{N}, \:\: a_{m} = \frac{1}{2}, \:\: b_{m} =0,
 \end{equation}
-corresponds to the Chebyshev orthogonal polynomials of the first kind; and the corresponding measure $\mathrm{d}\omega$ admits a density $\omega$ with respect to the Lebesgue measure:
+corresponds to the Chebyshev orthogonal polynomials of the first kind; and the corresponding measure $\mathrm{d}\tilde{\omega}^{*}$ admits a density $\tilde{\omega}^{*}$ with respect to the Lebesgue measure:
 \begin{equation}
-\omega(x) = \frac{1}{\sqrt{1-x^{2}}}.
+\tilde{\omega}^{*}(x) = \frac{1}{\sqrt{1-x^{2}}}.
 \end{equation}
 
-In other words, the measures belonging to the Nevai class have three terms coefficients that converges to the corresponding coefficients of the measure $\mathrm{d}\omega$.
+In other words, the Nevai class contains measures that have three terms coefficients converging to the corresponding coefficients of $\mathrm{d}\tilde{\omega}^{*}$.
 
 A sufficient condition for a measure to be Nevai class is given in the following result.
 \begin{theorem}
@@ -2324,6 +2319,7 @@ Let $\bm{x}$ and $f$ as in Proposition~\ref{prop:dirichlet_estimator}. Assume th
 \end{theorem}
 \subsection{The kernel framework for quadratures}
 
+
 The analysis of quadratures using kernel methods is convenient and elegant at the same time and it is expressed using functional analysis tools similarly to DPPs. Added to that, many results in quasi-Monte Carlo theory have an interpretation within the kernel quadrature framework. 
 
 The strength of this framework is its flexibility: the integration domain $\mathcal{X}$ is assumed to be a metric space endowed with a Borel measure $\mathrm{d}\omega$, and we consider approximating an integral $\displaystyle \int_{\X} f(x)g(x)\mathrm{d}\omega(x)$, where $f,g \in \mathbb{L}_{2}(\mathrm{d}\omega)$ and $f$  is continuous, using a quadrature rule $(\bm{x}, \bm{w}) \in \X^{N} \times \mathbb{R}^{N}$:
@@ -2333,25 +2329,30 @@ The strength of this framework is its flexibility: the integration domain $\math
 
 where $\mathbb{L}_{2}(\mathrm{d}\omega)$ is the Hilbert space of square integrable, real-valued functions defined on $\mathcal{X}$, with the usual inner product denoted by $\langle \cdot, \cdot \rangle_{\mathrm{d}\omega}$, and the associated norm by $\|.\|_{\mathrm{d}\omega}$.
 
-As we shall see, the analysis of the integration error in~\eqref{eq:int_error} is convenient if $f$ belongs to an RKHS.
+As we shall see, the analysis of the integration error in~\eqref{eq:int_error} is convenient if $f$ belongs to a Reproducing Kernel Hilbert Space (RKHS).
 
-\subsubsection{RKHS}
-An RKHS over $\mathcal{X}$ is a Hilbert space $\mathcal{F}$ that satisfies the following continuity property: for every $x \in \mathcal{X}$, the evaluation function $f \mapsto f(x)$ is continuous with respect to the norm of $\mathcal{F}$: 
+In the following sections, we recall the essential notions on kernel methods needed for the analysis of the integration error of a function that belongs to an RKHS, along with a review of the existing nodes design paradigms. In Section~\ref{subsec:rkhs}, we recall the definition of RKHSs and the interpretations of the required conditions we assume; in Section~\ref{subsec:mercer}, we recall the Mercer theorem- required to outline the main results of this chapter- and its various extensions to non-compact domains; in Section~\ref{subsec:int_error}, we recall a classic upper bound of the integration error via the definition of the worst integration error on an RKHS; in Section~\ref{subsec:kernel_examples}, we give some examples of kernels widely used in the literature of kernel quadrature; in Section~\ref{subsec:bayesian_quadrature}, we recall the link between kernel quadrature and Gaussian processes approximations along with Bayesian quadrature; in Section~\ref{subsec:okq_analysis_paradigm} and Section~\ref{subsec:okq_algebraic_paradigm}, we review the two paradigms of nodes design for kernel quadratures.
+\subsubsection{Reproducing Kernel Hilbert Spaces}\label{subsec:rkhs}
+
+We start by the definition of a kernel over $\mathcal{X}$. A function $k: \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}_{+}$ is said to be a kernel over $\mathcal{X}$ if $k$ is symmetric and for any finite set of points in $\mathcal{X}$, the matrix of pairwise kernel evaluations is positive semi-definite.
+
+An RKHS over $\mathcal{X}$ is a Hilbert space $\mathcal{F}$ endowed with a kernel $k$ that satisfies the following two properties:
+\begin{itemize}
+\item the continuity property: for every $x \in \mathcal{X}$, the evaluation function $f \mapsto f(x)$ is continuous with respect to the norm of $\mathcal{F}$ 
 
 \begin{equation}
-\forall x \in \mathcal{X}, \: \exists M_{x} >0 , \: \forall f \in \mathcal{F}, \: |f(x)| \leq M_{x} \|f\|_{\mathcal{F}}.
+\forall x \in \mathcal{X}, \: \exists M_{x} >0 , \: \forall f \in \mathcal{F}, \: |f(x)| \leq M_{x} \|f\|_{\mathcal{F}},\nonumber
+\end{equation} 
+\item the reproducibility property:\begin{equation}
+\forall (x,f) \in \mathcal{X}\times\mathcal{F}, \: f(x) = \langle f, k(x,.) \rangle_{\mathcal{F}}. \nonumber
 \end{equation}
-
-This guarantees [??]that for every $x \in \mathcal{X}$ there exists an element $k_{x} \in \mathcal{F}$ such that
-\begin{equation}
-\forall f \in \mathcal{F}, \: f(x) = \langle f, k_{x} \rangle_{\mathcal{F}}.
-\end{equation}
-
-...
+\end{itemize}
+ 
+Usually the kernel $k$ is assumed to be continuous with respect to the induced topology of $\mathcal{X} \times \mathcal{X}$. We assume that this condition is satisfied in the following. We discuss later, a case where it is not verified.
 The requirement that can be embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$
 
 
- To see this, let $k : \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}_{+}$ be a symmetric and continuous function such that, for any finite set of points in $\mathcal{X}$, the matrix of pairwise kernel evaluations is positive semi-definite. Denote by $\mathcal{F}$ the associated reproducing kernel Hilbert space (RKHS) of real-valued functions \cite{BeTh11}. We assume that $x \mapsto k(x,x)$ is integrable with respect to the measure $\mathrm{d}\omega$ so that $\mathcal{F} \subset \mathbb{L}_{2}(\mathrm{d}\omega)$.
+ To see this, let  Denote by $\mathcal{F}$ the associated reproducing kernel Hilbert space (RKHS) of real-valued functions \cite{BeTh11}. We assume that $x \mapsto k(x,x)$ is integrable with respect to the measure $\mathrm{d}\omega$ so that $\mathcal{F} \subset \mathbb{L}_{2}(\mathrm{d}\omega)$.
 
 
 
@@ -2365,7 +2366,7 @@ The requirement that can be embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$
 %$$\mathcal{F} = \overline{\Span \bigg( k(x,.),\: x \in \mathcal{X} \bigg)}$$
 \begin{figure}[]
     \centering
-\includegraphics[width= 0.45\textwidth]{img/Sobolev/Bernoulli_kernels_same_node_s_1_5.pdf}
+\includegraphics[width= 0.75\textwidth]{img/Sobolev/Bernoulli_kernels_same_node_s_1_5.pdf}
 \caption{The evaluation of the kernel $k_{s}$ for $s \in \{1,2,3,4,5\}$.
 \label{fig:periodic_sobolev_kernel}}
 \end{figure}
@@ -2374,7 +2375,11 @@ The requirement that can be embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$
 
 \subsubsection{The Mercer decomposition}
 \label{subsec:mercer}
-In this section we recall Mercer's theorem and its extensions to non-compact spaces. Let $\mathcal{X}$ be a measurable space and $\mathrm{d}\omega$ a measure on $\mathcal{X}$. Assume $k$ is a positive definite kernel on $\mathcal{X}$. Whenever it is well-defined, we consider the operator
+The Mercer Theorem was first proven when $\mathcal{X} = [0,1]$ and $\mathrm{d}\omega$ is the Lebesgue measure in \cite{Mer1909}.
+A modern proof of this classic result can be found in \cite{Lax02}. An extension to a general compact space $\mathcal{X}$ can be  found in \cite{CuZh07}. To state this classic result, we consider the integration operator
+% In this section we recall Mercer's theorem and its extensions to non-compact spaces. Let $\mathcal{X}$ be a measurable space and $\mathrm{d}\omega$ a measure on $\mathcal{X}$. 
+
+% Assume $k$ is a positive definite kernel on $\mathcal{X}$. Whenever it is well-defined, we consider the operator
 \begin{equation}
 \bm{\Sigma} f(x) = \int\limits_{\mathcal{X}} k(x,y)f(y) \mathrm{d}\omega(y).
 \end{equation}
@@ -2387,7 +2392,7 @@ k(x,y) = \sum\limits_{n \in \mathbb{N}^{*}} \sigma_{n} e_{n}(x)e_{n}(y),
 \end{equation}
 where the convergence is absolute and uniform.
 \end{theorem}
-Theorem~\ref{thm:Mercer_for_compact} was first proven when $\mathcal{X} = [0,1]$ and $\mathrm{d}\omega$ is the Lebesgue measure in \cite{Mer1909}. A modern proof can be found in \cite{Lax02}, while the proof in the general case can be found in \cite{CuZh07}.  Note, however, that the compactness assumption in Theorem~\ref{thm:Mercer_for_compact} excludes kernels such as the Gaussian or the Laplace kernels.
+   Note, however, that the compactness assumption in Theorem~\ref{thm:Mercer_for_compact} excludes kernels such as the Gaussian or the Laplace kernels.
 Hence, extensions to non-compact spaces are usually required in ML.
 In \cite{Sun05}, the author extended Theorem~\ref{thm:Mercer_for_compact} to $\mathcal{X} = \cup_{i \in \mathbb{N}} \mathcal{X}_{i}$, with the $\mathcal{X}_{i}$s compact and $\mathrm{d}\omega(\mathcal{X}_{i})<\infty$. One can also extend Mercer's theorem under a \textit{compact embedding} assumption \citep{StSc12}: the RKHS $\mathcal{F}$ associated to $k$ is said to be compactly embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$ if the application
 \begin{align*}
@@ -2415,7 +2420,7 @@ Note that this condition is not necessary (Example 2.9, \citep{StSc12}). Now, un
 % % \subsection{The results}
 
 \subsubsection{The integration error}
-
+\label{subsec:int_error}
 When the integrand $f$ belongs to the RKHS $\mathcal{F}$ of kernel $k$ \citep{CrSh04}, the quadrature error reads \citep{SmGrSoSc07}
 \begin{align}
 \label{eq:integral_bound_mean_element}
@@ -2479,13 +2484,10 @@ In other words, the Quasi-Monte Carlo quadrature rules fit within the kernel fra
 
 % A tight approximation of the mean element by a linear combination of functions $k(x_{j},.)$ thus guarantees low quadrature error.
 \subsubsection{Examples of typical kernels}
-
+\label{subsec:kernel_examples}
 \paragraph{Periodic Sobolev spaces and Korobov spaces}
 
 
-\begin{equation}
-k_{QMC}(\bm{x},\bm{y}) = \prod\limits_{\delta \in [d]} (2-\min(x_{\delta},y_{\delta})).
-\end{equation}
 
 
 Let $\mathrm{d}\omega$ be the uniform measure on $\mathcal{X} = [0,1]$, and let the RKHS kernel be \citep{BeTh11}
@@ -2515,8 +2517,25 @@ Figure~\ref{fig:mean_element} illustrates the mean-element for three different w
 \end{figure}
  % The approaches described in this section differ by their choice of nodes and weights.
 
+Now for $d \in \mathbb{N}^{*}$ and $\mathcal{X} = [0,1]^{d}$ and $\mathrm{d}\omega$ is the uniform measure on $\mathcal{X}$. 
+
+The Korobov space of order $s$ is the tensor product of $d$ copies of the Sobolev space $\mathcal{F}_{s}$:
+\begin{equation}
+\mathcal{K}_{d,s} = \{ f \in \mathbb{L}_{2}(\mathrm{d}\omega), \: f = \prod\limits_{\delta \in [d]} f_{\delta}, \: f_{\delta} \in \mathcal{F}_{s} \}.
+\end{equation}
+
+$\mathcal{K}_{d,s}$ is the RKHS corresponding to the tensor product of $d$ copies of the periodic Sobolev kernel
+
+\begin{equation}
+\forall x,y \in [0,1]^{d}, \:\: k_{d,s}(x,y) = \prod\limits_{\delta \in [d]}k_{s}(x_{\delta},y_{\delta}).
+\end{equation}
 
 
+\paragraph{Anchored kernels}
+
+\begin{equation}
+k_{QMC}(\bm{x},\bm{y}) = \prod\limits_{\delta \in [d]} (2-\min(x_{\delta},y_{\delta})).
+\end{equation}
 
 
 % \paragraph{Kernel quadrature and QMC}
@@ -2526,11 +2545,12 @@ Figure~\ref{fig:mean_element} illustrates the mean-element for three different w
 % We recall in the following the aspects shared between kernel quadrature and quasi-Monte Carlo methods and we show the potential benefits of optimal kernel quadrature rules. 
 
 \subsubsection{The link with Bayesian quadrature}
+\label{subsec:bayesian_quadrature}
 \emph{Bayesian Quadrature} initially \citep{Lar72} considered a fixed set of nodes and put a Gaussian process prior on the integrand $f$. Then, the weights were chosen to minimize the posterior variance of the integral of $f$. If the kernel of the Gaussian process is chosen to be $k$, this amounts to minimizing the RHS of \eqref{eq:integral_bound_mean_element}. The case of the Gaussian reference measure was later investigated in detail \citep{Hag91}, while parametric integrands were considered in \citep{Min00}.
 \subsubsection{Design selection for the optimal kernel quadrature}
-
+\label{subsec:okq_analysis_paradigm}
 \subsubsection{Ridge leverage score quadrature}
-\label{s:bach}
+\label{subsec:okq_algebraic_paradigm}
 
 The work of \cite{Bac17} highlights the fundamental role played by the spectral decomposition of the operator $\bm{\Sigma}$ in designing and analyzing kernel quadrature rules.
 In fact, the author proposed to sample the nodes $(x_j)$ i.i.d. from some proposal distribution $q$, and then take the vector of weights $\bm{w}$ to be the vector $\bm{w}_{\lambda}$ that solve the optimization problem
