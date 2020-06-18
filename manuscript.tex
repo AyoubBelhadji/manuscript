@@ -3077,7 +3077,7 @@ In particular, we have
 \end{corollary}
 
 The second improvement is based on an alternative symmetrization of $\displaystyle \frac{1}{\cos^{2} \theta_{N}(\tilde{\mathcal{T}}(\bm{x}),\mathcal{E}_{N}^{\tilde{\mathcal{F}}})}$: instead of symmetrizing by the product as in \ref{subsec:dpp_quadrature_error_weak}, we symmetrize by the sum as follows
-\begin{equation}
+\begin{equation}\label{eq:additive_symmetrization}
 \frac{1}{\cos^{2} \theta_{N}(\mathcal{T}(\bm{x}),\mathcal{E}_{N}^{\mathcal{F}})} -1 \leq \sum\limits_{n \in [N]}\frac{1}{\cos^{2} \theta_{n}(\mathcal{T}(\bm{x}),\mathcal{E}_{N}^{\mathcal{F}})} -N,
 \end{equation}
 since $1/\cos^{2} \theta_{n}(\mathcal{T}(\bm{x}),\mathcal{E}_{N}^{\mathcal{F}})-1 \geq 0$ for all $n \in [N]$. The most interesting feature of the sum is its tractability under the considered projection DPP.
@@ -3094,21 +3094,14 @@ In particular for the saturated kernel, we have
 \end{theorem}
 
 
-Compared to the multiplicative symmetrization, the additive symmetrization gives an upper bound $..$...
-
-
-allows convenient algebraic manipulations such as this result.
-
-
-
-In this section, we prove a better majorization that is based on an averaged additive symmetrization:
+Compared to the multiplicative symmetrization, the additive symmetrization gives a neater upper bound of $\displaystyle \EX_{\DPP}  \frac{1}{\cos^{2} \theta_{N} \bigg(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \bigg)}$. Moreover, it can be combined with the following sharper majorization to give a better rate of convergence when $g$ is an eigenfunction of $\bm{\Sigma}$.
 \begin{proposition}\label{lemma:sharp_additive_symmetrization}
 For $n \in [N]$,
 \begin{equation}\label{eq:sharp_additive_symmetrization}
 \EX_{\DPP} \|\bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}} \Sigma_{N}^{1/2} e_{n}^{\mathcal{F}}\|_{\mathcal{F}}^{2}  \leq \frac{1}{N} \EX_{\DPP} \sum\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell}\bigg(\mathcal{E}^{\tilde{\mathcal{F}}}_{N}, \tilde{\mathcal{T}}(x) \bigg)} -1.
 \end{equation}
 \end{proposition}
-Note the difference between \eqref{eq:sharp_additive_symmetrization} and \eqref{eq:additive_symmetrization}: the inequality in \eqref{eq:additive_symmetrization} is valid for every $\bm{x} \in \mathcal{X}^{N}$ such that $\Det \bm{E}_{N}(\bm{x}) \neq 0$, while the sharper inequality in \eqref{eq:sharp_additive_symmetrization} is only valid under the expectation operator $\EX_{\DPP}$ but removes the supplementary factor $N$ in \eqref{eq:additive_symmetrization}.
+Note the difference between \eqref{eq:sharp_additive_symmetrization} and \eqref{eq:additive_symmetrization}: the inequality in \eqref{eq:additive_symmetrization} is valid for every $\bm{x} \in \mathcal{X}^{N}$ such that $\Det \bm{E}_{N}(\bm{x}) \neq 0$, while the sharper inequality in \eqref{eq:sharp_additive_symmetrization}, that removes the supplementary factor $N$ in \eqref{eq:additive_symmetrization}, is only valid under the expectation operator $\EX_{\DPP}$.
 
 % \begin{proposition}\label{prop:sharp_additive_symmetrization}
 % For $n \in [N]$,
@@ -4031,7 +4024,7 @@ In other words, we proved that
 \begin{equation}
 \int_{\mathcal{X}^{N}} \partial_{t}\bigg(\Det \bm{K}_{t}(\bm{x}) \bigg)_{|t = 0} \otimes_{j \in [N]} \mathrm{d}\omega(x_{j})=  \partial_{t} \bigg(\int_{\mathcal{X}^{N}} \Det \bm{K}_{t}(\bm{x})  \otimes_{j \in [N]} \mathrm{d}\omega(x_{j})\bigg)_{|t = 0}.
 \end{equation}
-By Theorem??, we have
+By Lemma~\ref{lemma:truncated_Fredholm_formula}, we have
 \begin{equation}
 \phi(t) = \sum\limits_{\substack{U \subset \mathbb{N}^{*}\\ |U| = N}} \prod\limits_{u \in U} \sigma_{u}(t),
 \end{equation}
