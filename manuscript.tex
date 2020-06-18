@@ -3076,14 +3076,13 @@ In particular, we have
 
 \end{corollary}
 
-The second improvement is based on an alternative symmetrization of $\displaystyle \frac{1}{\cos \theta_{N}(\tilde{\mathcal{T}}(\bm{x}),\mathcal{E}_{N}^{\tilde{\mathcal{F}}})}$: instead of symmetrizing by the product as in ..., we symmetrize by the sum as follows
+The second improvement is based on an alternative symmetrization of $\displaystyle \frac{1}{\cos^{2} \theta_{N}(\tilde{\mathcal{T}}(\bm{x}),\mathcal{E}_{N}^{\tilde{\mathcal{F}}})}$: instead of symmetrizing by the product as in \ref{subsec:dpp_quadrature_error_weak}, we symmetrize by the sum as follows
 \begin{equation}
-\frac{1}{\cos \theta_{N}(\tilde{\mathcal{T}}(\bm{x}),\mathcal{E}_{N}^{\tilde{\mathcal{F}}})} -1 \leq \sum\limits_{n \in [N]}\frac{1}{\cos \theta_{n}(\tilde{\mathcal{T}}(\bm{x}),\mathcal{E}_{N}^{\tilde{\mathcal{F}}})} -N.
+\frac{1}{\cos^{2} \theta_{N}(\mathcal{T}(\bm{x}),\mathcal{E}_{N}^{\mathcal{F}})} -1 \leq \sum\limits_{n \in [N]}\frac{1}{\cos^{2} \theta_{n}(\mathcal{T}(\bm{x}),\mathcal{E}_{N}^{\mathcal{F}})} -N,
 \end{equation}
+since $1/\cos^{2} \theta_{n}(\mathcal{T}(\bm{x}),\mathcal{E}_{N}^{\mathcal{F}})-1 \geq 0$ for all $n \in [N]$. The most interesting feature of the sum is its tractability under the considered projection DPP.
 
-The most interesting feature of the sum is its tractability under the considered projection DPP.
-
-\begin{theorem}
+\begin{theorem}\label{thm:ex_dpp_sum_inv_cos}
 We have
 \begin{equation}
 \EX_{\DPP}  \sum\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell} \bigg(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \bigg)} -N =  \sum\limits_{v \in [N]} \frac{1}{\sigma_{v}} \sum\limits_{w \in \mathbb{N}^{*}\smallsetminus [N]} \sigma_{w}.
@@ -3095,14 +3094,28 @@ In particular for the saturated kernel, we have
 \end{theorem}
 
 
-Compared to the multiplicative symmetrization, the additive symmetrization allows convenient algebraic manipulations such as this result.
+Compared to the multiplicative symmetrization, the additive symmetrization gives an upper bound $..$...
 
-\begin{lemma}\label{lemma:sharp_additive_symmetrization}
+
+allows convenient algebraic manipulations such as this result.
+
+
+
+In this section, we prove a better majorization that is based on an averaged additive symmetrization:
+\begin{proposition}\label{lemma:sharp_additive_symmetrization}
 For $n \in [N]$,
 \begin{equation}\label{eq:sharp_additive_symmetrization}
 \EX_{\DPP} \|\bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}} \Sigma_{N}^{1/2} e_{n}^{\mathcal{F}}\|_{\mathcal{F}}^{2}  \leq \frac{1}{N} \EX_{\DPP} \sum\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell}\bigg(\mathcal{E}^{\tilde{\mathcal{F}}}_{N}, \tilde{\mathcal{T}}(x) \bigg)} -1.
 \end{equation}
-\end{lemma}
+\end{proposition}
+Note the difference between \eqref{eq:sharp_additive_symmetrization} and \eqref{eq:additive_symmetrization}: the inequality in \eqref{eq:additive_symmetrization} is valid for every $\bm{x} \in \mathcal{X}^{N}$ such that $\Det \bm{E}_{N}(\bm{x}) \neq 0$, while the sharper inequality in \eqref{eq:sharp_additive_symmetrization} is only valid under the expectation operator $\EX_{\DPP}$ but removes the supplementary factor $N$ in \eqref{eq:additive_symmetrization}.
+
+% \begin{proposition}\label{prop:sharp_additive_symmetrization}
+% For $n \in [N]$,
+% \begin{equation}\label{eq:sharp_additive_symmetrization}
+% \EX_{\DPP} \|\bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}} \Sigma_{N}^{1/2} e_{n}^{\mathcal{F}}\|_{\mathcal{F}}^{2}  \leq \frac{1}{N} \EX_{\DPP} \sum\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell}\bigg(\mathcal{E}^{\tilde{\mathcal{F}}}_{N}, \tilde{\mathcal{T}}(x) \bigg)} -1.
+% \end{equation}
+% \end{proposition}
 
 \begin{proposition}\label{prop:strong_kernel_perturbation_inequality}
 Let $ \tilde{\mathcal{T}}(\bm{x}) = \Span \left( \tilde{k}(x_{j},.) \right)_{j \in [N]}$ and $\bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})^{\perp}}$ the orthogonal projection onto $\tilde{\mathcal{T}}(\bm{x})^{\perp}$ in $(\tilde{\mathcal{F}}, \langle .,.\rangle_{\tilde{\mathcal{F}}})$. Then,
@@ -3909,42 +3922,23 @@ Now, using the same analysis as in the proof of Lemma~\ref{lemma:cos_ratio_det},
 \end{equation}
 where
 \begin{equation}
-\bm{C}(\bm{x}) = (c_{j,i})_{1 \leq i,j \leq N}.
-\end{equation}
-%
-Thus
-\begin{equation}\label{eq:AN_times_EN}
-\bigg( \bm{W}(\bm{x})\bm{W}(\bm{x})^{\Tran} \bigg)^{-1} = \bm{E}^{\mathcal{F}}(\bm{x})^{\Tran^{-1}} \bigg( \bm{C}(\bm{x})\bm{C}(\bm{x})^{\Tran} \bigg)^{-1}  \bm{E}^{\mathcal{F}}(\bm{x})^{-1}
-\end{equation}
-%%%%
-Now, let $\bm{c}_{i}$ the columns of the matrix $\bm{C}(\bm{x})$. $(t_{i})_{i \in [N]}$ is an orthonormal basis of $\mathcal{T}(\bm{x})$ with respect to $\langle .,. \rangle_{\mathcal{F}}$, then by \eqref{eq:t_as_function_of_kx}
-\begin{equation}
-  \delta_{i,i'} = \langle t_{i}, t_{i'} \rangle_{\mathcal{F}} = \bm{c}_{i}^{\Tran} \bm{K}(\bm{x}) \bm{c}_{i'}  .
-\end{equation}
-Therefore
-\begin{equation}
 \bm{C}(\bm{x})^{\Tran} \bm{K}(\bm{x}) \bm{C}(\bm{x}) = \mathbb{I}_{N}.
 \end{equation}
+
+%
 Thus
-\begin{equation}\label{eq:det_AN_det_KN_relationship}
-\bm{K}(\bm{x}) = \bigg( \bm{C}(\bm{x})\bm{C}(\bm{x})^{\Tran} \bigg)^{-1}.
-\end{equation}
-Combining \eqref{eq:sum_cos_tr_E}, \eqref{eq:AN_times_EN} and \eqref{eq:det_AN_det_KN_relationship} concludes the proof of Lemma~\ref{lemma:sum_inverse_cos}:
+\begin{align}\label{eq:AN_times_EN}
+\bigg( \bm{W}(\bm{x})\bm{W}(\bm{x})^{\Tran} \bigg)^{-1} & = \bm{E}^{\mathcal{F}}(\bm{x})^{\Tran^{-1}} \bigg( \bm{C}(\bm{x})\bm{C}(\bm{x})^{\Tran} \bigg)^{-1}  \bm{E}^{\mathcal{F}}(\bm{x})^{-1} \nonumber \\
+& = \bm{E}^{\mathcal{F}}(\bm{x})^{\Tran^{-1}} \bm{K}(\bm{x}) \bm{E}^{\mathcal{F}}(\bm{x})^{-1}
+\end{align}
+Combining \eqref{eq:sum_cos_tr_E} and \eqref{eq:AN_times_EN} concludes the proof of Lemma~\ref{lemma:sum_inverse_cos}:
 \begin{equation}
 \sum\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell} \bigg(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \bigg)} = \Tr \bigg(\bm{E}^{\mathcal{F}}(\bm{x})^{\Tran^{-1}} \bm{K}(\bm{x})  \bm{E}^{\mathcal{F}}(\bm{x})^{-1} \bigg).
 \end{equation}
 \end{proof}
-Now, we are ready to prove the main result of this section.
-\begin{theorem}
-We have
-\begin{equation}
-\EX_{\DPP}  \sum\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell} \bigg(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \bigg)}  = N + \sum\limits_{v \in [N]} \frac{1}{\sigma_{v}} \sum\limits_{w \in \mathbb{N}^{*}\smallsetminus [N]} \sigma_{w}.
-\end{equation}
-In particular for the saturated kernel, we have
-\begin{equation}
-\EX_{\DPP}  \sum\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell} \bigg(\mathcal{E}^{\tilde{\mathcal{F}}}_{N}, \tilde{\mathcal{T}}(\bm{x}) \bigg)}   = N + \frac{N}{\sigma_{1}} \sum\limits_{w \in \mathbb{N}^{*}\smallsetminus [N]} \sigma_{w}.
-\end{equation}
-\end{theorem}
+Now, we are ready to prove Theorem~\ref{thm:ex_dpp_sum_inv_cos}
+\paragraph{Proof of Theorem ~\ref{thm:ex_dpp_sum_inv_cos}}
+
 % We use the following result proved in []
 % \begin{lemma} \label{lemma:det_tr_delta_0}
 % Let $\bm{A}, \bm{B} \in \mathbb{R}^{N \times N}$ two matrices with the same dimension. Assume that $\Det~\bm{A}~\neq~0$, then
@@ -3952,7 +3946,7 @@ In particular for the saturated kernel, we have
 % \partial_{t} \Det (\bm{A}+t\bm{B})_{|t = 0} = \Det(\bm{A}) \Tr(\bm{A}^{-1}\bm{B}).  
 % \end{equation} 
 % \end{lemma}
-\begin{proof}
+
 % \Tr \bigg(  \bm{E}^{\mathcal{F}}(\bm{x})^{\Tran^{-1}}\bm{K}(\bm{x})\bm{E}^{\mathcal{F}}(\bm{x})^{-1} \bigg)
 Define $I_{k,N}$ by
 \begin{equation}
@@ -4067,7 +4061,78 @@ Finally, combining \eqref{eq:I_k_N}, \eqref{eq:phi_derivative_at_zero} and \eqre
 \EX_{\DPP}  \Tr \bigg(  \bm{E}^{\mathcal{F}}(\bm{x})^{\Tran^{-1}}\bm{K}(\bm{x})\bm{E}^{\mathcal{F}}(\bm{x})^{-1} \bigg) & = \frac{1}{\prod\limits_{v \in [N]}\sigma_{v}} \left( N\prod\limits_{v \in [N]}\sigma_{v} + \sum\limits_{\substack{V \subset [N]\\ |V| = N-1}} \prod\limits_{v \in V}\sigma_{v} \sum\limits_{w \in \mathbb{N}^{*}\smallsetminus [N]} \sigma_{w} \right) \nonumber\\
 & =  N + \sum\limits_{\substack{V \subset [N]\\ |V| = N-1}} \frac{1}{\sigma_{v}} \sum\limits_{w \in \mathbb{N}^{*}\smallsetminus [N]} \sigma_{w} .
 \end{align}
+
+
+\paragraph{Proof of Proposition~\ref{lemma:sharp_additive_symmetrization}}
+Let $n \in [N]$, and assume that $\|\bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})} e_{n}^{\tilde{\mathcal{F}}}\|_{\tilde{\mathcal{F}}}^{2}>0$ then
+\begin{align}
+\|\bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})^{\perp}} e_{n}^{\tilde{\mathcal{F}}}\|_{\tilde{\mathcal{F}}}^{2} & = 1- \|\bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})} e_{n}^{\tilde{\mathcal{F}}}\|_{\tilde{\mathcal{F}}}^{2}\\
+& \leq \frac{1}{\|\bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})} e_{n}^{\tilde{\mathcal{F}}}\|_{\tilde{\mathcal{F}}}^{2}} - 1,
+\end{align}
+because $\|\bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})} e_{n}^{\tilde{\mathcal{F}}}\|_{\tilde{\mathcal{F}}}^{2} \in  ]0,1] $. 
+
+Recall that by Lemma~\ref{lemma:interpolation_error_matricial_form}
+\begin{equation}
+\|\bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})} e_{n}^{\tilde{\mathcal{F}}}\|_{\tilde{\mathcal{F}}}^{2} = e_{n}^{\tilde{\mathcal{F}}}(\bm{x})^{\Tran}\tilde{\bm{K}}(\bm{x})^{-1}e_{n}^{\tilde{\mathcal{F}}}(\bm{x}),
+\end{equation}
+then $\|\bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})} e_{n}^{\tilde{\mathcal{F}}}\|_{\tilde{\mathcal{F}}}^{2}$ is the $n$-th element of the diagonal of the matrix \footnote{Recall the definition of $\bm{E}^{\tilde{\mathcal{F}}}(\bm{x}) = (e_{n}^{\tilde{\mathcal{F}}}(x_{i}))_{n,i \in [N]}$.}
+\begin{equation}
+\bm{E}^{\tilde{\mathcal{F}}}(\bm{x})  \tilde{\bm{K}}(\bm{x})^{-1} \bm{E}^{\tilde{\mathcal{F}}}(\bm{x})^{\Tran}. 
+\end{equation}
+Moreover, $\bm{E}^{\tilde{\mathcal{F}}}(\bm{x}) \tilde{\bm{K}}(\bm{x})^{-1} \bm{E}^{\tilde{\mathcal{F}}}(\bm{x}) ^{\Tran}$ is the inverse of the matrix $\bm{E}^{\tilde{\mathcal{F}}}(\bm{x})^{\Tran^{-1}}  \tilde{\bm{K}}(\bm{x}) \bm{E}^{\tilde{\mathcal{F}}}(\bm{x})^{-1}$. Then by Lemma~\ref{lemma:diagonal_inverse_inequality}
+\begin{equation}
+\frac{1}{\|\bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})} e_{n}^{\tilde{\mathcal{F}}}\|_{\tilde{\mathcal{F}}}^{2}} \leq \bigg( \bm{E}^{\tilde{\mathcal{F}}}(\bm{x})^{\Tran^{-1}}  \tilde{\bm{K}}(\bm{x}) \bm{E}^{\tilde{\mathcal{F}}}(\bm{x})^{-1} \bigg)_{n,n}.
+\end{equation}
+Thus
+\begin{equation}
+\EX_{\DPP}\|\bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})^{\perp}} e_{n}^{\tilde{\mathcal{F}}}\|_{\tilde{\mathcal{F}}}^{2} \leq \EX_{\DPP}\frac{1}{\|\bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})} e_{n}^{\tilde{\mathcal{F}}}\|_{\tilde{\mathcal{F}}}^{2}} - 1 \leq \EX_{\DPP} \bigg( \bm{E}^{\tilde{\mathcal{F}}}(\bm{x})^{\Tran^{-1}}  \tilde{\bm{K}}(\bm{x}) \bm{E}^{\tilde{\mathcal{F}}}(\bm{x})^{-1} \bigg)_{n,n} -1.
+\end{equation}
+Recall that $\tilde{\sigma}_{1} = \dots = \tilde{\sigma}_{N}$ and by Lemma~\ref{lemma:diagonal_element_independent}, $\EX_{\DPP} \bigg( \bm{E}^{\tilde{\mathcal{F}}}(\bm{x})^{\Tran^{-1}}  \tilde{\bm{K}}(\bm{x}) \bm{E}^{\tilde{\mathcal{F}}}(\bm{x})^{-1} \bigg)_{n,n} $ is independent of $n$. Then
+\begin{align}
+\EX_{\DPP} \bigg( \bm{E}^{\tilde{\mathcal{F}}}(\bm{x})^{\Tran^{-1}}  \tilde{\bm{K}}(\bm{x}) \bm{E}^{\tilde{\mathcal{F}}}(\bm{x})^{-1} \bigg)_{n,n} &  = \frac{1}{N} \sum\limits_{n \in [N]} \EX_{\DPP} \bigg( \bm{E}^{\tilde{\mathcal{F}}}(\bm{x})^{\Tran^{-1}}  \tilde{\bm{K}}(\bm{x}) \bm{E}^{\tilde{\mathcal{F}}}(\bm{x})^{-1} \bigg)_{n,n}\\
+& = \frac{1}{N} \Tr \bigg( \bm{E}^{\tilde{\mathcal{F}}}(\bm{x})^{\Tran^{-1}}  \tilde{\bm{K}}(\bm{x}) \bm{E}^{\tilde{\mathcal{F}}}(\bm{x})^{-1} \bigg)\\
+& = \frac{1}{N} \EX_{\DPP} \sum\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell}\bigg(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(x) \bigg)}.
+\end{align}
+This concludes the proof of the proposition.
+
+
+\begin{lemma}\label{lemma:diagonal_element_independent}
+$\EX_{\DPP} \bigg( \bm{E}^{\tilde{\mathcal{F}}}(\bm{x})^{\Tran^{-1}}  \tilde{\bm{K}}(\bm{x}) \bm{E}^{\tilde{\mathcal{F}}}(\bm{x})^{-1} \bigg)_{n,n} $ is independent of $n$.
+\end{lemma}
+\begin{proof}
+We start by proving that for any kernel $k$, and for $n \in [N]$, 
+$\EX_{\DPP} \bigg( \bm{E}^{\tilde{\mathcal{F}}}(\bm{x})^{\Tran^{-1}}  \tilde{\bm{K}}(\bm{x}) \bm{E}^{\tilde{\mathcal{F}}}(\bm{x})^{-1} \bigg)_{n,n} $ is a function of the eigenvalues $(\sigma_{m})_{m \in \mathbb{N}^{*}}$.
+Recall that 
+\begin{equation}
+\tilde{\sigma}_{1} = \dots = \tilde{\sigma}_{N}.
+\end{equation}
 \end{proof}
+\begin{lemma}\label{lemma:diagonal_inverse_inequality}
+Let $\bm{M}$ an $N\times N$ non-singular symmetric positive matrix, and denote by $\bm{M}_{n,n}$ its $n$-th diagonal element, and by $(\bm{M}^{-1})_{n,n}$ the $n$-th diagonal element of its inverse $\bm{M}^{-1}$. Then  
+\begin{equation}
+\forall n \in [N]\:\: ,\frac{1}{\bm{M}_{n,n}} \leq (\bm{M}^{-1})_{n,n} .
+\end{equation}
+\end{lemma}
+\begin{proof}
+$\bm{M}$ is non-singular, positive and symmetric matrix. Denote its diagonalization by 
+\begin{equation}
+\bm{M} = \bm{U}^{\Tran}\bm{\Lambda} \bm{U},
+\end{equation}
+where $\bm{U}$ is a unitary matrix and $\bm{\Lambda}$ is a diagonal matrix with strictly positive elements.
+Now for $n \in [N]$, 
+\begin{equation}
+\bm{M}_{n,n} = \bm{u}_{n}^{\Tran}\bm{\Lambda}\bm{u}_{n} = \sum\limits_{\ell \in [N]}\lambda_{\ell} \bm{u}_{ \ell,n}^{2} = \sum\limits_{\ell \in [N]} (\sqrt{\lambda_{\ell}}\bm{u}_{ \ell,n})^{2},
+\end{equation}
+and 
+\begin{equation}
+(\bm{M}^{-1})_{n,n} = \bm{u}_{n}^{\Tran}\bm{\Lambda}^{-1}\bm{u}_{n} = \sum\limits_{\ell \in [N]}\lambda_{\ell}^{-1} \bm{u}_{ \ell,n}^{2} = \sum\limits_{\ell \in [N]} (\sqrt{\lambda_{\ell}^{-1}} \bm{u}_{ \ell,n})^{2}.
+\end{equation}
+Therefore, by the Arithmetic-Harmonic inequality we get
+\begin{equation}
+\frac{1}{\bm{M}_{n,n}} = \frac{1}{\sum\limits_{\ell \in [N]} (\sqrt{\lambda_{\ell}}\bm{u}_{ \ell,n})^{2}}  \leq \sum\limits_{\ell \in [N]} (\sqrt{\lambda_{\ell}^{-1}} \bm{u}_{ \ell,n})^{2}=  (\bm{M}^{-1})_{n,n} .
+\end{equation}
+\end{proof}
+
 \subsubsection{Bounds for the saturated kernels}
 In this section we generalize the inequality ?? in Section ?? proven in [??].
 \begin{proposition}\label{prop:kernel_perturbation_inequality_generalization}
