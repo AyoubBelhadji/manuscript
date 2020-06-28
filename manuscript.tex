@@ -1,11 +1,16 @@
-\documentclass[twoside,11pt]{article}
+\documentclass[twoside,11pt]{book}
 \usepackage[margin=3cm]{geometry}
+
+
 
 
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{bm}
 \usepackage{natbib}
+\usepackage{cancel}
+
+
 %\usepackage[style=numeric,natbib=true]{biblatex}
 
 \usepackage{myAlgorithm}
@@ -57,6 +62,7 @@
 \DeclareMathOperator{\Conf}{\mathrm{Conf}}
 \DeclareMathOperator{\Fr}{\mathrm{Fr}}
 \DeclareMathOperator{\DPP}{\mathrm{DPP}}
+
 \DeclareMathOperator{\Cor}{\mathrm{Cor}}
 \DeclareMathOperator{\VS}{\mathrm{VS}}
 \DeclareMathOperator{\HS}{\mathrm{HS}}
@@ -148,7 +154,7 @@
 
 \newpage
 %\section{Introduction en français}
-\section{Introduction}
+\chapter{Introduction}
 %\subsection{Sensing on budget} 
 Many tasks in data analysis, signal processing or machine learning can be reformulated as problems of sensing under budget constraints, i.e. the estimation of some function of the data based on a partial knowledge of the available data. This is the case of subset selection problems, numerical integration problems or interpolation problems. 
 
@@ -507,7 +513,7 @@ These closed formulas allow us to prove sharp upper bounds ... In particular, we
 (2 pages)
 
 \clearpage
-\section{Determinantal point processes}
+\chapter{Determinantal point processes}
 
 In this section, we introduce discrete determinantal point processes (DPPs) and the related $k$-DPPs, of which volume sampling is an example. 
 
@@ -633,7 +639,7 @@ f_{\KDPP,n}(x | x_{1} \dots x_{n-1}) \leq \frac{N}{n}f_{\KDPP,N}(x).
 In fact, if a sampler of the distribution $f_{\KDPP,N}$ is known, samplers from the conditionals can be implemented by rejection sampling. This is the case when the $(\psi_{n})$ is a family of orthogonal polynomials and $\mathcal{X} = [0,1]^{d}$.  
 
 \clearpage
-\section{The column subset selection problem}\label{chapter:cssp}
+\chapter{The column subset selection problem}\label{chapter:cssp}
 \subsection{Related work}
 
 %!TEX root=./submitted.tex
@@ -1865,10 +1871,23 @@ Similarly, for the double phase algorithm, given the singular decomposition of $
 \subsection{Prologue: the infinite column subset selection problem} (1-2 pages)
 
 \clearpage
-\section{Kernel quadrature using DPPs}
-\subsection{Numerical integration problems}
 
-\subsection{Related work}
+\chapter{Kernel quadrature using DPPs}
+\section{Introduction}
+Numerical integration is at the heart of many data analysis tasks: Bayesian inference in statistics, option pricing in finance or  particle filtering... Indeed, all these problems involve, at some level of analysis, the calculation of an integral of some real valued function $f$ defined on some domain $\mathcal{X}$ against some measure $\mathrm{d}\omega$ and potentially some other real valued function $g$:
+\begin{equation}\label{eq:general_integral_formula}
+\int_{\mathcal{X}}f(x)g(x)\mathrm{d}\omega(x)  =  ?
+\end{equation}
+Except some integrals that have some closed formulas, and thus can be calculated using the knowledge of some special functions, the value of~\eqref{eq:general_integral_formula} is only known through approximations.
+
+An approximation of \eqref{eq:general_integral_formula} requires, usually, the knowledge of the value of $f$ or its first derivatives on some locations on the domain $\mathcal{X}$ called \emph{nodes}. A \emph{quadrature} is a numerical approximation that takes the following form
+\begin{equation}
+\int_{\mathcal{X}}f(x)g(x)\mathrm{d}\omega(x)   \approx \sum\limits_{n \in [N]}w_{n}f(x_{n}).
+\end{equation}
+
+
+
+\section{Related work}
 The purpose of this section is to motivate the theoretical analysis of a class of quadratures based on projection DPPs that is naturally defined in the RKHS framework. The merit of this class of quadratures is its universality and applicability to a variety of settings. An exhaustive review of existing results on quadratures is outside the scope of this manuscript; nevertheless, it turns out that many landmark results on the field are connected to projection DPPs. For this reason, we review these classic results in the following.
 
 
@@ -1879,9 +1898,9 @@ The purpose of this section is to motivate the theoretical analysis of a class o
 % For this purpose, we review existing results on quadratures 
 
 
-\subsubsection{Quadratures on the real line}
+\subsection{Quadratures on the real line}
 We start by a brief review on quadratures on the real line.
-\paragraph{Newton-Cotes quadrature}
+\subsubsection{Newton-Cotes quadrature}
 The approximation of the integral of a function $f$ on some interval $[a,b]$ using some evaluations of $f$ can be tracked to the work of Newton. The idea of the eponymous quadrature is to consider a set of nodes $\bm{x} = \{x_{1}, \dots , x_{N} \} \subset \X^{N}$, and the corresponding interpolating polynomial of degree $N-1$:
 \begin{equation}
 p_{N-1}(t) = \sum\limits_{n \in [N]} f(x_{n}) \ell_{n,\bm{x}}(t),
@@ -1897,7 +1916,7 @@ The idea of Newton was to consider the approximation
 & :=  \sum\limits_{n \in [N]}f(x_{n}) w_{n} .
 \end{align}
 The approximation \eqref{eq:Newton_approx} is exact if $f$ is a polynomial of order less than $N-1$. The scalars $w_{n}$ are called Cotes numbers
-\paragraph{Gaussian quadratures}
+\subsubsection{Gaussian quadratures}
 As we have seen previously, the Newton-Cotes quadrature is exact for polynomials of order less than $N-1$. Gauss interested in the maximal order of exactness that could be achieved using the Newton-Cotes quadrature. This order depends on the design of nodes $\bm{x}$ and is defined by 
 
 \begin{equation}
@@ -1911,39 +1930,45 @@ M(\bm{x}) = \sup \{ m \in \mathbb{N}, \: \int_{a}^{b} t^{m} \mathrm{d}t = \sum\l
 
 % \emph{For a fixed value $N$, what is the maximal order $M(\bm{x})$ of polynomials such that the approximation \eqref{eq:Newton_approx} is exact?}
 
-Gauss proved that there exists a design $\bm{x}_{G}$ such that $M(\bm{x}_{G}) = 2N-1$, and that this order is maximal among all the possible designs. The proof of Gauss is based on arguments from continued fractions theory.
+Gauss proved that there exists a design $\bm{x}_{G}$ such that $M(\bm{x}_{G}) = 2N-1$, and that this order is maximal among all the possible designs. The proof of Gauss \citep{Gau1815} is based on arguments from continued fractions theory \citep{Khi97}.
 % In particul there exists a remarkable design of nodes that achieves a higher degree of exactness: the approximation \eqref{eq:Newton_approx} is exact if $f$ is a polynomial of order less than $2N-1$.
-
-An alternative proof was given by Jacobi in [????], where he proved the existence of such a design, $\bm{x}_{G}$, that we call the Gauss nodes, using simple arguments of polynomial divisibility. Indeed, Jacobi shows that for any integer $N' \in [N]$, the Newton-Cotes quadrature has the maximal degree of exactness $M(\bm{x}) = N-1+N'$ if and only if for every polynomial $p$ of order less than $N'-1$:
+An alternative proof was given by Jacobi [????], where he proved the existence of the design $\bm{x}_{G}$, also called the Gauss nodes, using simple arguments of polynomial divisibility. Indeed, Jacobi shows that for any integer $N' \in [N]$, the Newton-Cotes quadrature has the maximal degree of exactness $M(\bm{x}) = N-1+N'$ if and only if for every polynomial $p$ of order less than $N'-1$:
 
 \begin{equation}
 \int_{a}^{b} p(t) \pi_{\bm{x}}(t) \mathrm{d}t = 0,
 \end{equation}
 where $\pi_{\bm{x}}$ is the polynomial
 \begin{equation}
-\pi_{\bm{x}}(X) = \prod\limits_{n \in [N]}(X-x_{n}).
+\pi_{\bm{x}}(t) = \prod\limits_{n \in [N]}(t-x_{n}).
 \end{equation}
-The case $N' = N$ leads to the Gauss formula of maximal degree of exactness $2N-1$. More importantly, this characterization of Gauss nodes, proved by Jacobi, highlights the importance of orthogonality between polynomials: the Gauss nodes are the roots of a polynomial of degree $N$ that is orthogonal to all polynomials of degree less than $N-1$. The corresponding nodes polynomials $\pi_{\bm{x}}$ are nothing else but the scaled Legendre polynomials.
+The case $N' = N$ leads to the Gauss formula of maximal degree of exactness $2N-1$. More importantly, this characterization of Gauss nodes, proved by Jacobi, highlights the importance of orthogonality between polynomials: the Gauss nodes are the roots of a polynomial of degree $N$ that is orthogonal to all polynomials of degree less than $N-1$ and the corresponding nodes polynomials $\pi_{\bm{x}}$ are nothing else but the scaled Legendre polynomials.
 
-The notion of orthogonality between polynomials was pushed further by considering quadrature problems with respect to weighted measures: $\mathrm{d}\omega = w(t) \mathrm{d} t$.
+The notion of orthogonality between polynomials was pushed further by considering quadrature problems with respect to weighted measures: $\mathrm{d}\omega = w(t) \mathrm{d} t$ by the work of Mehler [??], Christoffel [??] and others
 
 \begin{equation}
 \int_{a}^{b}f(t)w(t)\mathrm{d}t \approx \sum\limits_{n \in [N]} w_{n}f(x_{n}).
 \end{equation}
+In particular, Christoffel generalized the Gauss-Jacobi construction of quadrature to arbitrary weighted measure $\mathrm{d}\omega$. For example, assume that $\mathrm{d}\omega$ has finite moments of all orders, and consider the sequence of polynomials $(P_{m})_{m \in \mathbb{N}}$ orthogonal with respect to $\mathrm{d}\omega$:
+\begin{align}
+\forall m \in \mathbb{N}, \: \mathrm{deg} P_{m} & = m, \\
+\forall m,m' \in \mathbb{N}, \: \int_{a}^{b} P_{m}(t)P_{m'}(t) \mathrm{d}\omega(t) & = \delta_{m,m'}.
+\end{align}
+
+By generalizing the argument of Jacobi, Christoffel proved that the existence of a unique configuration of nodes $\bm{x}_{GC}$ and weights $w_{n}$ such that $\displaystyle \sum\limits_{n \in [N]} w_{n} f(x_{n})$ coincides with $\displaystyle  \int_{a}^{b} f(t) \mathrm{d}\omega(t)$ for every polynomial of degree $2N-1$. 
 
 % In general, 
 
 
 
 
-\subsubsection{Quasi-Monte Carlo methods}
+\subsection{Quasi-Monte Carlo methods}
 
 As we have seen previously, several quadrature rules are known for functions defined on the real line. The situation is far more complicated for integration problems in high-dimension. For instance, the uniform grid in the hypercube $[0,1]^{d}$ suffers from the "curse of the dimension": in an informal way, the rate of convergence are typically $\mathcal{O}(N^{-s/d})$ where $s$ is a regularity parameter; so that the required number of nodes necessary to get an integration error lower than some level $\epsilon$ scales as $\epsilon^{1/d}$. This poor scalibility with respect to the dimension $d$ motivated the emergence of a new class of quadratures called quasi-Monte Carlo rules: they are based on "well-spread" low discrepancy sequences and their weights are uniform $\displaystyle w_{n} = \frac{1}{N}$.
 
 
 
  
-\paragraph{The discrepancy functions}
+\subsubsection{The discrepancy functions}
 
 \begin{figure}
 \centering
@@ -1978,7 +2003,7 @@ and the local spherical discrepancy is defined by
 ...
 \end{equation}
 % where $t \in [-1,1]$ and $\bm{u} \in \mathbb{S}^{d-1}$ 
-\paragraph{Koksma-Hlawka inequalities}
+\subsubsection{Koksma-Hlawka inequalities}
 The importance of the discrepancy functions on bounding the integration error clears up considering the Koksma-Hlawka inequalities.
 % The discrepancy functions for a design $\bm{x}$ play an important role in the quantification of the integration error based on $\bm{x}$. Indeed, consider the quadrature:
 % \begin{equation}
@@ -2023,7 +2048,7 @@ In other words, in order to get a star-discrepancy lower than some level $\epsil
 
 
 Looking for designs having the lowest discrepancy in high dimension was a topic of intense research.  A very brief review of this line of research is provided in the following paragraph. 
-\paragraph{Low discrepancy sequences}
+\subsubsection{Low discrepancy sequences}
 The van der Corput sequence is the simplest example of a low discrepancy sequence in $[0,1]$ and allows the construction of low discrepancy sequences in $[0,1]^{d}$.
 \begin{definition}
 Let $b \geq 2$ be an integer. Let $n \in \mathbb{N}$, and consider its $b$-adic expansion:
@@ -2111,18 +2136,21 @@ This family of sequence is
 \caption{The local discrepancy $\Delta_{\bm{x}}$ for two designs: in the top, the Halton sequence with $N \in \{25,144,400\}$; in the bottom, the uniform grid with $N \in \{25,144,400\}$.}
 \end{figure}
 
-\subsubsection{DPPs for numerical integration}
-Determinantal point processes were used as design nodes of quadratures with fast rates of convergence. We review in this section, the results and the techniques used in this line of research. 
+\subsection{DPPs for numerical integration}
+% The negative correlation property of Determinantal Point Process was used in the design of several quadrature rules. 
+Several quadratures are based on nodes that follow the distribution of a Determinantal Point Process. The rationale behind this choice is the strong statisitical properties of these quadratures. We review in this section the results and the techniques used in this line of research. 
 
-\paragraph{Johansson CLT and the Szegő limit theorems}
-We start by the Centrale Limite Theorem result of Johansson of the linear statistic under a specific projection DPP.
+\subsubsection{The quadrature based on the Circular Unitary Ensemble}
 
-\begin{theorem}
+The set of the eigenvalues of a random matrix chosen from Haar measure on the unitary group $\mathbb{U}_{N}$ is called the Circular Unitary Ensemble (CUE). The following theorem proved by Weyl implies that the CUE is a random set that follows the distribution of a projection DPP. 
+
+
+\begin{theorem}[\cite{Wey46}]
 Let $f: \mathbb{U}_{N} \rightarrow \mathbb{C}$ that satisfies
 \begin{equation}\label{eq:weil_condition}
 \forall \: V, M \in \mathbb{U}_{N}, \:  f(V^{-1}M V) = f(M),
 \end{equation}
-and denote for $\bm{\theta} = (\theta_{n})_{n \in [N]} \in [0,2\pi]^{N}$, the diagonal matrix $D(\bm{\theta}) = \mathrm{diag}(e^{i \theta_{n}})_{n \in [N]}$.
+and denote for $\bm{\theta} = (\theta_{n})_{n \in [N]} \in [0,2\pi]^{N}$, the diagonal matrix $D(\bm{\theta}) = \mathrm{Diag}(e^{i \theta_{n}})_{n \in [N]}$.
 Then
 \begin{equation}
 \int_{\mathbb{U}_{N}}f(M) \mathrm{d}M = \frac{1}{N!(2 \pi)^{N}} \int_{[0,2\pi]^{N}} f(D(\theta)) \Delta(\theta)^{2} \mathrm{d}^{N}\theta,
@@ -2133,22 +2161,46 @@ where
 \end{equation}
 \end{theorem}
 
+
 In other words, the joint distribution of the eigenvalues of a random unitary matrix with respect to Haar measure have the probability density:
 \begin{equation}\label{eq:haar_eigenvalues_density}
 \frac{1}{N!(2\pi)^{N}} \prod\limits_{1 \leq n,n' \leq N} |e^{-i \theta_{n}} - e^{-i \theta_{n'}}|^{2}
 \end{equation}
 on $\mathbb{U}^{N}$.
-The trace function $f = \Tr$ satisfies the condition~\eqref{eq:weil_condition}; thus as a corollary we have the following identity:
+
+
+For example, the trace functions $f_{\ell}(M) = \Tr M^{\ell}$ satisfy the condition~\eqref{eq:weil_condition}; and this implies the following identities:
 \begin{equation}
-\int_{\mathbb{U}_{N}}\Tr(M) \mathrm{d}M = \frac{1}{N!(2 \pi)^{N}} \int_{[0,2\pi]^{N}} \Tr(D(\theta)) \Delta(\theta)^{2} \mathrm{d}^{N}\theta.
+\forall \ell \in \mathbb{N}^{*},\: \: \int_{\mathbb{U}_{N}}\Tr(M^{\ell}) \mathrm{d}M = \frac{1}{N!(2 \pi)^{N}} \int_{[0,2\pi]^{N}} \Tr(D(\theta)^{\ell}) \Delta(\theta)^{2} \mathrm{d}^{N}\theta.
 \end{equation}
+
+The theoretical analysis of the spacing properties of the CUE can be tracked to the work of Diaconis and Shahshahani \citep{DiSh94}.
+ % on the study of the set of the eigenvalues of a random matrix chosen from Haar measure on the unitary group $\mathbb{U}_{N}$.
+  The authors studied the traces of such random matrices and proved the convergence, in the regime $N \rightarrow +\infty$, of these traces to Gaussian distributions. They concluded from this theoretical study and a numerical simulation that the eigenvalues of these matrices are  \emph{very regularly spread out} on the unit disc as $N$ goes to infinity.
+
+
+
+
+
+This line of work was pursued by Johansson who proved a centrale limite theorem of the
+quadrature based on CUE nodes and uniform weights (also called \emph{the linear statistic} in the corresponding litterature).
+
+
+\begin{theorem}
+Let $g \in \mathbb{L}_{1}(\mathbb{U})$ be a complex-valued function on $\mathbb{U}$ with Fourier coefficients $(\hat{g}_{n})_{n \in \mathbb{Z}}$. Assume that $\displaystyle \sum\limits_{n \in \mathbb{N}^{*}} n|\hat{g}_{n}|^{2} <+\infty$. Let $\bm{\theta} = (\theta_{n})_{n \in [N]} \in [0,2\pi]^{N}$ a random vector, such that the joint distribution of $(\theta_{1}, \dots, \theta_{N})$ have the density~\eqref{eq:haar_eigenvalues_density}. Then the random variable
+\begin{equation}
+\frac{1}{N}\sum\limits_{n \in [N]} g(\theta_{n}), 
+\end{equation}
+converges to $\displaystyle \mathcal{N}(0,\frac{2}{N}\sum\limits_{n \in \mathbb{N}^{*}} n|\hat{g}_{n}|^{2})$.
+\end{theorem}
+
 
 Let $g \in \mathbb{L}_{1}(\mathbb{T})$, and $N \in \mathbb{N}^{*}$. Denote by $\bm{T}_{N}(g)$ the Toeplitz determinant with respect to the symbol $g$:
 \begin{equation}
 \bm{T}_{N}(g) = \Det(\hat{g}_{n-n'})_{0 \leq n,n' \leq N-1}.
 \end{equation}
 \begin{theorem}
-Let $g \in \mathbb{L}_{1}(\mathbb{T})$ be a complex-valued function on $\mathbb{T}$ with Fourier coefficients $(\hat{g}_{n})_{n \in \mathbb{Z}}$. Assume that $\displaystyle \sum\limits_{n \in \mathbb{Z}} |n||\hat{g}_{n}|^{2} < +\infty$. Then
+ Assume that $\displaystyle \sum\limits_{n \in \mathbb{Z}} |n||\hat{g}_{n}|^{2} < +\infty$. Then
 \begin{equation}
 \bm{T}_{N}(g) = e^{N\hat{g}_{0} + \sum\limits_{n  =1}^{+\infty}n \hat{g}_{-n} \hat{g}_{n} + o(1)},
 \end{equation}
@@ -2156,13 +2208,6 @@ as $N \rightarrow +\infty$.
 \end{theorem}
 
 This allowed the author to prove the following CLT.
-\begin{theorem}
-Let $g \in \mathbb{L}_{1}(\mathbb{T})$ such that $\displaystyle \sum\limits_{n \in \mathbb{N}^{*}} n|\hat{g}_{n}|^{2} <+\infty$. Let $\bm{\theta} = (\theta_{n})_{n \in [N]} \in [0,2\pi]^{N}$ a random vector, such that the joint distribution of $(\theta_{1}, \dots, \theta_{N})$ have the density~\eqref{eq:haar_eigenvalues_density}. Then the random variable
-\begin{equation}
-\frac{1}{N}\sum\limits_{n \in [N]} g(\theta_{n}), 
-\end{equation}
-converges to $\displaystyle \mathcal{N}(0,\frac{2}{N}\sum\limits_{n \in \mathbb{N}^{*}} n|\hat{g}_{n}|^{2})$.
-\end{theorem}
 
 
 
@@ -2175,9 +2220,12 @@ converges to $\displaystyle \mathcal{N}(0,\frac{2}{N}\sum\limits_{n \in \mathbb{
 \caption{Three realizations from the CUE of 15 particles (top) compared to 15 particles sampled i.i.d in the unit circle (bottom).}
 \end{figure}
 
-\paragraph{CLT using Orthogonal Polynomial Ensembles}
+\subsubsection{The quadratures based on Orthogonal Polynomial Ensembles}
+As we have seen in the last paragraph, the quadrature based on CUE and uniform weights achieves fast asymptotic rates $\mathcal{O}(1/N)$ for sufficiently regular functions. It is legitimate to ask whether similar fast rates can be achieved in high-dimensional domains using DPPs.
 
-In \citep{BaHa16}, the authors proved the first CLT for a quadrature based on nodes that follow the distribution of a determinantal point process for functions defined on high dimension domains. In particular, this work dealed with quadratures defined on the integration domain $[-1,1]^{d}$ for the approximation of integrals that write
+
+
+\cite{BaHa16} proved the first CLT for a DPP based quadrature for functions defined on a high dimensional domain. In particular,  this work focused on the approximation of integrals that write
 \begin{equation}
 \int_{[-1,1]^{d}} f(x) \mathrm{d}\omega(x),
 \end{equation}
@@ -2185,7 +2233,13 @@ for a measure $\mathrm{d}\omega$ that  factorized as
 \begin{equation}
 \mathrm{d}\omega(x) = \prod\limits_{\delta \in [d]} \mathrm{d}\omega_{\delta}(x_{\delta}),
 \end{equation}
-where the measures $\mathrm{d}\omega_{\delta}$, defined on $[-1,1]$, belong to what is called \emph{Nevai class}. We recall the definition of this class of measures in the following.
+where the measures $\mathrm{d}\omega_{\delta}$, defined on $[-1,1]$, belong to what is called the \emph{Nevai class}. The nodes of the quadrature are an Orthogonal Polynomial Ensemble: a random set that follows the distribution of a projection DPP of reference measure $\mathrm{d}\omega$ and marginal kernel
+\begin{equation}
+\KDPP_{N}(x,y) = \sum\limits_{n \in [N]} P_{\bm{u}_{n}}(x)P_{\bm{u}_{n}}(y),
+\end{equation}
+where $(P_{\bm{u}_{n}})_{n \in [N]}$ are the first $N$ orthogonal polynomials with respect to $\mathrm{d}\omega$; and the corresponding weight for every node $x_{n}$ is $\displaystyle w_{n} =1/\KDPP_{N}(x_{n},x_{n})$.
+
+Before we review the main result of \citep{BaHa16}, we recall the definition of the Nevai class of measures in the following.
 
 \begin{definition}
 
@@ -2214,11 +2268,11 @@ In other words, the Nevai class contains measures that have three terms coeffici
 
 A sufficient condition for a measure to be Nevai class is given in the following result.
 \begin{theorem}
-Let $\mathrm{d}\omega$ be a measure supported on $[-1,1]$, and consider its Lebesgue decomposition:
+Let $\mathrm{d}\tilde{\omega}$ be a measure supported on $[-1,1]$, and consider its Lebesgue decomposition:
 \begin{equation}
-\mathrm{d}\omega = \omega(x) \mathrm{d}x + \mathrm{d}\omega_{s}.
+\mathrm{d}\tilde{\omega} = \tilde{\omega}(x) \mathrm{d}x + \mathrm{d}\tilde{\omega}_{s}.
 \end{equation}
-If $\omega(x) >0$ almost everywhere, then $\mathrm{d}\omega$ is Nevai-class.
+If $\tilde{\omega}(x) >0$ almost everywhere, then $\mathrm{d}\tilde{\omega}$ is Nevai class.
 \end{theorem}
 
 Now for a given measure $\mathrm{d}\omega$ that decomposes as the product of $d$ Nevai class measures $\mathrm{d}\omega_{\delta}$, define ....
@@ -2248,7 +2302,7 @@ and
 
 \end{theorem}
 
-\paragraph{CLT using the Dirichlet kernel}
+\subsubsection{CLT using the Dirichlet kernel}
 In \citep*{CoMaAm20}, the authors proposed to study a quadrature based on a different projection DPP and using uniform weights. The integrand $f$ was assumed to be square integrable and periodic on the hypercube $[0,1]^{d}$. The repulsion kernel $\KDPP$ is constructed as following. The authors assumed that there exists $N_{1}, \dots, N_{d} \in \mathbb{N}^{*}$ such that $N = \prod\limits_{\delta \in [d]}N_{\delta}$; and the projection DPP is defined by
 \begin{equation}\label{eq:Dirichlet_kernel}
 \KDPP(x,x) = \sum\limits_{\bm{m} \in \mathcal{M}_{N}}e^{2i \pi \bm{m}^{\Tran}(x-y) },
@@ -2317,7 +2371,7 @@ Let $\bm{x}$ and $f$ as in Proposition~\ref{prop:dirichlet_estimator}. Assume th
 \end{itemize}
 
 \end{theorem}
-\subsection{The kernel framework for quadratures}
+\section{The kernel framework for quadratures}
 
 
 The analysis of quadratures using kernel methods is convenient and elegant at the same time and it is expressed using functional analysis tools similarly to DPPs. Added to that, many results in quasi-Monte Carlo theory have an interpretation within the kernel quadrature framework. 
@@ -2332,7 +2386,7 @@ where $\mathbb{L}_{2}(\mathrm{d}\omega)$ is the Hilbert space of square integrab
 As we shall see, the analysis of the integration error in~\eqref{eq:int_error} is convenient if $f$ belongs to a Reproducing Kernel Hilbert Space (RKHS).
 
 In the following sections, we recall the essential notions on kernel methods needed for the analysis of the integration error of a function that belongs to an RKHS, along with a review of the existing nodes design paradigms. In Section~\ref{subsec:rkhs}, we recall the definition of RKHSs and the interpretations of the required conditions we assume; in Section~\ref{subsec:mercer}, we recall the Mercer theorem- required to outline the main results of this chapter- and its various extensions to non-compact domains; in Section~\ref{subsec:int_error}, we recall a classic upper bound of the integration error via the definition of the worst integration error on an RKHS; in Section~\ref{subsec:kernel_examples}, we give some examples of kernels widely used in the literature of kernel quadrature; in Section~\ref{subsec:bayesian_quadrature}, we recall the link between kernel quadrature and Gaussian processes approximations along with Bayesian quadrature; in Section~\ref{subsec:okq_analysis_paradigm} and Section~\ref{subsec:okq_algebraic_paradigm}, we review the two paradigms of nodes design for kernel quadratures.
-\subsubsection{Reproducing Kernel Hilbert Spaces}\label{subsec:rkhs}
+\subsection{Reproducing Kernel Hilbert Spaces}\label{subsec:rkhs}
 
 We start by the definition of a kernel over $\mathcal{X}$. A function $k: \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}_{+}$ is said to be a kernel over $\mathcal{X}$ if $k$ is symmetric and for any finite set of points in $\mathcal{X}$, the matrix of pairwise kernel evaluations is positive semi-definite.
 
@@ -2373,7 +2427,7 @@ The requirement that can be embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$
 
 
 
-\subsubsection{The Mercer decomposition}
+\subsection{The Mercer decomposition}
 \label{subsec:mercer}
 The Mercer Theorem was first proven when $\mathcal{X} = [0,1]$ and $\mathrm{d}\omega$ is the Lebesgue measure in \cite{Mer1909}.
 A modern proof of this classic result can be found in \cite{Lax02}. An extension to a general compact space $\mathcal{X}$ can be  found in \cite{CuZh07}. To state this classic result, we consider the integration operator
@@ -2419,7 +2473,7 @@ Note that this condition is not necessary (Example 2.9, \citep{StSc12}). Now, un
 % \end{theorem}
 % % \subsection{The results}
 
-\subsubsection{The integration error}
+\subsection{The integration error}
 \label{subsec:int_error}
 When the integrand $f$ belongs to the RKHS $\mathcal{F}$ of kernel $k$ \citep{CrSh04}, the quadrature error reads \citep{SmGrSoSc07}
 \begin{align}
@@ -2483,7 +2537,7 @@ In other words, the Quasi-Monte Carlo quadrature rules fit within the kernel fra
 
 
 % A tight approximation of the mean element by a linear combination of functions $k(x_{j},.)$ thus guarantees low quadrature error.
-\subsubsection{Examples of typical kernels}
+\subsection{Examples of typical kernels}
 \label{subsec:kernel_examples}
 \paragraph{Periodic Sobolev spaces and Korobov spaces}
 
@@ -2531,7 +2585,7 @@ $\mathcal{K}_{d,s}$ is the RKHS corresponding to the tensor product of $d$ copie
 \end{equation}
 
 
-\paragraph{Anchored kernels}
+\subsubsection{Anchored kernels}
 
 \begin{equation}
 k_{QMC}(\bm{x},\bm{y}) = \prod\limits_{\delta \in [d]} (2-\min(x_{\delta},y_{\delta})).
@@ -2544,12 +2598,12 @@ k_{QMC}(\bm{x},\bm{y}) = \prod\limits_{\delta \in [d]} (2-\min(x_{\delta},y_{\de
 
 % We recall in the following the aspects shared between kernel quadrature and quasi-Monte Carlo methods and we show the potential benefits of optimal kernel quadrature rules. 
 
-\subsubsection{The link with Bayesian quadrature}
+\subsection{The link with Bayesian quadrature}
 \label{subsec:bayesian_quadrature}
 \emph{Bayesian Quadrature} initially \citep{Lar72} considered a fixed set of nodes and put a Gaussian process prior on the integrand $f$. Then, the weights were chosen to minimize the posterior variance of the integral of $f$. If the kernel of the Gaussian process is chosen to be $k$, this amounts to minimizing the RHS of \eqref{eq:integral_bound_mean_element}. The case of the Gaussian reference measure was later investigated in detail \citep{Hag91}, while parametric integrands were considered in \citep{Min00}.
-\subsubsection{Design selection for the optimal kernel quadrature}
+\subsection{Design selection for the optimal kernel quadrature}
 \label{subsec:okq_analysis_paradigm}
-\subsubsection{Ridge leverage score quadrature}
+\subsection{Ridge leverage score quadrature}
 \label{subsec:okq_algebraic_paradigm}
 
 The work of \cite{Bac17} highlights the fundamental role played by the spectral decomposition of the operator $\bm{\Sigma}$ in designing and analyzing kernel quadrature rules.
@@ -2619,44 +2673,39 @@ Now, for fixed $\lambda$, the approximation error in Proposition~\ref{p:bach} do
 Moreover, the optimal density $q_{\lambda}^*$ is in general only available as the limit \eqref{e:proposalBach}, which makes sampling and evaluation difficult. 
 
 
-\subsection{Projection DPP for kernel quadrature}
+\section{Projection DPP for optimal kernel quadrature}
 % \subsubsection{The proposed algorithm}
+In this section, we propose to study optimal kernel quadrature based on nodes that follows the distribution of a projection DPP.
 
-We follow in the footsteps of \cite{Bac17}, as reviewed in Section~\ref{s:bach}, but using a projection DPP rather than independent sampling to obtain the nodes.
-In a nutshell, we consider nodes $(x_{j})_{j \in [N]}$ that are drawn from the projection DPP with reference measure $\mathrm{d}\omega$ and repulsion kernel
+
+
+We follow in the footsteps of \cite{Bac17}, as reviewed in Section~\ref{subsec:okq_algebraic_paradigm}, but with two main differences:
+\begin{itemize}
+\item we study the un-regularized optimization problem $(\lambda = 0)$,
+\item we use a projection DPP rather than independent sampling to obtain the nodes.
+\end{itemize}
+
+In a nutshell, we consider nodes $(x_{j})_{j \in [N]}$ that are drawn from the projection DPP with reference measure $\mathrm{d}\omega$ and marginal kernel
 \begin{equation}
   \KDPP(x,y) = \sum\limits_{n \in [N]} e_{n}(x)e_{n}(y),
   \label{e:kernel}
 \end{equation}
-where we recall that $(e_n)$ are the normalized eigenfunctions of the integral operator $\bm{\Sigma}$.
-\subsubsection{The theoretical guarantees}
+where we recall that $(e_{n})_{n \in \mathbb{N}^{*}}$ is the o.n.b of $\mathbb{L}_{2}(\mathrm{d}\omega)$ that diagonalizes $\bm{\Sigma}$. Among many possible choices of marginal kernels, the one defined in~\eqref{e:kernel} stands out for several reasons: i)
+it defines a random configuration such that the un-regularized optimization problem admits a unique solution, ii) it comes with a theoretical analysis, iii) it is ameanable to exact sampling , iv) it is intuitive.
 
-
-%
-The weights $\bm{w}$ are obtained by solving the optimization problem
+We explain more in details these four reasons in the following and we start by the first one. This projection DPP defines a uni-solvent configuration $\bm{x}$ with respect to the kernel $k$: the subspace $\mathcal{T}(\bm{x}) = \Span (k(x_{n},.))_{n \in [N]}$ is $N$-dimensional a.s. We will give a proof of the previous claim, but first observe that the uni-solvency of some configuration $\bm{x}$ with respect to $k$ guarantees the uniqueness of the solution of the optimization problem 
 \begin{equation}\label{eq:unreg_opt_problem}
 \min\limits_{w \in \mathbb{R}^{N}} \| \mu_{g} - \bm{\Phi} \bm{w} \|_{\mathcal{F}}^{2},
 %\quad \text{ where } \quad
 %\bm{\Phi}:(w_{j})_{j \in [N]} \mapsto \sum\limits_{j \in [N]} w_{j} k(x_{j},.).
 \end{equation}
+
 where
 \begin{equation}
 	\bm{\Phi}:(w_{j})_{j \in [N]} \mapsto \sum_{j \in [N]} w_{j} k(x_{j},.)
 \end{equation}
- is the reconstruction operator\footnote{The reconstruction operator $\bm{\Phi}$ depends on the nodes $x_{j}$, although our notation doesn't reflect it for simplicity.}. In Section~\ref{subsec:unreg_opt_problem} we prove that \eqref{eq:unreg_opt_problem} almost surely has a unique solution $\hat{\bm{w}}$ and state our main result, an upper bound on the expected approximation error $\|\mu_{g} - \bm{\Phi}\hat{\bm{w}}\|^{2}_{\mathcal{F}}$ under the proposed Projection DPP. The sketch of the proofs of the main results are given in Section~\ref{subsec:dpp_quadrature_error_weak} and  Section~\ref{subsec:dpp_quadrature_error_strong}.
-
- %%%%%%%%
-\subsubsection{Main results}
-\label{subsec:unreg_opt_problem}
-Assuming that nodes $(x_{j})_{j \in [N]}$ are known, we first need to solve the optimization problem \eqref{eq:unreg_opt_problem} that relates to problem~\eqref{eq:reg_kernel_opt_problem} without regularization ($\lambda = 0$).
-%
-Let $\bm{x} = (x_{1}, \dots, x_{N}) \in \mathcal{X}^{N}$, then
-% using the fact that $\langle \mu, k(x_{i},.) \rangle_{\mathcal{F}} = \mu(x_{i})$:
-% \begin{align}
-% \| \mu - \bm{\Phi} \bm{w} \|_{\mathcal{F}}^{2} & = \|\mu\|_{\mathcal{F}}^{2} - 2 \sum\limits_{i \in [N]} w_{i} \mu(x_{i}) + \sum\limits_{1\leq i,j \leq N}w_{i}w_{j}k(x_{i},x_{j})\\
-% &= \|\mu\|_{\mathcal{F}}^{2} - 2 \bm{w}^{\Tran} \mu(x_{i})_{i \in [N]} + \bm{w}^{\Tran} \bm{K} \bm{w}.
-% \end{align}
-\begin{equation}
+ is the reconstruction operator\footnote{The reconstruction operator $\bm{\Phi}$ depends on the nodes $x_{j}$, although our notation doesn't reflect it for simplicity.}.
+ In fact, \begin{equation}
 \| \mu_{g} - \bm{\Phi} \bm{w} \|_{\mathcal{F}}^{2} = \|\mu_{g}\|_{\mathcal{F}}^{2} - 2 \bm{w}^{\Tran} \mu_{g}(x_{j})_{j \in [N]} + \bm{w}^{\Tran} \bm{K}(\bm{x}) \bm{w},
 \label{e:quadratic}
 \end{equation}
@@ -2665,22 +2714,66 @@ where $\bm{K}(\bm{x}) = (k(x_{i},x_{j}))_{i,j \in [N]}$. The right-hand side of 
 %   \label{e:optimization}
 % \min\limits_{w \in \mathbb{R}^{N}} \| \mu_{g} - \bm{\Phi} \bm{w} \|_{\mathcal{F}}^{2}
 % \end{equation}
-admits a unique solution $\hat{\bm{w}}$ if and only if $\bm{K}(\bm{x})$ is invertible. In this case, the solution is given by $\hat{\bm{w}} = \bm{K}(\bm{x})^{-1}\mu_{g}(x_{j})_{j \in [N]}$. A sufficient condition for the invertibility of $\bm{K}(\bm{x})$ is given in the following proposition.
+admits a unique solution $\hat{\bm{w}}$ if and only if $\bm{K}(\bm{x})$ is invertible. This latter is equivalent to $\mathcal{T}(\bm{x}) = \Span (k(x_{n},.))_{n \in [N]}$ being an $N$-dimensional subspace. In this case, the solution is given by $\hat{\bm{w}} = \bm{K}(\bm{x})^{-1}\mu_{g}(x_{j})_{j \in [N]}$. A sufficient condition for the invertibility of $\bm{K}(\bm{x})$ is given in the following proposition.
 %%% PROPOSITION
 % Let $\{x_{1}, \dots, x_{N}\} \in \mathcal{X}^{N}$ be such that
 \begin{proposition}\label{prop:K_N_non_singular}
 Assume that the matrix
 $\bm{E}(\bm{x}) = (e_{i}(x_{j}))_{ i,j \in [N]}$ is invertible, then $\bm{K}(\bm{x})$ is invertible.
 \end{proposition}
-%%%
-The proof of Proposition~\ref{prop:K_N_non_singular} is given in Appendix~\ref{app:K_N_non_singular}.
+The proof of Proposition~\ref{prop:K_N_non_singular} is given in Section~\ref{app:K_N_non_singular}.
 Since the pdf \eqref{eq:pdpp_definition} of the projection DPP with kernel \eqref{e:kernel} is proportional to $\Det^2\bm{E}(\bm{x})$, the following corollary immediately follows.
 
 \begin{corollary}
   Let $\bm{x} = \{x_{1}, \dots , x_{N}\}$ be a projection DPP with reference measure $\mathrm{d}\omega$ and kernel $\KDPP$ defined in \eqref{e:kernel}. Then $\bm{K}(\bm{x})$ is a.s. invertible, so that \eqref{eq:unreg_opt_problem} has unique solution $\hat{\bm{w}} = \bm{K}(\bm{x})^{-1}\mu_{g}(x_{j})_{j \in [N]}$ a.s.
 \label{c:regularization}
 \end{corollary}
-We now give our main result that uses nodes $(x_{j})_{j \in [N]}$ drawn from a well-chosen projection DPP.
+
+ Under the assumption that $\bm{K}(\bm{x})$ is non singular the optimal approximation of $\mu_{g}$ by an element of $\mathcal{T}(\bm{x})$, with respect to the RKHS norm, is $\bm{\Phi}\hat{\bm{w}}$, and the optimal approximation error writes
+\begin{equation}
+\|\mu_{g} - \bm{\Phi}\hat{\bm{w}}\|^{2}_{\mathcal{F}} =\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}\|^{2}_{\mathcal{F}},\label{e:finalTool}
+\end{equation}
+%  The approximation error writes
+% \begin{align}
+% \|\mu_{g} - \bm{\Phi}\hat{\bm{w}}\|^{2}_{\mathcal{F}} &= \|\mu_{g} - \bm{\Phi}\bm{K}(\bm{x})^{-1} \mu_{g}(x_{i})_{i \in [N]}\|^{2}_{\mathcal{F}}\\
+%  &= \|\mu_{g} - \bm{\Phi}(\bm{\Phi}^{*}\bm{\Phi})^{-1}\bm{\Phi}^{*} \mu_{g} \|^{2}_{\mathcal{F}}\\
+% &=\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}\|^{2}_{\mathcal{F}},\label{e:finalTool}
+% \end{align}
+where $\bm{\Pi}_{\mathcal{T}(\bm{x})} = \bm{\Phi}(\bm{\Phi}^{*}\bm{\Phi})^{-1}\bm{\Phi}^{*}$ is the orthogonal projection onto $\mathcal{T}(\bm{x})$ with $\bm{\Phi}^{*}$ the dual\footnote{For $\mu \in \mathcal{F}$,$\bm{\Phi}^{*}\mu = (\mu(x_{j}))_{j \in [N]}$. $\bm{\Phi}^{*}\bm{\Phi}$ is an operator from $\mathbb{R}^{N}$ to $\mathbb{R}^{N}$ that can be identified with $\bm{K}(\bm{x})$.} of $\bm{\Phi}$: $\bm{\Phi}\hat{\bm{w}}$ is the orthogonal projection of $\mu_{g}$ on the subspace $\mathcal{T}(\bm{x})$. Moreover, we can prove easily that $\bm{\Phi}\hat{\bm{w}}$ interpolates $\mu_{g}$ on the nodes $x_{1}, \dots, x_{N}$:
+\begin{equation}
+\forall n \in [N], \:\bm{\Phi}\hat{\bm{w}}(x_{n}) = \mu_{g}(x_{n}).
+\end{equation}
+
+From the proof of Proposition~\ref{prop:K_N_non_singular}, it seems that the first eigenfunctions that are involved into the definition of the kernel~\eqref{e:kernel}
+ can be replaced by any set of $N$ eigenfunctions of $\bm{\Sigma}$. Yet, we will see that this specific choice of \eqref{e:kernel} allows a theoretical analysis of the expected value of 
+ \begin{equation}
+ \|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\mathcal{F}}^{2}.
+ \end{equation}
+
+
+%\subsubsection{The theoretical guarantees}
+Now consider $\bm{x} = \{x_{1}, \dots, x_{N} \} \subset \mathcal{X}$. The weights $\bm{w}$ are obtained by solving the optimization problem
+ In Section~\ref{subsec:unreg_opt_problem} we prove that \eqref{eq:unreg_opt_problem} almost surely has a unique solution $\hat{\bm{w}}$ and state our main result, an upper bound on the expected approximation error $\|\mu_{g} - \bm{\Phi}\hat{\bm{w}}\|^{2}_{\mathcal{F}}$ under the proposed Projection DPP. The sketch of the proofs of the main results are given in Section~\ref{subsec:dpp_quadrature_error_weak} and  Section~\ref{subsec:dpp_quadrature_error_strong}.
+
+ %%%%%%%%
+\subsection{Main results}
+\label{subsec:unreg_opt_problem}
+Besides the uni-solvency property of the projection DPP defined in the beginning of this section, this choice of marginal kernel is amenable to theoretical analysis.
+
+
+
+% Assuming that nodes $(x_{j})_{j \in [N]}$ are known, we first need to solve the optimization problem \eqref{eq:unreg_opt_problem} that relates to problem~\eqref{eq:reg_kernel_opt_problem} without regularization ($\lambda = 0$).
+% %
+% Let $\bm{x} = (x_{1}, \dots, x_{N}) \in \mathcal{X}^{N}$, then
+% using the fact that $\langle \mu, k(x_{i},.) \rangle_{\mathcal{F}} = \mu(x_{i})$:
+% \begin{align}
+% \| \mu - \bm{\Phi} \bm{w} \|_{\mathcal{F}}^{2} & = \|\mu\|_{\mathcal{F}}^{2} - 2 \sum\limits_{i \in [N]} w_{i} \mu(x_{i}) + \sum\limits_{1\leq i,j \leq N}w_{i}w_{j}k(x_{i},x_{j})\\
+% &= \|\mu\|_{\mathcal{F}}^{2} - 2 \bm{w}^{\Tran} \mu(x_{i})_{i \in [N]} + \bm{w}^{\Tran} \bm{K} \bm{w}.
+% \end{align}
+
+%%%
+
+We present the first result of this section.
 %%% THEOREM
 \begin{theorem}\label{thm:main_theorem}
 Let $\bm{x} = \{x_{1}, \dots , x_{N}\}$ be a projection DPP with reference measure $\mathrm{d}\omega$ and kernel \eqref{e:kernel}. Let $\hat{\bm{w}}$ be the unique solution to \eqref{eq:unreg_opt_problem} and define $\displaystyle \|g\|_{\mathrm{d}\omega,1} = \sum\limits_{n \in [N]} |\langle e_{n},g \rangle_{d\omega}|$. Assume that $\|g\|_{\mathrm{d}\omega} \leq 1$ and define $r_{N} = \sum\limits_{m \geq N+1} \sigma_{m}$, then
@@ -2752,7 +2845,7 @@ Of course, the results in Theorem~\ref{thm:main_theorem_refined} are stronger co
 
 
 
-\subsubsection{Bounding the approximation error under the DPP: the weak version}
+\subsection{Bounding the approximation error under the DPP: the weak version}
 \label{subsec:dpp_quadrature_error_weak}
 
 In this section, we give the skeleton of the proof of Theorem~\ref{thm:main_theorem}, referring to the appendices for technical details. The proof is in two steps. First, we give an upper bound for the approximation error $\|\mu_{g} - \bm{\Phi}\hat{\bm{w}}\|^{2}_{\mathcal{F}}$ that involves the maximal principal angle between the functional subspaces of $\mathcal{F}$
@@ -2764,7 +2857,7 @@ As for now, we recall some properties of the principal angles between subspaces 
 
 
 
-\paragraph{Principal angles between subspaces in a Hilbert space}
+\subsubsection{Principal angles between subspaces in a Hilbert space}
 \label{subsec:principalangles}
 We recall in this section the definition of principal angles between subspaces in Hilbert spaces and connect them to the determinant of the Gramian matrix of their orthonormal bases.
 
@@ -2959,19 +3052,9 @@ Combining \eqref{eq:prod_cos_det_E}, \eqref{eq:AN_times_EN} and \eqref{eq:det_AN
 
 
 
-\paragraph{Bounding the approximation error using principal angles}
+\subsubsection{Bounding the approximation error using principal angles}
 \label{subsec:approximation_error_principal_angle}
- Let $\bm{x} =  (x_{1}, \dots , x_{N}) \in \mathcal{X}^{N} $ be such that $\Det \bm{E}(\bm{x}) \neq 0$. By Proposition~\ref{prop:K_N_non_singular}, $\bm{K}(\bm{x})$ is non singular and $\dim \mathcal{T}(\bm{x}) = N$. The optimal approximation error writes
-\begin{equation}
-\|\mu_{g} - \bm{\Phi}\hat{\bm{w}}\|^{2}_{\mathcal{F}} =\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}\|^{2}_{\mathcal{F}},\label{e:finalTool}
-\end{equation}
-%  The approximation error writes
-% \begin{align}
-% \|\mu_{g} - \bm{\Phi}\hat{\bm{w}}\|^{2}_{\mathcal{F}} &= \|\mu_{g} - \bm{\Phi}\bm{K}(\bm{x})^{-1} \mu_{g}(x_{i})_{i \in [N]}\|^{2}_{\mathcal{F}}\\
-%  &= \|\mu_{g} - \bm{\Phi}(\bm{\Phi}^{*}\bm{\Phi})^{-1}\bm{\Phi}^{*} \mu_{g} \|^{2}_{\mathcal{F}}\\
-% &=\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}\|^{2}_{\mathcal{F}},\label{e:finalTool}
-% \end{align}
-where $\bm{\Pi}_{\mathcal{T}(\bm{x})} = \bm{\Phi}(\bm{\Phi}^{*}\bm{\Phi})^{-1}\bm{\Phi}^{*}$ is the orthogonal projection onto $\mathcal{T}(\bm{x})$ with $\bm{\Phi}^{*}$ the dual\footnote{For $\mu \in \mathcal{F}$,$\bm{\Phi}^{*}\mu = (\mu(x_{j}))_{j \in [N]}$. $\bm{\Phi}^{*}\bm{\Phi}$ is an operator from $\mathbb{R}^{N}$ to $\mathbb{R}^{N}$ that can be identified with $\bm{K}(\bm{x})$.} of $\bm{\Phi}$.
+
 
 In other words, \eqref{e:finalTool} equates the approximation error to $\|\bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}}\mu_g\|^{2}_{\mathcal{F}}$, where $\bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}}$ is the orthogonal projection onto $\mathcal{T}(\bm{x})^{\perp}$.
 % \rb{and maybe give a ref on the definition of the projection, since $\Phi$ is an operator}.
@@ -3007,7 +3090,7 @@ Let $\bm{x} = (x_{1}, \dots , x_{N}) \in \mathcal{X}^{N}$ such that $\Det \bm{E}
 \end{lemma}
 To sum up, we have so far bounded the approximation error by the geometric quantity in the right-hand side of \eqref{eq:max_error_as_function_of_cos}. Where projection DPPs shine is in taking expectations of such geometric quantities.
 
-\paragraph{Taking the expectation under the DPP}
+\subsubsection{Taking the expectation under the DPP}
 \label{subsec:expectation_under_the_DPP}
 The analysis in Section~\ref{subsec:approximation_error_principal_angle} is valid whenever $\Det \bm{E}(\bm{x}) \neq 0$. As seen in Corollary~\ref{c:regularization}, this condition is satisfied almost surely when $\bm{x}$ is drawn from the projection DPP of Theorem~\ref{thm:main_theorem}. Furthermore, the expectation of the right-hand side of \eqref{eq:max_error_as_function_of_cos} can be written in terms of the eigenvalues of the kernel $k$.
 %% Proposition
@@ -3050,7 +3133,7 @@ Combining  Proposition~\ref{prop:expected_value_of_product_of_cos} with Proposit
 % \end{equation}
 % \end{proposition}
 
-\subsubsection{Bounding the approximation error under the DPP: the strong version}
+\subsection{Bounding the approximation error under the DPP: the strong version}
 The strong version is a consequence of two improvements in the results appearing in the previous section.
 
 The first improvement is a generalization of the bound in the Proposition~\ref{prop:kernel_perturbation_inequality}. 
@@ -3138,7 +3221,7 @@ can be seen as a sharper inequality is expressed
 
 \label{subsec:dpp_quadrature_error_strong}
 
-\subsubsection{Discussion}
+\subsection{Discussion}
 \label{s:discussion}
 We have arbitrarily introduced a product in the right-hand side of \eqref{eq:max_error_as_function_of_cos}, which is a rather loose majorization. Our motivation is that the expected value of this symmetric quantity is tractable under the DPP. Getting rid of the product could make the bound much tighter. Intuitively, taking the upper bound in \eqref{eq:expected_value_of_product_of_cos} to the power $1/N$ results in a term in $\mathcal{O}(r_{N})$ for the RKHS $\tilde{\mathcal{F}}$. Improving the bound in \eqref{eq:expected_value_of_product_of_cos} would require a de-symmetrization by comparing the maximum of the $1/\cos^{2} \theta_{\ell}(\mathcal{T}(\bm{x}),\mathcal{E}^{\mathcal{F}}_{N})$ to their geometric mean.
 % We expect techniques from the literature on interlacing families \cite{MaSpSr15,AnGh14} to help for the de-symmetrization, but this is beyond the scope of this article.
@@ -3152,7 +3235,9 @@ In comparison with \cite{Bac17}, we emphasize that the dependence of our bound o
 
 One advantage of DPPs is that they can be sampled exactly. Because of the orthonormality of $(\psi_n)$, one can write the chain rule for \eqref{eq:pdpp_definition}; see \cite{HKPV06}. Sampling each conditional in turn, using e.g. rejection sampling \cite{RoCa04}, then yields an exact sampling algorithm. Rejection sampling aside, the cost of this algorithm is cubic in $N$ without further assumptions on the kernel. Simplifying assumptions can take many forms. 
 
-\subsection{The proofs}
+\section{Numerical simulations}
+
+\section{The proofs}
 \label{s:proofs}
 %% Prop 2 : K is invertible
 Section~\ref{app:K_N_non_singular} contains the proof of Proposition~\ref{prop:K_N_non_singular}. In the main paper, we use it under the form of Corollary~\ref{c:regularization} to ensure that $\bm{K}(\bm{x})$ is almost surely invertible when $\bm{x} = \{x_{1}, \dots , x_{N}\}$ is a projection DPP with reference measure $\mathrm{d}\omega$ and kernel \eqref{e:kernel}. This allows computing the quadrature weights.
@@ -3170,7 +3255,7 @@ Third, we take the expectation of the bound in Proposition~\ref{prop:kernel_pert
 Fourth, Theorem~\ref{thm:main_theorem} is obtained in Section~\ref{s:finalBound}, using the results of the previous steps, and an argument to reduce the proof to RKHSs with flat initial spectrum.
 
 %%%%%%%%%%%%% Proposition 2
-\subsubsection{Proof of Proposition~\ref{prop:K_N_non_singular}}\label{app:K_N_non_singular}
+\subsection{Proof of Proposition~\ref{prop:K_N_non_singular}}\label{app:K_N_non_singular}
 
 \begin{proof}
 Recall the Mercer decomposition of $k$:
@@ -3212,7 +3297,7 @@ so that $\bm{K}(\bm{x})$ is invertible.
 
 
 %%%%%%%%%%%%% Lemma 1
-\subsubsection{Proof of Lemma~\ref{lemma:approximation_error_spectral_bound}}
+\subsection{Proof of Lemma~\ref{lemma:approximation_error_spectral_bound}}
 \label{s:proofOfSeparationLemma}
 %\ab{Note that $\tilde{\mu}_{g} = \bm{\Sigma}^{1/2} g$ so I keep the $\tilde{\mu}_{g}$ in the notation. Hint: $\mu_{g} = \bm{\Sigma}^{1/2} \tilde{\mu}_{g}= \bm{\Sigma} g$}
 \begin{proof}
@@ -3324,7 +3409,7 @@ concludes the proof of \eqref{e:boundingOrthogonalProjection} and therefore Lemm
 
 
 %%%%%%%% Proposition 4 : a) Lemma 6,  b) Proposition 6
-\subsubsection{Proof of Proposition~\ref{prop:kernel_perturbation_inequality}}
+\subsection{Proof of Proposition~\ref{prop:kernel_perturbation_inequality}}
 \label{s:proofOfPerturbationInequality}
 Proposition~\ref{prop:kernel_perturbation_inequality} gives an upper bound to the term $\max\limits_{n \in [N]}\sigma_{n}  \|\bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}}e_{n}^{\mathcal{F}}\|_{\mathcal{F}}^{2}$ that appears in Lemma~\ref{lemma:approximation_error_spectral_bound}.
 We first prove a technical result, Lemma~\ref{lemma:interpolation_error_matricial_form}, and then combine it with  Proposition~\ref{prop:graded_RKHS} to finish the proof. We conclude with the proof of Proposition~\ref{prop:graded_RKHS}.
@@ -3332,7 +3417,7 @@ We first prove a technical result, Lemma~\ref{lemma:interpolation_error_matricia
 %
 
 %%%
-\paragraph{A preliminary lemma}
+\subsubsection{A preliminary lemma}
 
 Let $\bm{x} = (x_{1}, \dots, x_{N}) \in \mathcal{X}^{N}$. Recall that $\bm{K}(\bm{x}) = (k(x_{i},x_{j}))_{1 \leq i,j \leq N}$ and denote $\tilde{\bm{K}}(\bm{x}) = (\tilde{k}(x_{i},x_{j}))_{1 \leq i,j \leq N}$, see section \ref{subsec:expectation_under_the_DPP}.
 %
@@ -3387,7 +3472,7 @@ Moreover, since $\|e_{n}^{\mathcal{F}}\|_{\mathcal{F}} = 1$, we have
 % \pc{Peut-être introduire $\Delta_n^{\cal F}(\bm{x}) = e_{n}^{\mathcal{F}}(\bm{x})^{\Tran}\bm{K}(\bm{x})^{-1}e_{n}^{\mathcal{F}}(\bm{x})$ et  $\Delta_n^{\tilde{\cal F}_\ell}(\bm{x}) = e_{n}^{\tilde{\mathcal{F}}_{\ell}}(\bm{x})^{\Tran}\tilde{\bm{K}}^{(\ell)}(\bm{x})^{-1}e_{n}^{\tilde{\mathcal{F}}_{\ell}}(\bm{x})$ pour alléger l'écriture avec $\| ...\|$ partout ?}
 
 %
-\paragraph{End of the proof of Proposition~~\ref{prop:kernel_perturbation_inequality}}
+\subsubsection{End of the proof of Proposition~~\ref{prop:kernel_perturbation_inequality}}
 %%%
 \begin{proof}
 By Lemma~\ref{lemma:interpolation_error_matricial_form}, the inequality~\eqref{eq:kernel_perturbation_inequality} in Proposition~\ref{prop:kernel_perturbation_inequality} is equivalent to
@@ -3560,7 +3645,7 @@ Now let $j \in [M]-\{i\}$. By definition of $\tau_{j}(\bm{A}\bm{W})$
 \end{proof}
 
 
-\paragraph{Proof of Proposition~\ref{prop:graded_RKHS}}
+\subsubsection{Proof of Proposition~\ref{prop:graded_RKHS}}
 %
 %Now we give the proof of Proposition~\ref{prop:graded_RKHS}.
 \begin{proof}(Proposition~\ref{prop:graded_RKHS})
@@ -3654,7 +3739,7 @@ This proves inequality~\eqref{eq:graded_RKHS_inequality_2} and concludes the pro
 
 %%%%%%%% Proposition 3 : a) Proposition 2, b) Lemma 2, c) Lemma 4, d) Lemma 5
 
-\subsubsection{Proof of Proposition~\ref{prop:expected_value_of_product_of_cos}}
+\subsection{Proof of Proposition~\ref{prop:expected_value_of_product_of_cos}}
 \label{s:proofOfExpectedProduct}
 % Remark
 %\subsection{A bound for $\displaystyle \EX_{\DPP} \prod\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell}\left(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(x) \right)}$}
@@ -3667,7 +3752,7 @@ Moreover, let $\mathcal{E}^{\mathcal{F}}_{N} = \Span(e_{m}^{\mathcal{F}})_{m \in
 We first prove two lemmas that are necessary to prove Proposition~\ref{prop:expected_value_of_product_of_cos}.
 
 %%%
-\paragraph{Two preliminary lemmas}
+\subsubsection{Two preliminary lemmas}
 
 %%% Lemma 4
 %%%%%%
@@ -3786,7 +3871,7 @@ Then by monotone convergence theorem, $\displaystyle \bm{x} \mapsto \frac{1}{N!}
 \end{proof}
 
 %%%%%%%%%%%%%%%% Proposition 3
-\paragraph{End of the proof of Proposition~\ref{prop:expected_value_of_product_of_cos}}
+\subsubsection{End of the proof of Proposition~\ref{prop:expected_value_of_product_of_cos}}
 %Now we can prove Proposition~\ref{prop:expected_value_of_product_of_cos} thanks to Lemmas~\ref{lemma:cos_ratio_det} \& \ref{lemma:truncated_Fredholm_formula} above.
 \begin{proof}
 Remember that
@@ -3817,7 +3902,7 @@ Therefore,
 
 %%%%%%%% Theorem 1
 %%%%%%%%%%%%%%%%%% Main Theorem
-\subsubsection{Proof of Theorem~\ref{thm:main_theorem}}
+\subsection{Proof of Theorem~\ref{thm:main_theorem}}
 \label{s:finalBound}
 \begin{proof}
 Thanks to Proposition~\ref{prop:kernel_perturbation_inequality} and Lemma~\ref{lemma:max_error_cos} (for $\tilde{\cal F}$ and $\tilde{k}$)
@@ -3873,7 +3958,7 @@ which can be plugged in Lemma~\ref{lemma:approximation_error_spectral_bound} to 
 \end{proof}
 
 
-\subsubsection{The proofs of the strong version}
+\subsection{The proofs of the strong version}
 Our objective in this section is to give a tractable expression of 
 \begin{equation}
 \EX_{\DPP} \sum\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell} \bigg(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \bigg)}.
@@ -4056,7 +4141,7 @@ Finally, combining \eqref{eq:I_k_N}, \eqref{eq:phi_derivative_at_zero} and \eqre
 \end{align}
 
 
-\paragraph{Proof of Proposition~\ref{lemma:sharp_additive_symmetrization}}
+\subsubsection{Proof of Proposition~\ref{lemma:sharp_additive_symmetrization}}
 Let $n \in [N]$, and assume that $\|\bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})} e_{n}^{\tilde{\mathcal{F}}}\|_{\tilde{\mathcal{F}}}^{2}>0$ then
 \begin{align}
 \|\bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})^{\perp}} e_{n}^{\tilde{\mathcal{F}}}\|_{\tilde{\mathcal{F}}}^{2} & = 1- \|\bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})} e_{n}^{\tilde{\mathcal{F}}}\|_{\tilde{\mathcal{F}}}^{2}\\
@@ -4126,7 +4211,7 @@ Therefore, by the Arithmetic-Harmonic inequality we get
 \end{equation}
 \end{proof}
 
-\subsubsection{Bounds for the saturated kernels}
+\subsection{Bounds for the saturated kernels}
 In this section we generalize the inequality ?? in Section ?? proven in [??].
 \begin{proposition}\label{prop:kernel_perturbation_inequality_generalization}
 Let $ \tilde{\mathcal{T}}(\bm{x}) = \Span \left( \tilde{k}(x_{j},.) \right)_{j \in [N]}$ and $\bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})^{\perp}}$ the orthogonal projection onto $\tilde{\mathcal{T}}(\bm{x})^{\perp}$ in $(\tilde{\mathcal{F}}, \langle .,.\rangle_{\tilde{\mathcal{F}}})$. Then,
@@ -4270,7 +4355,7 @@ we get
 
 \clearpage
 
-\section{Kernel interpolation using Volume Sampling}
+\chapter{Kernel interpolation using Volume Sampling}
 
 \subsection{Related work}\label{s:relatedWork}
 % \rb{Not sure we should call it sampling}
@@ -4982,18 +5067,878 @@ Combining the characterization of $\EX_{\VS} \tau_{m}^{\F}(\bm{x})$ and $\EX_{\V
 
 %%%%Here%%%%
 
+\subsection{Proofs}
 
 
+ \subsubsection{Proof of Proposition~\ref{prop:VS_decomposition}}\label{sec:proof_VS_decomposition}
+
+Proposition~\ref{prop:VS_decomposition} states that continuous volume sampling is a mixture of projection determinantal point processes. We adapt a result in \citep[Chapter 5]{KuTa12} for finite volume sampling to the infinite-dimensional case. The idea of the proof is to apply the Cauchy-Binet identity to a sequence of kernels of finite rank that approximate $k$.
+
+First, recall from Section~\ref{sec:introduction} the Mercer decomposition of $k$,
+\begin{equation}\label{eq:Mercer_decomposition_1}
+k(x,y) = \lim_{M\rightarrow \infty}\sum\limits_{m\in [M]} \sigma_{m} e_{m}(x)e_{m}(y) = \lim_{M\rightarrow \infty} k_M(x,y), \quad\forall x,y\in\mathcal{X}.
+\end{equation}
+where kernel $k_M$ has rank $M$.
+% we denote the $M$-th truncated kernel as
+% \begin{equation}
+% k_{M}(x,y) = \sum\limits_{m \in [M]} \sigma_{m} e_{m}(x)e_{m}(y).
+% \end{equation}
+% By \eqref{eq:Mercer_decomposition_1},
+% \begin{equation}\label{eq:truncated_kernel_limit}
+% \forall x,y \in \mathcal{X}, \:\lim\limits_{M \rightarrow \infty} k_{M}(x,y) = k(x,y).
+% \end{equation}
+
+Now, let $\bm{x} = (x_{1}, \dots, x_{N}) \in \mathcal{X}^{N}$, and define
+$\bm{K}_{M}(\bm{x}) = (k_{M}(x_{i},x_{j}))_{i,j \in [N]}$. By continuity of the determinant and by \eqref{eq:Mercer_decomposition_1}, it comes
+\begin{equation}\label{eq:truncated_det_limit}
+  \lim\limits_{M \rightarrow \infty} \Det \bm{K}_{M}(\bm{x}) = \Det \bm{K}(\bm{x}).
+\end{equation}
+By construction,
+\begin{equation}
+  \bm{K}_{M}(\bm{x}) = \bm{F}_{M}(\bm{x})^{\Tran}\bm{\Sigma}_{M}\bm{F}_{M}(\bm{x}),
+\end{equation}
+where $\bm{F}_{M}(\bm{x}) = (e_{m}(x_{i}))_{(m,i) \in [M]\times[N]}$ and $\Sigma_{M}$ is a diagonal matrix containing the first $M$ eigenvalues $(\sigma_{m})_{m\in[M]}$ on its diagonal. The Cauchy-Binet identity yields
+\begin{equation}\label{eq:Cauchy_Binet_truncated_kernel}
+  \Det \bm{K}_{M}(\bm{x})  = \sum\limits_{\substack{U \subset [M]\\ |U| = N}} \Det^{2} (e_{u}(x_{i}))_{(u,i)\in U \times [N]} \prod\limits_{u \in U} \sigma_{u}.
+\end{equation}
+Let now $\lambda_u= \prod_{u \in U} \sigma_{u}$ and $\bm{E}_{U}(\bm{x}) = (e_{u}(x_{i}))_{(u,i)\in U \times [N]}$,
+we combine \eqref{eq:truncated_det_limit} and \eqref{eq:Cauchy_Binet_truncated_kernel} to obtain
+\begin{align}
+\Det \bm{K}(\bm{x}) & = \lim\limits_{M \rightarrow \infty} \sum_{\substack{U \subset [M]\\ |U| = N}} \lambda_u \Det^{2} (e_{u}(x_{i}))_{(u,i)\in U \times [N]}  \\
+&= \sum_{U\in \UN} \lambda_u \Det^{2} (e_{u}(x_{i}))_{(u,i)\in U \times [N]}\\
+&= \sum_{U\in \UN} \lambda_u \Det \left( \bm{E}_{U}(\bm{x})^{\Tran} \bm{E}_{U}(\bm{x}) \right)\\
+&= \sum_{U\in \UN} \lambda_u \Det ({\KDPP}_{U}(x_{i},x_{j}))_{i,j \in [N]},
+\end{align}
+where ${\KDPP}_{U}(x,y) \triangleq \sum_{u\in U} e_u(x)e_u(y)$. Since ${\KDPP}_{U}$ is a projection kernel, writing the determinant as a sum over permutations easily yields, for all $U\in\UN$,
+\begin{equation}
+\int_{\X^{N}} \Det({\KDPP}_{U}(x_{i},x_{j}))_{i,j \in [N]} \otimes_{i \in [N]} \mathrm{d}\omega(x_{i}) = N!,
+\end{equation}
+see e.g. Lemma 21 in \citep{HoKrPeVi06}. Finally, the monotone convergence theorem allows us to conclude
+\begin{equation}
+\int_{\X^{N}} \Det \bm{K}(\bm{x}) \otimes_{i \in [N]} \mathrm{d}\omega(x_{i}) = N! \sum\limits_{\substack{U \subset \Ns\\ |U| = N}} \prod\limits_{u \in U } \sigma_{u}.
+\end{equation}
+
+\subsubsection{Proof of Lemma~\ref{lemma:projection_DPP_weight}}
+Lemma~\ref{lemma:projection_DPP_weight} gives an upper bound on the biggest weight $\delta_N$ in the mixture of Proposition~\ref{prop:VS_decomposition}. The proof is straightforward, as
+\begin{align}\label{eq:r_N_delta_N_inequality}
+r_{N} \prod\limits_{\ell \in [N]} \sigma_{\ell} & = \sigma_{N} \sum\limits_{m \geq N+1} \sigma_{m} \prod\limits_{\ell \in [N-1]} \sigma_{\ell} \nonumber\\
+& \leq \sigma_{N} \sum\limits_{\substack{U \subset \Ns\\ |U| = N}} \prod\limits_{u \in U} \sigma_{u}.
+\end{align}
+This immediately yields $\delta_{N} \leq \sigma_{N}/r_{N}$.
+
+\subsubsection{Proof of Lemma~\ref{lemma:error_decomposition}}\label{app:proof_error_decomposition}
+Lemma~\ref{lemma:error_decomposition} decomposes the interpolation error in terms of (cross-)leverage scores. Let $g \in \Ltwo$ satisfy $\|g\|_{\mathrm{d}\omega} \leq 1$. Since $\Pi_{\mathcal{T}(\bm{x})}$ is an orthogonal projection with respect to $\langle .,. \rangle_{\F}$, we have
+\begin{equation}\label{eq:reconstruction_error}
+\|\mu_{g} - \Pi_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F}^{2} = \|\mu_{g}\|_{\F}^{2} - \| \Pi_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F}^2
+\end{equation}
+Now, $\mu_{g} = \bm{\Sigma} g = \sum\limits_{m \in \mathbb{N}^{*}} \sqrt{\sigma_{m}} g_{m} e_{m}^{\F}$, so that \eqref{eq:reconstruction_error} becomes
+\begin{align}
+\|\mu_{g} - \Pi_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F}^{2} & = \sum\limits_{m \in \mathbb{N}^{*}} \sigma_{m} g_{m}^{2} - \left\Vert \sum_{m \in \Ns} \Pi_{\mathcal{T}(\bm{x})}  \sqrt{\sigma_{m}} g_{m} e_{m}^{\F}\right\Vert_{\F}^2 \nonumber\\
+& = \sum\limits_{m \in \mathbb{N}^{*}} \sigma_{m} g_{m}^{2} - \sum\limits_{m_{1}, m_2} g_{m_{1}} g_{m_{2}} \sqrt{\sigma_{m_{1}}} \sqrt{\sigma_{m_{2}}} \langle  \Pi_{\mathcal{T}(\bm{x})}   e_{m_{1}}^{\F}, \Pi_{\mathcal{T}(\bm{x})} e_{m_{2}}^{\F} \rangle_{\F}. \label{eq:reconstruction_norm_mu_onb}
+\end{align}
+Lemma~\ref{lemma:lvs_identities} allows us to recognize leverage scores in \eqref{eq:reconstruction_norm_mu_onb}. Taking out of the second sum in \eqref{eq:reconstruction_norm_mu_onb} the terms for which $m_1=m_2$ to put them in the first sum concludes the proof of Lemma~\ref{lemma:error_decomposition}.
+
+% Noting that $\Pi_{\mathcal{T}(\bm{x})}$ is a projection, it comes
+% \begin{align}
+% \| \Pi_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F}^2 & = \sum\limits_{m_{1}m_2} g_{m_{1}} g_{m_{2}} \sqrt{\sigma_{m_{1}}} \sqrt{\sigma_{m_{2}}} \langle   e_{m_{1}}^{\F}, \Pi_{\mathcal{T}(\bm{x})} e_{m_{2}}^{\F} \rangle_{\F} \nonumber\\
+% & = \sum\limits_{m \in \Ns} \langle   e_{m}^{\F}, \Pi_{\mathcal{T}(\bm{x})} e_{m}^{\F} \rangle_{\F} + \sum\limits_{\substack{m_{1},m_{2} \in \Ns\\ m_{1} \neq m_{2}}} \langle   e_{m_{1}}^{\F}, \Pi_{\mathcal{T}(\bm{x})} e_{m_{2}}^{\F} \rangle_{\F}
+% \end{align}
+% Now, by Lemma~\ref{lemma:lvs_identities}, we have
+% \begin{equation}\label{eq:reconstruction_norm_mu_e}
+% \langle   e_{m}^{\F}, \Pi_{\mathcal{T}(\bm{x})} e_{m}^{\F} \rangle_{\F} = \tau_{m}^{\F}(\bm{x}) = e_{m}^{\F}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1} e_{m}^{\F}(\bm{x}),
+% \end{equation}
+% and for $m_{1} \neq m_{2}$ we have
+% \begin{equation}\label{eq:cross_reconstruction_norm_mu_e}
+% \langle   e_{m_{1}}^{\F}, \Pi_{\mathcal{T}(\bm{x})} e_{m_{2}}^{\F} \rangle_{\F} = \tau_{m_{1},m_{2}}^{\F}(\bm{x}) = e_{m_{1}}^{\F}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1} e_{m_{2}}^{\F}(\bm{x}).
+% \end{equation}
+% Combining \eqref{eq:reconstruction_error}, \eqref{eq:reconstruction_norm_mu_onb}, \eqref{eq:reconstruction_norm_mu_e} and \eqref{eq:cross_reconstruction_norm_mu_e} we get
+% \begin{equation}
+% \|\mu_{g} - \Pi_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F}^{2}  = \sum\limits_{m \in \mathbb{N}^{*}} g_{m}^{2} \sigma_{m}\bigg(1- \tau_{m}^{\F}(\bm{x})\bigg) - \sum\limits_{\substack{m_{1},m_{2} \in \mathbb{N}^{*} \\ m_{1} \neq m_{2}}}  g_{m_{1}}g_{m_{2}} \sqrt{\sigma_{m_{1}}} \sqrt{\sigma_{m_{2}}} \tau_{m_{1},m_{2}}^{\F}(\bm{x}).
+% \end{equation}
+
+\subsubsection{Proof of Theorem~\ref{thm:main_result_1}}\label{app:proof_main_result_1}
+The proof of \eqref{eq:main_result_EX_VS_err_mu} relies on the identity
+\begin{equation}\label{eq:main_result_EX_VS_err_mu_2}
+\EX_{\VS} \|\mu_{g} - \Pi_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F}^{2} = \sum\limits_{m \in \mathbb{N}^{*}} g_{m}^{2} \epsilon_{m},
+\end{equation}
+and the fact that $(\epsilon_{m})$ is a non-increasing sequence. We prove these two results in turn, after what we prove \eqref{eq:ineq_r_N}.
+
+\paragraph{Proof of \eqref{eq:main_result_EX_VS_err_mu_2}}
+% \rb{Is this really a proof of \eqref{eq:main_result_EX_VS_err_mu}? If so, it needs one or two more lines of conclusion to make the connection with $\epsilon_m$ and the sup over $g$.}
+Let $\bm{x} \in \X^{N}$ such that $\Det \bm{K}(\bm{x}) >0 $. Lemma~\ref{lemma:error_decomposition} yields
+\begin{equation}
+\|\mu_{g} - \Pi_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F}^{2}  = \sum\limits_{m \in \mathbb{N}^{*}} g_{m}^{2} \sigma_{m}\bigg(1- \tau_{m}^{\F}(\bm{x})\bigg) - \sum\limits_{\substack{m_{1},m_{2} \in \mathbb{N}^{*} \\ m_{1} \neq m_{2}}}  g_{m_{1}}g_{m_{2}} \sqrt{\sigma_{m_{1}}} \sqrt{\sigma_{m_{2}}} \tau_{m_{1},m_{2}}^{\F}(\bm{x}).
+\end{equation}
+First, we prove that
+\begin{equation}\label{eq:interchange_EX_VS_lvs}
+\EX_{\VS} \sum\limits_{m \in \Ns} g_{m}^{2} \sigma_{m}\bigg(1- \tau_{m}^{\F}(\bm{x})\bigg) = \sum\limits_{m \in \Ns} g_{m}^{2} \sigma_{m}\bigg(1- \EX_{\VS}\tau_{m}^{\F}(\bm{x})\bigg).
+\end{equation}
+By Lemma~\ref{lemma:lvs_identities},
+\begin{equation}
+\forall m \in \Ns, \:\: g_{m}^{2} \sigma_{m}\bigg(1- \tau_{m}^{\F}(\bm{x})\bigg)\geq 0, \label{e:summable_term}
+\end{equation}
+so that \eqref{eq:interchange_EX_VS_lvs} follows from the Beppo Levi's monotone convergence theorem.
+
+Second, it remains to prove that
+\begin{equation}\label{eq:interchange_EX_VS_cross_lvs}
+\EX_{\VS} \sum\limits_{\substack{m_{1},m_{2} \in \Ns \\ m_{1} \neq m_{2}}}  g_{m_{1}}g_{m_{2}} \sqrt{\sigma_{m_{1}}} \sqrt{\sigma_{m_{2}}} \tau_{m_{1},m_{2}}^{\F}(\bm{x})
+%= \sum\limits_{\substack{m_{1},m_{2} \in \mathbb{N}^{*} \\ m_{1} \neq m_{2}}}  g_{m_{1}}g_{m_{2}} \sqrt{\sigma_{m_{1}}} \sqrt{\sigma_{m_{2}}} \EX_{\VS} \tau_{m_{1},m_{2}}^{\F}(\bm{x})
+= 0.
+\end{equation}
+Again, Lemma~\ref{lemma:lvs_identities} guarantees that, for $m_{1},m_{2} \in \Ns$ such that $m_{1} \neq m_{2}$,
+\begin{equation}
+| g_{m_{1}}g_{m_{2}} \sqrt{\sigma_{m_{1}}} \sqrt{\sigma_{m_{2}}} \tau_{m_{1},m_{2}}^{\F}(\bm{x})| \leq | g_{m_{1}}g_{m_{2}} | \sqrt{\sigma_{m_{1}}} \sqrt{\sigma_{m_{2}}}.
+\end{equation}
+Since
+\begin{align}
+\sum\limits_{m_{1} \neq m_{2} \in \Ns} |g_{m_{1}}g_{m_{2}}| \sqrt{\sigma_{m_{1}}} \sqrt{\sigma_{m_{2}}}
+%&\leq \sum\limits_{m_{1}, m_{2} \in \Ns} |g_{m_{1}}g_{m_{2}}| \sqrt{\sigma_{m_{1}}} \sqrt{\sigma_{m_{2}}} \nonumber \\
+& \leq  \left(\sum\limits_{m \in \Ns} |g_{m}| \sqrt{\sigma_{m}} \right)^{2} \nonumber \\
+& \leq \sum\limits_{m \in \Ns}g_{m}^{2} \sum\limits_{m \in \Ns} \sigma_{m} \nonumber \\
+& < + \infty,
+\end{align}
+the dominated convergence theorem yields 
+$$
+\EX_{\VS} \sum\limits_{\substack{m_{1},m_{2} \in \Ns \\ m_{1} \neq m_{2}}}  g_{m_{1}}g_{m_{2}} \sqrt{\sigma_{m_{1}}} \sqrt{\sigma_{m_{2}}} \tau_{m_{1},m_{2}}^{\F}(\bm{x})
+= \sum\limits_{\substack{m_{1},m_{2} \in \mathbb{N}^{*} \\ m_{1} \neq m_{2}}}  g_{m_{1}}g_{m_{2}} \sqrt{\sigma_{m_{1}}} \sqrt{\sigma_{m_{2}}} \EX_{\VS} \tau_{m_{1},m_{2}}^{\F}(\bm{x}),
+$$
+but this is equal to zero by Proposition~\ref{prop:EX_VS_lvs}.
+
+\paragraph{Proof that $(\epsilon_{m})$ is nonincreasing}
+\label{s:epsilon_non_increasing}
+Let $m \in \Ns$. By definition,
+\begin{align}
+\epsilon_{m} & = \sigma_{m} \frac{\sum_{U \in \mathcal{U}_{N}^{m}} \prod_{u \in U} \sigma_{u}}{\sum_{U \in \mathcal{U}_{N}} \prod_{u \in U} \sigma_{u}} = \sigma_{m} \frac{p_{N}(\bm{\sigma}^{\overline{\{m\}}})}{p_{N}(\bm{\sigma})},
+\end{align}
+where we use a notation introduced in Section~\ref{s:inequality_symmetric_polys}. This leads to
+\begin{align}
+  \epsilon_m & = \sigma_{m} \frac{ \sigma_{m+1}p_{N-1}(\bm{\sigma}^{\overline{\{m,m+1 \}}}) + p_{N}(\bm{\sigma}^{\overline{\{m,m+1 \}}})}{p_{N}(\bm{\sigma})},
+\end{align}
+and, similarly,
+\begin{equation}
+\epsilon_{m+1} = \sigma_{m+1} \frac{ \sigma_{m}p_{N-1}(\bm{\sigma}^{\overline{\{m,m+1 \}}}) + p_{N}(\bm{\sigma}^{\overline{\{m,m+1 \}}})}{p_{N}(\bm{\sigma})}.
+\end{equation}
+Taking the ratio, it comes
+\begin{align}
+\frac{\epsilon_{m}}{\epsilon_{m+1}} & = \frac{\sigma_{m} \bigg( \sigma_{m+1}p_{N-1}\left(\bm{\sigma}^{\overline{\{m,m+1 \}}} \right) + p_{N} \left(\bm{\sigma}^{\overline{\{m,m+1 \}}} \right)\bigg)}{\sigma_{m+1} \bigg( \sigma_{m}p_{N-1}\left(\bm{\sigma}^{\overline{\{m,m+1 \}}} \right) + p_{N} \left(\bm{\sigma}^{\overline{\{m,m+1 \}}}\right)\bigg)}\\
+& = \frac{1  + \frac{1}{\sigma_{m+1}}\frac{p_{N} \left(\bm{\sigma}^{\overline{\{m,m+1 \}}} \right) }{ p_{N-1} \left(\bm{\sigma}^{\overline{\{m,m+1 \}}} \right)} }{1  + \frac{1}{\sigma_{m} }\frac{p_{N} \left(\bm{\sigma}^{\overline{\{m,m+1 \}}} \right) }{p_{N-1} \left(\bm{\sigma}^{\overline{\{m,m+1 \}}}\right)}} \geq 1,
+\end{align}
+because $1/\sigma_{m+1} \geq 1/\sigma_{m}$.
+
+????
+% it should be paragraph
+\subsubsection{Proof of \eqref{eq:ineq_r_N}}\label{app:proof_ineq_r_N}
+????
+We have
+$\epsilon_{1} = \epsilon_{N}\epsilon_{1}/\epsilon_{N} \leq \sigma_{N} \epsilon_{1}/\epsilon_{N}$ since a simple counting argument yields $ \epsilon_{N} \leq \sigma_{N}$.
+Along the lines of Section~\ref{s:epsilon_non_increasing},
+\begin{align}
+\frac{\epsilon_{1}}{\epsilon_{N}} & = \frac{1  + \frac{1}{\sigma_{N}}\frac{p_{N} \left(\bm{\sigma}^{\overline{\{1,N \}}} \right) }{ p_{N-1} \left(\bm{\sigma}^{\overline{\{1,N \}}} \right)} }{1  + \frac{1}{\sigma_{1} }\frac{p_{N} \left(\bm{\sigma}^{\overline{\{1,N \}}} \right) }{p_{N-1} \left(\bm{\sigma}^{\overline{\{1,N \}}} \right)}}
+\leq 1  + \frac{1}{\sigma_{N}}\frac{p_{N} \left(\bm{\sigma}^{\overline{\{1,N \}}} \right) }{ p_{N-1} \left(\bm{\sigma}^{\overline{\{1,N \}}} \right)}.
+\end{align}
+Now, $\bm{\sigma}^{\overline{\{1,N \}}}$ is a sequence of positive real numbers and the $\bm{\Sigma}$ is trace-class. Then, by Corollary~\ref{cor:schur_convex_volume_sampling}, for $M \in [N-1]$,
+\begin{equation}
+\frac{p_{N} \left(\bm{\sigma}^{\overline{\{1,N \}}}  \right) }{ p_{N-1} \left(\bm{\sigma}^{\overline{\{1,N \}}}  \right)} \leq \frac{1 }{N-M} \sum_{ m \geq M} \sigma_{m+2} = \frac{1 }{N+1-(M+1)} \sum_{ m+1 \geq M+1} \sigma_{m+2}.
+\end{equation}
+Taking $M'= M+1$ concludes the proof of \eqref{eq:ineq_r_N}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% The proof of ineq r_N %%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \subsubsection{Proof of old \eqref{eq:ineq_r_N}}
+% Let $m \in \mathbb{N}^{*}$. We have
+% \begin{equation}
+% \epsilon_{m} = \sigma_{m} \frac{1}{\sum\limits_{\substack{U \subset \mathbb{N}^{*}\\ |U| = N}} \prod\limits_{u \in U} \sigma_{u}} \sum\limits_{\substack{U \subset \mathbb{N}^{*} \\ |U| = N \\ m \notin U}} \prod\limits_{u \in U} \sigma_{u}.
+% \end{equation}
+
+% Every subset $U \subset \mathbb{N}^{*}$ such that $|U| = N$ and $m \notin U$ can be written as $U = V \cup W$ with $V \subset [N]$ and $W \subset \mathbb{N}^{*} \smallsetminus [N]$ where $W \neq \emptyset$ and $m \notin V$. Moreover, this decomposition is unique. Define for such $U$, $\omega(U) = \min W$.
+% Now
+% \begin{equation}
+% \prod\limits_{u \in U}\sigma_{u}= \prod\limits_{v \in V}\sigma_{v} \prod\limits_{w \in W}\sigma_{w},
+% \end{equation}
+% so that
+% \begin{equation}
+% \sigma_{m} \prod\limits_{u \in U}\sigma_{u}= \sigma_{\omega(U)} \sigma_{m}\prod\limits_{v \in V}\sigma_{v} \prod\limits_{w \in W \smallsetminus \{\omega(U)\}}\sigma_{w}.
+% \end{equation}
+% Therefore
+% \begin{align}
+%     \sigma_{m}\sum\limits_{\substack{U \subset \mathbb{N}^{*} \\ |U| = N\\ m \notin U}} \prod\limits_{u \in U}\sigma_{u} & = \sum\limits_{\substack{U \subset \mathbb{N}^{*} \\ |U| = N\\ m \notin U}} \sigma_{m} \prod\limits_{u \in U}\sigma_{u} \\
+%     & = \sum\limits_{n = N+1}^{+\infty} \sigma_{n} \sum\limits_{\substack{U \subset \mathbb{N}^{*} \\ |U| = N \\ \omega(U) = n}} \sigma_{m}\prod\limits_{v \in V}\sigma_{v} \prod\limits_{w \in W \smallsetminus \{\omega(U)\}}\sigma_{w} \\
+%     & \leq \sum\limits_{n = N+1}^{+\infty} \sigma_{n} \sum\limits_{\substack{U \subset \mathbb{N}^{*} \\ |U| = N}} \prod\limits_{u \in U}\sigma_{u} \nonumber.
+% \end{align}
+% In other words
+% \begin{equation}
+% \epsilon_{m} = \sigma_{m} \left( 1 - \frac{1}{\sum\limits_{\substack{U \subset \mathbb{N}^{*}\\ |U| = N}}\prod\limits_{u \in U}\sigma_{u}}\sigma_{m}\sum\limits_{\substack{U \subset \mathbb{N}^{*}\\ |U|  = N-1\\ m \notin U}} \prod\limits_{u \in U} \sigma_{u} \right) \leq \sum\limits_{n = N+1}^{+\infty} \sigma_{n} .
+% \end{equation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%The end of the old proof of ineq r_N %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Proof of Proposition~\ref{prop:constant_bound}}
+\paragraph{The case of a polynomially-decreasing spectrum}
+Assume that $\sigma_{m} = m^{-2s}$ with $s>1/2$.
+Let $N \in \Ns$ and $M_{N} = \lceil{N/c \rceil} \in \{2,\dots,N\}$, with $c \in [1,N[$.
+We have
+\begin{align}
+\min_{M \in [2:N]}\frac{\sum_{m \geq M} \sigma_{m+1}}{(N-M+1)\sigma_N} & \leq \frac{\sum_{m \geq M_N} \sigma_{m+1}}{(N-M_N+1)\sigma_N} \\
+& \leq \frac{\sum_{m \geq \lceil{N/c\rceil}} \sigma_{m+1}}{(N-\lceil{N/c\rceil}+1)\sigma_N} \\
+& \leq \frac{\sum_{m \geq \lceil{N/c\rceil}} \sigma_{m+1}}{(N-N/c+1)\sigma_N}\\
+& \leq \frac{\sum_{m \geq \lceil{N/c\rceil}} (m+1)^{-2s}}{(N-N/c+1)N^{-2s}}.\\
+\end{align}
+Now,
+\begin{equation}
+\forall m \in \Ns, \:\: (m+1)^{-2s} \leq \int_{m}^{m+1}t^{-2s} \mathrm{d}t = \frac{1}{2s-1}(m^{1-2s}-(m+1)^{1-2s}),
+\end{equation}
+so that
+\begin{equation}
+\sum\limits_{m \geq \lceil{N/c\rceil}} (m+1)^{-2s} \leq \frac{1}{2s-1}\lceil{N/c\rceil}^{1-2s}.
+\end{equation}
+Recall that $2s>1$, so that
+\begin{equation}
+\frac{1}{2s-1}\lceil{N/c\rceil}^{1-2s} \leq \frac{1}{2s-1}(N/c)^{1-2s},
+\end{equation}
+and
+\begin{align}
+\min_{M \in [2:N]}\frac{\sum_{m \geq M} \sigma_{m+1}}{(N-M+1)\sigma_N}
+& \leq \frac{1}{2s-1}\frac{(N/c)^{1-2s}}{(N-N/c+1)N^{-2s}}\\
+& \leq \frac{c^{2s}}{2s-1}\frac{N}{(cN-N+c)} \label{eq:the_bound_to_be_bounded}.
+\end{align}
+
+Note that $c$ is a free parameter that belongs to $[1,N]$ \footnote{The inequality in \eqref{eq:the_bound_to_be_bounded} is valid for $c = N$ by continuity.} that we can optimize in the upper bound: $\frac{c^{2s}}{2s-1}\frac{N}{(cN-N+c)}$. For this purpose, denote
+\begin{equation}
+\phi_{N}(c) = \frac{c^{2s}}{2s-1}\frac{N}{(cN-N+c)}.
+\end{equation}
+For every $N \in \Ns$, $\phi_{N}$ is differentiable in $]0,+\infty[$ and
+\begin{equation}
+\phi_{N}^{'}(c) = \frac{N}{2s-1}\frac{c^{2s-1}}{(cN-N+c)^{2}} \left( (2s-1)(N+1) c - 2s N \right),
+\end{equation}
+so that $\phi_{N}^{'}$ vanishes in $c_{N}^{*} = \frac{2s}{2s-1} \frac{N}{N+1}$; it is negative in $]0,c_{N}^{*}[$ and positive in $]c_{N}^{*}, +\infty[$. We distinguish three cases:
+
+If $c_{N}^{*}< 1$, $N < 2s-1$ and $\phi_{N}^{'}$ is positive on $[1,N]$ so that $\phi_{N}$ increases in $[1,N]$ and we take $c = 1$ in \eqref{eq:the_bound_to_be_bounded}:
+\begin{equation}
+\phi_{N}(1) = \frac{N}{2s-1} < 1.
+\end{equation}
+
+If $c_{N}^{*} \in [1,N]$, $c_{N}^{*}$ is the unique minimizer of $\phi_{N}$ in $[1,N]$ and we take $c = c_{N}^{*}$ in \eqref{eq:the_bound_to_be_bounded} so that: 
+\begin{align}
+\phi_{N}(c_{N}^{*}) &= \left(\frac{2s}{2s-1}\right)^{2s} \left(\frac{N}{N+1}\right)^{2s}\\
+& \leq \left(\frac{2s}{2s-1}\right)^{2s}\\
+& \leq \left(1+\frac{1}{2s-1}\right)\left(1+\frac{1}{2s-1}\right)^{2s-1}.
+\label{e:useful_for_limits_as_well}
+\end{align}
+
+Finally, if $c_{N}^{*} > N$, $N < \frac{1}{2s-1}$, $\phi_{N}$ is decreasing in $[1,N]$ and we take $c = N$ in \eqref{eq:the_bound_to_be_bounded} so that:
+\begin{align}
+\phi_{N}(N) = \frac{N^{2s-1}}{2s-1} &\leq \frac{1}{2s-1} \left(\frac{1}{2s-1}\right)^{2s-1} \\
+&\leq \left(1+\frac{1}{2s-1}\right) \left(1+\frac{1}{2s-1}\right)^{2s-1}. \label{e:useful_for_limits}
+\end{align}
+
+
+
+
+% If $N \leq 2s-1$, $\displaystyle \phi: c \mapsto \frac{c^{2s}}{2s-1}\frac{N}{(cN-N+c)}$
+% % \rb{Do you mean $2s-1$ in the denominator? Otherwise $\phi(1)$ is now what is claimed below. Should'nt it be a $2s-1$ in the equations above as well?}
+%  is decreasing on $[1,N[$ and
+% \begin{equation}
+% \forall c \geq 1, \:\frac{c^{2s}}{2s-1}\frac{N}{(cN-N+c)} = \phi(c) \leq \phi(1) = \frac{N}{2s-1} \leq 1.
+% \end{equation}
+% On the other hand, if $N > 2s-1$, $\phi$ has a unique maximizer on $[1,+\infty[$, namely $c_{N}^{*} = \frac{2s}{2s-1} \frac{N}{N+1}$.
+
+% \pc{Check inequalities w.r.t. $2s-1$ and $1/(2s-1)$ here...}
+
+% If $ N \leq 1/(2s-1)$, $c_{N}^{*}\geq N$ and $\phi$ is increasing in $[1,N[$ so that
+% \begin{align}
+% \forall c \in [1,N[, \phi(c) \leq \phi(N) = \frac{N^{2s-1}}{2s-1} &\leq \frac{1}{2s-1} \left(\frac{1}{2s-1}\right)^{2s-1} \\
+% &\leq \left(1+\frac{1}{2s-1}\right) \left(1+\frac{1}{2s-1}\right)^{2s-1}. \label{e:useful_for_limits}
+% \end{align}
+% On the other hand, if $ N > 1/(2s-1)$, $c_{N}^{*}$ is the only maximizer of $\phi$ in $[1,N[$ and
+% \begin{align}
+% \forall c \in [1,N[, \:\frac{c^{2s}}{1-2s}\frac{N}{(cN-N+c)} = \phi(c) \leq \phi(c_{N}^{*}) &= \left(\frac{2s}{2s-1}\right)^{2s} \left(\frac{N}{N+1}\right)^{2s}\\
+% & \leq \left(\frac{2s}{2s-1}\right)^{2s}\\
+% & \leq \left(1+\frac{1}{2s-1}\right)\left(1+\frac{1}{2s-1}\right)^{2s-1}.
+% \label{e:useful_for_limits_as_well}
+% \end{align}
+
+In the three cases, $\beta_{N}$ is upper bounded by $\left(1+\frac{1}{2s-1}\right) \left(1+\frac{1}{2s-1}\right)^{2s-1}$. The artificial two-factor form of \eqref{e:useful_for_limits_as_well} and \eqref{e:useful_for_limits} is there to make limits clearer. In particular, the RHS goes to $e$ as $s\rightarrow \infty$.
+
+\paragraph{The case of an exponentially decreasing spectrum}
+Assume that $\sigma_{m} = \alpha^{m}$ with $\alpha \in [0,1[$.
+Let $N \in \Ns$, and $M_N = N \in \{ 2,\dots, N\}$.
+We have
+\begin{align}
+\min_{M \in [2:N]}\frac{\sum_{m \geq M} \sigma_{m+1}}{(N-M+1)\sigma_N}
+& \leq \frac{\sum_{m \geq M_N} \sigma_{m+1}}{(N-M_N+1)\sigma_N}\\
+& \leq \frac{\sum_{m \geq N} \sigma_{m+1}}{\sigma_N}\\
+& \leq \frac{\sum_{m \geq N} \alpha^{m+1}}{\alpha^{N}}\\
+& \leq \alpha^{N+1}\frac{\sum_{m \geq 0} \alpha^{m}}{\alpha^{N}}\\
+& \leq \frac{\alpha}{1-\alpha}.
+\end{align}
+
+\subsubsection{Proof of Proposition~\ref{prop:perturbed_kernels_spectrum}}\label{app:proof_perturbed_kernels_spectrum}
+% Recall that the purpose of this proposition is to give an explicit description of the spectrum of the integration operators associated to the kernels $k_{t}$, $k_{t}^{+}$ and $k_{t}^{-}$.
+
+We start with deriving the spectrum\footnote{
+All the integration operators in this article, and specifically in this section, are self-adjoint and compact. The spectrum of such operators is the union of $\{0\}$ (the essential spectrum) and the set of eigenvalues \citep{Bre10}[Theorem 6.8] . Yet, the proof of the Mercer decomposition, only involves the set of eigenvalues \citep{StSc12}. For this reason, we use the term ``spectrum" to refer to the set of eigenvalues.} of the trace-class, self-adjoint operator
+\begin{equation}
+\bm{\Sigma}_{t} = \bm{\Sigma} + t e_{m}^{\F} \otimes e_{m}^{\F},
+\end{equation}
+where $e_{m}^{\F} \otimes e_{m}^{\F}$ is defined by
+\begin{equation}
+\forall g \in \Ltwo, \:\: e_{m}^{\F} \otimes e_{m}^{\F} \,g(\cdot) = e_{m}^{\F}(\cdot) \int_{\X}g(y)e_{m}^{\F}(y) \mathrm{d}\omega(y).
+\end{equation}
+The two operators $\bm{\Sigma}$ and $e_{m}^{\F} \otimes e_{m}^{\F}$ are co-diagonalizable in the basis $(e_{m})_{m \in \Ns}$, thus their linear combination $\bm{\Sigma}_{t}$ diagonalizes in this basis too. In other words, for $u \in \Ns$, $e_{u}$ is an eigenfunction of $\bm{\Sigma}_{t}$ and
+\begin{equation}
+\bm{\Sigma}_{t} e_{u} = \bm{\Sigma} e_{u} + t e_{m}^{\F} \otimes e_{m}^{\F} (e_{u}) = (\sigma_{u} + t \delta_{u,m} \sigma_{u}) e_{u}.
+\end{equation}
+Therefore, the set $\{\sigma_{u}(1+t\delta_{u,m}), u \in \Ns\}$ is included in the spectrum of $\bm{\Sigma}_t$. Since $(e_{m})_{m \in \Ns}$ is an orthonormal basis of $\Ltwo$ and correspond to the eigenfunctions of $\bm{\Sigma}_{t}$ associated to the elements of $\{\sigma_{u}(1+t\delta_{u,m}), u \in \Ns\}$, then the spectrum of $\bm{\Sigma}_t$ is exactly the set $\{\sigma_{u}(1+t\delta_{u,m}), u \in \Ns\}$.\footnote{$\bm{\Sigma}_{t}$ is self-adjoint, and has no zero eigenvalue by assumption. Thus, any new eigenfunction that is not in our basis needs to be orthogonal to all basis elements, and is thus zero.}
+% \ab{It is preferable to work with the operator from $\Ltwo$ to $\Ltwo$ to avoid all the confusions with operators from $\F$ to $\F$. On the other hand, working in the basis $(e_{m}^{\F})$ is more convenient for calculus. A trade-off is to be considered between the two notations... }
+We now turn to deriving the spectrum of the trace-class, self-adjoint operator $\bm{\Sigma}_{t}^{+}$; the case of $\bm{\Sigma}_{t}^{-}$ follows the same lines and will be omitted for brevity.
+% The operator $\bm{\Sigma}_{t}^{+}: \Ltwo \rightarrow \Ltwo$ is self-adjoint and compact. By the spectral theorem for compact operators, there exists a sequence of $\|.\|_{\mathrm{d}\omega}$ normed elements $(f_{m})_{m \in \Ns}$ and a sequence of non-negative numbers $(\lambda_{m})$ such a...
+% Moreover, if $V$ is a subspace of $\Ltwo$ that is invariant under the action of $\bm{\Sigma}_{t}^{+}$ then ...
+We will prove that there exists an orthonormal basis $(f_{m})_{m \in \Ns}$ of $\Ltwo$ such that every $f_m$ is an eigenfunction of $\bm{\Sigma}_{t}^{+}$. If $t=0$, $\bm{\Sigma}_{t}^{+} = \bm{\Sigma}$ and $(e_{m})_{m \in \Ns}$ is already an orthonormal basis of $\Ltwo$. We assume in the following that $t>0$.
+
+Consider the operator $\Delta_{t}^{+}$ defined on $\Ltwo$ by
+\begin{equation}
+\Delta_{t}^{+}g(\cdot) = t \bigg(e_{m_{1}}^{\F}(\cdot)+e_{m_{2}}^{\F}(\cdot) \bigg) \int_{\X} g(y) \bigg(e_{m_{1}}^{\F}(y)+e_{m_{2}}^{\F}(y) \bigg) \mathrm{d}\omega(y).
+\end{equation}
+We can write $\bm{\Sigma}_{t}^{+} = \bm{\Sigma} + \Delta_{t}^{+}$, but this time, if $t>0$, $\bm{\Sigma}$ and $\Delta_{t}^{+}$ do not commute. In particular, they are not co-diagonalizable, and a more detailed analysis is necessary. First, by construction of $\Delta_{t}^{+}$,
+$$
+\Delta_{t}^{+} e_m = 0, \quad m\notin\{m_1,m_2\},
+$$
+so that for any $m\notin\{m_1,m_2\}$, $\bm{\Sigma}_{t}^{+}$ and $\bm{\Sigma}$ have $e_m$ for eigenfunction, with the same eigenvalue $\sigma_m$. Observe that
+\begin{equation}
+\Ltwo = \Span (e_{m_1},e_{m_2}) \oplus \Span (e_{m})_{m \notin \{m_1,m_2\}}.
+\end{equation}
+Therefore, the rest of the proof consists in completing $(e_m)_{m\notin\{m_1,m_2\}}$ into an orthonormal basis of $\Ltwo$, by finding two orthonormal eigenfunctions of $\bm{\Sigma}_{t}^{+}$ in $\Span (e_{m_{1}},e_{m_{2}})$.
+Since we assumed in Section~\ref{sec:introduction} that the eigenvalues of $\bm{\Sigma}$ are nonzero, we note that $\Span (e_{m_{1}},e_{m_{2}}) = \Span (e_{m_{1}}^{\F},e_{m_{2}}^{\F})$. Expressing the new eigenfunctions in terms of $e_{m_{1}}^{\F}$ and $e_{m_{2}}^{\F}$ will turn out to be more convenient.
+
+First, note that 
+\begin{align}
+\bm{\Sigma}_{t}^{+}e_{m_{1}}^{\mathcal{F}}(\cdot) & = \bm{\Sigma} e_{m_{1}}^{\mathcal{F}}(\cdot) + t \int_{\mathcal{X}} \left(e_{m_{1}}^{\mathcal{F}}(\cdot) + e_{m_{2}}^{\mathcal{F}}(\cdot) \right)\left( e_{m_{1}}^{\mathcal{F}}(y) + e_{m_{2}}^{\mathcal{F}}(y) \right) e_{m_{1}}^{\mathcal{F}}(y) \mathrm{d}\omega(y) \\
+& = \sigma_{m_{1}} e_{m_{1}}^{\mathcal{F}}(\cdot) + t \sigma_{m_{1}} \left(e_{m_{1}}^{\mathcal{F}}(\cdot) + e_{m_{2}}^{\mathcal{F}}(\cdot) \right)\\
+& = (1+t) \sigma_{m_{1}}e_{m_{1}}^{\mathcal{F}} + t \sigma_{m_{1}} e_{m_{2}}^{\mathcal{F}}.\label{eq:sigma_t_plus_action}
+\end{align}
+Similarly,
+\begin{align}
+\bm{\Sigma}_{t}^{+}e_{m_{2}}^{\mathcal{F}}(.) & = t \sigma_{m_{2}} e_{m_{1}}^{\mathcal{F}} + (1+t) \sigma_{m_{2}}e_{m_{2}}^{\mathcal{F}}.\label{eq:sigma_t_plus_action_2}
+\end{align}
+
+Now, let $v = \lambda_{1} e_{m_{1}}^{\mathcal{F}} + \lambda_{2} e_{m_{2}}^{\mathcal{F}}$, so that, by \eqref{eq:sigma_t_plus_action} and \eqref{eq:sigma_t_plus_action_2},
+\begin{align}
+\bm{\Sigma}_{t}^{+} v & = \lambda_{1} \bigg((1+t) \sigma_{m_{1}} e_{m_{1}}^{\mathcal{F}} + t \sigma_{m_{1}}  e_{m_{2}}^{\mathcal{F}} \bigg) + \lambda_{2} \bigg((1+t) \sigma_{m_{2}} e_{m_{2}}^{\mathcal{F}}  + t \sigma_{m_{2}}  e_{m_{1}}^{\mathcal{F}} \bigg) \nonumber \\
+\label{eq:sigma_t_plus_action_v}
+& = \bigg( \lambda_{1} (1+t) \sigma_{m_{1}} + \lambda_{2} t \sigma_{m_{2}} \bigg) e_{m_{1}}^{\mathcal{F}} + \bigg( \lambda_{2} (1+t) \sigma_{m_{2}} + \lambda_{1}t\sigma_{m_{1}} \bigg) e_{m_{2}} ^{\mathcal{F}},
+\end{align}
+% and
+% \begin{align}
+% \bm{\Sigma}_{t}^{+} v_{2}^{+} & = \lambda_{2,1}^{+} \bigg((1+t) \sigma_{m_{1}} e_{m_{1}}^{\mathcal{F}} + t \sigma_{m_{1}}  e_{m_{2}}^{\mathcal{F}} \bigg) + \lambda_{2,2}^{+} \bigg((1+t) \sigma_{m_{2}} e_{m_{2}}^{\mathcal{F}}  + t \sigma_{m_{2}}  e_{m_{1}}^{\mathcal{F}} \bigg) \nonumber\\
+% \label{eq:sigma_t_plus_action_v_2}
+% & = \bigg( \lambda_{2,1}^{+} (1+t) \sigma_{m_{1}} + \lambda_{2,2}^{+}t \sigma_{m_{2}} \bigg) e_{m_{1}}^{\mathcal{F}} + \bigg( \lambda_{2,2}^{+} (1+t) \sigma_{m_{2}} + \lambda_{2,1}^{+}t\sigma_{m_{1}} \bigg) e_{m_{2}} ^{\mathcal{F}},
+% \end{align}
+
+Solving for eigenvalues, we look for $\mu \in \mathbb{R}$ such that $\bm{\Sigma}_{t}^{+} v = \mu v$, or equivalently
+$$
+\bigg\{\begin{array}{ccc}
+  (1+t) \sigma_{m_{1}} \lambda_{1} + t \sigma_{m_{2}} \lambda_{2} &=& \mu \lambda_{1}, \\
+t \sigma_{m_{1}} \lambda_{1} +  (1+t) \sigma_{m_{2}} \lambda_{2} &=& \mu \lambda_{2}.
+\end{array}
+$$
+% and
+% $$
+% \begin{matrix}
+%   (1+t) \sigma_{m_{1}} \lambda_{2,1}^{+} + t \sigma_{m_{2}} \lambda_{2,2}^{+} &=& \mu_{2}^{+} \lambda_{2,1}^{+}, \\
+% t \sigma_{m_{1}} \lambda_{2,1}^{+} +  (1+t) \sigma_{m_{2}} \lambda_{2,2}^{+} &=& \mu_{2}^{+} \lambda_{2,2}^{+}.
+% \end{matrix}
+% $$
+This is just saying that $\mu$ should be an eigenvalue of the matrix
+\begin{align}\label{eq:positive_matrix}
+\left(\begin{array}{cc}
+(1+t) \sigma_{m_{1}} & t \sigma_{m_{2}}\\
+t \sigma_{m_{1}} & (1+t) \sigma_{m_{2}}\\
+\end{array}\right),
+\end{align}
+which yields two solutions,
+\begin{equation}
+{\mu}_{1}^{+} = (1+t)\frac{\sigma_{m_{1}}+ \sigma_{m_{2}}}{2} + \frac{1}{2} \sqrt{(1+t)^{2}(\sigma_{m_{1}}-\sigma_{m_{2}})^{2}+4 \sigma_{m_{1}}\sigma_{m_{2}}t^{2}}\,,
+\end{equation}
+and
+\begin{equation}
+{\mu}_{2}^{+} = (1+t)\frac{\sigma_{m_{1}}+ \sigma_{m_{2}}}{2} - \frac{1}{2} \sqrt{(1+t)^{2}(\sigma_{m_{1}}-\sigma_{m_{2}})^{2}+4 \sigma_{m_{1}}\sigma_{m_{2}}t^{2}}\,.
+\end{equation}
+These solutions are distinct since $t>0$, and the corresponding normalized eigenfunctions $v_{1}^{+}$ and $v_{2}^{+}$ are orthogonal with respect to $\langle.,.\rangle_{\mathrm{d}\omega}$ since $\bm{\Sigma}_t^+$ is self-adjoint. Finally, we define the set of eigenfunctions of $\bm{\Sigma}_{t}^{+}$ by 
+the system $(e_{m})_{m \notin \{m_{1},m_{2}\}} \cup (v_{1}^{+},v_{2}^{+})$ that is an orthonormal basis of $\Ltwo$. Therefore, the spectrum of the compact operator $\bm{\Sigma}_{t}^{+}$ is exactly the set
+\begin{equation}
+\{ \sigma_{m}, \: m \notin  \{m_{1},m_{2}\}\} \cup \{\mu_{1}^{+}, \mu_{2}^{+} \}.
+\end{equation}
+
+Along the same lines, one can show that the eigenvalues of $\bm{\Sigma}_{t}^{-}$ restricted to $\text{Span}(e_{m_{1}}^{\F}, e_{m_{2}}^{\F})$ satisfy
+% as linear combinations of $e_{m_{1}}^{\mathcal{F}}$ and $e_{m_{2}}^{\mathcal{F}}$, where the corresponding eigenvalues are in the spectrum of
+% \begin{align}
+% v_{1}^{-} & = \lambda_{1,1}^{-} e_{m_{1}}^{\mathcal{F}} + \lambda_{1,2}^{-} e_{m_{2}}^{\mathcal{F}}, \\
+% v_{2}^{-} & = \lambda_{2,1}^{-} e_{m_{1}}^{\mathcal{F}} + \lambda_{2,2}^{-} e_{m_{2}}^{\mathcal{F}},
+% \end{align}
+% with $\lambda_{i,j}^{-} \in \mathbb{R}$.
+% Now,
+% \begin{align}
+% \bm{\Sigma}_{t}^{-} v_{1}^{-} & = \lambda_{1,1}^{-} \bm{\Sigma}_{t}^{-} e_{m_{1}}^{\mathcal{F}} + \lambda_{1,2}^{-} \bm{\Sigma}_{t}^{-} e_{m_{2}}^{\mathcal{F}} \nonumber \\
+% & = \lambda_{1,1}^{-} \bigg((1+t) \sigma_{m_{1}} e_{m_{1}}^{\mathcal{F}} - t \sigma_{m_{1}}  e_{m_{2}}^{\mathcal{F}} \bigg) + \lambda_{1,2}^{-} \bigg((1+t) \sigma_{m_{2}} e_{m_{2}}^{\mathcal{F}}  - t \sigma_{m_{2}}  e_{m_{1}}^{\mathcal{F}} \bigg) \nonumber\\
+% & = \bigg( \lambda_{1,1}^{-} (1+t) \sigma_{m_{1}} - \lambda_{1,2}^{-} t \sigma_{m_{2}} \bigg) e_{m_{1}}^{\mathcal{F}} + \bigg( \lambda_{1,2}^{-} (1+t) \sigma_{m_{2}} - \lambda_{1,1}^{-}t\sigma_{m_{1}} \bigg) e_{m_{2}} ^{\mathcal{F}},
+% \end{align}
+% and
+% \begin{align}
+% \bm{\Sigma}_{t}^{-} v_{2} & = \lambda_{2,1}^{-} \bm{\Sigma}_{t}^{-} e_{m_{1}}^{\mathcal{F}} + \lambda_{2,2}^{-} \bm{\Sigma}_{t}^{-} e_{m_{2}}^{\mathcal{F}} \nonumber \\
+% & = \lambda_{2,1}^{-} \bigg((1+t) \sigma_{m_{1}} e_{m_{1}}^{\mathcal{F}} + t \sigma_{m_{1}}  e_{m_{2}}^{\mathcal{F}} \bigg) + \lambda_{2,2}^{-} \bigg((1+t) \sigma_{m_{2}} e_{m_{2}}^{\mathcal{F}}  + t \sigma_{m_{2}}  e_{m_{1}}^{\mathcal{F}} \bigg) \nonumber\\
+% & = \bigg( \lambda_{2,1}^{-} (1+t) \sigma_{m_{1}} - \lambda_{2,2}^{-}t \sigma_{m_{2}} \bigg) e_{m_{1}}^{\mathcal{F}} + \bigg( \lambda_{2,2}^{-} (1+t) \sigma_{m_{2}} - \lambda_{2,1}^{-}t\sigma_{m_{1}} \bigg) e_{m_{2}} ^{\mathcal{F}}.
+% \end{align}
+% Now, $v_{1}^{-}$ and $v_{2}^{-}$ are eigenfunctions of $\bm{\Sigma}_{t}^{-}$, then there exist $\mu_{1}^{-}, \mu_{2}^{-} \in \mathbb{R}$ such that
+% \begin{align}
+% \bm{\Sigma}_{t}^{-} v_{1}^{-} & = \mu_{1}^{-} v_{1}^{-}, \\
+% \bm{\Sigma}_{t}^{-} v_{2}^{-} & = \mu_{2}^{-} v_{2}^{-}.
+% \end{align}
+% Therefore,
+% \begin{align}
+%   (1+t) \sigma_{m_{1}} \lambda_{1,1}^{-} - t \sigma_{m_{1}} \lambda_{1,2}^{-} & = \mu_{1}^{-} \lambda_{1,1}^{-} \\
+% -t \sigma_{m_{2}} \lambda_{1,1}^{-} +  (1+t) \sigma_{m_{2}} \lambda_{1,2}^{-} & = \mu_{1}^{-} \lambda_{1,2}^{-},
+% \end{align}
+% and
+% \begin{align}
+%   (1+t) \sigma_{m_{1}} \lambda_{2,1}^{-} - t \sigma_{m_{2}} \lambda_{2,2}^{-} & = \mu_{2}^{-} \lambda_{2,1}^{-} \\
+% -t \sigma_{m_{1}} \lambda_{2,1}^{-} +  (1+t) \sigma_{m_{2}} \lambda_{2,2}^{-} & = \mu_{2}^{-} \lambda_{2,2}^{-}.
+% \end{align}
+% In other words, $\mu_{1}^{-}$ and $\mu_{2}^{-}$ are eigenvalues of the matrix
+% \begin{align}\label{eq:negative_matrix}
+% \left(\begin{array}{cc}
+% (1+t) \sigma_{m_{1}} & -t \sigma_{m_{2}}\\
+% -t \sigma_{m_{1}} & (1+t) \sigma_{m_{2}}\\
+% \end{array}\right),
+% \end{align}
+% thus they satisfy the quadratic equation of variable $\lambda$
+% \begin{align}
+% \begin{array}{|cc|}
+% \lambda -(1+t) \sigma_{m_{1}}  & t \sigma_{m_{2}}\\
+% t \sigma_{m_{1}} & \lambda-  (1+t) \sigma_{m_{2}} \\
+% \end{array} = 0,
+% \end{align}
+% that writes
+\begin{equation}
+ \lambda^{2} - (1+t)(\sigma_{m_{1}}+\sigma_{m_{2}}) \lambda - \sigma_{m_{1}}\sigma_{m_{2}}t^{2} = 0 .
+\end{equation}
+For $t>0$, this equation again admits two distinct solutions
+\begin{equation}
+\hat{\mu}_{1}^{-} = (1+t)\frac{\sigma_{m_{1}}+ \sigma_{m_{2}}}{2} + \frac{1}{2} \sqrt{(1+t)^{2}(\sigma_{m_{1}}-\sigma_{m_{2}})^{2}+4 \sigma_{m_{1}}\sigma_{m_{2}}t^{2}},
+\end{equation}
+and
+\begin{equation}
+\hat{\mu}_{2}^{-} = (1+t)\frac{\sigma_{m_{1}}+ \sigma_{m_{2}}}{2} - \frac{1}{2} \sqrt{(1+t)^{2}(\sigma_{m_{1}}-\sigma_{m_{2}})^{2}+4 \sigma_{m_{1}}\sigma_{m_{2}}t^{2}}.
+\end{equation}
+so that the spectrum of $\bm{\Sigma}_{t}^{-}$ is exactly the set
+\begin{equation}
+\{ \sigma_{m}, \: m \notin  \{m_{1},m_{2}\}\} \cup \{\mu_{1}^{-}, \mu_{2}^{-} \} = \{ \sigma_{m}, \: m \notin  \{m_{1},m_{2}\}\} \cup \{\mu_{1}^{+}, \mu_{2}^{+} \}.
+\end{equation}
+In other words, the two operators $\bm{\Sigma}_{t}^{+}$ and $\bm{\Sigma}_{t}^{-}$ share the same eigenvalues.
+%\footnote{They differ in the directions of eigenfunctions: the two matrices \eqref{eq:positive_matrix} and \eqref{eq:negative_matrix} have the same eigenvalues yet their directions of the corresponding eigenvectors are different.}
+
+% Similarly, we prove that
+% \begin{equation}
+% \hat{\mu}_{1}^{-} = (1+t)\frac{\sigma_{n}+ \sigma_{m}}{2} + \frac{1}{2} \sqrt{(1+t)^{2}(\sigma_{n}-\sigma_{m})^{2}+4 \sigma_{n}\sigma_{m}t^{2}},
+% \end{equation}
+% and
+% \begin{equation}
+% \hat{\mu}_{2}^{-} = (1+t)\frac{\sigma_{n}+ \sigma_{m}}{2} - \frac{1}{2} \sqrt{(1+t)^{2}(\sigma_{n}-\sigma_{m})^{2}+4 \sigma_{n}\sigma_{m}t^{2}}.
+% \end{equation}
+
+% are eigenvalues of $\bm{\Sigma}_{t}^{-}$.
+\subsubsection{Proof of Proposition~\ref{thm:EX_lvs_phi}}\label{app:proof_EX_lvs_phi}
+\paragraph{The expected value of the $m$-th leverage score \label{sec:proof_EX_VS_lvs_n_diff_phi}}
+Let $m \in \Ns$. On the one hand, recall that $\tau_{m}^{\F}(\bm{x}) = e_{m}^{\mathcal{F}}(\bm{x})^{\Tran}\bm{K}(\bm{x})^{-1}e_{m}^{\mathcal{F}}(\bm{x})$, so that, by Definition~\ref{def:VS},
+\begin{equation}
+  \label{e:just_def_of_VS}
+\EX_{\VS} \tau_{m}^{\F}(\bm{x}) = \left( N!\sum\limits_{U\in\UN}\prod\limits_{u \in U}\sigma_{u} \right)^{-1} \int_{\mathcal{X}^{N}} e_{m}^{\mathcal{F}}(\bm{x})^{\Tran}\bm{K}(\bm{x})^{-1}e_{m}^{\mathcal{F}}(\bm{x}) \Det \bm{K}(\bm{x}) \otimes_{i \in [N]} \mathrm{d}\omega(x_{i}).
+\end{equation}
+We have
+\begin{align}
+\Det \bm{K}(\bm{x})\,e_{m}^{\mathcal{F}}(\bm{x})^{\Tran}\bm{K}(\bm{x})^{-1}e_{m}^{\mathcal{F}}(\bm{x}) & = \Det \bm{K}(\bm{x})\Tr \left( e_{m}^{\mathcal{F}}(\bm{x})^{\Tran}\bm{K}(\bm{x})^{-1}e_{m}^{\mathcal{F}}(\bm{x}) \right) \nonumber \\
+& = \Det \bm{K}(\bm{x})\Tr \left(\bm{K}(\bm{x})^{-1}e_{m}^{\mathcal{F}}(\bm{x})e_{m}^{\mathcal{F}}(\bm{x})^{\Tran}\right)\nonumber\\
+&= \partial_{t} \Det (\bm{K}(\bm{x})+t e_{m}^{\mathcal{F}}(\bm{x})e_{m}^{\mathcal{F}}(\bm{x})^{\Tran})|_{t = 0^{+}}\,,\label{e:derivative_inside_the_integral}
+\end{align}
+where the last line follows from the Jacobi identity of Theorem~\ref{thm:jacobi_identity}.
+
+On the other hand, for $t>0$ and with the notation of Section~\ref{sec:closed_formulas}, let $ \bm{K}_{t}(\bm{x}) := (k_{t}(x_{i},x_{j}))_{i,j \in [N]} = \bm{K}(\bm{x})+t e_{m}^{\mathcal{F}}(\bm{x})e_{m}^{\mathcal{F}}(\bm{x})^{\Tran}$.
+Since
+\begin{align}
+\int_{\X} k_{t}(x,x) \Mu
+& = \int_{\X} k(x,x) \Mu + t \int_{\X} e_{m}^{\F}(x)^{2} \Mu = \sum\limits_{n \in \Ns} \sigma_{n} + t \sigma_{m} < \infty,
+\end{align}
+Hadamard's inequality yields the integrability of
+$
+\psi(.,t): \bm{x} \mapsto \Det \bm{K}_{t}(\bm{x}).
+$
+Finally, observe that \footnote{In the main paper, a mistake has crept into the definition of $\phi_{m}(t)$, $\phi_{m_{1},m_{2}}^{+}(t)$ and $\phi_{m_{1},m_{2}}^{-}(t)$. The correct definition of these quantities is the following: $
+\phi_{m}(t) = Z_{N}(k_{t}) , \: \phi_{m_{1},m_{2}}^{+}(t) = Z_{N}(k_{t}^{+}),  \text{ and }\: \phi_{m_{1},m_{2}}^{-}(t) = Z_{N}(k_{t}^{-}). $}
+\begin{equation}
+\phi_{m}(t) := Z_N(k_t) =  \int_{\X^{N}} \psi(\bm{x},t) \otimes_{i \in [N]} \mathrm{d}\omega(x_{i}).
+\end{equation}
+
+ If we prove that $\phi_{m}$ is right differentiable in zero, and that we can justify the interchange of the derivation and the integration operations, we will have equated the right derivative of $\phi_m$ in zero and \eqref{e:just_def_of_VS} using \eqref{e:derivative_inside_the_integral}; this will achieve proving the first equation in Proposition~\ref{thm:EX_lvs_phi}. To this purpose, we need to prove that $t \mapsto \psi(\bm{x},t)$ is right differentiable at zero, it is locally dominated by an integrable function and its derivative is locally dominated by an integrable function. Now, observe that $t \mapsto \psi(\bm{x},t)$ is a polynomial of degree smaller than $N$, so that it is differentiable, and Corollary~\ref{cor:Markov_Brothers_inequality_2} yields
+\begin{equation}
+\max_{\tau \in [0,1]} \left|\partial_t \psi(\bm{x},\tau)\right| \leq 2N^{2} \max_{\tau \in [0,1]} \left|\psi(\bm{x},\tau)\right|.
+\end{equation}
+ In other words, to dominate $\tau \mapsto |\partial_t \psi(\bm{x},\tau)|$ uniformly on $[0,1]$, it is sufficient to dominate $\tau \mapsto| \psi(\bm{x},\tau)|$ uniformly there. Now, let $\tau \in [0,1]$, we have
+\begin{align}
+\bm{K}_{1}(\bm{x}) - \bm{K}_{\tau}(\bm{x}) &  = \bm{K}(\bm{x}) + e_{m}^{\mathcal{F}}(\bm{x})e_{m}^{\mathcal{F}}(\bm{x})^{\Tran} - \bm{K}(\bm{x}) - \tau e_{m}^{\mathcal{F}}(\bm{x})e_{m}^{\mathcal{F}}(\bm{x})^{\Tran}\\
+& = (1-\tau)e_{m}^{\mathcal{F}}(\bm{x})e_{m}^{\mathcal{F}}(\bm{x})^{\Tran} \in \mathcal{S}_{N}^{+}.
+\end{align}
+Thus
+\begin{equation}
+0\preceq \bm{K}_{\tau}(\bm{x}) \preceq \bm{K}_{1}(\bm{x})
+\end{equation}
+in the Loewner order, so that for any $\tau\in [0,1]$,
+%\footnote{$\bm{K}_{1}(\bm{x})$ and $\bm{K}_{\tau}(\bm{x})$ are p.s.d. matrices so that $|\Det \bm{K}_{1}(\bm{x})| = \Det \bm{K}_{1}(\bm{x})$ and $|\Det \bm{K}_{\tau}(\bm{x})| = \Det \bm{K}_{\tau}(\bm{x})$.}
+\begin{equation}
+|\psi(\bm{x},\tau)| = \psi(\bm{x},\tau) =\Det \bm{K}_{\tau}(\bm{x}) \leq \Det \bm{K}_{1}(\bm{x}) = \psi(\bm{x},1) .
+\end{equation}
+We conclude by observing that $\bm{x} \mapsto \psi(\bm{x},1)$ is integrable on $\X^{N}$ by Proposition~\ref{prop:VS_decomposition}, and the fact that
+\begin{equation}
+\int_{\X} k_{1}(x,x) \mathrm{d}\omega(x) < +\infty.
+\end{equation}
+
+
+% For this purpose, we write $\phi(t)$ as
+% \begin{equation}
+% \phi(t) = \int_{\X^{N}} \psi(\bm{x}, t) \MuTen,
+% \end{equation}
+% where
+% \begin{equation}
+% \psi(\bm{x}, t) = \Det \bm{K}_{t}(\bm{x}).
+% \end{equation}
+% For every $t \in [0,1]$, $\displaystyle \psi(.,t)$ is integrable. Moreover, for every $\displaystyle \bm{x} \in \X^{N}$, such that $\Det \bm{K}(\bm{x}) >0$, $\displaystyle \psi(\bm{x}, .)$ is of class $\mathcal{C}^{1}$ in $]0,1[$ and by Theorem~\ref{thm:jacobi_identity}
+% \begin{align}
+% \forall t \in ]0,1[, \: \frac{\partial}{\partial t} \psi(\bm{x}, t) & = \partial_{\tau} \Det (\bm{K}(\bm{x})+t e_{n}^{\mathcal{F}}(\bm{x})e_{n}^{\mathcal{F}}(\bm{x})^{\Tran}+\tau e_{n}^{\mathcal{F}}(\bm{x})e_{n}^{\mathcal{F}}(\bm{x})^{\Tran})_{|\tau = 0} \nonumber \\
+% & =  \Det \bm{K}_{t}(\bm{x})\Tr \left(\bm{K}_{t}(\bm{x})^{-1}e_{n}^{\mathcal{F}}(\bm{x})e_{n}^{\mathcal{F}}(\bm{x})^{\Tran}\right)
+% \end{align}
+
+%\todo{Not finished yet}
+
+
+\paragraph{The expected value of cross-leverage scores}
+Let $m_{1},m_{2} \in \Ns$ such that $m_{1} \neq m_{2}$. We have
+\begin{align}
+\tau_{m_{1},m_{2}}^{\F}(\bm{x}) & = e_{m_{1}}^{\mathcal{F}}(\bm{x})^{\Tran}\bm{K}(\bm{x})^{-1}e_{m_{2}}^{\mathcal{F}}(\bm{x}) \nonumber \\
+& = \frac{1}{4} \left(e_{m_{1}}^{\mathcal{F}}(\bm{x}) + e_{m_{2}}^{\mathcal{F}}(\bm{x})\right)^{\Tran}\bm{K}(\bm{x})^{-1}\left(e_{m_{1}}^{\mathcal{F}}(\bm{x}) + e_{m_{2}}^{\mathcal{F}}(\bm{x})\right)^{\Tran}  \nonumber \\
+& - \frac{1}{4} \left(e_{m_{1}}^{\mathcal{F}}(\bm{x}) - e_{m_{2}}^{\mathcal{F}}(\bm{x})\right)^{\Tran}\bm{K}(\bm{x})^{-1}\left(e_{m_{1}}^{\mathcal{F}}(\bm{x}) - e_{m_{2}}^{\mathcal{F}}(\bm{x})\right)^{\Tran}.
+\end{align}
+Thus
+% \rb{weird font for the $x_i$ in the integral below, check your "muten" command}
+\begin{equation}
+\EX_{\VS} \tau_{m_{1},m_{2}}^{\F}(\bm{x}) = \frac{1}{4 Z_{N}(k)}\int_{\mathcal{X}^{N}} \left( \Psi^{+}(\bm{x}) - \Psi^{-}(\bm{x}) \right) \otimes_{i \in [N]}\mathrm{d}\omega(x_{i}),
+\end{equation}
+where
+\begin{equation}
+\Psi^{+}(\bm{x}) = \left(e_{m_{1}}^{\mathcal{F}}(\bm{x})+e_{m_{2}}^{\mathcal{F}}(\bm{x})\right)^{\Tran}\bm{K}(\bm{x})^{-1}\left(e_{m_{1}}^{\mathcal{F}}(\bm{x})+e_{m_{2}}^{\mathcal{F}}(\bm{x})\right) \Det \bm{K}(\bm{x}),
+\end{equation}
+and
+\begin{equation}
+\Psi^{-}(\bm{x}) = \left(e_{m_{1}}^{\mathcal{F}}(\bm{x})-e_{m_{2}}^{\mathcal{F}}(\bm{x})\right)^{\Tran}\bm{K}(\bm{x})^{-1}\left(e_{m_{1}}^{\mathcal{F}}(\bm{x})-e_{m_{2}}^{\mathcal{F}}(\bm{x})\right) \Det \bm{K}(\bm{x}).
+\end{equation}
+We proceed as in Section~\ref{sec:proof_EX_VS_lvs_n_diff_phi} and we use Proposition~\ref{thm:jacobi_identity} to prove that
+\begin{align}
+\Psi^{+}(\bm{x}) & = \partial_{t} \Det \left(\bm{K}(\bm{x})+t \left(e_{m_{1}}^{\mathcal{F}}(\bm{x}) + e_{m_{2}}^{\mathcal{F}}(\bm{x}) \right)\left(e_{m_{1}}^{\mathcal{F}}(\bm{x}) + e_{m_{2}}^{\mathcal{F}}(\bm{x}) \right)^{\Tran}\right)|_{t = 0^{+}} \nonumber \\
+& = \partial_{t} \Det \left(\bm{K}_{t}^{+}(\bm{x})\right)|_{t = 0^{+}}.
+\end{align}
+and
+\begin{align}
+\Psi^{-}(\bm{x}) & = \partial_{t} \Det \left(\bm{K}(\bm{x})+t \left(e_{m_{1}}^{\mathcal{F}}(\bm{x}) - e_{m_{2}}^{\mathcal{F}}(\bm{x}) \right)\left(e_{m_{1}}^{\mathcal{F}}(\bm{x}) - e_{m_{2}}^{\mathcal{F}}(\bm{x}) \right)^{\Tran} \right)|_{t = 0^{+}} \nonumber \\
+& = \partial_{t} \Det \left(\bm{K}_{t}^{-}(\bm{x})\right)|_{t = 0^{+}}.
+\end{align}
+In order to prove that $\phi_{m_{1},m_{2}}^{+}$ and $\phi_{m_{1},m_{2}}^{-}$ are right differentiable in zero along with the second equation in Proposition~\ref{thm:EX_lvs_phi}, one can follow the same steps as in the end of Section~\ref{sec:proof_EX_VS_lvs_n_diff_phi}. In particular, the interchange of the derivation and the integration operations follows from the same arguments, upon noting that both $\int_{\X} k_{t}^{+}(x,x) \mathrm{d}\omega(x)$ and $\int_{\X} k_{t}^{-}(x,x) \mathrm{d}\omega(x)$ are finite.
+% \ab{check this one last time}
+% Again we follow the steps of the proof in Section~\ref{sec:proof_EX_VS_lvs_n_diff_phi} and we define for $t >0 $ the kernels $k_{t}^{+}$ and $k_{t}^{-}$ by
+% \begin{equation}
+% k_{t}^{+}(x,y) = t \left(e_{m_{1}}^{\mathcal{F}}(x) + e_{m_{1}}^{\mathcal{F}}(x)\right) \left(e_{m_{1}}^{\mathcal{F}}(y) + e_{m_{2}}^{\mathcal{F}}(y) \right)+  k(x,y) ,
+% \end{equation}
+% and
+% \begin{equation}
+% k_{t}^{-}(x,y) = t \left(e_{m_{1}}^{\mathcal{F}}(x) - e_{m_{2}}^{\mathcal{F}}(x)\right) \left(e_{m_{1}}^{\mathcal{F}}(y) - e_{m_{2}}^{\mathcal{F}}(y) \right)+  k(x,y) .
+% \end{equation}
+
+
+
+\subsubsection{Proof of Proposition~\ref{prop:EX_VS_lvs}}\label{sec:proof_EX_VS_lvs}
+The proof is a straightforward computation now that we have Proposition~\ref{thm:EX_lvs_phi} and Proposition~\ref{prop:perturbed_kernels_spectrum}.
+
+\paragraph{The expected value of the $m$-th leverage score}
+Let $m \in \Ns$. We have by Proposition~\ref{thm:EX_lvs_phi} and Proposition~\ref{prop:VS_decomposition},
+\begin{equation}
+\EX_{\VS} \tau_{m}^{\F}(\bm{x})  = \frac{1}{N!\sum\limits_{\substack{U \subset \mathbb{N}^{*}\\ |U| = N}} \prod\limits_{u \in U}\sigma_{u}}  \frac{\partial \phi_{m}}{ \partial t }|_{t = 0^{+}},
+\label{e:expression_of_expected_LS}\end{equation}
+where
+\begin{equation}
+\phi_{m}(t) = \int_{\mathcal{X}^{N}} \Det \bigg(\bm{K}(\bm{x})+t e_{m}^{\mathcal{F}}(\bm{x})e_{m}^{\mathcal{F}}(\bm{x})^{\Tran} \bigg) \otimes_{i =1}^{N} \mathrm{d}\omega(x_{i}).
+\end{equation}
+Now by Proposition~\ref{prop:perturbed_kernels_spectrum} and Proposition~\ref{prop:VS_decomposition}\footnote{In the main paper, a mistake has crept into the definition of $\phi_{m}(t)$, $\phi_{m_{1},m_{2}}^{+}(t)$ and $\phi_{m_{1},m_{2}}^{-}(t)$. The correct definition of these quantities is the following: $
+\phi_{m}(t) = Z_{N}(k_{t}) , \: \phi_{m_{1},m_{2}}^{+}(t) = Z_{N}(k_{t}^{+}),  \text{ and }\: \phi_{m_{1},m_{2}}^{-}(t) = Z_{N}(k_{t}^{-}). $},
+\begin{equation}
+\phi_{m}(t) = N! \sum\limits_{U\in\UN} \prod\limits_{u \in U} \tilde{\sigma}_{u}(t),
+\end{equation}
+where for $u \in \mathbb{N}^{*}$, $\tilde{\sigma}_{u}(t) = \sigma_{u} + t\delta_{m,u}\sigma_{u}$.
+Therefore,
+\begin{align}
+\phi_{m}(t) & = N!\sum\limits_{\substack{U \in\UN \\ m \in U}} \prod\limits_{u \in U} \tilde{\sigma}_{u}(t) + N!\sum\limits_{\substack{U \in\UN \\ m \notin U}} \prod\limits_{u \in U} \tilde{\sigma}_{u}(t) \\
+& = N!\,\sigma_{m}(t+1)\sum\limits_{\substack{U\in \mathcal{U}_{N-1}\\ m \notin U}} \prod\limits_{u \in U} \sigma_{u} + N!\sum\limits_{\substack{U \in\UN \\ m \notin U}} \prod\limits_{u \in U} \sigma_{u}.
+\end{align}
+Thus,  
+\begin{equation}
+\frac{\partial \phi_{m}}{\partial t}|_{t = 0} = N!\,\sigma_{m}\sum\limits_{\substack{U\in \mathcal{U}_{N-1}\\ m \notin U}} \prod\limits_{u \in U} \sigma_{u},
+\end{equation}
+so that \eqref{e:expression_of_expected_LS} becomes
+\begin{align}
+\EX_{\VS} \tau_{m}^{\F}(\bm{x}) & = \left(\cancel{N!}\sum\limits_{U\in\UN}\prod\limits_{u \in U}\sigma_{u} \right)^{-1} \cancel{N!}\,\sigma_{m}\sum\limits_{\substack{U\in \mathcal{U}_{N-1}\\ m \notin U}} \prod\limits_{u \in U} \sigma_{u},
+\end{align}
+which concludes the proof.
+
+\paragraph{The expected value of cross-leverage scores}
+% \rb{Write big bars for the evaluation of the derivatives, to be consistent with Proposition 10 of the main paper}
+Let $m_{1},m_{2} \in \Ns$ such that $m_{1} \neq m_{2}$. We have by Proposition~\ref{thm:EX_lvs_phi} and Proposition~\ref{prop:VS_decomposition},
+\begin{equation}
+\EX_{\VS} \tau_{m_{1},m_{2}}^{\F}(\bm{x})  = \frac{1}{4N!\sum\limits_{U\in\UN} \prod\limits_{u \in U}\sigma_{u}} \left( \frac{\partial \phi_{m_{1},m_{2}}^{+}}{ \partial t } - \frac{\partial \phi_{m_{1},m_{2}}^{-}}{ \partial t }\right)\bigg|_{t = 0^{+}} ,
+\label{e:expression_of_expected_cross_LS}
+\end{equation}
+where
+\begin{equation}
+\phi_{m_{1},m_{2}}^{+}(t) =  \int_{\mathcal{X}^{N}} \Det \bigg(\bm{K}(\bm{x})+t \left(e_{m_{1}}^{\mathcal{F}}(\bm{x}) + e_{m_{2}}^{\mathcal{F}}(\bm{x}) \right) \left(e_{m_{1}}^{\mathcal{F}}(\bm{x}) + e_{m_{2}}^{\mathcal{F}}(\bm{x}) \right)^{\Tran} \bigg) \otimes_{i =1}^{N} \mathrm{d}\omega(x_{i}),
+\end{equation}
+and
+\begin{equation}
+\phi_{m_{1},m_{2}}^{-}(t) =  \int_{\mathcal{X}^{N}} \Det \bigg(\bm{K}(\bm{x})+t \left(e_{m_{1}}^{\mathcal{F}}(\bm{x}) - e_{m_{2}}^{\mathcal{F}}(\bm{x}) \right) \left(e_{m_{1}}^{\mathcal{F}}(\bm{x}) - e_{m_{2}}^{\mathcal{F}}(\bm{x}) \right)^{\Tran} \bigg) \otimes_{i =1}^{N} \mathrm{d}\omega(x_{i}).
+\end{equation}
+Now by Proposition~\ref{prop:perturbed_kernels_spectrum}, for $t\geq 0$,
+\begin{equation}
+\phi_{m_{1},m_{2}}^{+}(t) = N!\sum\limits_{U\in\UN} \prod\limits_{u \in U} \tilde{\sigma}_{u}^{+}(t) = N!\sum\limits_{U\in\UN} \prod\limits_{u \in U} \tilde{\sigma}_{u}^{-}(t) = \phi_{m_{1},m_{2}}^{-}(t).
+\end{equation}
+Plugging this back into \eqref{e:expression_of_expected_cross_LS} yields $\EX_{\VS} \tau_{m_{1},m_{2}}^{\F}(\bm{x}) = 0$.
+
+\subsubsection{Proof of Theorem~\ref{thm:slow_rates}}\label{app:proof_slow_rates}
+\paragraph{A decomposition result for the error}
+We start with a lemma.
+% \rb{Give the lemmas of the appendix different labels, like S1, S2, etc. to avoid confusion with the results of the main paper.}
+\begin{lemma}\label{lemma:delayed_bounds}
+Let $\mu \in \F$ such that $\|\mu\|_{\F} \leq 1$. Under Assumption~\ref{hyp:beta_N_bounded},
+\begin{equation}\label{eq:EX_VS_slow_rates}
+\EX_{\VS} \mathcal{E}(\mu;x)^{2} \leq (1+B) \sum\limits_{m \in [N]} \frac{\sigma_{N}}{\sigma_{m}} \langle \mu,e_{m}^{\F} \rangle_{\F}^{2} + \sum\limits_{m \geq N+1} \langle \mu,e_{m}^{\F} \rangle_{\F}^{2}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Using the same arguments as in the proof of Lemma~\ref{lemma:error_decomposition} in Section~\ref{app:proof_error_decomposition}, it comes that,
+for $\bm{x} \in \mathcal{X}^{N}$ such that $\Det \bm{K}(\bm{x}) > 0$,
+\begin{equation}\label{eq:general_error_decomposition}
+\|\mu - \Pi_{\mathcal{T}(\bm{x})} \mu\|_{\F}^{2}  = \sum\limits_{m \in \mathbb{N}^{*}} \langle \mu, e_{m}^{\F} \rangle_{\F}^{2}\bigg(1- \tau_{m}^{\F}(\bm{x})\bigg) - \sum\limits_{\substack{m_{1},m_{2} \in \mathbb{N}^{*} \\ m_{1} \neq m_{2}}}  \langle \mu, e_{m_{1}}^{\F} \rangle_{\F} \langle \mu, e_{m_{2}}^{\F} \rangle_{\F} \tau_{m_{1},m_{2}}^{\F}(\bm{x}).
+\end{equation}
+We want to take expectations in both sides of \eqref{eq:general_error_decomposition}. For the first term in the RHS, we prove, using the same arguments as for the proof of Theorem~\ref{thm:main_result_1} in Section~\ref{app:proof_main_result_1}, that
+\begin{equation}\label{eq:EX_VS_lvs_interpolation}
+\EX_{\VS} \sum\limits_{m \in \mathbb{N}^{*}} \langle \mu, e_{m}^{\F} \rangle_{\F}^{2}\bigg(1- \tau_{m}^{\F}(\bm{x})\bigg) = \sum\limits_{m \in \mathbb{N}^{*}} \langle \mu, e_{m}^{\F} \rangle_{\F}^{2}\bigg(1- \EX_{\VS}\tau_{m}^{\F}(\bm{x})\bigg).
+\end{equation}
+For the second term in the RHS of \eqref{eq:general_error_decomposition}, we need to justify that
+\begin{align}
+\EX_{\VS} \sum\limits_{\substack{m_{1},m_{2} \in \mathbb{N}^{*} \\ m_{1} \neq m_{2}}}  &\langle \mu, e_{m_{1}}^{\F} \rangle_{\F} \langle \mu, e_{m_{2}}^{\F} \rangle_{\F} \, \tau_{m_{1},m_{2}}^{\F}(\bm{x}) \nonumber\\
+& = \sum\limits_{\substack{m_{1},m_{2} \in \mathbb{N}^{*} \\ m_{1} \neq m_{2}}}  \langle \mu, e_{m_{1}}^{\F} \rangle_{\F} \langle \mu, e_{m_{2}}^{\F} \rangle_{\F} \,\EX_{\VS}\tau_{m_{1},m_{2}}^{\F}(\bm{x}) = 0.
+\label{eq:EX_VS_cross_lvs_interpolation}
+\end{align}
+This can be done using dominated convergence. Indeed, let $M \in \Ns$. We have
+\begin{align}
+\EX_{\VS} \sum\limits_{\substack{m_{1},m_{2} \in [M] \\ m_{1} \neq m_{2}}}  &\langle \mu, e_{m_{1}}^{\F} \rangle_{\F} \langle \mu, e_{m_{2}}^{\F} \rangle_{\F} \,\tau_{m_{1},m_{2}}^{\F}(\bm{x}) \nonumber\\
+& =  \sum\limits_{\substack{m_{1},m_{2} \in [M] \\ m_{1} \neq m_{2}}}  \langle \mu, e_{m_{1}}^{\F} \rangle_{\F} \langle \mu, e_{m_{2}}^{\F} \rangle_{\F} \,\EX_{\VS} \tau_{m_{1},m_{2}}^{\F}(\bm{x}) = 0.
+\label{eq:EX_VS_cross_lvs_interpolation_finite_sum}
+\end{align}
+Moreover,
+\begin{align}
+\Bigg\vert\sum\limits_{\substack{m_{1},m_{2} \in [M] \\ m_{1} \neq m_{2}}}  &\langle \mu, e_{m_{1}}^{\F} \rangle_{\F} \langle \mu, e_{m_{2}}^{\F} \rangle_{\F} \,\tau_{m_{1},m_{2}}^{\F}(\bm{x})\Bigg\vert\nonumber \\
+& = \left|\sum\limits_{\substack{m_{1},m_{2} \in [M]}}  \langle \mu, e_{m_{1}}^{\F} \rangle_{\F} \langle \mu, e_{m_{2}}^{\F} \rangle_{\F} \,\tau_{m_{1},m_{2}}^{\F}(\bm{x}) - \sum\limits_{m \in [M]} \langle \mu, e_{m}^{\F} \rangle_{\F}^{2} \,\tau_{m}^{\F}(\bm{x})\right|  \nonumber\\
+ & \leq \left|\sum\limits_{m_{1},m_{2} \in [M]}  \langle \mu, e_{m_{1}}^{\F} \rangle_{\F} \langle \mu, e_{m_{2}}^{\F} \rangle_{\F} \,\tau_{m_{1},m_{2}}^{\F}(\bm{x})\right|
+ +  \left|\sum\limits_{m \in [M]} \langle \mu, e_{m}^{\F} \rangle_{\F}^{2} \,\tau_{m}^{\F}(\bm{x})\right| \nonumber\\
+& = \left\| \Pi_{\mathcal{T}(\bm{x})} \sum\limits_{m \in [M]} \langle \mu, e_{m}^{\F} \rangle_{\F} e_{m}^{\F}\right\|_{\F}^{2}  +  \left|\sum\limits_{m \in [M]} \langle \mu, e_{m}^{\F} \rangle_{\F}^{2} \,\tau_{m}^{\F}(\bm{x})\right| \nonumber\\
+& \leq \left\|\sum\limits_{m \in [M]} \langle \mu, e_{m}^{\F} \rangle_{\F} e_{m}^{\F}\right\|_{\F}^{2}  +  \sum\limits_{m \in [M]} \langle \mu, e_{m}^{\F} \rangle_{\F}^{2} \nonumber \\
+& = 2 \|\mu\|_{\F}^{2} < +\infty.
+\label{eq:EX_VS_cross_lvs_interpolation_domination}
+\end{align}
+Combining \eqref{eq:EX_VS_cross_lvs_interpolation_finite_sum} and \eqref{eq:EX_VS_cross_lvs_interpolation_domination}, we deduce \eqref{eq:EX_VS_cross_lvs_interpolation} by the dominated convergence theorem.
+
+Finally, we combine \eqref{eq:EX_VS_lvs_interpolation} and \eqref{eq:EX_VS_cross_lvs_interpolation} to get
+\begin{align}
+\EX_{\VS}\|\mu - \Pi_{\mathcal{T}(\bm{x})} \mu\|_{\F}^{2} & = \sum\limits_{m \in \mathbb{N}^{*}} \langle \mu, e_{m}^{\F} \rangle_{\F}^{2}\bigg(1- \EX_{\VS}\tau_{m}^{\F}(\bm{x})\bigg) \nonumber\\
+& = \sum\limits_{n \in [N]} \langle \mu, e_{n}^{\F} \rangle_{\F}^{2}\bigg(1- \EX_{\VS}\tau_{n}^{\F}(\bm{x})\bigg) + \sum\limits_{m \geq N+1} \langle \mu, e_{m}^{\F} \rangle_{\F}^{2}\bigg(1- \EX_{\VS}\tau_{m}^{\F}(\bm{x})\bigg).
+\end{align}
+On the one hand,
+\begin{equation}
+\forall m \geq N+1, \:\: 1- \EX_{\VS}\tau_{m}^{\F}(\bm{x}) \leq 1,
+\end{equation}
+and on the other hand, remember that by Theorem~\ref{thm:main_result_1}, the sequence $\epsilon_{m}$ is non-increasing, so that
+\begin{align}
+\forall n \in [N], \: \sigma_{n} (1-\EX_{\VS} \tau_{n}^{\F}(\bm{x})) & = \EX_{\VS} \|\mu_{e_{n}} - \Pi_{\mathcal{T}(\bm{x})} \mu_{e_{n}}\|_{\F}^{2} \\
+& = \epsilon_{n} \\
+& \leq \epsilon_{1},
+\end{align}
+and by \eqref{eq:ineq_r_N} in the same theorem one gets
+\begin{equation}
+\sigma_{n} (1-\EX_{\VS} \tau_{n}^{\F}(\bm{x})) \leq (1+\beta_{N}) \sigma_{N},
+\end{equation}
+so that
+\begin{equation}
+ (1-\EX_{\VS} \tau_{n}^{\F}(\bm{x})) \leq (1+\beta_{N})\frac{ \sigma_{N}}{\sigma_{n}}.
+\end{equation}
+Assumption~\ref{hyp:beta_N_bounded} yields \
+\begin{equation}
+\forall n \in [N],\:\: 1- \EX_{\VS}\tau_{n}^{\F}(\bm{x}) \leq  (1+B) \frac{\sigma_{N}}{\sigma_{n}}.
+\end{equation}
+This concludes the proof of the lemma.
+\end{proof}
+%%%%%
+\paragraph{The expected value of the interpolation error}
+If there exists $r \in [0,1/2]$ such that $\displaystyle \| \Sigma^{-r} \mu \|_{\F} < +\infty$, we have
+\begin{align}
+\sum\limits_{m \geq N+1} \langle \mu,e_{m}^{\F} \rangle_{\F}^{2}
+& = \sum\limits_{m \geq N+1} \sigma_{m}^{2r} \frac{ \langle \mu,e_{m}^{\F} \rangle_{\F}^{2}}{\sigma_{m}^{2r}} \\
+& \leq \sigma_{N+1}^{2r} \sum\limits_{m \geq N+1} \frac{ \langle \mu,e_{m}^{\F} \rangle_{\F}^{2}}{\sigma_{m}^{2r}} \\
+& \leq \sigma_{N+1}^{2r} \|\Sigma^{-r} \mu\|_{\F}^{2},
+\end{align}
+and
+\begin{align}
+(1+B) \sum\limits_{m \in [N]} \frac{\sigma_{N}}{\sigma_{m}} \langle \mu,e_{m}^{\F} \rangle_{\F}^{2}
+& = (1+B) \sum\limits_{m \in [N]} \frac{\sigma_{N}}{\sigma_{m}^{1-2r+2r}} \langle \mu,e_{m}^{\F} \rangle_{\F}^{2} \\
+& = (1+B) \sum\limits_{m \in [N]} \frac{\sigma_{N}}{\sigma_{m}^{1-2r}} \frac{\langle \mu,e_{m}^{\F} \rangle_{\F}^{2}}{\sigma_{m}^{2r}} \\
+& \leq (1+B) \sigma_{N}^{2r} \sum\limits_{m \in [N]} \frac{\langle \mu,e_{m}^{\F} \rangle_{\F}^{2}}{\sigma_{m}^{2r}} \\
+& = (1+B) \sigma_{N}^{2r} \|\Sigma^{-r} \mu\|_{\F}^{2}.
+\end{align}
+By Lemma~\ref{lemma:delayed_bounds}, $\displaystyle \EX_{\VS}\| \mu - \Pi_{\mathcal{T}(\bm{x})} \mu \|_{\F}^{2}$ converges at the slow rate $\mathcal{O}(\sigma_{N}^{2r})$.
+
+On the other hand, if there exists $r > 1/2$ such that $\displaystyle \| \Sigma^{-r} \mu \|_{\F} < +\infty$, we have
+\begin{align}
+(1+B) \sum\limits_{m \in [N]} \frac{\sigma_{N}}{\sigma_{m}} \langle \mu,e_{m}^{\F} \rangle_{\F}^{2}
+& = (1+B) \sum\limits_{m \in [N]} \frac{\sigma_{N}}{\sigma_{m}^{1-2r+2r}} \langle \mu,e_{m}^{\F} \rangle_{\F}^{2} \\
+& \leq (1+B) \sigma_{N} \sigma_{1}^{2r-1} \sum\limits_{m \in [N]} \frac{\langle \mu,e_{m}^{\F} \rangle_{\F}^{2}}{\sigma_{m}^{2r}} \\
+&  \leq (1+B) \sigma_{N} \sigma_{1}^{2r-1} \|\Sigma^{-r} \mu\|_{\F}^{2},
+\end{align}
+and
+\begin{align}
+\sum\limits_{m \geq N+1} \langle \mu,e_{m}^{\F} \rangle_{\F}^{2}
+& = \sum\limits_{m \geq N+1} \sigma_{m}^{2r} \frac{ \langle \mu,e_{m}^{\F} \rangle_{\F}^{2}}{\sigma_{m}^{2r}} \\
+& \leq \sigma_{N+1}^{2r} \sum\limits_{m \geq N+1} \frac{ \langle \mu,e_{m}^{\F} \rangle_{\F}^{2}}{\sigma_{m}^{2r}} \\
+& \leq \sigma_{N+1}^{2r} \|\Sigma^{-r} \mu\|_{\F}^{2}.
+\end{align}
+This time, the bound in Lemma~\ref{lemma:delayed_bounds} is dominated by its first term, so that $\displaystyle \EX_{\VS}\| \mu - \Pi_{\mathcal{T}(\bm{x})} \mu \|_{\F}^{2}$ converges at the faster rate $\mathcal{O}(\sigma_{N})$.
+
+\subsubsection{Proof of Theorem~\ref{thm:EX_VS_integration_error}}\label{app:proof_bias}
+\paragraph{Proof of the bias identity}
+First, recall that, as $f$ and $g$ belong to $\Ltwo$, we have
+\begin{equation}
+\int_{\X}f(x)g(x) \Mu = \sum\limits_{m \in \Ns} \langle f,e_{m}\rangle_{\mathrm{d}\omega} \langle g,e_{m}\rangle_{\mathrm{d}\omega},
+\end{equation}
+thus, in order to prove the result, it is enough to prove that
+\begin{equation}\label{eq:EX_VS_optimal_quadrature_formula}
+\EX_{\VS} \sum\limits_{i \in [N]} \widehat{w}_{i}f(x_{i}) = \sum\limits_{m \in \Ns} \langle f,e_{m} \rangle_{\mathrm{d}\omega} \langle g,e_{m} \rangle_{\mathrm{d}\omega} \EX_{\VS}\tau_{m}^{\F}(\bm{x}).
+\end{equation}
+% \rb{The statement of Theorem~\ref{thm:EX_VS_integration_error} should have a $\widehat{w}$ instead of a $w$. Also maybe use $\widehat{w}$}
+Let $\bm{x} \in \X^{N}$ such that $\Det \bm{K}(\bm{x})>0$. The optimal kernel quadrature weights satisfy
+\begin{equation}
+\widehat{\bm{w}} = \bm{K}(\bm{x})^{-1}\mu_{g}(\bm{x}),
+\end{equation}
+so that
+\begin{align}
+\sum\limits_{i \in N} \widehat{w}_{i}f(x_{i}) & = \widehat{\bm{w}}^{\Tran} f(\bm{x}) \\
+& = \mu_{g}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1} f(\bm{x})\\
+& = \sum_{m_{1},m_{2} \in \Ns} \sigma_{m_{1}} \langle g, e_{m_{1}} \rangle_{\mathrm{d}\omega} \langle f, e_{m_{2}}^{\F} \rangle_{\F} \; e_{m_{1}}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1}e_{m_{2}}^{\F}(\bm{x}) \\
+& = \sum\limits_{m_{1},m_{2} \in \Ns} \sqrt{\sigma_{m_{1}}} \langle g, e_{m_{1}} \rangle_{\mathrm{d}\omega}  \langle f, e_{m_{2}}^{\F} \rangle_{\F}\;  e_{m_{1}}^{\F}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1}e_{m_{2}}^{\F}(\bm{x}).
+\label{e:last_tool}
+\end{align}
+We want to use the dominated convergence theorem to take expectations in \eqref{e:last_tool}.
+Let $M \in \Ns$.
+% \rb{I rewrote everything for a single $M$ to avoid haveing $M_1 and M_2$ everywhere.}
+% , and denote
+% \begin{align}
+% g_{M_{1}} & = \sum\limits_{m \in [M_1]} \langle g,e_{m} \rangle_{\mathrm{d}\omega} e_{m},\\
+% f_{M_{2}} & = \sum\limits_{m \in [M_2]} \langle f,e_{m}^{\F} \rangle_{\F} e_{m}^{\F}.
+% \end{align}
+By Lemma~\ref{lemma:lvs_identities} and by the fact that $\Pi_{\mathcal{T}(\bm{x})}$ is an $\langle.,.\rangle_{\F}$-orthogonal projection, it comes
+\begin{align}
+\Bigg|\sum_{m_{1}, m_2 \in [M]} &\sqrt{\sigma_{m_{1}}} \langle g, e_{m_{1}} \rangle_{\mathrm{d}\omega} \langle f, e_{m_{2}}^{\F} \rangle_{\F}  \: e_{m_{1}}^{\F}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1}e_{m_{2}}^{\F}(\bm{x}) \Bigg| \\
+= & \left|\sum_{m_{1}, m_2 \in [M]} \sqrt{\sigma_{m_{1}}} \langle g, e_{m_{1}} \rangle_{\mathrm{d}\omega}  \langle f, e_{m_{2}}^{\F} \rangle_{\F}  \: \langle \Pi_{\mathcal{T}(\bm{x})}e_{m_{1}}^{\F}, \Pi_{\mathcal{T}(\bm{x})}e_{m_{2}}^{\F} \rangle_{\F} \right|\\
+= & \left| \left\langle \Pi_{\mathcal{T}(\bm{x})} \sum\limits_{m_{1} \in [M] }  \sqrt{\sigma_{m_{1}}} \langle g, e_{m_{1}} \rangle_{\mathrm{d}\omega}   e_{m_{1}},\:  \Pi_{\mathcal{T}(\bm{x})} \sum\limits_{m_{2} \in [M]} \langle f, e_{m_{2}}^{\F} \rangle_{\F} e_{m_{2}}^{\F} \right\rangle_{\F} \right|\\
+\leq & \left| \left\langle \sum\limits_{m_{1} \in [M] }  \sqrt{\sigma_{m_{1}}} \langle g, e_{m_{1}} \rangle_{\mathrm{d}\omega}   e_{m_{1}},  \sum\limits_{m_{2} \in [M]} \langle f, e_{m_{2}}^{\F} \rangle_{\F} e_{m_{2}}^{\F} \right\rangle_{\F} \right|\\
+\leq & \left\| \sum\limits_{m_{1} \in [M] }  \sqrt{\sigma_{m_{1}}} \langle g, e_{m_{1}} \rangle_{\mathrm{d}\omega}   e_{m_{1}} \right\|_{\F}\: \left \| \sum\limits_{m_{2} \in [M]} \langle f, e_{m_{2}}^{\F} \rangle_{\F} e_{m_{2}}^{\F} \right\|_{\F}.
+\end{align}
+Now,
+\begin{align}
+\left\| \sum\limits_{m_{1} \in [M] }  \sqrt{\sigma_{m_{1}}} \langle g, e_{m_{1}} \rangle_{\mathrm{d}\omega}   e_{m_{1}} \right\|_{\F}  & \left \| \sum\limits_{m_{2} \in [M]} \langle f, e_{m_{2}}^{\F} \rangle_{\F} e_{m_{2}}^{\F} \right\|_{\F}\\
+&  = \left\| \sum\limits_{m_{1} \in [M] }  \langle g, e_{m_{1}} \rangle_{\mathrm{d}\omega}   e_{m_{1}}^{\F} \right\|_{\F} \left \| \sum\limits_{m_{2} \in [M]} \langle f, e_{m_{2}}^{\F} \rangle_{\F} e_{m_{2}}^{\F} \right\|_{\F}\\
+&  = \left\| \sum\limits_{m_{1} \in [M] }  \langle g, e_{m_{1}} \rangle_{\mathrm{d}\omega}   e_{m_{1}} \right\|_{\mathrm{d}\omega} \left \| \sum\limits_{m_{2} \in [M]} \langle f, e_{m_{2}}^{\F} \rangle_{\F} e_{m_{2}}^{\F} \right\|_{\F}\\
+&  \leq \left\| \sum\limits_{m_{1} \in \Ns }  \langle g, e_{m_{1}} \rangle_{\mathrm{d}\omega}   e_{m_{1}} \right\|_{\mathrm{d}\omega} \left \| \sum\limits_{m_{2} \in \Ns} \langle f, e_{m_{2}}^{\F} \rangle_{\F} e_{m_{2}}^{\F} \right\|_{\F}\\
+& < +\infty,
+\end{align}
+since $\sum_{m \in \Ns} \sqrt{\sigma_{m}}\langle g,e_{m} \rangle_{\mathrm{d}\omega} e_{m} \in \F$.
+Dominated convergenve thus yields
+\begin{align}
+\EX_{\VS} \sum\limits_{m_{1},m_{2} \in \Ns} \sqrt{\sigma_{m_{1}}} & \langle g, e_{m_{1}} \rangle_{\mathrm{d}\omega}  \langle f, e_{m_{2}}^{\F} \rangle_{\F} \:e_{m_{1}}^{\F}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1}e_{m_{2}}^{\F}(\bm{x}) \\
+& = \sum\limits_{m_{1},m_{2} \in \Ns} \sqrt{\sigma_{m_{1}}} \langle g, e_{m_{1}} \rangle_{\mathrm{d}\omega}  \langle f, e_{m_{2}}^{\F} \rangle_{\F} \:\EX_{\VS} e_{m_{1}}^{\F}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1}e_{m_{2}}^{\F}(\bm{x}).
+\end{align}
+Using Proposition~\ref{prop:EX_VS_lvs}, we continue our derivation as
+\begin{align}
+\EX_{\VS} \sum\limits_{m_{1},m_{2} \in \Ns} \sqrt{\sigma_{m_{1}}} & \langle g, e_{m_{1}} \rangle_{\mathrm{d}\omega}  \langle f, e_{m_{2}}^{\F} \rangle_{\F} \: e_{m_{1}}^{\F}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1}e_{m_{2}}^{\F}(\bm{x}) \\
+& = \sum\limits_{m \in \Ns} \sqrt{\sigma_{m}} \langle g, e_{m} \rangle_{\mathrm{d}\omega}  \langle f, e_{m}^{\F} \rangle_{\F} \: \EX_{\VS} e_{m}^{\F}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1}e_{m}^{\F}(\bm{x})\\
+& = \sum\limits_{m \in \Ns}  \langle g, e_{m} \rangle_{\mathrm{d}\omega}  \sqrt{\sigma_{m}}\langle f, e_{m}^{\F} \rangle_{\F} \: \EX_{\VS} \tau_{m}^{\F}(\bm{x}).
+\end{align}
+Finally, \eqref{eq:EX_VS_optimal_quadrature_formula} is obtained upon noting that
+\begin{equation}
+\forall m \in \Ns, \: \langle f,e_{m} \rangle_{\mathrm{d}\omega} = \sqrt{\sigma_{m}} \langle f,e_{m}^{\F} \rangle_{\F}.
+\end{equation}
+\paragraph{Proof of the asymptotic unbiasedness of the quadrature }
+
+The expected value of the bias writes
+\begin{equation}
+\EX_{\VS} \left( \int_{\X} f(x)g(x) \mathrm{d}\omega(x) - \sum\limits_{i \in [N]} \widehat{w}_{i}f(x_{i}) \right)= \sum\limits_{m \in \Ns} \langle f,e_{m} \rangle_{\mathrm{d}\omega}\langle g,e_{m} \rangle_{\mathrm{d}\omega} \left( 1- \EX_{\VS}\tau_{m}^{\F}(\bm{x}) \right).
+\label{e:very_last_tool}
+\end{equation}
+Now, by Theorem~\ref{thm:main_result_1}, for $m \in \Ns$,
+\begin{equation}
+\EX_{\VS} \|\mu_{e_{m}} - \Pi_{\mathcal{T}(\bm{x})} \mu_{e_{m}}\|_{\F}^{2} \leq \epsilon_{1} \leq \sigma_{N}(1+\beta_{N}) \leq \sigma_{N} + \sum\limits_{n \geq N} \sigma_{n}.
+\end{equation}
+Thus
+\begin{equation}
+0 \leq 1-\EX_{\VS} \tau_{m}^{\F}(\bm{x}) = {\sigma_m}^{-1} \EX_{\VS} \|\mu_{e_{m}} - \Pi_{\mathcal{T}(\bm{x})} \mu_{e_{m}}\|_{\F}^{2} \leq {\sigma_{m}}^{-1}{\sigma_{N} + \sum\limits_{n \geq N} \sigma_{n}},
+\end{equation}
+so that
+\begin{align}
+\lim_{N \rightarrow \infty} \langle f,e_{m} \rangle_{\mathrm{d}\omega}\langle g,e_{m} \rangle_{\mathrm{d}\omega} \left(1- \EX_{\VS}\tau_{m}^{\F}(\bm{x}) \right) & = \langle f,e_{m} \rangle_{\mathrm{d}\omega}\langle g,e_{m} \rangle_{\mathrm{d}\omega} (1-\lim_{N \rightarrow \infty} \EX_{\VS}\tau_{m}^{\F}(\bm{x})) = 0.
+\end{align}
+To conclude, it is thus enough to apply the dominated convergence theorem to \eqref{e:very_last_tool}. By Lemma~\ref{lemma:lvs_identities}, $\tau_{m}^{\F}(\bm{x}) \in [0,1]$, so that $1-\EX_{\VS}\tau_{m}^{\F}(\bm{x}) \in [0,1]$.
+In particular, for all $N \in \Ns$,
+% \footnote{The dependency on $N$ of the following inequality is implicit through the terms $\EX_{\VS}\tau_{m}^{\F}(\bm{x})$.}
+\begin{align}
+|\langle f,e_{m} \rangle_{\mathrm{d}\omega}\langle g,e_{m} \rangle_{\mathrm{d}\omega} \left(1- \EX_{\VS}\tau_{m}^{\F}(\bm{x}) \right)| & \leq |\langle f,e_{m} \rangle_{\mathrm{d}\omega}\langle g,e_{m} \rangle_{\mathrm{d}\omega}|\\
+& \leq \frac{1}{2}\left(\left\langle f,e_{m} \right\rangle_{\mathrm{d}\omega}^{2} + \left\langle g,e_{m} \right\rangle_{\mathrm{d}\omega}^{2}\right),
+\end{align}
+which is the generic term of a convergent series as $f,g\in\Ltwo$. This concludes the proof.
+% Moreover,
+% \begin{equation}
+% \frac{1}{2}\sum\limits_{m \in \Ns}\left(\left\langle f,e_{m} \right\rangle_{\mathrm{d}\omega}^{2} + \left\langle g,e_{m} \right\rangle_{\mathrm{d}\omega}^{2}\right) = \frac{1}{2} (\|f\|_{\mathrm{d}\omega}^{2} + \|g\|_{\mathrm{d}\omega}^{2} ) <+\infty.
+% \end{equation}
+%
+% Applying, again, the dominated convergence theorem, we get
+% \begin{align}
+% \lim\limits_{N \rightarrow +\infty} \EX_{\VS} & \left( \int_{\X} f(x)g(x) \mathrm{d}\omega(x)  - \sum\limits_{i \in [N]} w_{i}f(x_{i}) \right) \\
+% & = \sum\limits_{m \in \Ns} \lim\limits_{N \rightarrow +\infty} \langle f,e_{m} \rangle_{\mathrm{d}\omega}\langle g,e_{m} \rangle_{\mathrm{d}\omega} \left( 1- \EX_{\VS}\tau_{m}^{\F}(\bm{x}) \right)\\
+% & = \sum\limits_{m \in \Ns} 0 \\
+% & = 0.
+% \end{align}
+%\newpage
 
 
 
 \clearpage
 
-\section{Interpolation problems in signal processing}
+\chapter{Interpolation problems in signal processing}
 
-\section{The Richest Hermite Kernel and integration problems in $\mathbb{R}^{d}$}
+\chapter{The Richest Hermite Kernel and integration problems in $\mathbb{R}^{d}$}
 
-\section{Future work and conclusion}
+\chapter{Future work and conclusion}
 
 \bibliography{bibliography}
 
