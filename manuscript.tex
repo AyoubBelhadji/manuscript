@@ -1954,9 +1954,31 @@ In particular, Christoffel generalized the Gauss-Jacobi construction of quadratu
 \forall m,m' \in \mathbb{N}, \: \int_{a}^{b} P_{m}(t)P_{m'}(t) \mathrm{d}\omega(t) & = \delta_{m,m'}.
 \end{align}
 
-By generalizing the argument of Jacobi, Christoffel proved that the existence of a unique configuration of nodes $\bm{x}_{GC}$ and weights $w_{n}$ such that $\displaystyle \sum\limits_{n \in [N]} w_{n} f(x_{n})$ coincides with $\displaystyle  \int_{a}^{b} f(t) \mathrm{d}\omega(t)$ for every polynomial of degree $2N-1$. 
+By generalizing the argument of Jacobi, Christoffel proved that for every $N \in \mathbb{N}^{*}$ the roots of $P_{N}$ and the corresponding weights $w_{n}^{GC}$
+\begin{equation}
+ \:\: w_{n}^{GC} = \int_{a}^{b} \frac{\prod\limits_{m \in [N], m \neq n }(t-x_{m})}{\prod\limits_{m \in [N], m \neq n }(x_{n}-x_{m})} \mathrm{d}\omega(t)
+\end{equation}
 
-% In general, 
+defines a quadrature such that $\displaystyle \sum\limits_{n \in [N]} w_{n} f(x_{n})$ coincides with $\displaystyle  \int_{a}^{b} f(t) \mathrm{d}\omega(t)$ for every polynomial of degree smaller than $2N-1$. The weights of this quadrature are called the Christoffel numbers and they are given explicitly [???]: 
+\begin{equation}
+w_{n} = \frac{1}{\sum\limits_{\ell \in [N]} P_{\ell}(x_{n})^{2}}.
+\end{equation}
+These numbers are the evaluations of the so-called \emph{Christoffel function} that has an interesting interpretation that we recall in Chapter ???. 
+
+In practice, the nodes and the weights of the Gaussian quadrature can be calculated using a more elegant way. For this purpose, denote by $(a_{m})_{m \in \mathbb{N}}$ and $(b_{m})_{m \in \mathbb{N}}$ the sequences of coefficients appearing in the three-term recurrence relation:
+\begin{equation}
+t P_{m}(t) = a_{m}P_{m+1}(t) + b_{m}P_{m}(t) + a_{m-1}P_{m-1}(t),
+\end{equation}
+associated to the sequence of orthogonal polynomials $(P_{m})_{m \in \mathbb{N}}$ with respect to $\mathrm{d}\omega$; and denote by $J_{N}$ the tridiagonal matrix of order $N$:
+
+
+\begin{equation}
+J_N = \left( \begin{array}{cccc}
+a_{0} & \sqrt{b_{1}} & & 0\\
+\sqrt{b_{1}} & \ddots & \ddots & \\
+& \ddots & \ddots & \sqrt{b_{N-1}} \\
+0 & & \sqrt{b_{N-1}} & a_{N-1} \end{array} \right) .
+\end{equation}
 
 
 
