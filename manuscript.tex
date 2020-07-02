@@ -1874,11 +1874,59 @@ Similarly, for the double phase algorithm, given the singular decomposition of $
 
 \chapter{Kernel quadrature using DPPs}
 \section{Introduction}
-Numerical integration is at the heart of many data analysis tasks: Bayesian inference in statistics, option pricing in finance or  particle filtering... Indeed, all these problems involve, at some level of analysis, the calculation of an integral of some real valued function $f$ defined on some domain $\mathcal{X}$ against some measure $\mathrm{d}\omega$ and potentially some other real valued function $g$:
+Numerical integration is at the heart of many data analysis tasks: Bayesian inference in statistics, option pricing in finance or  particle filtering... Indeed, all these problems involve, at some level of analysis, the calculation of an integral of some real valued function $f$ defined on some domain $\mathcal{X}$ against some measure $\mathrm{d}\omega$:
 \begin{equation}\label{eq:general_integral_formula}
-\int_{\mathcal{X}}f(x)g(x)\mathrm{d}\omega(x)  =  ?
+\int_{\mathcal{X}}f(x)\mathrm{d}\omega(x)  =  ?
 \end{equation}
-Except some integrals that have some closed formulas, and thus can be calculated using the knowledge of some special functions, the value of~\eqref{eq:general_integral_formula} is only known through approximations.
+Except some integrals that are expressed in a closed form in terms of some special functions, the value of~\eqref{eq:general_integral_formula} is only known through approximations. This problem find its roots in an old geometric problem: the evaluation of planar areas bounded by curves. Measuring areas ???...
+
+
+The word \emph{quadrature} can be tracked at least to ???.
+
+
+ These techniques made their way to classic scientists and were further developed after the invention of calculus. For instance, Newton considered the approximation of the integral of a function $f$ on some interval $[a,b]$, and his approach goes as follows: evaluate $f$ on equally distanced nodes $x_{1}, \dots, x_{N}$ and consider the interpolating polynomial $p_{N-1}$ of $f$ on the $x_{1}, \dots, x_{N}$ then approximate the value of $\displaystyle \int_{a}^{b}f(t)\mathrm{d}t$ by $\displaystyle \int_{a}^{b}p_{N-1}(t)\mathrm{d}t$. In other words, consider the polynomial
+
+  % Newton was interested in approximation   using some evaluations of $f$ can be tracked to the work of Newton. The idea of the eponymous quadrature is to consider a set of nodes, also called \emph{configuration}, $\bm{x} = \{x_{1}, \dots , x_{N} \} \subset \X^{N}$, and the corresponding interpolating polynomial of degree $N-1$:
+\begin{equation}
+p_{N-1}(t) = \sum\limits_{n \in [N]} f(x_{n}) \ell_{n,\bm{x}}(t),
+\end{equation}
+where $\ell_{n,\bm{x}}$ are the Lagrange polynomial basis polynomials defined by
+\begin{equation}
+\ell_{n,\bm{x}}(t) = \frac{\prod\limits_{m \in [N], m \neq n }(t-x_{m})}{\prod\limits_{m \in [N], m \neq n }(x_{n}-x_{m})}.
+\end{equation}
+The approximation of Newton leads to the following identity
+\begin{align}\label{eq:Newton_approx}
+\int_{a}^{b}f(t)\mathrm{d}t & \approx \int_{a}^{b}p_{N-1}(t)\mathrm{d}t  \\
+& =  \sum\limits_{n \in [N]}f(x_{n}) \int_{a}^{b} \ell_{n,\bm{x}}(t) \mathrm{d}t.\\
+& :=  \sum\limits_{n \in [N]}f(x_{n}) w_{n} ,
+\end{align}
+with the scalars $w_{n}$, also called the \emph{Cotes numbers}, have the expression
+\begin{equation}
+\forall n \in [N], \: w_{n} = \int_{a}^{b} \ell_{n,\bm{x}}(t) \mathrm{d}t.
+\end{equation}
+
+Since any polynomial of degree smaller or equal to $N-1$ is equal to its $N-1$-degree interpolant polynomial, the approximation \eqref{eq:Newton_approx} is exact if $f$ is a polynomial of order smaller or equal to $N-1$. In general, the function $f$ is not a polynomial and one would expect to give a control of the integration error 
+\begin{equation}
+\bigg|\int_{a}^{b}f(t)\mathrm{d}t - \int_{a}^{b}p_{N-1}(t)\mathrm{d}t \bigg| 
+\end{equation}
+for functions that can be well-approximated by low degree polynomials. This is at least what can be achieved using orthogonal polynomials techniques. As we shall see, these techniques are not amenable to be generalized for the approximations of integrals defined on high-dimensional domains.
+
+
+
+% Moreover, one would expect that the approximation \eqref{eq:Newton_approx} is reasonable for a function that can be well-approximated by a polynomial of degree $N$.
+
+ 
+
+
+This intuitive approximation is the starting point of many other quadratures such Gaussian quadratures. 
+
+Another approach relies on taking advantage of a randomized averaging to approximate the value of ... This approach is based on the following elementary observation: if $x$ is random variable of $\mathcal{X}$ 
+
+\begin{equation}
+...
+\end{equation} 
+
+
 
 An approximation of \eqref{eq:general_integral_formula} requires, usually, the knowledge of the value of $f$ or its first derivatives on some locations on the domain $\mathcal{X}$ called \emph{nodes}. A \emph{quadrature} is a numerical approximation that takes the following form
 \begin{equation}
@@ -1886,9 +1934,9 @@ An approximation of \eqref{eq:general_integral_formula} requires, usually, the k
 \end{equation}
 
 
-
 \section{Related work}
-The purpose of this section is to motivate the theoretical analysis of a class of quadratures based on projection DPPs that is naturally defined in the RKHS framework. The merit of this class of quadratures is its universality and applicability to a variety of settings. An exhaustive review of existing results on quadratures is outside the scope of this manuscript; nevertheless, it turns out that many landmark results on the field are connected to projection DPPs. For this reason, we review these classic results in the following.
+The purpose of this section is to motivate the definition and the theoretical analysis of a class of quadratures based on projection DPPs. This class of quadratures is is naturally defined within the RKHS framework. The merit of this class of quadratures is its universality and applicability to a variety of settings. An exhaustive review of existing results on quadratures is outside the scope of this manuscript; nevertheless, it turns out that many landmark quadratures on the field are connected to projection DPPs. 
+Thus, it is the purpose of this section to highlights these connexions through a review of these quadratures in the following.
 
 
 
@@ -1898,26 +1946,14 @@ The purpose of this section is to motivate the theoretical analysis of a class o
 % For this purpose, we review existing results on quadratures 
 
 
-\subsection{Quadratures on the real line}
-We start by a brief review on quadratures on the real line.
-\subsubsection{Newton-Cotes quadrature}
-The approximation of the integral of a function $f$ on some interval $[a,b]$ using some evaluations of $f$ can be tracked to the work of Newton. The idea of the eponymous quadrature is to consider a set of nodes $\bm{x} = \{x_{1}, \dots , x_{N} \} \subset \X^{N}$, and the corresponding interpolating polynomial of degree $N-1$:
-\begin{equation}
-p_{N-1}(t) = \sum\limits_{n \in [N]} f(x_{n}) \ell_{n,\bm{x}}(t),
-\end{equation}
-where $\ell_{n,\bm{x}}$ is defined by
-\begin{equation}
-\ell_{n,\bm{x}}(t) = \frac{\prod\limits_{m \in [N], m \neq n }(t-x_{m})}{\prod\limits_{m \in [N], m \neq n }(x_{n}-x_{m})}.
-\end{equation}
-The idea of Newton was to consider the approximation
-\begin{align}\label{eq:Newton_approx}
-\int_{a}^{b}f(t)\mathrm{d}t & \approx \int_{a}^{b}p_{N-1}(t)\mathrm{d}t  \\
-& =  \sum\limits_{n \in [N]}f(x_{n}) \int_{a}^{b} \ell_{n,\bm{x}}(t) \mathrm{d}t.\\
-& :=  \sum\limits_{n \in [N]}f(x_{n}) w_{n} .
-\end{align}
-The approximation \eqref{eq:Newton_approx} is exact if $f$ is a polynomial of order less than $N-1$. The scalars $w_{n}$ are called Cotes numbers
-\subsubsection{Gaussian quadratures}
-As we have seen previously, the Newton-Cotes quadrature is exact for polynomials of order less than $N-1$. Gauss interested in the maximal order of exactness that could be achieved using the Newton-Cotes quadrature. This order depends on the design of nodes $\bm{x}$ and is defined by 
+\subsection{Gaussian quadratures}
+As we have seen in the introduction, the Newton-Cotes quadrature is based on equi-distanced nodes on $[a,b]$ and it is exact for polynomials of order smaller than $N-1$ when $N$ nodes were used. Gauss observed that this configuration (the equi-distanced nodes) is not optimal and shed the light on how to design the configuration $x_{1}, \dots, x_{N}$ in a quadrature. This observation gave birth to the field of Gaussian quadratures.
+% We start by a brief review on quadratures on the real line.
+% \subsubsection{Newton-Cotes quadrature}
+
+\subsubsection{Optimal quadratures based on  orthogonal polynomials}
+
+ Gauss interested in the maximal order of exactness that could be achieved by a quadrature rule based on a configuration of nodes $\bm{x} = \{ x_{1}, \dots, x_{N} \}$ and the corresponding weights $w_{1}, \dots, w_{N}$. This order is defined by 
 
 \begin{equation}
 M(\bm{x}) = \sup \{ m \in \mathbb{N}, \: \int_{a}^{b} t^{m} \mathrm{d}t = \sum\limits_{n \in [N]} w_{n}x_{n}^{m} \}.
@@ -1930,20 +1966,26 @@ M(\bm{x}) = \sup \{ m \in \mathbb{N}, \: \int_{a}^{b} t^{m} \mathrm{d}t = \sum\l
 
 % \emph{For a fixed value $N$, what is the maximal order $M(\bm{x})$ of polynomials such that the approximation \eqref{eq:Newton_approx} is exact?}
 
-Gauss proved that there exists a design $\bm{x}_{G}$ such that $M(\bm{x}_{G}) = 2N-1$, and that this order is maximal among all the possible designs. The proof of Gauss \citep{Gau1815} is based on arguments from continued fractions theory \citep{Khi97}.
+Gauss proved that for any positive integer $N$ there exists a unique configuration $\bm{x}_{G}$ of cardinality $N$ such that $M(\bm{x}_{G}) = 2N-1$. He also proved that $2N-1$ is the maximal order that could be achieved by any configuration of cardinality $N$. His proof \citep{Gau1815} is based on arguments from continued fractions theory \citep{Khi97}.
 % In particul there exists a remarkable design of nodes that achieves a higher degree of exactness: the approximation \eqref{eq:Newton_approx} is exact if $f$ is a polynomial of order less than $2N-1$.
-An alternative proof was given by Jacobi [????], where he proved the existence of the design $\bm{x}_{G}$, also called the Gauss nodes, using simple arguments of polynomial divisibility. Indeed, Jacobi shows that for any integer $N' \in [N]$, the Newton-Cotes quadrature has the maximal degree of exactness $M(\bm{x}) = N-1+N'$ if and only if for every polynomial $p$ of order less than $N'-1$:
+An alternative proof was given by Jacobi [????], where he proved the existence of this optimal configuration, also called the Gauss nodes, using simple arguments of polynomial divisibility. Indeed, Jacobi showed that $M(\bm{x}) = 2N-1$ if and only if for every polynomial $p$ of order smaller or equal $N-1$:
 
-\begin{equation}
+\begin{equation}\label{eq:Legendre_orthogonality}
 \int_{a}^{b} p(t) \pi_{\bm{x}}(t) \mathrm{d}t = 0,
 \end{equation}
 where $\pi_{\bm{x}}$ is the polynomial
 \begin{equation}
 \pi_{\bm{x}}(t) = \prod\limits_{n \in [N]}(t-x_{n}).
 \end{equation}
-The case $N' = N$ leads to the Gauss formula of maximal degree of exactness $2N-1$. More importantly, this characterization of Gauss nodes, proved by Jacobi, highlights the importance of orthogonality between polynomials: the Gauss nodes are the roots of a polynomial of degree $N$ that is orthogonal to all polynomials of degree less than $N-1$ and the corresponding nodes polynomials $\pi_{\bm{x}}$ are nothing else but the scaled Legendre polynomials.
+% that for any integer $N' \in [N]$, 
 
-The notion of orthogonality between polynomials was pushed further by considering quadrature problems with respect to weighted measures: $\mathrm{d}\omega = w(t) \mathrm{d} t$ by the work of Mehler [??], Christoffel [??] and others
+% the Newton-Cotes quadrature has the maximal degree of exactness $M(\bm{x}) = N-1+N'$ if and only if for every polynomial $p$ of order less than $N'-1$:
+
+% The case $N' = N$ leads to the Gauss formula of maximal degree of exactness $2N-1$.
+
+ In other words, the Gauss nodes are the roots of a polynomial of degree $N$ that satisfy the condition~\eqref{eq:Legendre_orthogonality} for every polynomial of degree less than $N-1$: the polynomial $\pi_{\bm{x}}$ is nothing else but the scaled Legendre polynomial of degree $N$.
+
+This characterization of the Gauss nodes highlighted the importance of the emerging notion of orthogonality between polynomials. Thanks to the work of Mehler [??], Christoffel [??] and others, this notion of orthogonality was pushed further to encompass quadrature rules with respect to  weighted measures: $\mathrm{d}\omega = w(t) \mathrm{d} t$ 
 
 \begin{equation}
 \int_{a}^{b}f(t)w(t)\mathrm{d}t \approx \sum\limits_{n \in [N]} w_{n}f(x_{n}).
@@ -1966,20 +2008,41 @@ w_{n} = \frac{1}{\sum\limits_{\ell \in [N]} P_{\ell}(x_{n})^{2}}.
 These numbers are the evaluations of the so-called \emph{Christoffel function} that has an interesting interpretation that we recall in Chapter ???. 
 
 In practice, the nodes and the weights of the Gaussian quadrature can be calculated using a more elegant way. For this purpose, denote by $(a_{m})_{m \in \mathbb{N}}$ and $(b_{m})_{m \in \mathbb{N}}$ the sequences of coefficients appearing in the three-term recurrence relation:
-\begin{equation}
+\begin{equation}\label{eq:OP_reccurence}
 t P_{m}(t) = a_{m}P_{m+1}(t) + b_{m}P_{m}(t) + a_{m-1}P_{m-1}(t),
 \end{equation}
-associated to the sequence of orthogonal polynomials $(P_{m})_{m \in \mathbb{N}}$ with respect to $\mathrm{d}\omega$; and denote by $J_{N}$ the tridiagonal matrix of order $N$:
+associated to the sequence of orthogonal polynomials $(P_{m})_{m \in \mathbb{N}}$ with respect to $\mathrm{d}\omega$. A re-writing of \eqref{eq:OP_reccurence} yields 
 
-
+\begin{equation}\label{eq:matrix_OP_reccurence}
+J_{N} \begin{pmatrix}
+P_{0}(t)  \\
+\vdots \\
+P_{N}(t) \\
+\end{pmatrix} = t \begin{pmatrix}
+P_{0}(t)  \\
+\vdots \\
+P_{N}(t) \\
+\end{pmatrix} - \begin{pmatrix}
+0  \\
+\vdots \\
+a_{N+1}P_{N+1}(t) \\
+\end{pmatrix}
+\end{equation}
+where $J_{N}$ is the tridiagonal matrix of order $N+1$ given by:
 \begin{equation}
 J_N = \left( \begin{array}{cccc}
 a_{0} & \sqrt{b_{1}} & & 0\\
 \sqrt{b_{1}} & \ddots & \ddots & \\
-& \ddots & \ddots & \sqrt{b_{N-1}} \\
-0 & & \sqrt{b_{N-1}} & a_{N-1} \end{array} \right) .
+& \ddots & \ddots & \sqrt{b_{N}} \\
+0 & & \sqrt{b_{N}} & a_{N} \end{array} \right) .
 \end{equation}
 
+
+From \eqref{eq:matrix_OP_reccurence}, we conclude that the roots of $P_{N+1}$ are the eigenvalues of the tridiagonal matrix $J_{N}$, and for every root $x$, the vector $\begin{pmatrix}
+P_{0}(x)  \\
+\vdots \\
+P_{N}(x) \\
+\end{pmatrix}$ is the corresponding eigenvector. In other words, the spectral decomposition of the corresponding Jacobi matrix gives the nodes and the weights of the Gaussian quadrature. The matrix $J_{N}$ is known explicitly for many classic measures $\mathrm{d}\omega$ such as .... Yet, building up this matrix is not a trivial problem for a general measure $\mathrm{d}\omega$.
 
 
 
