@@ -1947,7 +1947,7 @@ Thus, it is the purpose of this section to highlights these connexions through a
 
 
 \subsection{Gaussian quadratures}
-As we have seen in the introduction, the Newton-Cotes quadrature is based on equi-distanced nodes on $[a,b]$ and it is exact for polynomials of order smaller than $N-1$ when $N$ nodes were used. Gauss observed that this configuration (the equi-distanced nodes) is not optimal and shed the light on how to design the configuration $x_{1}, \dots, x_{N}$ in a quadrature. This observation gave birth to the field of Gaussian quadratures.
+As we have seen in the introduction, the Newton-Cotes quadrature is based on equi-distanced nodes on $[a,b]$ and it is exact for polynomials of order smaller than $N-1$ when $N$ nodes are used. Gauss observed that this configuration (the equi-distanced nodes) is not optimal and shed the light on how to design the configuration $x_{1}, \dots, x_{N}$ in a quadrature. This observation gave birth to the field of Gaussian quadratures.
 % We start by a brief review on quadratures on the real line.
 % \subsubsection{Newton-Cotes quadrature}
 
@@ -1985,33 +1985,42 @@ where $\pi_{\bm{x}}$ is the polynomial
 
  In other words, the Gauss nodes are the roots of a polynomial of degree $N$ that satisfy the condition~\eqref{eq:Legendre_orthogonality} for every polynomial of degree less than $N-1$: the polynomial $\pi_{\bm{x}}$ is nothing else but the scaled Legendre polynomial of degree $N$.
 
-This characterization of the Gauss nodes highlighted the importance of the emerging notion of orthogonality between polynomials. Thanks to the work of Mehler [??], Christoffel [??] and others, this notion of orthogonality was pushed further to encompass quadrature rules with respect to  weighted measures: $\mathrm{d}\omega = w(t) \mathrm{d} t$ 
+ In other words, the work of Jacobi highlighted the importance of orthogonality 
+between polynomials, with respect to the scalar product defined by $\mathrm{d}t$, in the construction of the Gauss nodes. Since then, several 
+
+
+ This characterization (the condition~\eqref{eq:Legendre_orthogonality}) of the Gauss nodes highlighted the importance of the emerging notion of orthogonality between polynomials. Thanks to the work of Mehler [??], Christoffel [??] and others, this notion of orthogonality was pushed further to encompass quadrature rules with respect to  weighted measures: $\mathrm{d}\omega = w(t) \mathrm{d} t$ 
 
 \begin{equation}
 \int_{a}^{b}f(t)w(t)\mathrm{d}t \approx \sum\limits_{n \in [N]} w_{n}f(x_{n}).
 \end{equation}
-In particular, Christoffel generalized the Gauss-Jacobi construction of quadrature to arbitrary weighted measure $\mathrm{d}\omega$. For example, assume that $\mathrm{d}\omega$ has finite moments of all orders, and consider the sequence of polynomials $(P_{m})_{m \in \mathbb{N}}$ orthogonal with respect to $\mathrm{d}\omega$:
+In particular, Christoffel generalized the Gauss-Jacobi construction of quadrature to arbitrary weighted measure $\mathrm{d}\omega$. For example, assume that $\mathrm{d}\omega$ has finite moments of all orders, the nodes of the quadrature are the roots of the $N$-th orthonormal polynomial with respect to $\mathrm{d}\omega$:
 \begin{align}
 \forall m \in \mathbb{N}, \: \mathrm{deg} P_{m} & = m, \\
 \forall m,m' \in \mathbb{N}, \: \int_{a}^{b} P_{m}(t)P_{m'}(t) \mathrm{d}\omega(t) & = \delta_{m,m'}.
 \end{align}
-
-By generalizing the argument of Jacobi, Christoffel proved that for every $N \in \mathbb{N}^{*}$ the roots of $P_{N}$ and the corresponding weights $w_{n}^{GC}$
+The corresponding weights have the expression
+% By generalizing the argument of Jacobi, Christoffel proved that for every $N \in \mathbb{N}^{*}$ and the corresponding weights $w_{n}^{GC}$
 \begin{equation}
- \:\: w_{n}^{GC} = \int_{a}^{b} \frac{\prod\limits_{m \in [N], m \neq n }(t-x_{m})}{\prod\limits_{m \in [N], m \neq n }(x_{n}-x_{m})} \mathrm{d}\omega(t)
+ \:\: w_{n}^{GC} = \int_{a}^{b} \frac{\prod\limits_{m \in [N], m \neq n }(t-x_{m})}{\prod\limits_{m \in [N], m \neq n }(x_{n}-x_{m})} \mathrm{d}\omega(t),
+\end{equation}
+are called the Christoffel numbers and they are given explicitly [???]: 
+\begin{equation}
+w_{n} = \frac{1}{\sum\limits_{m =0}^{N-1} P_{m}(x_{n})^{2}}.
 \end{equation}
 
-defines a quadrature such that $\displaystyle \sum\limits_{n \in [N]} w_{n} f(x_{n})$ coincides with $\displaystyle  \int_{a}^{b} f(t) \mathrm{d}\omega(t)$ for every polynomial of degree smaller than $2N-1$. The weights of this quadrature are called the Christoffel numbers and they are given explicitly [???]: 
-\begin{equation}
-w_{n} = \frac{1}{\sum\limits_{\ell \in [N]} P_{\ell}(x_{n})^{2}}.
-\end{equation}
 These numbers are the evaluations of the so-called \emph{Christoffel function} that has an interesting interpretation that we recall in Chapter ???. 
 
+% defines a quadrature such that $\displaystyle \sum\limits_{n \in [N]} w_{n} f(x_{n})$ coincides with $\displaystyle  \int_{a}^{b} f(t) \mathrm{d}\omega(t)$ for every polynomial of degree smaller than $2N-1$. The weights of this quadrature 
+
+
 In practice, the nodes and the weights of the Gaussian quadrature can be calculated using a more elegant way. For this purpose, denote by $(a_{m})_{m \in \mathbb{N}}$ and $(b_{m})_{m \in \mathbb{N}}$ the sequences of coefficients appearing in the three-term recurrence relation:
-\begin{equation}\label{eq:OP_reccurence}
-t P_{m}(t) = a_{m}P_{m+1}(t) + b_{m}P_{m}(t) + a_{m-1}P_{m-1}(t),
-\end{equation}
-associated to the sequence of orthogonal polynomials $(P_{m})_{m \in \mathbb{N}}$ with respect to $\mathrm{d}\omega$. A re-writing of \eqref{eq:OP_reccurence} yields 
+\begin{align}\label{eq:OP_reccurence_1}
+\forall m \in \mathbb{N}^{*}, \:\:t P_{m}(t) & = a_{m}P_{m+1}(t) + b_{m}P_{m}(t) + a_{m-1}P_{m-1}(t),\\
+\label{eq:OP_reccurence_2}
+t P_{0}(t) & = a_{0}P_{1}(t) + b_{0}P_{0}(t) ,
+\end{align}
+associated to the sequence of orthonormal polynomials $(P_{m})_{m \in \mathbb{N}}$ with respect to $\mathrm{d}\omega$. A re-writing of \eqref{eq:OP_reccurence_1} and \eqref{eq:OP_reccurence_2} yields 
 
 \begin{equation}\label{eq:matrix_OP_reccurence}
 J_{N} \begin{pmatrix}
@@ -2026,24 +2035,26 @@ P_{N}(t) \\
 0  \\
 \vdots \\
 a_{N+1}P_{N+1}(t) \\
-\end{pmatrix}
+\end{pmatrix},
 \end{equation}
 where $J_{N}$ is the tridiagonal matrix of order $N+1$ given by:
 \begin{equation}
 J_N = \left( \begin{array}{cccc}
-a_{0} & \sqrt{b_{1}} & & 0\\
-\sqrt{b_{1}} & \ddots & \ddots & \\
-& \ddots & \ddots & \sqrt{b_{N}} \\
-0 & & \sqrt{b_{N}} & a_{N} \end{array} \right) .
+a_{0} & b_{1} & & 0\\
+b_{1} & \ddots & \ddots & \\
+& \ddots & \ddots & b_{N} \\
+0 & & b_{N} & a_{N} \end{array} \right) .
 \end{equation}
 
 
-From \eqref{eq:matrix_OP_reccurence}, we conclude that the roots of $P_{N+1}$ are the eigenvalues of the tridiagonal matrix $J_{N}$, and for every root $x$, the vector $\begin{pmatrix}
+From \eqref{eq:matrix_OP_reccurence}, we conclude that the roots of $P_{N+1}$ are the eigenvalues of the tridiagonal matrix $J_{N}$, and for every eigenvalue $x$ the corresponding eigenvector is the vector $\begin{pmatrix}
 P_{0}(x)  \\
 \vdots \\
 P_{N}(x) \\
-\end{pmatrix}$ is the corresponding eigenvector. In other words, the spectral decomposition of the corresponding Jacobi matrix gives the nodes and the weights of the Gaussian quadrature. The matrix $J_{N}$ is known explicitly for many classic measures $\mathrm{d}\omega$ such as .... Yet, building up this matrix is not a trivial problem for a general measure $\mathrm{d}\omega$.
+\end{pmatrix}$. In other words, the spectral decomposition of the Jacobi matrix gives the nodes and the weights of the Gaussian quadrature. The matrix $J_{N}$ is known explicitly for many classic measures $\mathrm{d}\omega$ such as .... Yet, building up this matrix is not a trivial problem for a general measure $\mathrm{d}\omega$.
 
+
+\subsubsection{High dimensional Gaussian quadratures}
 
 
 \subsection{Quasi-Monte Carlo methods}
