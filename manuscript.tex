@@ -1920,6 +1920,20 @@ for functions that can be well-approximated by low degree polynomials. This is a
 
 This intuitive approximation is the starting point of many other quadratures such Gaussian quadratures. 
 
+Monte Carlo methods offer another approach to numerical integration. This class of methods, introduced by \cite{MeUl49} for ????,  relies on randomized averaging for the estimation of the value of an integral: given a sequence of random variables $x_{1}, \dots, x_{N}$ generated from a density g with respect to $\mathrm{d}\omega$ then
+\begin{equation}
+\EX \frac{1}{N}\sum\limits_{n \in [N]} f(x_{n}) = \int_{\mathcal{X}} f(x)g(x) \mathrm{d}\omega(x),
+\end{equation}
+and by the Strong Law of Large Numbers, $\displaystyle \frac{1}{N}\sum\limits_{n \in [N]} f(x_{n})$ converges ($N \rightarrow +\infty$) a.s. to $\displaystyle \int_{\mathcal{X}} f(x)g(x) \mathrm{d}\omega(x)$. Even better, if $\displaystyle \int_{\mathcal{X}} f(x)^{2} \mathrm{d}\omega(x) < +\infty$, the variance of $\displaystyle \frac{1}{N}\sum\limits_{n \in [N]} f(x_{n})$ scales as $\mathcal{O}(1/N^{2})$, and the estimator satisfies a Central Limit Theorem. 
+Remarkably, this rate of convergence does not depend on the dimension of $\mathcal{X}$ (if $\mathcal{X}$...). This property gives an advantage of Monte Carlo methods over deterministic quadrature rules, that scales poorly for high dimension integration problems. 
+
+It would be fair to claim that deterministic quadratures are very efficient for smooth low dimensional functions, and this smoothness does not improve the Monte Carlo rate. This observation have fueled a multitude of investigations with a common purpose: improving upon the Monte Carlo rate for smooth functions on high dimensional integration problems. Many approaches were proposed in this rich line of research: Quasi-Monte Carlo methods, Kernel quadrature methods, control functional techniques or  determinantal point processes.
+
+In this chapter a brief review of existing numerical integration methods is given with an emphasis on their connexions. In particular, the contribution of this chapter is the introduction of a new class of quadratures that is at the intersection between determinantal point process and kernel quadrature methods.
+
+
+
+
 Another approach relies on taking advantage of a randomized averaging to approximate the value of ... This approach is based on the following elementary observation: if $x$ is random variable of $\mathcal{X}$ 
 
 \begin{equation}
@@ -1966,9 +1980,10 @@ M(\bm{x}) = \sup \{ m \in \mathbb{N}, \: \int_{a}^{b} t^{m} \mathrm{d}t = \sum\l
 
 % \emph{For a fixed value $N$, what is the maximal order $M(\bm{x})$ of polynomials such that the approximation \eqref{eq:Newton_approx} is exact?}
 
-Gauss proved that for any positive integer $N$ there exists a unique configuration $\bm{x}_{G}$ of cardinality $N$ such that $M(\bm{x}_{G}) = 2N-1$. He also proved that $2N-1$ is the maximal order that could be achieved by any configuration of cardinality $N$. His proof \citep{Gau1815} is based on arguments from continued fractions theory \citep{Khi97}.
+Gauss proved that for any positive integer $N$ there exists a unique configuration $\bm{x}_{G}$, also called the \emph{Gauss nodes}, of cardinality $N$ such that $M(\bm{x}_{G}) = 2N-1$. He also proved that $2N-1$ is the maximal order that could be achieved by any configuration of cardinality $N$. His proof \citep{Gau1815} is based on arguments from continued fractions theory \citep{Khi97}.
 % In particul there exists a remarkable design of nodes that achieves a higher degree of exactness: the approximation \eqref{eq:Newton_approx} is exact if $f$ is a polynomial of order less than $2N-1$.
-An alternative proof was given by Jacobi [????], where he proved the existence of this optimal configuration, also called the Gauss nodes, using simple arguments of polynomial divisibility. Indeed, Jacobi showed that $M(\bm{x}) = 2N-1$ if and only if for every polynomial $p$ of order smaller or equal $N-1$:
+% An alternative proof was given by Jacobi , where he proved the existence of this optimal configuration using . 
+Latter, Jacobi [????] showed, using an alternative proof based on simple manipulations on polynomials, that $M(\bm{x}) = 2N-1$ if and only if for every polynomial $p$ of order smaller or equal $N-1$:
 
 \begin{equation}\label{eq:Legendre_orthogonality}
 \int_{a}^{b} p(t) \pi_{\bm{x}}(t) \mathrm{d}t = 0,
@@ -1985,73 +2000,80 @@ where $\pi_{\bm{x}}$ is the polynomial
 
  In other words, the Gauss nodes are the roots of a polynomial of degree $N$ that satisfy the condition~\eqref{eq:Legendre_orthogonality} for every polynomial of degree less than $N-1$: the polynomial $\pi_{\bm{x}}$ is nothing else but the scaled Legendre polynomial of degree $N$.
 
- In other words, the work of Jacobi highlighted the importance of orthogonality 
-between polynomials, with respect to the scalar product defined by $\mathrm{d}t$, in the construction of the Gauss nodes. Since then, several 
+%  In other words, the work of Jacobi highlighted the importance of orthogonality 
+% between polynomials, with respect to the scalar product defined by $\mathrm{d}t$, in the construction of the Gauss nodes. Since then, several 
 
 
- This characterization (the condition~\eqref{eq:Legendre_orthogonality}) of the Gauss nodes highlighted the importance of the emerging notion of orthogonality between polynomials. Thanks to the work of Mehler [??], Christoffel [??] and others, this notion of orthogonality was pushed further to encompass quadrature rules with respect to  weighted measures: $\mathrm{d}\omega = w(t) \mathrm{d} t$ 
+ This characterization (the condition~\eqref{eq:Legendre_orthogonality}) of the Gauss nodes highlighted the importance of the orthogonality between polynomials with respect to $\mathrm{d}t$ and motivated the extension of Gaussian quadrature to weighted measures:
+  % $\mathrm{d}\omega = w(t) \mathrm{d} t$ 
 
 \begin{equation}
-\int_{a}^{b}f(t)w(t)\mathrm{d}t \approx \sum\limits_{n \in [N]} w_{n}f(x_{n}).
+\int_{a}^{b}f(t)\mathrm{d}\omega(t) \approx \sum\limits_{n \in [N]} w_{n}f(x_{n}).
 \end{equation}
-In particular, Christoffel generalized the Gauss-Jacobi construction of quadrature to arbitrary weighted measure $\mathrm{d}\omega$. For example, assume that $\mathrm{d}\omega$ has finite moments of all orders, the nodes of the quadrature are the roots of the $N$-th orthonormal polynomial with respect to $\mathrm{d}\omega$:
+In particular, Christoffel \citep{Chr1877} generalized the Gauss-Jacobi construction to 
+measures $\mathrm{d}\omega(t) = \omega(t)\mathrm{d}t$ for arbitrary weight functions $\omega$ and his approach seems to be generalizable to Stieltjes measures \citep{Gau81}: $\mathrm{d}\omega$ is the Stieltjes measure associated to a non-decreasing function $\omega: \mathbb{R} \rightarrow \mathbb{R}$ with infinitely many points of increase. Typically, $\mathrm{d}\omega$ is assumed to has finite moments of all orders, so that the orthonormal polynomials with respect to $\mathrm{d}\omega$ are defined for all orders:
 \begin{align}
 \forall m \in \mathbb{N}, \: \mathrm{deg} P_{m} & = m, \\
 \forall m,m' \in \mathbb{N}, \: \int_{a}^{b} P_{m}(t)P_{m'}(t) \mathrm{d}\omega(t) & = \delta_{m,m'}.
 \end{align}
-The corresponding weights have the expression
-% By generalizing the argument of Jacobi, Christoffel proved that for every $N \in \mathbb{N}^{*}$ and the corresponding weights $w_{n}^{GC}$
-\begin{equation}
- \:\: w_{n}^{GC} = \int_{a}^{b} \frac{\prod\limits_{m \in [N], m \neq n }(t-x_{m})}{\prod\limits_{m \in [N], m \neq n }(x_{n}-x_{m})} \mathrm{d}\omega(t),
-\end{equation}
-are called the Christoffel numbers and they are given explicitly [???]: 
-\begin{equation}
+
+Again, the roots $x_{1}, \dots, x_{N}$ of $P_{N}$ achieve the maximal order $2N-1$ and the corresponding weights, 
+% the nodes of the quadrature are the roots of the $N$-th orthonormal polynomial 
+% The corresponding weights have the expression
+% % By generalizing the argument of Jacobi, Christoffel proved that for every $N \in \mathbb{N}^{*}$ and the corresponding weights $w_{n}^{GC}$
+% \begin{equation}
+%  \:\: w_{n}^{GC} = \int_{a}^{b} \frac{\prod\limits_{m \in [N], m \neq n }(t-x_{m})}{\prod\limits_{m \in [N], m \neq n }(x_{n}-x_{m})} \mathrm{d}\omega(t),
+% \end{equation}
+called the \emph{Christoffel numbers}, satisfy the identity[???]: 
+\begin{equation}\label{eq:w_n_christoffel_number_formula}
 w_{n} = \frac{1}{\sum\limits_{m =0}^{N-1} P_{m}(x_{n})^{2}}.
 \end{equation}
+Observe that in \eqref{eq:w_n_christoffel_number_formula}, every $w_{n}$ depends only on the corresponding node $x_{n}$: the Christoffel numbers are the evaluations of  
+the so-called \emph{Christoffel function} on the roots of $P_{N}$. This function has an interesting interpretation in approximation theory that we recall in Chapter~\ref{chapter:signal_reconstruction}.
 
-These numbers are the evaluations of the so-called \emph{Christoffel function} that has an interesting interpretation that we recall in Chapter ???. 
 
 % defines a quadrature such that $\displaystyle \sum\limits_{n \in [N]} w_{n} f(x_{n})$ coincides with $\displaystyle  \int_{a}^{b} f(t) \mathrm{d}\omega(t)$ for every polynomial of degree smaller than $2N-1$. The weights of this quadrature 
 
-
-In practice, the nodes and the weights of the Gaussian quadrature can be calculated using a more elegant way. For this purpose, denote by $(a_{m})_{m \in \mathbb{N}}$ and $(b_{m})_{m \in \mathbb{N}}$ the sequences of coefficients appearing in the three-term recurrence relation:
+As for now, we recall a spectral characterization of the Gaussian quadrature. 
+% In practice, the nodes and the weights of the Gaussian quadrature can be calculated using a more elegant way.
+For this purpose, denote by $(a_{m})_{m \in \mathbb{N}}$ and $(b_{m})_{m \in \mathbb{N}}$ the sequences of the three-term recurrence coefficients associated to the $P_{m}$ with respect to $\mathrm{d}\omega$:
 \begin{align}\label{eq:OP_reccurence_1}
 \forall m \in \mathbb{N}^{*}, \:\:t P_{m}(t) & = a_{m}P_{m+1}(t) + b_{m}P_{m}(t) + a_{m-1}P_{m-1}(t),\\
 \label{eq:OP_reccurence_2}
-t P_{0}(t) & = a_{0}P_{1}(t) + b_{0}P_{0}(t) ,
+t P_{0}(t) & = a_{0}P_{1}(t) + b_{0}P_{0}(t) .
 \end{align}
-associated to the sequence of orthonormal polynomials $(P_{m})_{m \in \mathbb{N}}$ with respect to $\mathrm{d}\omega$. A re-writing of \eqref{eq:OP_reccurence_1} and \eqref{eq:OP_reccurence_2} yields 
+A re-writing of \eqref{eq:OP_reccurence_1} and \eqref{eq:OP_reccurence_2} yields 
 
 \begin{equation}\label{eq:matrix_OP_reccurence}
 J_{N} \begin{pmatrix}
 P_{0}(t)  \\
 \vdots \\
-P_{N}(t) \\
+P_{N-1}(t) \\
 \end{pmatrix} = t \begin{pmatrix}
 P_{0}(t)  \\
 \vdots \\
-P_{N}(t) \\
+P_{N-1}(t) \\
 \end{pmatrix} - \begin{pmatrix}
 0  \\
 \vdots \\
-a_{N+1}P_{N+1}(t) \\
+a_{N-1}P_{N}(t) \\
 \end{pmatrix},
 \end{equation}
-where $J_{N}$ is the tridiagonal matrix of order $N+1$ given by:
+where $J_{N}$ is the tridiagonal matrix of order $N$ given by:
 \begin{equation}
 J_N = \left( \begin{array}{cccc}
 a_{0} & b_{1} & & 0\\
 b_{1} & \ddots & \ddots & \\
-& \ddots & \ddots & b_{N} \\
-0 & & b_{N} & a_{N} \end{array} \right) .
+& \ddots & \ddots & b_{N-1} \\
+0 & & b_{N-1} & a_{N-1} \end{array} \right) .
 \end{equation}
 
 
-From \eqref{eq:matrix_OP_reccurence}, we conclude that the roots of $P_{N+1}$ are the eigenvalues of the tridiagonal matrix $J_{N}$, and for every eigenvalue $x$ the corresponding eigenvector is the vector $\begin{pmatrix}
+From \eqref{eq:matrix_OP_reccurence}, we conclude that the roots of $P_{N}$ are the eigenvalues of the tridiagonal matrix $J_{N}$, and for every eigenvalue $x$ the corresponding eigenvector is the vector $\begin{pmatrix}
 P_{0}(x)  \\
 \vdots \\
-P_{N}(x) \\
-\end{pmatrix}$. In other words, the spectral decomposition of the Jacobi matrix gives the nodes and the weights of the Gaussian quadrature. The matrix $J_{N}$ is known explicitly for many classic measures $\mathrm{d}\omega$ such as .... Yet, building up this matrix is not a trivial problem for a general measure $\mathrm{d}\omega$.
+P_{N-1}(x) \\
+\end{pmatrix}$: the spectral decomposition of the Jacobi matrix gives the nodes and the weights of the Gaussian quadrature. The matrix $J_{N}$ is known explicitly for many classic measures $\mathrm{d}\omega$ such as .... Yet, building up this matrix is not a trivial problem for a general measure $\mathrm{d}\omega$.
 
 
 \subsubsection{High dimensional Gaussian quadratures}
@@ -6030,7 +6052,7 @@ which is the generic term of a convergent series as $f,g\in\Ltwo$. This conclude
 
 \clearpage
 
-\chapter{Interpolation problems in signal processing}
+\chapter{Interpolation problems in signal processing}\label{chapter:signal_reconstruction}
 
 \chapter{The Richest Hermite Kernel and integration problems in $\mathbb{R}^{d}$}
 
