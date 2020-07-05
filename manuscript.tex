@@ -2080,8 +2080,19 @@ P_{N-1}(x) \\
 
 
 \subsection{Quasi-Monte Carlo methods}
+As we have seen previously, a high precision approximation of a unidimensional integral  is possible using deterministic rules such as Newton-Cotes or Gaussian quadratures provided that the integrand is smooth. Now, for a smooth function defined on some high dimensional domains, one can use the tensor product of these rules. However, the number of the required evaluations grows exponentially with the dimension $d$. This poor scalability of grids with respect to the dimension $d$ motivated the emergence of a new class of quadratures called quasi-Monte Carlo rules: they are based on "well-spread" low discrepancy sequences and their weights are uniform $\displaystyle w_{n} = \frac{1}{N}$.
 
-As we have seen previously, several quadrature rules are known for functions defined on the real line. The situation is far more complicated for integration problems in high-dimension. For instance, the uniform grid in the hypercube $[0,1]^{d}$ suffers from the "curse of the dimension": in an informal way, the rate of convergence are typically $\mathcal{O}(N^{-s/d})$ where $s$ is a regularity parameter; so that the required number of nodes necessary to get an integration error lower than some level $\epsilon$ scales as $\epsilon^{1/d}$. This poor scalibility with respect to the dimension $d$ motivated the emergence of a new class of quadratures called quasi-Monte Carlo rules: they are based on "well-spread" low discrepancy sequences and their weights are uniform $\displaystyle w_{n} = \frac{1}{N}$.
+% These rules can be used for a high dimensional integral
+
+
+% several quadrature rules are known for functions defined on the real line
+
+% Until now, there is no theory that extend  Gaussian quadratures to high dimensional domains.   
+
+
+% Quasi-Monte Carlo methods were introduced 
+
+%  several quadrature rules are known for functions defined on the real line. The situation is far more complicated for integration problems in high-dimension. For instance, the uniform grid in the hypercube $[0,1]^{d}$ suffers from the "curse of the dimension": in an informal way, the rate of convergence are typically $\mathcal{O}(N^{-s/d})$ where $s$ is a regularity parameter; so that the required number of nodes necessary to get an integration error lower than some level $\epsilon$ scales as $\epsilon^{1/d}$. 
 
 
 
@@ -2094,32 +2105,27 @@ As we have seen previously, several quadrature rules are known for functions def
 \caption{\label{fig:local_discrepancy}}
 \end{figure}
 
- A discrepancy function of a design $\bm{x} \subset \X^{N}$ quantifies the "spread" of the nodes of $\bm{x}$. It is defined with respect to a set of test sets $\mathcal{S}$.
-
-
-
-
-
-  For example, in $\mathcal{X} = [0,1]^{d}$, a typical choice of $\mathcal{S}$ is the set of the Cartesian products $[\bm{0},\bm{u}] = \prod\limits_{\delta \in [d]}[0,u_{\delta}]$ with $\bm{u} \in \mathcal{X}$. In this case, the local discrepancy is defined for all $\bm{u} \in \X$ by 
+ A discrepancy function of a configuration $\bm{x} = \{x_{1}, \dots, x_{N} \} \subset \X$ quantifies the "spread" of the nodes of $\bm{x}$. It is, usually, defined with respect to a set of test sets $\mathcal{S}$. For example, when $\mathcal{X} = [0,1]^{d}$, a typical choice of $\mathcal{S}$ is the set of the Cartesian products $[\bm{0},u] = \prod\limits_{\delta \in [d]}[0,u_{\delta}]$ with $u = (u_{1}, \dots, u_{d}) \in \mathcal{X}$. In this case, the local discrepancy is defined for all $u \in \X$ by 
 \begin{equation}\label{def:discrepancy}
-\mathcal{D}_{\bm{x}}(\bm{u}) = \frac{1}{N}\sum\limits_{n \in [N]} \mathbb{1}_{[\bm{0},\bm{u}]}(x_{n}) - \prod\limits_{\delta \in [d]}u_{\delta}.
+\mathcal{D}_{\bm{x}}(u) = \frac{1}{N}\sum\limits_{n \in [N]} \mathbb{1}_{[\bm{0},u]}(x_{n}) - \prod\limits_{\delta \in [d]}u_{\delta}.
 \end{equation}  
-The term $\displaystyle \frac{1}{N}\sum\limits_{n \in [N]} \mathbb{1}_{[\bm{0},\bm{u}]}(x_{n})$ in \eqref{def:discrepancy} counts the number of the nodes $x_{n}$ that falls into $[\bm{0},\bm{u}]$ divided by the total number $N$; while the second term $\displaystyle  \prod\limits_{\delta \in [d]}u_{\delta}$ measures the volume of $[\bm{0},\bm{u}]$: $\mathcal{D}_{\bm{x}}$ measures the difference between the relative number of points that belongs to the interval $[0,\bm{u}]$ and its volume. A design of nodes $\bm{x}$ would be "well-spread" if the discrepancy function $\mathcal{D}_{\bm{x}}$ takes small values on $\X$. Therefore, a way to quantify the "spreadness" of $\bm{x}$ is to take an $\|.\|_{p}$ norm of $\mathcal{D}_{\bm{x}}$. Indeed, for $p \in [1,\infty]$, $\mathcal{D}_{\bm{x}} \in \mathbb{L}_{p}(\mathbb{R}^{d})$ because $\X = [0,1]^{d}$ is a compact set of $\mathbb{R}^{d}$; and the $\mathbb{L}_{p}$-discrepancy of $\bm{x}$ is defined by 
+The term $\displaystyle \frac{1}{N}\sum\limits_{n \in [N]} \mathbb{1}_{[\bm{0},u]}(x_{n})$ in \eqref{def:discrepancy} counts the number of the nodes $x_{n}$ that falls into $[\bm{0},u]$ divided by the total number of nodes $N$; while the second term $\displaystyle  \prod\limits_{\delta \in [d]}u_{\delta}$ measures the volume of $[\bm{0},u]$: $\mathcal{D}_{\bm{x}}$ measures the difference between the relative number of points that belongs to $[\bm{0},u]$ and its volume. A configuration $\bm{x}$ would be "well-spread" if the discrepancy function $\mathcal{D}_{\bm{x}}$ takes small values on $\X$. For example, the value of the $\|.\|_{p}$ norm~\footnote{This norm is well defined for $p \in [1,\infty]$, $\mathcal{D}_{\bm{x}} \in \mathbb{L}_{p}(\mathbb{R}^{d})$ because $\X = [0,1]^{d}$ is a compact set of $\mathbb{R}^{d}$} of $\mathcal{D}_{\bm{x}}$ is a measure of "spreadness" of $\bm{x}$ called the \emph{$\mathbb{L}_{p}$-discrepancy} of $\bm{x}$:
 \begin{equation}
-\Delta_{p}(\bm{x}) = \bigg(\int_{[0,1]^{d}}\mathcal{D}_{\bm{x}}(\bm{u})^{p} \mathrm{d}\bm{u}\bigg)^{1/p}.
+\Delta_{p}(\bm{x}) = \bigg(\int_{[0,1]^{d}}\mathcal{D}_{\bm{x}}(\bm{u})^{p} \otimes_{\delta \in [d]} \mathrm{d}u_{\delta}\bigg)^{1/p}.
 \end{equation}
 In particular, the $\|.\|_{\infty}$ norm of the local discrepancy is called the \emph{star-discrepancy} and it is denoted $\Delta_{*}(\bm{x})$.
 
-Figure~\ref{fig:local_discrepancy} illustrates the concept of local discrepancy on $[0,1]^{2}$: the two hypercubes $[\bm{0},\bm{u}_{1}]$ and $[\bm{0},\bm{u}_{2}]$ have the same volume, yet the corresponding local discrepancies with respect to the design $\bm{x}$ are not equal as $[\bm{0},\bm{u}_{1}]$ contains more nodes from the design than $[\bm{0},\bm{u}_{2}]$.
+Figure~\ref{fig:local_discrepancy} illustrates the concept of local discrepancy on $[0,1]^{2}$: the two hypercubes $[\bm{0},u]$ and $[\bm{0},\tilde{u}]$ have the same volume, yet the corresponding local discrepancies with respect to the design $\bm{x}$ are not equal as $[\bm{0},u]$ contains more nodes from the design than $[\bm{0},\tilde{u}]$.
 
-Another example is the hypersphere $\X = \mathbb{S}^{d-1}$, where commonly considered test sets are the spherical caps defined by
+A similar function can be defined in hyperspheres $\X = \mathbb{S}^{d-1}$. This time, the test sets are the spherical caps defined by
 \begin{equation}
-C(t,\bm{u}) = \{ \bm{v} \in \mathbb{S}^{d-1}, \: \langle \bm{v}, \bm{u} \rangle \geq t\},
+C(t,u) = \{ v \in \mathbb{S}^{d-1}, \: \langle v, u \rangle \geq t\},
 \end{equation}
 and the local spherical discrepancy is defined by
 \begin{equation}
-...
+\mathcal{D}_{\bm{x}}(u) = \frac{1}{N}\sum\limits_{n \in [N]} \mathbb{1}_{C(t,u)}(x_n) - \lambda(C(t,u)),
 \end{equation}
+where $\lambda$ is the Lebesgue measure on $\mathbb{S}^{d-1}$.
 % where $t \in [-1,1]$ and $\bm{u} \in \mathbb{S}^{d-1}$ 
 \subsubsection{Koksma-Hlawka inequalities}
 The importance of the discrepancy functions on bounding the integration error clears up considering the Koksma-Hlawka inequalities.
@@ -2135,7 +2141,7 @@ Let $p,q \in [1,+\infty]$, such that $1/p+1/q = 1$. Consider $f \in \mathbb{L}_{
 \bigg| \int_{[0,1]^{d}} f(\bm{u}) \mathrm{d}\bm{u} - \frac{1}{N} \sum\limits_{n \in [N]}  f(x_{n})\bigg| \leq \Delta_{p}(\bm{x}) \|\frac{\partial^{d} f}{\partial \bm{u}}\|_{q}.
 \end{equation}
 \end{theorem}
-The Koksma-Hlawka inequalities gives a decoupled upper bound for the integration error: the $\mathbb{L}_{p}$-discrepancy of the design $\bm{x}$ does not depend on $f$ and the $q$ variation of the function $f$ does not depend on the design $\bm{x}$. This decoupling allows to focus only on the discrepancy of the design when the function $f$ is sufficiently regular.
+The Koksma-Hlawka inequalities gives a decoupled upper bound for the integration error: the $\mathbb{L}_{p}$-discrepancy of the configuration $\bm{x}$ does not depend on $f$ and the $q$ variation of the function $f$ does not depend on the configuration $\bm{x}$. This decoupling allows to focus only on the discrepancy of the design when the function $f$ is sufficiently regular.
 
 Koksma proved these inequalities for $d=1$, latter Hlawka generalised it to arbitrary dimension $d \geq 1$. Note that, initially, these inequalities were proven with the total variation in the sense of Hardy-Krause. Under some conditions ????, the total variation in the sense of Hardy-Krause coincide with $\|\frac{\partial^{d} f}{\partial \bm{u}}\|_{q}$ ??? 
 
