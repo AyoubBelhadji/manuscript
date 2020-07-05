@@ -2097,7 +2097,7 @@ As we have seen previously, a high precision approximation of a unidimensional i
 
 
  
-\subsubsection{The discrepancy functions}
+\subsubsection{The discrepancy functions and Koksma-Hlawka inequalities}
 
 \begin{figure}
 \centering
@@ -2127,7 +2127,7 @@ and the local spherical discrepancy is defined by
 \end{equation}
 where $\lambda$ is the Lebesgue measure on $\mathbb{S}^{d-1}$.
 % where $t \in [-1,1]$ and $\bm{u} \in \mathbb{S}^{d-1}$ 
-\subsubsection{Koksma-Hlawka inequalities}
+%\subsubsection{}
 The importance of the discrepancy functions on bounding the integration error clears up considering the Koksma-Hlawka inequalities.
 % The discrepancy functions for a design $\bm{x}$ play an important role in the quantification of the integration error based on $\bm{x}$. Indeed, consider the quadrature:
 % \begin{equation}
@@ -2155,72 +2155,115 @@ We shall give an interpretation of this formula in the context of kernel quadrat
 
 This situation is to be compared to the star discrepancy for witch no tractable formula is known: the computation of the star discrepancy is an NP-hard problem \citep{GnSrWi09}.
 
-From a distance, a regular lattice is "well-spread" in the hypercube $[0,1]^{d}$ and would be a good choice for the design $\bm{x}$. Unfortunately, this is a false-intuition regarding the following proposition. 
+\subsubsection{Low discrepancy sequences}
 
-\begin{proposition}
-Let $n = \nu^{d}$ where $\nu \in \mathbb{N}^{*}$, and define the regular lattice $\bm{x} \in \mathbb{R^{d}}^{n}$ by 
+
+From a distance, a regular lattice is "well-spread" in the hypercube $[0,1]^{d}$ and can be used as the configuration of a quadrature rule. Yet, by considering the star-discrepancy of uniform grids, we reach the counter-intuitive conclusion that the uniform grids are not convenient for numerical integration. Indeed, consider the regular lattice $\bm{x}_{N}  \subset \mathbb{R^{d}}$, where $N = n^{d}$ for some $n \in \mathbb{N}^{*}$, defined by
 \begin{equation}
-\bm{x} = \{ (\frac{\nu_{1}}{\nu}, \dots, \frac{\nu_{d}}{\nu}), \: 0 \leq \nu_{\delta} < \nu, \delta \in [d] \}. 
+\bm{x}_{N} = \bigg\{ (\frac{n_{1}}{n}, \dots, \frac{n_{d}}{n}), \: 0 \leq n_{\delta} < n, \forall \delta \in [d] \bigg\}. 
 \end{equation}
 Then
 \begin{equation}
-\Delta_{*}(\bm{x}) = 1- (1-1/\nu)^{d} \geq \frac{1}{n^{1/d}}. 
+\Delta_{*}(\bm{x}_{N}) = 1- (1-1/n)^{d} \geq \frac{1}{N^{1/d}}. 
 \end{equation} 
-\end{proposition}
+
 
 In other words, in order to get a star-discrepancy lower than some level $\epsilon \in [0,1[$, we need $n = \Omega(\epsilon^{1/d})$ nodes: the star discrepancy of the regular lattice scales poorly with the dimension; even tough it have the best possible star discrepancy when $d = 1$. 
 
 
 Looking for designs having the lowest discrepancy in high dimension was a topic of intense research.  A very brief review of this line of research is provided in the following paragraph. 
-\subsubsection{Low discrepancy sequences}
-The van der Corput sequence is the simplest example of a low discrepancy sequence in $[0,1]$ and allows the construction of low discrepancy sequences in $[0,1]^{d}$.
-\begin{definition}
-Let $b \geq 2$ be an integer. Let $n \in \mathbb{N}$, and consider its $b$-adic expansion:
+
+
+The Koksma-Hlawka inequalities suggest that 
+
+The Van der Corput sequences are the simplest examples of low discrepancy sequences. They are defined on $[0,1]$ and allows the construction of low discrepancy sequences in $[0,1]^{d}$.
+
+The construction of these sequences goes as follow: let $b \geq 2$ be an integer; and define for every $n \in \mathbb{N}$ the $b$-adic expansion:
 \begin{equation}
 n = \sum\limits_{i \in \mathbb{N}} n_{i}b^{i}.
 \end{equation} 
-The $b$-adic van der Corput sequence is the sequence $(v_{b,n})_{n \in \mathbb{N}}$, where for every $n \in \mathbb{N}$, 
+The $b$-adic Van der Corput sequence is the sequence $(v_{b,n})_{n \in \mathbb{N}}$, where for every $n \in \mathbb{N}$, 
 \begin{equation}
 v_{b,n} = \sum\limits_{i \in \mathbb{N}} n_{i}b^{-i}. 
 \end{equation}
-\end{definition}
-For instance, for $b = 2$, the first elements of the corresponding van der Corput sequence are $\displaystyle 0, \frac{1}{2}, \frac{3}{4}, \frac{1}{8}, \frac{5}{8}, \frac{3}{8}, \dots$
 
-\begin{definition}
-Let $b_{1}, \dots, b_{d}$ be a sequence of integers larger than $2$. The Halton sequence is defined by
-\begin{equation}
-x_{n} = (v_{b_1,n}, \dots, v_{b_d,n})
-\end{equation}
-\end{definition}
-We have the following upper bound on the star-discrepancy of the Halton sequence.
-\begin{theorem}
-Assume that the $b_{1}, \dots, b_{d}$ are pairwise relatively prime, and let $\bm{x}$ the corresponding Halton sequence. Then
-\begin{equation}
-\Delta_{*}(\bm{x}) \leq c(b_{1}, \dots, b_{d}) \frac{(\log n)^{d}}{n} + \mathcal{O}\bigg(\frac{(\log n)^{d-1}}{n} \bigg),
-\end{equation}
-where 
-\begin{equation}
-c(b_{1}, \dots, c_{d}) = \frac{1}{d!} \prod\limits_{\delta \in [d]} \frac{\lfloor b_{\delta}/2 \rfloor }{\log b_{i}}.
-\end{equation}
-Morover, if $b_{1}, \dots, b_{d}$ are the fist $d$ prime numbers, then 
-\begin{equation}
-c(b_{1}, \dots, b_{d}) \leq \frac{7}{2^{d}d}.
-\end{equation}
-\end{theorem}
+% \begin{definition}
+% Let 
 
-The star discrepancy of the Halton sequence is $\displaystyle \mathcal{O}(\frac{(\log N)^{d}}{N})$. Based on the Halton sequence, one can build the Hammersley point sets as follows. 
-\begin{definition}
-Assume that $d \geq 2$, and let $b_{1}, \dots, b_{d-1}$ integers larger than $2$.
-The Hammersley point set $\{x_{1}, \dots, x_{N} \}$ consisting of $N$ nodes and associated to the bases $b_{1}, \dots, b_{d-1}$ is defined by
+% \end{definition}
+For instance, for $b = 2$, the first elements of the sequence are $\displaystyle 0, \frac{1}{2}, \frac{3}{4}, \frac{1}{8}, \frac{5}{8}, \frac{3}{8}, \dots$. While, for $b=10$, the elements of the sequence goes as follow $\displaystyle 0.1, 0.2, \dots, 0.9, 0.01, 0.11, \dots ,0.91, \dots$.
+Given $d$ Van der Corput sequences associated to integers $b_{1}, \dots , b_{d}$, one can construct a sequence defined on $[0,1]^{d}$ by concatenation:
+\begin{equation}
+x_{n} = (v_{b_1,n}, \dots, v_{b_d,n}).
+\end{equation}
+These are the Halton sequences. Another possible construction is the Hammersley configuration defined for a fixed value of $N$:
 \begin{equation}
 x_{n} = ((n-1)/N,v_{b_1,n}, \dots, v_{b_{d-1},n}).
 \end{equation}
-\end{definition}
+These cryptic configurations have an interesting property: they are low discrepancy sequences on $[0,1]^{d}$. Indeed, under the assumption that the $b_{1}, \dots, b_{d}$ are pairwise relatively prime, the star discrepancy of the Halton sequence is $\displaystyle \mathcal{O}\bigg(\frac{(\log N)^{d}}{N} \bigg)$; while the star discrepancy of the Hammersley sequence is $\displaystyle \mathcal{O} \bigg(\frac{(\log N)^{d-1}}{N} \bigg)$. This is to be compared to the rate of the regular lattice that scales as $\mathcal{O}(N^{-1/d})$.
+
+
+
+These rates are a consequence of a long line of research and the techniques of the proof are borrowed from ...
+
+
+% %%%%%%%%%%
+
+% What make these configurations interesting is their low value of d
+
+% By low discrepancy sequence we mean 
+% The star-discrepancy of these  Halton sequences was a topic of active research. In particular, we have the following upper bound on the star-discrepancy of the Halton sequence.
+%   % The concatenation of several Van der Corput sequences defines a sequence on $[0,1]^{d}$ called the \emph{Halton sequence} of $(b_{1}, \dots, b_{d})$:
+
+
+% % \begin{definition}
+% % Let $b_{1}, \dots, b_{d}$ be a sequence of integers larger than $2$. The Halton sequence is defined by
+% % \begin{equation}
+% % x_{n} = (v_{b_1,n}, \dots, v_{b_d,n})
+% % \end{equation}
+% % \end{definition}
+
+
+% %%%%%%%%%%%
+
+
+\begin{figure}
+\centering
+\includegraphics[width= 0.32\textwidth]{img/discrepancy/local_discrepancy_halton_N_25.pdf}~\includegraphics[width= 0.32\textwidth]{img/discrepancy/local_discrepancy_halton_N_144.pdf}
+~\includegraphics[width= 0.32\textwidth]{img/discrepancy/local_discrepancy_halton_N_400.pdf}\\
+\includegraphics[width= 0.32\textwidth]{img/discrepancy/local_discrepancy_uniform_grid_N_25.pdf}~\includegraphics[width= 0.32\textwidth]{img/discrepancy/local_discrepancy_uniform_grid_N_144.pdf}
+~\includegraphics[width= 0.32\textwidth]{img/discrepancy/local_discrepancy_uniform_grid_N_400.pdf}
+\caption{The local discrepancy $\Delta_{\bm{x}}$ for two designs: in the top, the Halton sequence with $N \in \{25,144,400\}$; in the bottom, the uniform grid with $N \in \{25,144,400\}$.}
+\end{figure}
+
+% \begin{theorem}
+% Assume that the $b_{1}, \dots, b_{d}$ are pairwise relatively prime, and let $\bm{x}_{N}$ the corresponding Halton sequence. Then
+% \begin{equation}
+% \Delta_{*}(\bm{x}_{N}) \leq c(b_{1}, \dots, b_{d}) \frac{(\log N)^{d}}{N} + \mathcal{O}\bigg(\frac{(\log N)^{d-1}}{N} \bigg),
+% \end{equation}
+% where 
+% \begin{equation}
+% c(b_{1}, \dots, c_{d}) = \frac{1}{d!} \prod\limits_{\delta \in [d]} \frac{\lfloor b_{\delta}/2 \rfloor }{\log b_{i}}.
+% \end{equation}
+% Moreover, if $b_{1}, \dots, b_{d}$ are the fist $d$ prime numbers, then 
+% \begin{equation}
+% c(b_{1}, \dots, b_{d}) \leq \frac{7}{2^{d}d}.
+% \end{equation}
+% \end{theorem}
+
+% The star discrepancy of the Halton sequence is $\displaystyle \mathcal{O}(\frac{(\log N)^{d}}{N})$. Based on the Halton sequence, one can build the Hammersley point sets as follows. 
+% \begin{definition}
+% Assume that $d \geq 2$, and let $b_{1}, \dots, b_{d-1}$ integers larger than $2$.
+% The Hammersley point set $\{x_{1}, \dots, x_{N} \}$ consisting of $N$ nodes and associated to the bases $b_{1}, \dots, b_{d-1}$ is defined by
+% \begin{equation}
+% x_{n} = ((n-1)/N,v_{b_1,n}, \dots, v_{b_{d-1},n}).
+% \end{equation}
+% \end{definition}
 
 
 
 
-The star discrepancy of the Hammersley point sets scales as $\displaystyle \mathcal{O}(\frac{(\log N)^{d-1}}{N})$ which is a better rate than the Halton sequence rate.
+% The star discrepancy of the Hammersley point sets scales as $\displaystyle \mathcal{O}(\frac{(\log N)^{d-1}}{N})$ which is a better rate than the Halton sequence rate.
 
 
 Lattice point sets is another family of designs that contains some low discrepancy sequences.
@@ -2251,14 +2294,6 @@ This family of sequence is
 ....
 
 
-\begin{figure}
-\centering
-\includegraphics[width= 0.32\textwidth]{img/discrepancy/local_discrepancy_halton_N_25.pdf}~\includegraphics[width= 0.32\textwidth]{img/discrepancy/local_discrepancy_halton_N_144.pdf}
-~\includegraphics[width= 0.32\textwidth]{img/discrepancy/local_discrepancy_halton_N_400.pdf}\\
-\includegraphics[width= 0.32\textwidth]{img/discrepancy/local_discrepancy_uniform_grid_N_25.pdf}~\includegraphics[width= 0.32\textwidth]{img/discrepancy/local_discrepancy_uniform_grid_N_144.pdf}
-~\includegraphics[width= 0.32\textwidth]{img/discrepancy/local_discrepancy_uniform_grid_N_400.pdf}
-\caption{The local discrepancy $\Delta_{\bm{x}}$ for two designs: in the top, the Halton sequence with $N \in \{25,144,400\}$; in the bottom, the uniform grid with $N \in \{25,144,400\}$.}
-\end{figure}
 
 \subsection{DPPs for numerical integration}
 % The negative correlation property of Determinantal Point Process was used in the design of several quadrature rules. 
@@ -2725,7 +2760,7 @@ k_{QMC}(\bm{x},\bm{y}) = \prod\limits_{\delta \in [d]} (2-\min(x_{\delta},y_{\de
 \subsection{The link with Bayesian quadrature}
 \label{subsec:bayesian_quadrature}
 \emph{Bayesian Quadrature} initially \citep{Lar72} considered a fixed set of nodes and put a Gaussian process prior on the integrand $f$. Then, the weights were chosen to minimize the posterior variance of the integral of $f$. If the kernel of the Gaussian process is chosen to be $k$, this amounts to minimizing the RHS of \eqref{eq:integral_bound_mean_element}. The case of the Gaussian reference measure was later investigated in detail \citep{Hag91}, while parametric integrands were considered in \citep{Min00}.
-\subsection{Design selection for the optimal kernel quadrature}
+\subsection{Optimal kernel quadrature}
 \label{subsec:okq_analysis_paradigm}
 \subsection{Ridge leverage score quadrature}
 \label{subsec:okq_algebraic_paradigm}
