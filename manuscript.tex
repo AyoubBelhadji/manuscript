@@ -2380,7 +2380,7 @@ This allowed the author to prove the following CLT.
 \end{figure}
 
 \subsubsection{The quadratures based on Orthogonal Polynomial Ensembles}
-As we have seen in the last paragraph, the quadrature based on CUE and uniform weights achieves fast asymptotic rates $\mathcal{O}(1/N)$ for sufficiently regular functions. It is legitimate to ask whether similar fast rates can be achieved in high-dimensional domains using DPPs.
+As we have seen in the last paragraph, the quadrature based on CUE and uniform weights achieves an asymptotic rate $\mathcal{O}(1/N)$ for sufficiently regular functions. It is legitimate to ask whether similar fast rates can be achieved in high-dimensional domains using DPPs.
 
 
 
@@ -2462,33 +2462,33 @@ and
 \end{theorem}
 
 \subsubsection{CLT using the Dirichlet kernel}
-In \citep*{CoMaAm20}, the authors proposed to study a quadrature based on a different projection DPP and using uniform weights. The integrand $f$ was assumed to be square integrable and periodic on the hypercube $[0,1]^{d}$. The repulsion kernel $\KDPP$ is constructed as following. The authors assumed that there exists $N_{1}, \dots, N_{d} \in \mathbb{N}^{*}$ such that $N = \prod\limits_{\delta \in [d]}N_{\delta}$; and the projection DPP is defined by
+In \citep*{CoMaAm20}, the authors proposed to study a quadrature based on a different projection DPP and using uniform weights. The integrand $f$ was assumed to be square integrable and periodic on the hypercube $[0,1]^{d}$. The repulsion kernel $\KDPP$ is constructed as following: let $N = \prod\limits_{\delta \in [d]}N_{\delta} \in \mathbb{N}^{*}$ for some $N_{1}, \dots, N_{d} \in \mathbb{N}^{*}$; and the projection DPP is defined by
 \begin{equation}\label{eq:Dirichlet_kernel}
-\KDPP(x,x) = \sum\limits_{\bm{m} \in \mathcal{M}_{N}}e^{2i \pi \bm{m}^{\Tran}(x-y) },
+\KDPP(x,x) = \sum\limits_{m \in \mathcal{M}_{N}}e^{2i \pi m^{\Tran}(x-y) },
 \end{equation}
 where 
 \begin{equation}
 \mathcal{M}_{N} = \prod\limits_{\delta \in [d]} \{0, \dots, N_{\delta}-1 \}.
 \end{equation}
-The definition of the set $\mathcal{M}_{N}$ is not canonical and can be replaced by
-\begin{equation}
-\mathcal{M}_{N} = \prod\limits_{\delta \in [d]} \{-\lfloor{N_{\delta}/2}\rfloor, \dots, \lfloor{N_{\delta}/2}\rfloor \},
-\end{equation}
-if the $N_{\delta}$ are odds, which lead to the tensor product of Dirichlet kernels. For this reason, the authors adopted the name of $(N,d)$-Dirichlet DPP for the projection DPP associated to the kernel~\eqref{eq:Dirichlet_kernel}.
-
-This quadrature defines an unbiased estimator of the integral $\int_{[0,1]^{d}} f(\bm{u}) \mathrm{d}\bm{u}$ with a variance that depends on the Fourier coefficients of $f$. 
+It can be shown that this is equivalent to define $\KDPP$ to be the tensor product of Dirichlet kernels; and $\KDPP$ is called $(N,d)$-Dirichlet DPP by simplification. 
+% The definition of the set $\mathcal{M}_{N}$ is not canonical and can be replaced by
+% \begin{equation}
+% \mathcal{M}_{N} = \prod\limits_{\delta \in [d]} \{-\lfloor{N_{\delta}/2}\rfloor, \dots, \lfloor{N_{\delta}/2}\rfloor \},
+% \end{equation}
+% if the $N_{\delta}$ are odds, which lead to the tensor product of Dirichlet kernels. For this reason, the authors adopted the name of $(N,d)$-Dirichlet DPP for the projection DPP associated to the kernel~\eqref{eq:Dirichlet_kernel}.
+The proposed quadrature defines an unbiased estimator of the integral $\displaystyle \int_{[0,1]^{d}} f(u_{1}, \dots, u_{d}) \otimes_{\delta \in [d]} \mathrm{d}u_{\delta}$ with a variance that depends on the Fourier coefficients of $f$. 
 \begin{proposition}\label{prop:dirichlet_estimator} [Proposition 3.1, \citep{CoMaAm20} ]
 Let $\bm{x}$ a random set of $[0,1]^{d}$ that follows the distribution of $(N,d)$-Dirichlet DPP, and $f \in \mathbb{L}_{2}([0,1]^{d})$ and periodic; and define, 
 \begin{equation}
 \hat{I}_{N}(f) =  \frac{1}{N} \sum\limits_{n \in [N]}f(x_{n}).
 \end{equation}
-Then, $\hat{I}_{N}(f)$ is an unbiased estimator of $\displaystyle \int_{[0,1]^{d}} f(\bm{u})\mathrm{d}\bm{u}$, and
+Then, $\hat{I}_{N}(f)$ is an unbiased estimator of $\displaystyle \int_{[0,1]^{d}} f(u_{1}, \dots, u_{d}) \otimes_{\delta \in [d]} \mathrm{d}u_{\delta}$, and
 \begin{equation}
-\Var (\hat{I}_{N}(f)) = \frac{1}{N}\sum\limits_{\bm{m} \in \mathbb{Z}^{d}} |\hat{f}_{\bm{m}}|^{2} - \frac{1}{N^2} \sum\limits_{\bm{m}_{1},\bm{m}_{2} \in \mathcal{M}_{N}} |\hat{f}_{\bm{m}_{1}-\bm{m}_{2}}|^{2},
+\Var (\hat{I}_{N}(f)) = \frac{1}{N}\sum\limits_{m \in \mathbb{Z}^{d}} |\hat{f}_{m}|^{2} - \frac{1}{N^2} \sum\limits_{m_{1},m_{2} \in \mathcal{M}_{N}} |\hat{f}_{m_{1}-m_{2}}|^{2},
 \end{equation}
 where
 \begin{equation}
- \hat{f}_{\bm{m}} = \int_{[0,1]^{d}}f(\bm{u}) e^{- 2\pi i \bm{m}^{\Tran}\bm{u}} \mathrm{d}\bm{u}.
+ \hat{f}_{m} = \int_{[0,1]^{d}}f(u_{1}, \dots, u_{d}) e^{- 2\pi i m^{\Tran}u} \otimes_{\delta \in [d]} \mathrm{d}u_{\delta}.
 \end{equation}
 
 % where
@@ -2506,7 +2506,7 @@ This result was the first step for the asymptotic analysis of the variance of $\
 
 Define $\mathcal{F}_{s}([0,1]^{d})$ to be the subspace of periodic elements of $\mathbb{L}_{2}([0,1]^{d})$ that satisfy the condition
 \begin{equation}
-\sum\limits_{\bm{m} \in \mathbb{Z}^{d}} (1+ \|\bm{m}\|_{\infty})^{2s} |\hat{f}(\bm{m})|^{2} < +\infty.
+\sum\limits_{m \in \mathbb{Z}^{d}} (1+ \|m\|_{\infty})^{2s} |\hat{f}_{m}|^{2} < +\infty.
 \end{equation}
 
 
@@ -2521,19 +2521,32 @@ Let $\bm{x}$ and $f$ as in Proposition~\ref{prop:dirichlet_estimator}. Assume th
 \end{equation}
 \item If $s>1/2$, then
 \begin{equation}
-\lim\limits_{N \rightarrow +\infty} N^{1+1/d} \Var (\hat{I}_{N}(f)) = \sigma^{2}(f) := \sum\limits_{\bm{m} \in \mathbb{Z}^{d}}(\sum\limits_{\delta = 1}^{d} \frac{|m_{\delta}|}{\alpha_{\delta}} ) |\hat{f}_{\bm{m}}|^{2}.
+\lim\limits_{N \rightarrow +\infty} N^{1+1/d} \Var (\hat{I}_{N}(f)) = \sigma^{2}(f) := \sum\limits_{m \in \mathbb{Z}^{d}}(\sum\limits_{\delta = 1}^{d} \frac{|m_{\delta}|}{\alpha_{\delta}} ) |\hat{f}_{m}|^{2}.
 \end{equation}
 \item Moreover, if $s>1/2$ and $ \|f\|_{\infty} < +\infty$, then
 \begin{equation}
-\sqrt{N^{1+1/d}} \left(\hat{I}_{N}(f) - \int_{[0,1]^{d}}f(\bm{u})\mathrm{d}\bm{u} \right) \rightarrow \mathcal{N}(0,\sigma^{2}(f)).
+\sqrt{N^{1+1/d}} \left(\hat{I}_{N}(f) - \int_{[0,1]^{d}} f(u_{1}, \dots, u_{d}) \otimes_{\delta \in [d]} \mathrm{d}u_{\delta} \right) \rightarrow \mathcal{N}(0,\sigma^{2}(f)).
 \end{equation}
 \end{itemize}
 
 \end{theorem}
+
+In other words, under the assumption that the integrand $f$ belongs to the functional subspace $\mathcal{F}_{s}([0,1]^{d})$, that can be seen as a Sobolev space, the variance of the estimator $\Var (\hat{I}_{N}(f))$ converges at the rate $\mathcal{O}(N^{-1-\frac{\min(2s,1)}{d}})$; and a CLT holds when $s>1/2$ and the function is essentially bounded. Again, the improvement upon Monte Carlo rate worsen with the dimension, and the asymptotic variance involves the constant 
+\begin{equation}
+\sigma^{2}(f) = \sum\limits_{m \in \mathbb{Z}^{d}}(\sum\limits_{\delta = 1}^{d} \frac{|m_{\delta}|}{\alpha_{\delta}} ) |\hat{f}_{m}|^{2},
+\end{equation}
+that is reminiscent to a Sobolev norm.
+
+
+To sum up, we reviewed three settings where a DPP based quadrature benefit from a fast asymptotic rate of convergence compared to  Monte Carlo rate. These fast rates are achieved when the integrand belongs to some functional subspace, a Sobolev space, and the asymptotic variance involves a constant that can be interpreted as a norm on the functional subspace.
+
+These observations suggest the possibility to define DPP based quadratures on other functional subspaces. Indeed, we introduce a class of DPP based quadratures in Section~\ref{sec:pDPP_OKQ} for functions living in a generic reproducing kernel Hilbert space, that can be seen as generalization of Sobolev spaces (under some conditions that will be outlined latter).
+This new class of quadratures fit within the kernel framework for quadratures that we recall in the following section.
+
 \section{The kernel framework for quadratures}
 
 
-The analysis of quadratures using kernel methods is convenient and elegant at the same time and it is expressed using functional analysis tools similarly to DPPs. Added to that, many results in quasi-Monte Carlo theory have an interpretation within the kernel quadrature framework. 
+The analysis of quadratures using kernel methods is convenient and elegant at the same time and it is expressed using functional analysis tools similarly to DPPs. Added to that, many results in quasi-Monte Carlo theory have an interpretation within this framework. 
 
 The strength of this framework is its flexibility: the integration domain $\mathcal{X}$ is assumed to be a metric space endowed with a Borel measure $\mathrm{d}\omega$, and we consider approximating an integral $\displaystyle \int_{\X} f(x)g(x)\mathrm{d}\omega(x)$, where $f,g \in \mathbb{L}_{2}(\mathrm{d}\omega)$ and $f$  is continuous, using a quadrature rule $(\bm{x}, \bm{w}) \in \X^{N} \times \mathbb{R}^{N}$:
 \begin{equation}\label{eq:int_error}
@@ -2542,14 +2555,14 @@ The strength of this framework is its flexibility: the integration domain $\math
 
 where $\mathbb{L}_{2}(\mathrm{d}\omega)$ is the Hilbert space of square integrable, real-valued functions defined on $\mathcal{X}$, with the usual inner product denoted by $\langle \cdot, \cdot \rangle_{\mathrm{d}\omega}$, and the associated norm by $\|.\|_{\mathrm{d}\omega}$.
 
-As we shall see, the analysis of the integration error in~\eqref{eq:int_error} is convenient if $f$ belongs to a Reproducing Kernel Hilbert Space (RKHS).
+% As we shall see, the analysis of the integration error in~\eqref{eq:int_error} is convenient if $f$ belongs to a Reproducing Kernel Hilbert Space (RKHS).
 
-In the following sections, we recall the essential notions on kernel methods needed for the analysis of the integration error of a function that belongs to an RKHS, along with a review of the existing nodes design paradigms. In Section~\ref{subsec:rkhs}, we recall the definition of RKHSs and the interpretations of the required conditions we assume; in Section~\ref{subsec:mercer}, we recall the Mercer theorem- required to outline the main results of this chapter- and its various extensions to non-compact domains; in Section~\ref{subsec:int_error}, we recall a classic upper bound of the integration error via the definition of the worst integration error on an RKHS; in Section~\ref{subsec:kernel_examples}, we give some examples of kernels widely used in the literature of kernel quadrature; in Section~\ref{subsec:bayesian_quadrature}, we recall the link between kernel quadrature and Gaussian processes approximations along with Bayesian quadrature; in Section~\ref{subsec:okq_analysis_paradigm} and Section~\ref{subsec:okq_algebraic_paradigm}, we review the two paradigms of nodes design for kernel quadratures.
+We recall in the following some classic results on kernel quadratures. In particular, in Section~\ref{subsec:rkhs},  the definition of RKHSs is recalled along with the assumed hypothesis; in Section~\ref{subsec:mercer}, the Mercer theorem and its various extensions; in Section~\ref{subsec:int_error}, the definition of the worst integration error on an RKHS is recalled; in Section~\ref{subsec:kernel_examples}, we give some examples of kernels widely used in the literature of kernel quadrature; in Section~\ref{subsec:bayesian_quadrature}, we recall the link between kernel quadrature and Gaussian processes approximations along with Bayesian quadrature; in Section~\ref{subsec:okq_analysis_paradigm} and Section~\ref{subsec:okq_algebraic_paradigm}, we review the two paradigms of nodes design for kernel quadratures.
 \subsection{Reproducing Kernel Hilbert Spaces}\label{subsec:rkhs}
 
 We start by the definition of a kernel over $\mathcal{X}$. A function $k: \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}_{+}$ is said to be a kernel over $\mathcal{X}$ if $k$ is symmetric and for any finite set of points in $\mathcal{X}$, the matrix of pairwise kernel evaluations is positive semi-definite.
 
-An RKHS over $\mathcal{X}$ is a Hilbert space $\mathcal{F}$ endowed with a kernel $k$ that satisfies the following two properties:
+A reproducing kernel Hilbert space (RKHS) over $\mathcal{X}$ is a Hilbert space $\mathcal{F}$ endowed with a kernel $k$ that satisfies the following two properties \cite{BeTh11}: 
 \begin{itemize}
 \item the continuity property: for every $x \in \mathcal{X}$, the evaluation function $f \mapsto f(x)$ is continuous with respect to the norm of $\mathcal{F}$ 
 
@@ -2561,12 +2574,8 @@ An RKHS over $\mathcal{X}$ is a Hilbert space $\mathcal{F}$ endowed with a kerne
 \end{equation}
 \end{itemize}
  
-Usually the kernel $k$ is assumed to be continuous with respect to the induced topology of $\mathcal{X} \times \mathcal{X}$. We assume that this condition is satisfied in the following. We discuss later, a case where it is not verified.
-The requirement that can be embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$
-
-
- To see this, let  Denote by $\mathcal{F}$ the associated reproducing kernel Hilbert space (RKHS) of real-valued functions \cite{BeTh11}. We assume that $x \mapsto k(x,x)$ is integrable with respect to the measure $\mathrm{d}\omega$ so that $\mathcal{F} \subset \mathbb{L}_{2}(\mathrm{d}\omega)$.
-
+We assume that the kernel $k$ is continuous with respect to the induced topology of $\mathcal{X} \times \mathcal{X}$, and we assume that $x \mapsto k(x,x)$ is integrable with respect to $\mathrm{d}\omega$ so that $\mathcal{F} \subset \mathbb{L}_{2}(\mathrm{d}\omega)$.
+We discuss latter a case where the continuity of the kernel is not verified. ???
 
 
 % In order to present this framework, we introduce some notations.
@@ -2577,17 +2586,71 @@ The requirement that can be embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$
 %
  
 %$$\mathcal{F} = \overline{\Span \bigg( k(x,.),\: x \in \mathcal{X} \bigg)}$$
+
+\subsection{Examples of typical kernels}
+\label{subsec:kernel_examples}
+\paragraph{Periodic Sobolev spaces and Korobov spaces}
+
+
+
+
+Let $\mathrm{d}\omega$ be the uniform measure on $\mathcal{X} = [0,1]$, and define for $s \in \mathbb{N}^{*}$ the kernel
+\begin{equation}
+k_{s}(x,y) = 1+ 2\sum\limits_{m \in \mathbb{N}^{*}} \frac{1}{m^{2s}} \cos(2\pi m(x-y)).
+\end{equation}
+The kernel $k_{s}$ can be expressed in closed form using Bernoulli polynomials \cite{Wah90}:
+\begin{equation}
+k_{s}(x,y) = 1 + \frac{(-1)^{s-1}(2 \pi)^{2s}}{(2s)!} B_{2s}(\{x-y\}).
+\end{equation}
+Figure~\ref{fig:periodic_sobolev_kernel} illustrates the graphs of the kernel translates $x \mapsto k_{s}(0.3,x)$ for $s \in \{1, \dots, 5\}$. The elements of $\mathcal{F}_{s}$ are periodic and are characterized by their Fourier series coefficients:
+\begin{equation}
+f \in \mathcal{F}_{s} \iff \sum\limits_{m \in \mathbb{N}^{*}} m^{2s} \bigg[\big( \int_{0}^{2\pi} f(x)\cos (2 \pi m x) \mathrm{d}x \big)^{2} + \big( \int_{0}^{2\pi} f(x)\sin (2 \pi m x) \mathrm{d}x \big)^{2} \bigg] <+\infty .
+\end{equation}
+The corresponding RKHS $\mathcal{F}=\mathcal{F}_{s}$ is the Sobolev space of order $s$ of periodic functions defined on $[0,1]$ \citep{BeTh11}:
+
+\begin{equation}
+\mathcal{F}_{s} = \{f \in \mathbb{L}_{2}([0,1]); f,f^{'}, \dots, f^{(s)} \in \mathbb{L}_{2}([0,1]) \}????
+\end{equation}
+% Figure~\ref{periodic_sobolev_kernel} illustrates the mean-element for three different weights $g$ in the RKHS corresponding to $k_{1}$.
 \begin{figure}[]
     \centering
-\includegraphics[width= 0.75\textwidth]{img/Sobolev/Bernoulli_kernels_same_node_s_1_5.pdf}
+\includegraphics[width= 0.6\textwidth]{img/Sobolev/Bernoulli_kernels_same_node_s_1_5.pdf}
 \caption{The evaluation of the kernel $k_{s}$ for $s \in \{1,2,3,4,5\}$.
 \label{fig:periodic_sobolev_kernel}}
 \end{figure}
+ % The approaches described in this section differ by their choice of nodes and weights.
+For a given $d \in \mathbb{N}^{*}$, the Korobov space in dimension $d$ of order $s$  is the tensor product of $d$ copies of the Sobolev space $\mathcal{F}_{s}$:
 
+\begin{equation}
+\mathcal{K}_{d,s} = \{ f \in \mathbb{L}_{2}([0,1]^{d}); \: f = \prod\limits_{\delta \in [d]} f_{\delta}, \: f_{\delta} \in \mathcal{F}_{s} \},
+\end{equation}
+and the corresponding kernel $k_{d,s}$ writes
+% Now for $d \in \mathbb{N}^{*}$ and $\mathcal{X} = [0,1]^{d}$ and $\mathrm{d}\omega$ is the uniform measure on $\mathcal{X}$. 
+%  is the tensor :
+% $\mathcal{K}_{d,s}$ is the RKHS corresponding to 
+\begin{equation}
+\forall x,y \in [0,1]^{d}, \:\: k_{d,s}(x,y) = \prod\limits_{\delta \in [d]}k_{s}(x_{\delta},y_{\delta}).
+\end{equation}
+An element $f$ of $\mathcal{K}_{d,s}$ have square-integrable partial derivatives $\displaystyle \frac{\partial^{u_{1}+ \dots + u_{d}}f}{\partial x_{1}^{u_{1}} \dots \partial x_{d}^{u_{d}}} $ for all the $(u_{1}, \dots,u_{d})$ such that $u_{\delta} \in \{0, \dots, s\}$.
+
+
+
+
+
+\subsubsection{Anchored kernels}
+
+\begin{equation}
+k_{QMC}(\bm{x},\bm{y}) = \prod\limits_{\delta \in [d]} (2-\min(x_{\delta},y_{\delta})).
+\end{equation}
 
 
 \subsection{The Mercer decomposition}
 \label{subsec:mercer}
+As we have seen, Sobolev spaces are characterized by the Fourier coefficients of their elements. This property is not ???? and it is satisfied by other RKHSs. Indeed, recall that under an assumption the RKHS $\mathcal{F}$ is a subspace of $\mathbb{L}_{2}(\mathrm{d}\omega)$. The Mercer theorem gives a finer description of $\mathcal{F}$ as a subspace of $\mathbb{L}_{2}(\mathrm{d}\omega)$.
+
+ % This property can be proven by an application of the Mercer theorem. Indeed, 
+
+
 The Mercer Theorem was first proven when $\mathcal{X} = [0,1]$ and $\mathrm{d}\omega$ is the Lebesgue measure in \cite{Mer1909}.
 A modern proof of this classic result can be found in \cite{Lax02}. An extension to a general compact space $\mathcal{X}$ can be  found in \cite{CuZh07}. To state this classic result, we consider the integration operator
 % In this section we recall Mercer's theorem and its extensions to non-compact spaces. Let $\mathcal{X}$ be a measurable space and $\mathrm{d}\omega$ a measure on $\mathcal{X}$. 
@@ -2605,8 +2668,11 @@ k(x,y) = \sum\limits_{n \in \mathbb{N}^{*}} \sigma_{n} e_{n}(x)e_{n}(y),
 \end{equation}
 where the convergence is absolute and uniform.
 \end{theorem}
-   Note, however, that the compactness assumption in Theorem~\ref{thm:Mercer_for_compact} excludes kernels such as the Gaussian or the Laplace kernels.
-Hence, extensions to non-compact spaces are usually required in ML.
+
+
+The compactness assumption in Theorem~\ref{thm:Mercer_for_compact} excludes some classic RKHSs: the RKHSs corresponding to the Gaussian kernel or the Laplace kernels on $\mathbb{R}^{d}$...
+Hence the need to an extension of this result to non-compact spaces.
+
 In \cite{Sun05}, the author extended Theorem~\ref{thm:Mercer_for_compact} to $\mathcal{X} = \cup_{i \in \mathbb{N}} \mathcal{X}_{i}$, with the $\mathcal{X}_{i}$s compact and $\mathrm{d}\omega(\mathcal{X}_{i})<\infty$. One can also extend Mercer's theorem under a \textit{compact embedding} assumption \citep{StSc12}: the RKHS $\mathcal{F}$ associated to $k$ is said to be compactly embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$ if the application
 \begin{align*}
   I_{\mathcal{F}}: \mathcal{F}&\longrightarrow \mathbb{L}_{2}(\mathrm{d}\omega) \\
@@ -2634,7 +2700,7 @@ Note that this condition is not necessary (Example 2.9, \citep{StSc12}). Now, un
 
 \subsection{The integration error}
 \label{subsec:int_error}
-When the integrand $f$ belongs to the RKHS $\mathcal{F}$ of kernel $k$ \citep{CrSh04}, the quadrature error reads \citep{SmGrSoSc07}
+When the integrand $f$ belongs to $\mathcal{F}$, the integration error reads \citep{SmGrSoSc07}
 \begin{align}
 \label{eq:integral_bound_mean_element}
   \bigg|\int_{\mathcal{X}} f(x)g(x)\mathrm{d}\omega(x) - \sum\limits_{j \in [N]} w_{j}f(x_{j}) \bigg|
@@ -2655,14 +2721,14 @@ where
 
 
 
-This idea can be tracked to Hickernell \citep{Hic96,Hic98} who introduced reproducing kernels to the QMC community. Indeed, in \citep{Hic96} the author derived a tractable formula for the worst-case integration error of a quasi-Monte Carlo rule ($\X=[0,1]^{d}$, $g$ is the constant function that take the value $1$ and $w_{n}= 1/N$):
+This idea can be tracked to Hickernell \citep{Hic96,Hic98} who introduced reproducing kernels to the QMC community. Indeed, \cite{Hic96} derived a tractable formula for the worst-case integration error of a quasi-Monte Carlo rule ($\X=[0,1]^{d}$, $g$ is the constant function that take the value $1$ and $w_{n}= 1/N$):
 
 \begin{equation}\label{eq:wce_qmc}
- \sup\limits_{\substack{f \in \mathcal{F}\\ \|f\|_{\mathcal{F}} \leq 1}} \bigg|\int_{[0,1]^{d}} f(x)\mathrm{d}\bm{x} - \frac{1}{N}\sum\limits_{n \in [N]} f(x_{n}) \bigg|^{2},
+ \sup\limits_{\substack{f \in \mathcal{F}\\ \|f\|_{\mathcal{F}} \leq 1}} \bigg|\int_{[0,1]^{d}} f(x)\mathrm{d}x - \frac{1}{N}\sum\limits_{n \in [N]} f(x_{n}) \bigg|^{2}.
 \end{equation}
-he proved that \eqref{eq:wce_qmc} is equal to 
+In particular, he proved that \eqref{eq:wce_qmc} is equal to 
 \begin{equation}\label{eq:wce_qmc_2}
- \int_{[0,1]^{d}}\int_{[0,1]^{d}} k(\bm{x},\bm{y}) \mathrm{d}\bm{x} \mathrm{d}\bm{y} - \frac{2}{N}\sum\limits_{n \in [N]} \int_{[0,1]^{d}} k(x_{n},\bm{y}) \mathrm{d} \bm{y} + \frac{1}{N^2}\sum\limits_{n,n'=1}^{N}k(x_{n},k_{n'}).
+ \int_{[0,1]^{d}}\int_{[0,1]^{d}} k(x,y) \mathrm{d}x \mathrm{d}y - \frac{2}{N}\sum\limits_{n \in [N]} \int_{[0,1]^{d}} k(x_{n},y) \mathrm{d} y + \frac{1}{N^2}\sum\limits_{n,n'=1}^{N}k(x_{n},x_{n'}).
 \end{equation}
 
 The generalization of \eqref{eq:wce_qmc_2} can be easily derived using properties of reproducing kernels:
@@ -2675,7 +2741,7 @@ The generalization of \eqref{eq:wce_qmc_2} can be easily derived using propertie
 where $\bm{K}(\bm{x}) = (k(x_{n},x_{n'}))_{(n,n') \in [N] \times [N]} \in \mathbb{R}^{N \times N}$ and $\mu_{g}(\bm{x}) = (\mu_{g}(x_{n}))_{n \in [N]} \in \mathbb{R}^{N}$.
 
 
-In order to prove that \eqref{eq:wce_qmc_2} is a consequence of \eqref{eq:wce_kq}, when $\mathcal{X} = [0,1]^{d}$ and $w_{n}=1/N$ and $g=1$ and $\mathrm{d}\omega$ is the uniform measure on $\X$, it is sufficient to observe that
+We can check that \eqref{eq:wce_qmc_2} is a consequence of \eqref{eq:wce_kq}, by taking $\mathcal{X} = [0,1]^{d}$, $w_{n}=1/N$, $g=1$ and $\mathrm{d}\omega$ is the uniform measure on $\X$ and observing that
 
 \begin{align}
 \|\mu_{g}\|_{\mathcal{F}}^{2} & = \langle \bm{\Sigma} g,\bm{\Sigma} g \rangle_{\mathcal{F}}\\
@@ -2691,36 +2757,6 @@ and that
 \end{equation}
 
 
-In other words, the Quasi-Monte Carlo quadrature rules fit within the kernel framework of quadratures. This instantiation will become clearer when we review the kernels widely used in the literature.
-
-
-
-% A tight approximation of the mean element by a linear combination of functions $k(x_{j},.)$ thus guarantees low quadrature error.
-\subsection{Examples of typical kernels}
-\label{subsec:kernel_examples}
-\paragraph{Periodic Sobolev spaces and Korobov spaces}
-
-
-
-
-Let $\mathrm{d}\omega$ be the uniform measure on $\mathcal{X} = [0,1]$, and let the RKHS kernel be \citep{BeTh11}
-\begin{equation}
-k_{s}(x,y) = 1+ 2\sum\limits_{m \in \mathbb{N}^{*}} \frac{1}{m^{2s}} \cos(2\pi m(x-y)).
-\end{equation}
-The corresponding RKHS $\mathcal{F}=\mathcal{F}_{s}$ is the Sobolev space of order $s$ on $[0,1]$:
-
-\begin{equation}
-\mathcal{F}_{s} = \{f \in ... \}
-\end{equation}
-
-
-
- Note that $k_{s}$ can be expressed in closed form using Bernoulli polynomials \cite{Wah90}:
-\begin{equation}
-k_{s}(x,y) = 1 + \frac{(-1)^{s-1}(2 \pi)^{2s}}{(2s)!} B_{2s}(\{x-y\}).
-\end{equation}
-
-Figure~\ref{fig:mean_element} illustrates the mean-element for three different weights $g$ in the RKHS corresponding to $k_{1}$.
 
 \begin{figure}[]
     \centering
@@ -2728,27 +2764,13 @@ Figure~\ref{fig:mean_element} illustrates the mean-element for three different w
 \caption{$\mu_{g}$ in the periodic Sobolev space for three different $g$.
 \label{fig:mean_element}}
 \end{figure}
- % The approaches described in this section differ by their choice of nodes and weights.
-
-Now for $d \in \mathbb{N}^{*}$ and $\mathcal{X} = [0,1]^{d}$ and $\mathrm{d}\omega$ is the uniform measure on $\mathcal{X}$. 
-
-The Korobov space of order $s$ is the tensor product of $d$ copies of the Sobolev space $\mathcal{F}_{s}$:
-\begin{equation}
-\mathcal{K}_{d,s} = \{ f \in \mathbb{L}_{2}(\mathrm{d}\omega), \: f = \prod\limits_{\delta \in [d]} f_{\delta}, \: f_{\delta} \in \mathcal{F}_{s} \}.
-\end{equation}
-
-$\mathcal{K}_{d,s}$ is the RKHS corresponding to the tensor product of $d$ copies of the periodic Sobolev kernel
-
-\begin{equation}
-\forall x,y \in [0,1]^{d}, \:\: k_{d,s}(x,y) = \prod\limits_{\delta \in [d]}k_{s}(x_{\delta},y_{\delta}).
-\end{equation}
 
 
-\subsubsection{Anchored kernels}
+In other words, quasi-Monte Carlo rules fit within the kernel framework of quadratures. 
 
-\begin{equation}
-k_{QMC}(\bm{x},\bm{y}) = \prod\limits_{\delta \in [d]} (2-\min(x_{\delta},y_{\delta})).
-\end{equation}
+
+
+% A tight approximation of the mean element by a linear combination of functions $k(x_{j},.)$ thus guarantees low quadrature error.
 
 
 % \paragraph{Kernel quadrature and QMC}
@@ -2762,6 +2784,37 @@ k_{QMC}(\bm{x},\bm{y}) = \prod\limits_{\delta \in [d]} (2-\min(x_{\delta},y_{\de
 \emph{Bayesian Quadrature} initially \citep{Lar72} considered a fixed set of nodes and put a Gaussian process prior on the integrand $f$. Then, the weights were chosen to minimize the posterior variance of the integral of $f$. If the kernel of the Gaussian process is chosen to be $k$, this amounts to minimizing the RHS of \eqref{eq:integral_bound_mean_element}. The case of the Gaussian reference measure was later investigated in detail \citep{Hag91}, while parametric integrands were considered in \citep{Min00}.
 \subsection{Optimal kernel quadrature}
 \label{subsec:okq_analysis_paradigm}
+
+As we have seen in Section~\ref{subsec:int_error}, the worst case integration error for a given quadrature $(\bm{x}, \bm{w})$ writes:
+\begin{equation}\label{eq:wce_repeated}
+\bigg \|\mu_{g} - \sum\limits_{n \in [N]} w_{n}k(x_{n},.) \bigg\|_{\mathcal{F}}.
+\end{equation}
+Under the assumption that the configuration  $\bm{x} \subset \mathcal{X}$ is uni-solvent with respect to the kernel $k$, i.e. the matrix $\bm{K}(\bm{x}) = (k(x_{n},x_{n'}))_{n,n' \in [N]}$ is non-singular, there exists a unique vector $\bm{w} \in \mathbb{R}^{N}$ that minimizes~\eqref{eq:wce_repeated}. Indeed, the square of \eqref{eq:wce_repeated} is quadratic on $\bm{w}$ so that the optimization problem
+\begin{equation}\label{eq:wce_repeated_optimization}
+\min\limits_{\bm{w} \in \mathbb{R}^{N}} \bigg \|\mu_{g} - \sum\limits_{n \in [N]} w_{n}k(x_{n},.) \bigg\|_{\mathcal{F}}^{2}
+\end{equation}
+have a unique solution $\hat{\bm{w}}(\bm{x}) = \bm{K}(\bm{x})^{-1}\mu_{g}(\bm{x})$. The quadrature $(\bm{x},\hat{\bm{w}}(\bm{x}))$ is called the \emph{optimal kernel quadrature} in $\bm{x}$. 
+
+Now, under the assumption that $\bm{K}(\bm{x})$ is non-singular, the dimension of the subspace $\mathcal{T}(\bm{x}) = \Span (k(x_{n},.))_{n \in [N]}$ is equal to $N$. Define 
+\begin{equation}
+	\bm{\Phi}:(w_{j})_{j \in [N]} \mapsto \sum_{j \in [N]} w_{j} k(x_{j},.)
+\end{equation}
+ the reconstruction operator\footnote{The reconstruction operator $\bm{\Phi}$ depends on the nodes $x_{j}$, although our notation doesn't reflect it for simplicity.}. The optimal approximation of $\mu_{g}$ by an element of $\mathcal{T}(\bm{x})$, with respect to the RKHS norm, is $\bm{\Phi}\hat{\bm{w}}$, and the optimal approximation error writes
+\begin{equation}
+\|\mu_{g} - \bm{\Phi}\hat{\bm{w}}\|^{2}_{\mathcal{F}} =\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}\|^{2}_{\mathcal{F}},\label{e:finalTool}
+\end{equation}
+%  The approximation error writes
+% \begin{align}
+% \|\mu_{g} - \bm{\Phi}\hat{\bm{w}}\|^{2}_{\mathcal{F}} &= \|\mu_{g} - \bm{\Phi}\bm{K}(\bm{x})^{-1} \mu_{g}(x_{i})_{i \in [N]}\|^{2}_{\mathcal{F}}\\
+%  &= \|\mu_{g} - \bm{\Phi}(\bm{\Phi}^{*}\bm{\Phi})^{-1}\bm{\Phi}^{*} \mu_{g} \|^{2}_{\mathcal{F}}\\
+% &=\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}\|^{2}_{\mathcal{F}},\label{e:finalTool}
+% \end{align}
+where $\bm{\Pi}_{\mathcal{T}(\bm{x})} = \bm{\Phi}(\bm{\Phi}^{*}\bm{\Phi})^{-1}\bm{\Phi}^{*}$ is the orthogonal projection onto $\mathcal{T}(\bm{x})$ with $\bm{\Phi}^{*}$ the dual\footnote{For $\mu \in \mathcal{F}$,$\bm{\Phi}^{*}\mu = (\mu(x_{j}))_{j \in [N]}$. $\bm{\Phi}^{*}\bm{\Phi}$ is an operator from $\mathbb{R}^{N}$ to $\mathbb{R}^{N}$ that can be identified with $\bm{K}(\bm{x})$.} of $\bm{\Phi}$: $\bm{\Phi}\hat{\bm{w}}$ is the orthogonal projection of $\mu_{g}$ on the subspace $\mathcal{T}(\bm{x})$. Moreover, we can prove easily that $\bm{\Phi}\hat{\bm{w}}$ interpolates $\mu_{g}$ on the nodes $x_{1}, \dots, x_{N}$:
+\begin{equation}
+\forall n \in [N], \:\bm{\Phi}\hat{\bm{w}}(x_{n}) = \mu_{g}(x_{n}).
+\end{equation}
+
+
 \subsection{Ridge leverage score quadrature}
 \label{subsec:okq_algebraic_paradigm}
 
@@ -2832,7 +2885,7 @@ Now, for fixed $\lambda$, the approximation error in Proposition~\ref{p:bach} do
 Moreover, the optimal density $q_{\lambda}^*$ is in general only available as the limit \eqref{e:proposalBach}, which makes sampling and evaluation difficult. 
 
 
-\section{Projection DPP for optimal kernel quadrature}
+\section{Projection DPP for optimal kernel quadrature}\label{sec:pDPP_OKQ}
 % \subsubsection{The proposed algorithm}
 In this section, we propose to study optimal kernel quadrature based on nodes that follows the distribution of a projection DPP.
 
