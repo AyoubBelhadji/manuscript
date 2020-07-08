@@ -2105,7 +2105,7 @@ As we have seen previously, a high precision approximation of a unidimensional i
 \caption{\label{fig:local_discrepancy}}
 \end{figure}
 
- A discrepancy function of a configuration $\bm{x} = \{x_{1}, \dots, x_{N} \} \subset \X$ quantifies the "spread" of the nodes of $\bm{x}$. It is, usually, defined with respect to a set of test sets $\mathcal{S}$. For example, when $\mathcal{X} = [0,1]^{d}$, a typical choice of $\mathcal{S}$ is the set of the Cartesian products $[\bm{0},u] = \prod\limits_{\delta \in [d]}[0,u_{\delta}]$ with $u = (u_{1}, \dots, u_{d}) \in \mathcal{X}$. In this case, the local discrepancy is defined for all $u \in \X$ by 
+ A discrepancy function of a configuration $\bm{x} = \{x_{1}, \dots, x_{N} \} \subset \X$ quantifies the uniformity of the nodes of $\bm{x}$ in $\mathcal{X}$. It is, usually, defined with respect to a set of test sets $\mathcal{S}$. For example, when $\mathcal{X} = [0,1]^{d}$, a typical choice of $\mathcal{S}$ is the set of the Cartesian products $[\bm{0},u] = \prod\limits_{\delta \in [d]}[0,u_{\delta}]$ with $u = (u_{1}, \dots, u_{d}) \in \mathcal{X}$. In this case, the local discrepancy is defined for all $u \in \X$ by 
 \begin{equation}\label{def:discrepancy}
 \mathcal{D}_{\bm{x}}(u) = \frac{1}{N}\sum\limits_{n \in [N]} \mathbb{1}_{[\bm{0},u]}(x_{n}) - \prod\limits_{\delta \in [d]}u_{\delta}.
 \end{equation}  
@@ -2128,57 +2128,86 @@ and the local spherical discrepancy is defined by
 where $\lambda$ is the Lebesgue measure on $\mathbb{S}^{d-1}$.
 % where $t \in [-1,1]$ and $\bm{u} \in \mathbb{S}^{d-1}$ 
 %\subsubsection{}
-The importance of the discrepancy functions on bounding the integration error clears up considering the Koksma-Hlawka inequalities.
+
+
+The importance of the discrepancy functions on bounding the integration error clears up considering the Koksma-Hlawka inequality.
 % The discrepancy functions for a design $\bm{x}$ play an important role in the quantification of the integration error based on $\bm{x}$. Indeed, consider the quadrature:
 % \begin{equation}
 % \frac{1}{N} \sum\limits_{n \in [N]}  f(x_{n}),
 % \end{equation}
 % as an approximation of $\displaystyle \int_{[0,1]^{d}} f(\bm{u}) \mathrm{d}\bm{u}$. 
 
-\begin{theorem}\label{thm:KH_ineq}
-Let $p,q \in [1,+\infty]$, such that $1/p+1/q = 1$. Consider $f \in \mathbb{L}_{q}([0,1]^{d})$. Then 
+
+\begin{theorem}[The Koksma-Hlawka inequality]\label{thm:KH_ineq}
+Consider $f \in \mathbb{L}_{2}([0,1]^{d})$. Then 
 \begin{equation}\label{eq:KH_ineq}
-\bigg| \int_{[0,1]^{d}} f(\bm{u}) \mathrm{d}\bm{u} - \frac{1}{N} \sum\limits_{n \in [N]}  f(x_{n})\bigg| \leq \Delta_{p}(\bm{x}) \|\frac{\partial^{d} f}{\partial \bm{u}}\|_{q}.
+\bigg| \int_{[0,1]^{d}} f(u) \mathrm{d}u - \frac{1}{N} \sum\limits_{n \in [N]}  f(x_{n})\bigg| \leq \Delta_{*}(\bm{x}) \|f\|_{\mathrm{HK}},
 \end{equation}
+where $\|f\|_{\mathrm{HK}}$ is the variation of $f$ in the sense of Hardy-Krause (HK). 
+
+
+% \|\frac{\partial^{d} f}{\partial \bm{u}}\|_{q}.
 \end{theorem}
-The Koksma-Hlawka inequalities gives a decoupled upper bound for the integration error: the $\mathbb{L}_{p}$-discrepancy of the configuration $\bm{x}$ does not depend on $f$ and the $q$ variation of the function $f$ does not depend on the configuration $\bm{x}$. This decoupling allows to focus only on the discrepancy of the design when the function $f$ is sufficiently regular.
 
-Koksma proved these inequalities for $d=1$, latter Hlawka generalised it to arbitrary dimension $d \geq 1$. Note that, initially, these inequalities were proven with the total variation in the sense of Hardy-Krause. Under some conditions ????, the total variation in the sense of Hardy-Krause coincide with $\|\frac{\partial^{d} f}{\partial \bm{u}}\|_{q}$ ??? 
+In other words, the upper bound in Koksma-Hlawka inequality is the product of two quantities: the star discrepancy of the configuration $\bm{x}$ that does not depend on $f$, and the HK variation of the function $f$ that does not depend on the configuration $\bm{x}$. 
 
-In \citep{War72}, the author derived a tractable formula for the $\mathbb{L}_{2}$-discrepancy:
+\cite{Kok42} proved the inequality for $d=1$. In this case, the inequality holds when $f$ is of bounded variation in $[0,1]$, and the HK variation coincides with the total variation:
+\begin{equation}
+\|f\|_{\mathrm{HK}} = \int_{[0,1]}|f^{'}(x)| \mathrm{d}x.
+\end{equation}
+
+
+The multi-dimensional version was proved by \cite{Hla61}. When $d \geq 2$, the HK variation has a more complicated expression through the Vitali variation. For the sake of convenience, we only mention that if $f$ has continuous mixed first partial derivatives, the HK variation has the following expression:
 
 \begin{equation}
+\|f\|_{\mathrm{HK}} = \sum\limits_{S \subset[d], S \neq \emptyset} \int_{[0,1]^{|S|}} \bigg|\frac{\partial^{|S|} f (x_S;1_{\bar{S}})}{\otimes_{s \in S}\partial x_{s}} \bigg| \otimes_{s \in S}\mathrm{d} x_{s}.
+\end{equation}
+
+Other variations of the Koksma-Hlawka inequality exist: the star-discrepancy is replaced by the $\mathbb{L}_{p}$-discrepancies, and the HK variation is replaced by other variation functions; see for example Theorem 3.9 in \citep{DiPi14}. In particular, the $\mathbb{L}_{2}$ discrepancy have a tractable formula \citep{War72}:
+\begin{equation}\label{eq:ltwo_discrepancy_formula}
 \Delta_{2}(\bm{x})^{2} = \frac{1}{3^{d}} - \frac{2}{N} \sum\limits_{n = 1}^{N} \prod\limits_{\delta=1}^{d} \frac{1-x_{n,i}^{2}}{2} + \frac{1}{N^2} \sum\limits_{n=1,n'=1}^{N} \prod\limits_{\delta=1}^{d} \min(1-x_{n,\delta},1-x_{n',\delta}).
 \end{equation}
 
-We shall give an interpretation of this formula in the context of kernel quadrature. For the moment, it is enough to observe that the minimal value of $\displaystyle  \Delta_{2}(\bm{x})^{2}$ is $\displaystyle \frac{1}{3^{d}}$ achieved when the design $\bm{x}$ is empty.
+This is to be compared to the star discrepancy for witch no tractable formula is known: the computation of the star discrepancy is an NP-hard problem \citep{GnSrWi09}. We shall give an interpretation of \eqref{eq:ltwo_discrepancy_formula} in the context of kernel quadrature.
 
-This situation is to be compared to the star discrepancy for witch no tractable formula is known: the computation of the star discrepancy is an NP-hard problem \citep{GnSrWi09}.
+The decoupling of the upper bound on the Koksma-Hlawka inequality, and its variants, allows to focus only on the discrepancy of the design when the function $f$ is sufficiently regular.
+
+
+
+% \begin{theorem}\label{thm:KH_ineq}
+% Let $p,q \in [1,+\infty]$, such that $1/p+1/q = 1$. Consider $f \in \mathbb{L}_{q}([0,1]^{d})$. Then 
+% \begin{equation}\label{eq:KH_ineq}
+% \bigg| \int_{[0,1]^{d}} f(\bm{u}) \mathrm{d}\bm{u} - \frac{1}{N} \sum\limits_{n \in [N]}  f(x_{n})\bigg| \leq \Delta_{p}(\bm{x}) \|f\|_{q},
+% \end{equation}
+% where
+
+% \begin{equation}
+% \|f\|_{q} = \bigg(\sum\limits_{S \subset[d]} \int_{[0,1]^{|S|}} |\frac{\partial^{|S|} f}{\partial x_{...}}| \otimes_{...}\mathrm{d} x\bigg)^{1/q}
+% \end{equation}
+
+% % \|\frac{\partial^{d} f}{\partial \bm{u}}\|_{q}.
+% \end{theorem}
+%  Note that, initially, these inequalities were proven with the total variation in the sense of Hardy-Krause. Under some conditions ????, the total variation in the sense of Hardy-Krause coincide with $\|\frac{\partial^{d} f}{\partial \bm{u}}\|_{q}$ ??? 
+
 
 \subsubsection{Low discrepancy sequences}
 
 
-From a distance, a regular lattice is "well-spread" in the hypercube $[0,1]^{d}$ and can be used as the configuration of a quadrature rule. Yet, by considering the star-discrepancy of uniform grids, we reach the counter-intuitive conclusion that the uniform grids are not convenient for numerical integration. Indeed, consider the regular lattice $\bm{x}_{N}  \subset \mathbb{R^{d}}$, where $N = n^{d}$ for some $n \in \mathbb{N}^{*}$, defined by
+From a distance, a uniform grid is "uniform" in the hypercube $[0,1]^{d}$ and can be used as the configuration of a quadrature rule. Yet, by considering the star-discrepancy of uniform grids, we reach the counter-intuitive conclusion that the uniform grids are not convenient for numerical integration. Indeed, consider the grid $\bm{x}_{N}  \subset \mathbb{R^{d}}$, where $N = n^{d}$ for some $n \in \mathbb{N}^{*}$, defined by
 \begin{equation}
 \bm{x}_{N} = \bigg\{ (\frac{n_{1}}{n}, \dots, \frac{n_{d}}{n}), \: 0 \leq n_{\delta} < n, \forall \delta \in [d] \bigg\}. 
 \end{equation}
-Then
+Then by Proposition 3.32 in \citep{DiPi10}
 \begin{equation}
 \Delta_{*}(\bm{x}_{N}) = 1- (1-1/n)^{d} \geq \frac{1}{N^{1/d}}. 
 \end{equation} 
 
 
-In other words, in order to get a star-discrepancy lower than some level $\epsilon \in [0,1[$, we need $n = \Omega(\epsilon^{1/d})$ nodes: the star discrepancy of the regular lattice scales poorly with the dimension; even tough it have the best possible star discrepancy when $d = 1$. 
-
-
-Looking for designs having the lowest discrepancy in high dimension was a topic of intense research.  A very brief review of this line of research is provided in the following paragraph. 
-
-
-The Koksma-Hlawka inequalities suggest that 
+In other words, in order to get a star-discrepancy lower than some level $\epsilon \in [0,1[$, $n = \Omega(\epsilon^{1/d})$ nodes are needed: the star discrepancy of the uniform grid scales poorly with the dimension; even tough it have the best possible star discrepancy when $d = 1$.  Looking for designs having the better scaling of discrepancy in high dimension was a topic of intense research.  A very brief review of this line of research is provided in the following. 
+ 
 
 The Van der Corput sequences are the simplest examples of low discrepancy sequences. They are defined on $[0,1]$ and allows the construction of low discrepancy sequences in $[0,1]^{d}$.
-
-The construction of these sequences goes as follow: let $b \geq 2$ be an integer; and define for every $n \in \mathbb{N}$ the $b$-adic expansion:
+The construction of these sequences goes as follow: consider $b \geq 2$ an integer, and define for every $n \in \mathbb{N}$ the $b$-adic expansion:
 \begin{equation}
 n = \sum\limits_{i \in \mathbb{N}} n_{i}b^{i}.
 \end{equation} 
@@ -2191,16 +2220,16 @@ v_{b,n} = \sum\limits_{i \in \mathbb{N}} n_{i}b^{-i}.
 % Let 
 
 % \end{definition}
-For instance, for $b = 2$, the first elements of the sequence are $\displaystyle 0, \frac{1}{2}, \frac{3}{4}, \frac{1}{8}, \frac{5}{8}, \frac{3}{8}, \dots$. While, for $b=10$, the elements of the sequence goes as follow $\displaystyle 0.1, 0.2, \dots, 0.9, 0.01, 0.11, \dots ,0.91, \dots$.
+For instance, for $b = 2$, the first elements of the sequence are $\displaystyle 0, \frac{1}{2}, \frac{3}{4}, \frac{1}{8}, \frac{5}{8}, \frac{3}{8}, \dots$. While, for $b=10$, the elements of the sequence goes as follow $\displaystyle \frac{1}{10}, \frac{2}{10}, \dots, \frac{9}{10}, \frac{1}{100}, \frac{11}{100}, \dots ,\frac{91}{100}, \dots$.
 Given $d$ Van der Corput sequences associated to integers $b_{1}, \dots , b_{d}$, one can construct a sequence defined on $[0,1]^{d}$ by concatenation:
 \begin{equation}
 x_{n} = (v_{b_1,n}, \dots, v_{b_d,n}).
 \end{equation}
-These are the Halton sequences. Another possible construction is the Hammersley configuration defined for a fixed value of $N$:
+These are the Halton sequences \citep{Hal64}. Another possible construction is the Hammersley configuration defined for a fixed value of $N$:
 \begin{equation}
 x_{n} = ((n-1)/N,v_{b_1,n}, \dots, v_{b_{d-1},n}).
 \end{equation}
-These cryptic configurations have an interesting property: they are low discrepancy sequences on $[0,1]^{d}$. Indeed, under the assumption that the $b_{1}, \dots, b_{d}$ are pairwise relatively prime, the star discrepancy of the Halton sequence is $\displaystyle \mathcal{O}\bigg(\frac{(\log N)^{d}}{N} \bigg)$; while the star discrepancy of the Hammersley sequence is $\displaystyle \mathcal{O} \bigg(\frac{(\log N)^{d-1}}{N} \bigg)$. This is to be compared to the rate of the regular lattice that scales as $\mathcal{O}(N^{-1/d})$.
+These cryptic configurations have an interesting property: they are low discrepancy sequences on $[0,1]^{d}$. Indeed, under the assumption that the $b_{1}, \dots, b_{d}$ are pairwise relatively prime, the star discrepancy of the Halton sequence is $\displaystyle \mathcal{O}\bigg(\frac{(\log N)^{d}}{N} \bigg)$; while the star discrepancy of the Hammersley sequence is $\displaystyle \mathcal{O} \bigg(\frac{(\log N)^{d-1}}{N} \bigg)$: for a sufficiently regular function, and for a sufficently large number of nodes $(N = \Omega(e^{d}))$, the rate of convergence of the Quasi-Monte Carlo quadrature based on these sequences would be faster compared to the Monte Carlo rate $\mathcal{O}(N^{-1/2})$. Figure~\ref{fig:halton_vs_grid_disc} compares the local discrepancy of the Halton sequence and the uniform grid for $N \in \{25,144,400\}$: the Halton sequence have always the smallest star-discrepancy that decreases faster as a function of $N$. 
 
 
 
@@ -2233,7 +2262,7 @@ These rates are a consequence of a long line of research and the techniques of t
 ~\includegraphics[width= 0.32\textwidth]{img/discrepancy/local_discrepancy_halton_N_400.pdf}\\
 \includegraphics[width= 0.32\textwidth]{img/discrepancy/local_discrepancy_uniform_grid_N_25.pdf}~\includegraphics[width= 0.32\textwidth]{img/discrepancy/local_discrepancy_uniform_grid_N_144.pdf}
 ~\includegraphics[width= 0.32\textwidth]{img/discrepancy/local_discrepancy_uniform_grid_N_400.pdf}
-\caption{The local discrepancy $\Delta_{\bm{x}}$ for two designs: in the top, the Halton sequence with $N \in \{25,144,400\}$; in the bottom, the uniform grid with $N \in \{25,144,400\}$.}
+\caption{The local discrepancy $\Delta_{\bm{x}}$ for two designs: in the top, the Halton sequence with $N \in \{25,144,400\}$; in the bottom, the uniform grid with $N \in \{25,144,400\}$. \label{fig:halton_vs_grid_disc}}
 \end{figure}
 
 % \begin{theorem}
@@ -2300,73 +2329,87 @@ This family of sequence is
 Several quadratures are based on nodes that follow the distribution of a Determinantal Point Process. The rationale behind this choice is the strong statisitical properties of these quadratures. We review in this section the results and the techniques used in this line of research. 
 
 \subsubsection{The quadrature based on the Circular Unitary Ensemble}
-
-The set of the eigenvalues of a random matrix chosen from Haar measure on the unitary group $\mathbb{U}_{N}$ is called the Circular Unitary Ensemble (CUE). The following theorem proved by Weyl implies that the CUE is a random set that follows the distribution of a projection DPP. 
-
-
-\begin{theorem}[\cite{Wey46}]
-Let $f: \mathbb{U}_{N} \rightarrow \mathbb{C}$ that satisfies
-\begin{equation}\label{eq:weil_condition}
-\forall \: V, M \in \mathbb{U}_{N}, \:  f(V^{-1}M V) = f(M),
-\end{equation}
-and denote for $\bm{\theta} = (\theta_{n})_{n \in [N]} \in [0,2\pi]^{N}$, the diagonal matrix $D(\bm{\theta}) = \mathrm{Diag}(e^{i \theta_{n}})_{n \in [N]}$.
-Then
+We start by reviewing the case of the Circular Unitary Ensemble (CUE): the set of the eigenvalues of a random matrix chosen from Haar measure on the unitary group $\mathbb{U}_{N}$. \cite{Wey46} proved that this random set follows the distribution of a projection DPP defined on unit complex circle $\mathbb{U} = \{ u \in \mathbb{C}, |u| =1 \}$, and marginal kernel:
 \begin{equation}
-\int_{\mathbb{U}_{N}}f(M) \mathrm{d}M = \frac{1}{N!(2 \pi)^{N}} \int_{[0,2\pi]^{N}} f(D(\theta)) \Delta(\theta)^{2} \mathrm{d}^{N}\theta,
+\KDPP(x,y) = \sum\limits_{n \in [N]} e^{2 \pi n \iota(x-y)}.
 \end{equation}
-where 
-\begin{equation}
-\Delta(\theta) = \prod\limits_{1 \leq n,n' \leq N} | e^{i \theta_{n}} -e^{i \theta_{n'}} |.
-\end{equation}
-\end{theorem}
 
-
-In other words, the joint distribution of the eigenvalues of a random unitary matrix with respect to Haar measure have the probability density:
+Equivalently, the joint distribution of the elements of the CUE have the probability density with respect to the uniform measure on $\mathbb{U}^{N}$:
 \begin{equation}\label{eq:haar_eigenvalues_density}
-\frac{1}{N!(2\pi)^{N}} \prod\limits_{1 \leq n,n' \leq N} |e^{-i \theta_{n}} - e^{-i \theta_{n'}}|^{2}
+ \frac{1}{N!(2\pi)^{N}} \prod\limits_{1 \leq n,n' \leq N} |e^{-i \theta_{n}} - e^{-i \theta_{n'}}|^{2}.
 \end{equation}
-on $\mathbb{U}^{N}$.
 
 
-For example, the trace functions $f_{\ell}(M) = \Tr M^{\ell}$ satisfy the condition~\eqref{eq:weil_condition}; and this implies the following identities:
+%%%%%% Weyl theorem%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  The following theorem proved by Weyl implies that the CUE is a random set that follows the distribution of a projection DPP. 
+
+
+% \begin{theorem}[\cite{Wey46}]
+% Let $f: \mathbb{U}_{N} \rightarrow \mathbb{C}$ that satisfies
+% \begin{equation}\label{eq:weil_condition}
+% \forall \: V, M \in \mathbb{U}_{N}, \:  f(V^{-1}M V) = f(M),
+% \end{equation}
+% and denote for $\bm{\theta} = (\theta_{n})_{n \in [N]} \in [0,2\pi]^{N}$, the diagonal matrix $D(\bm{\theta}) = \mathrm{Diag}(e^{i \theta_{n}})_{n \in [N]}$.
+% Then
+% \begin{equation}
+% \int_{\mathbb{U}_{N}}f(M) \mathrm{d}M = \frac{1}{N!(2 \pi)^{N}} \int_{[0,2\pi]^{N}} f(D(\theta)) \Delta(\theta)^{2} \mathrm{d}^{N}\theta,
+% \end{equation}
+% where 
+% \begin{equation}
+% \Delta(\theta) = \prod\limits_{1 \leq n,n' \leq N} | e^{i \theta_{n}} -e^{i \theta_{n'}} |.
+% \end{equation}
+% \end{theorem}
+
+
+% In other words, the joint distribution of the eigenvalues of a random unitary matrix with respect to Haar measure have the probability density:
+% \begin{equation}\label{eq:haar_eigenvalues_density}
+% \frac{1}{N!(2\pi)^{N}} \prod\limits_{1 \leq n,n' \leq N} |e^{-i \theta_{n}} - e^{-i \theta_{n'}}|^{2}
+% \end{equation}
+% on $\mathbb{U}^{N}$.
+
+
+% For example, the trace functions $f_{\ell}(M) = \Tr M^{\ell}$ satisfy the condition~\eqref{eq:weil_condition}; and this implies the following identities:
+% \begin{equation}
+% \forall \ell \in \mathbb{N}^{*},\: \: \int_{\mathbb{U}_{N}}\Tr(M^{\ell}) \mathrm{d}M = \frac{1}{N!(2 \pi)^{N}} \int_{[0,2\pi]^{N}} \Tr(D(\theta)^{\ell}) \Delta(\theta)^{2} \mathrm{d}^{N}\theta.
+% \end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+The first theoretical analysis of a  quadrature based on the CUE can be tracked to the work of Diaconis and Shahshahani \citep{DiSh94}. Indeed, the following identity satisfied by any unitary matrix $M \in \mathbb{U}_{N}$ with eigenvalues $e^{\iota \theta_{1}}, \dots, e^{\iota \theta_{N}}$,
 \begin{equation}
-\forall \ell \in \mathbb{N}^{*},\: \: \int_{\mathbb{U}_{N}}\Tr(M^{\ell}) \mathrm{d}M = \frac{1}{N!(2 \pi)^{N}} \int_{[0,2\pi]^{N}} \Tr(D(\theta)^{\ell}) \Delta(\theta)^{2} \mathrm{d}^{N}\theta.
+\forall \ell \in \mathbb{N}^{*}, \: \Tr M^{\ell}  = \sum\limits_{n \in [N]} (e^{\iota \theta_{n}})^{\ell},
 \end{equation}
-
-The theoretical analysis of the spacing properties of the CUE can be tracked to the work of Diaconis and Shahshahani \citep{DiSh94}.
+can be seen as a quadrature formula applied to the functions $z \mapsto z^{\ell}$: the nodes are the $e^{\iota \theta_{1}}, \dots, e^{\iota \theta_{N}}$ and the weights are uniform.
  % on the study of the set of the eigenvalues of a random matrix chosen from Haar measure on the unitary group $\mathbb{U}_{N}$.
-  The authors studied the traces of such random matrices and proved the convergence, in the regime $N \rightarrow +\infty$, of these traces to Gaussian distributions. They concluded from this theoretical study and a numerical simulation that the eigenvalues of these matrices are  \emph{very regularly spread out} on the unit disc as $N$ goes to infinity.
+  The authors proved that these traces converges to centered Gaussian distributions, in the regime $N \rightarrow +\infty$, when $M$ is chosen from Haar measure on the unitary group $\mathbb{U}_{N}$. They concluded that the elements of the are \emph{very regularly spread out} on the unit disc as $N$ goes to infinity; see Figure~\ref{fig:cue_vs_iid_particles} for an illustration. This line of work was pursued by Johansson who extended the analysis to analytical functions.
 
 
-
-
-
-This line of work was pursued by Johansson who proved a centrale limite theorem of the
-quadrature based on CUE nodes and uniform weights (also called \emph{the linear statistic} in the corresponding litterature).
-
-
-\begin{theorem}
-Let $g \in \mathbb{L}_{1}(\mathbb{U})$ be a complex-valued function on $\mathbb{U}$ with Fourier coefficients $(\hat{g}_{n})_{n \in \mathbb{Z}}$. Assume that $\displaystyle \sum\limits_{n \in \mathbb{N}^{*}} n|\hat{g}_{n}|^{2} <+\infty$. Let $\bm{\theta} = (\theta_{n})_{n \in [N]} \in [0,2\pi]^{N}$ a random vector, such that the joint distribution of $(\theta_{1}, \dots, \theta_{N})$ have the density~\eqref{eq:haar_eigenvalues_density}. Then the random variable
-\begin{equation}
-\frac{1}{N}\sum\limits_{n \in [N]} g(\theta_{n}), 
-\end{equation}
+\begin{theorem}[\cite{Joh97}]
+Let $g$ be a real-valued function on $\mathbb{U}$ with $g(e^{\iota \theta}) = \sum\limits_{n =-\infty}^{+\infty} \hat{g}_{n}e^{\iota n \theta}$
+ such that $\hat{g}_{0} = 0$ and $\displaystyle \sum\limits_{n \in \mathbb{N}^{*}} n|\hat{g}_{n}|^{2} <+\infty$ and let $(e^{\iota \theta_{n}})_{n \in [N]}$ be the CUE. \\
+ Then the random variable $\displaystyle \frac{1}{N}\sum\limits_{n \in [N]} g(e^{\iota\theta_{n}})$
+ % a random element of $\mathbb{U}^{N}$ that follows the distribution defined by the density~\eqref{eq:haar_eigenvalues_density}
+% Let $\bm{\theta} = (\theta_{n})_{n \in [N]} \in [0,2\pi]^{N}$ a random vector, such that the joint distribution of $(\theta_{1}, \dots, \theta_{N})$ have the density~\eqref{eq:haar_eigenvalues_density}. 
 converges to $\displaystyle \mathcal{N}(0,\frac{2}{N}\sum\limits_{n \in \mathbb{N}^{*}} n|\hat{g}_{n}|^{2})$.
 \end{theorem}
 
 
-Let $g \in \mathbb{L}_{1}(\mathbb{T})$, and $N \in \mathbb{N}^{*}$. Denote by $\bm{T}_{N}(g)$ the Toeplitz determinant with respect to the symbol $g$:
-\begin{equation}
-\bm{T}_{N}(g) = \Det(\hat{g}_{n-n'})_{0 \leq n,n' \leq N-1}.
-\end{equation}
-\begin{theorem}
- Assume that $\displaystyle \sum\limits_{n \in \mathbb{Z}} |n||\hat{g}_{n}|^{2} < +\infty$. Then
-\begin{equation}
-\bm{T}_{N}(g) = e^{N\hat{g}_{0} + \sum\limits_{n  =1}^{+\infty}n \hat{g}_{-n} \hat{g}_{n} + o(1)},
-\end{equation}
-as $N \rightarrow +\infty$.
-\end{theorem}
+% Let $g \in \mathbb{L}_{1}(\mathbb{T})$, and $N \in \mathbb{N}^{*}$. Denote by $\bm{T}_{N}(g)$ the Toeplitz determinant with respect to the symbol $g$:
+% \begin{equation}
+% \bm{T}_{N}(g) = \Det(\hat{g}_{n-n'})_{0 \leq n,n' \leq N-1}.
+% \end{equation}
+% \begin{theorem}
+%  Assume that $\displaystyle \sum\limits_{n \in \mathbb{Z}} |n||\hat{g}_{n}|^{2} < +\infty$. Then
+% \begin{equation}
+% \bm{T}_{N}(g) = e^{N\hat{g}_{0} + \sum\limits_{n  =1}^{+\infty}n \hat{g}_{-n} \hat{g}_{n} + o(1)},
+% \end{equation}
+% as $N \rightarrow +\infty$.
+% \end{theorem}
 
-This allowed the author to prove the following CLT.
+% This allowed the author to prove the following CLT.
 
 
 
@@ -2376,7 +2419,7 @@ This allowed the author to prove the following CLT.
 ~\includegraphics[width= 0.32\textwidth]{img/circle/CUE_design_N_15_fig_3.pdf}\\
 \includegraphics[width= 0.32\textwidth]{img/circle/iid_design_N_15_fig_1.pdf}~\includegraphics[width= 0.32\textwidth]{img/circle/iid_design_N_15_fig_2.pdf}
 ~\includegraphics[width= 0.32\textwidth]{img/circle/iid_design_N_15_fig_3.pdf}\\
-\caption{Three realizations from the CUE of 15 particles (top) compared to 15 particles sampled i.i.d in the unit circle (bottom).}
+\caption{Three realizations from the CUE of 15 particles (top) compared to 15 particles sampled i.i.d in the unit circle (bottom). \label{fig:cue_vs_iid_particles}}
 \end{figure}
 
 \subsubsection{The quadratures based on Orthogonal Polynomial Ensembles}
