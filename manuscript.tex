@@ -513,7 +513,7 @@ These closed formulas allow us to prove sharp upper bounds ... In particular, we
 (2 pages)
 
 \clearpage
-\chapter{Determinantal point processes}
+\chapter{Determinantal point processes}\label{chapter:dpp}
 
 In this section, we introduce discrete determinantal point processes (DPPs) and the related $k$-DPPs, of which volume sampling is an example. 
 
@@ -1874,17 +1874,16 @@ Similarly, for the double phase algorithm, given the singular decomposition of $
 
 \chapter{Kernel quadrature using DPPs}
 \section{Introduction}
-Numerical integration is at the heart of many data analysis tasks: Bayesian inference in statistics, option pricing in finance or  particle filtering... Indeed, all these problems involve, at some level of analysis, the calculation of an integral of some real valued function $f$ defined on some domain $\mathcal{X}$ against some measure $\mathrm{d}\omega$:
+Numerical integration is at the heart of many tasks in applied mathematics and statistics: Bayesian inference in statistics \citep{RoCa04}, option pricing in mathematical finance \citep{Gla13} or numerical integral equations \citep{KrMaKo89}. Indeed, all these tasks involve, at some level, the evaluation of some integral:
 \begin{equation}\label{eq:general_integral_formula}
 \int_{\mathcal{X}}f(x)\mathrm{d}\omega(x)  =  ?
 \end{equation}
-Except some integrals that are expressed in a closed form in terms of some special functions, the value of~\eqref{eq:general_integral_formula} is only known through approximations. This problem find its roots in an old geometric problem: the evaluation of planar areas bounded by curves. Measuring areas ???...
 
-
-The word \emph{quadrature} can be tracked at least to ???.
-
-
- These techniques made their way to classic scientists and were further developed after the invention of calculus. For instance, Newton considered the approximation of the integral of a function $f$ on some interval $[a,b]$, and his approach goes as follows: evaluate $f$ on equally distanced nodes $x_{1}, \dots, x_{N}$ and consider the interpolating polynomial $p_{N-1}$ of $f$ on the $x_{1}, \dots, x_{N}$ then approximate the value of $\displaystyle \int_{a}^{b}f(t)\mathrm{d}t$ by $\displaystyle \int_{a}^{b}p_{N-1}(t)\mathrm{d}t$. In other words, consider the polynomial
+Integrals that express in a closed form are the exception, in general the value of~\eqref{eq:general_integral_formula} is only known through approximations. The problem of approximating an integral find its roots in an older problem: the evaluation of planar areas bounded by curves. These geometric techniques were further developed after the invention of calculus. For instance, Newton considered the approximation of the integral of a function $f$ on some interval $[a,b]$ using some evaluations of $f(x_{1}), \dots, f(x_{N})$:
+\begin{equation}
+\int_{a}^{b}f(t)\mathrm{d}t \approx \sum\limits_{n \in [N]}w_{n}f(x_{n}).
+\end{equation}
+ In modern words, his approach goes as follows: evaluate $f$ on equally distanced nodes $x_{1}, \dots, x_{N}$ and consider the interpolating polynomial $p_{N-1}$ of $f$ on the $x_{1}, \dots, x_{N}$ then approximate the value of $\displaystyle \int_{a}^{b}f(t)\mathrm{d}t$ by $\displaystyle \int_{a}^{b}p_{N-1}(t)\mathrm{d}t$. In other words, consider the polynomial
 
   % Newton was interested in approximation   using some evaluations of $f$ can be tracked to the work of Newton. The idea of the eponymous quadrature is to consider a set of nodes, also called \emph{configuration}, $\bm{x} = \{x_{1}, \dots , x_{N} \} \subset \X^{N}$, and the corresponding interpolating polynomial of degree $N-1$:
 \begin{equation}
@@ -1894,63 +1893,35 @@ where $\ell_{n,\bm{x}}$ are the Lagrange polynomial basis polynomials defined by
 \begin{equation}
 \ell_{n,\bm{x}}(t) = \frac{\prod\limits_{m \in [N], m \neq n }(t-x_{m})}{\prod\limits_{m \in [N], m \neq n }(x_{n}-x_{m})}.
 \end{equation}
-The approximation of Newton leads to the following identity
-\begin{align}\label{eq:Newton_approx}
-\int_{a}^{b}f(t)\mathrm{d}t & \approx \int_{a}^{b}p_{N-1}(t)\mathrm{d}t  \\
-& =  \sum\limits_{n \in [N]}f(x_{n}) \int_{a}^{b} \ell_{n,\bm{x}}(t) \mathrm{d}t.\\
-& :=  \sum\limits_{n \in [N]}f(x_{n}) w_{n} ,
+The approximation of Newton writes
+\begin{align}\label{eq:Newton_Cotes}
+\int_{a}^{b}f(t)\mathrm{d}t & \approx  \sum\limits_{n \in [N]}w_{n}f(x_{n})  ,
 \end{align}
-with the scalars $w_{n}$, also called the \emph{Cotes numbers}, have the expression
+where the scalars $w_{n}$, also called the \emph{Cotes numbers}, have the expression
 \begin{equation}
 \forall n \in [N], \: w_{n} = \int_{a}^{b} \ell_{n,\bm{x}}(t) \mathrm{d}t.
 \end{equation}
 
-Since any polynomial of degree smaller or equal to $N-1$ is equal to its $N-1$-degree interpolant polynomial, the approximation \eqref{eq:Newton_approx} is exact if $f$ is a polynomial of order smaller or equal to $N-1$. In general, the function $f$ is not a polynomial and one would expect to give a control of the integration error 
-\begin{equation}
-\bigg|\int_{a}^{b}f(t)\mathrm{d}t - \int_{a}^{b}p_{N-1}(t)\mathrm{d}t \bigg| 
-\end{equation}
-for functions that can be well-approximated by low degree polynomials. This is at least what can be achieved using orthogonal polynomials techniques. As we shall see, these techniques are not amenable to be generalized for the approximations of integrals defined on high-dimensional domains.
+The approximation~\eqref{eq:Newton_Cotes}, called the \emph{Newton-Cotes formula}, is an early form of a \emph{quadrature}: the nodes $x_{n}$ and the weights $w_{n}$ are independent of the function $f$. In the case of the Newton-Cotes formula, the explicit values of the weights, for small values of $N$, were found by Cotes. This formula coincides with other well-known quadratures such as the Trapezoid rule, the Simpson's rule, the Boole's rule... Nevertheless, this formula is not optimal for large values of $N$ and the nodes should be replaced by other configurations. This observation gave birth to the Gaussian quadrature and the field of numerical integration using the zeros of orthogonal polynomials.
+ % The explicit values of the weights $w_{n}$ wIn the case of the \emph{Newton-Cotes formula}, the explicit values of the weights $w_{n}$ were calculated by Cotes for small values of $N$.
+As we shall see, these techniques are not amenable to be generalized for  high-dimensional domains.
 
-
-
-% Moreover, one would expect that the approximation \eqref{eq:Newton_approx} is reasonable for a function that can be well-approximated by a polynomial of degree $N$.
-
- 
-
-
-This intuitive approximation is the starting point of many other quadratures such Gaussian quadratures. 
-
-Monte Carlo methods offer another approach to numerical integration. This class of methods, introduced by \cite{MeUl49} for ????,  relies on randomized averaging for the estimation of the value of an integral: given a sequence of random variables $x_{1}, \dots, x_{N}$ generated from a density g with respect to $\mathrm{d}\omega$ then
+Monte Carlo methods offer another approach to numerical integration. This class of methods, introduced by \cite{MeUl49},  relies on randomized averaging for the estimation of the value of an integral: given a sequence of random variables $x_{1}, \dots, x_{N}$ generated from a density g with respect to $\mathrm{d}\omega$ then
 \begin{equation}
 \EX \frac{1}{N}\sum\limits_{n \in [N]} f(x_{n}) = \int_{\mathcal{X}} f(x)g(x) \mathrm{d}\omega(x),
 \end{equation}
 and by the Strong Law of Large Numbers, $\displaystyle \frac{1}{N}\sum\limits_{n \in [N]} f(x_{n})$ converges ($N \rightarrow +\infty$) a.s. to $\displaystyle \int_{\mathcal{X}} f(x)g(x) \mathrm{d}\omega(x)$. Even better, if $\displaystyle \int_{\mathcal{X}} f(x)^{2} \mathrm{d}\omega(x) < +\infty$, the variance of $\displaystyle \frac{1}{N}\sum\limits_{n \in [N]} f(x_{n})$ scales as $\mathcal{O}(1/N^{2})$, and the estimator satisfies a Central Limit Theorem. 
-Remarkably, this rate of convergence does not depend on the dimension of $\mathcal{X}$ (if $\mathcal{X}$...). This property gives an advantage of Monte Carlo methods over deterministic quadrature rules, that scales poorly for high dimension integration problems. 
+Remarkably, this rate of convergence does not depend on the dimension of $\mathcal{X}$ (if $\mathcal{X}$ is a $d$-dimensional manifold). This property gives an advantage of Monte Carlo methods over deterministic quadrature rules, that scales poorly for high dimension integration problems. 
 
 It would be fair to claim that deterministic quadratures are very efficient for smooth low dimensional functions, and this smoothness does not improve the Monte Carlo rate. This observation have fueled a multitude of investigations with a common purpose: improving upon the Monte Carlo rate for smooth functions on high dimensional integration problems. Many approaches were proposed in this rich line of research: Quasi-Monte Carlo methods, Kernel quadrature methods, control functional techniques or  determinantal point processes.
 
-In this chapter a brief review of existing numerical integration methods is given with an emphasis on their connexions. In particular, the contribution of this chapter is the introduction of a new class of quadratures that is at the intersection between determinantal point process and kernel quadrature methods.
+In this chapter a brief review of existing numerical integration methods is given with an emphasis on the connexions between these methods. In particular, the contribution of this chapter is the introduction of a new class of quadratures that is at the intersection between determinantal point process and kernel quadrature methods.
 
-
-
-
-Another approach relies on taking advantage of a randomized averaging to approximate the value of ... This approach is based on the following elementary observation: if $x$ is random variable of $\mathcal{X}$ 
-
-\begin{equation}
-...
-\end{equation} 
-
-
-
-An approximation of \eqref{eq:general_integral_formula} requires, usually, the knowledge of the value of $f$ or its first derivatives on some locations on the domain $\mathcal{X}$ called \emph{nodes}. A \emph{quadrature} is a numerical approximation that takes the following form
-\begin{equation}
-\int_{\mathcal{X}}f(x)g(x)\mathrm{d}\omega(x)   \approx \sum\limits_{n \in [N]}w_{n}f(x_{n}).
-\end{equation}
 
 
 \section{Related work}
-The purpose of this section is to motivate the definition and the theoretical analysis of a class of quadratures based on projection DPPs. This class of quadratures is is naturally defined within the RKHS framework. The merit of this class of quadratures is its universality and applicability to a variety of settings. An exhaustive review of existing results on quadratures is outside the scope of this manuscript; nevertheless, it turns out that many landmark quadratures on the field are connected to projection DPPs. 
-Thus, it is the purpose of this section to highlights these connexions through a review of these quadratures in the following.
+The purpose of this section is to motivate the definition and the theoretical analysis of a class of quadratures based on projection DPPs. This class of quadratures is naturally defined within the RKHS framework. The merit of this class of quadratures is its universality and applicability to a variety of settings. An exhaustive review of existing results on quadratures is outside the scope of this manuscript; nevertheless, it turns out that many landmark quadratures are relevant to the contribution of this chapter. 
+Thus, it is the purpose of this section to highlight these connexions.
 
 
 
@@ -1961,7 +1932,7 @@ Thus, it is the purpose of this section to highlights these connexions through a
 
 
 \subsection{Gaussian quadratures}
-As we have seen in the introduction, the Newton-Cotes quadrature is based on equi-distanced nodes on $[a,b]$ and it is exact for polynomials of order smaller than $N-1$ when $N$ nodes are used. Gauss observed that this configuration (the equi-distanced nodes) is not optimal and shed the light on how to design the configuration $x_{1}, \dots, x_{N}$ in a quadrature. This observation gave birth to the field of Gaussian quadratures.
+As we have seen in the introduction, the Newton-Cotes formula is based on equi-distanced nodes on $[a,b]$ and it is exact for polynomials of order smaller than $N-1$ when $N$ nodes are used. Gauss observed that this configuration -the equi-distanced nodes- is not optimal and shed the light on the question of designing the quadrature nodes. This observation gave birth to the field of Gaussian quadratures.
 % We start by a brief review on quadratures on the real line.
 % \subsubsection{Newton-Cotes quadrature}
 
@@ -1970,7 +1941,7 @@ As we have seen in the introduction, the Newton-Cotes quadrature is based on equ
  Gauss interested in the maximal order of exactness that could be achieved by a quadrature rule based on a configuration of nodes $\bm{x} = \{ x_{1}, \dots, x_{N} \}$ and the corresponding weights $w_{1}, \dots, w_{N}$. This order is defined by 
 
 \begin{equation}
-M(\bm{x}) = \sup \{ m \in \mathbb{N}, \: \int_{a}^{b} t^{m} \mathrm{d}t = \sum\limits_{n \in [N]} w_{n}x_{n}^{m} \}.
+M(\bm{x}) = \sup \{ M \in \mathbb{N}; \exists \bm{w} \in \mathbb{R}^{N}, \: \forall m \in [M], \: \int_{a}^{b} t^{m} \mathrm{d}t = \sum\limits_{n \in [N]} w_{n}x_{n}^{m} \}.
 \end{equation}
 
 
@@ -1980,10 +1951,10 @@ M(\bm{x}) = \sup \{ m \in \mathbb{N}, \: \int_{a}^{b} t^{m} \mathrm{d}t = \sum\l
 
 % \emph{For a fixed value $N$, what is the maximal order $M(\bm{x})$ of polynomials such that the approximation \eqref{eq:Newton_approx} is exact?}
 
-Gauss proved that for any positive integer $N$ there exists a unique configuration $\bm{x}_{G}$, also called the \emph{Gauss nodes}, of cardinality $N$ such that $M(\bm{x}_{G}) = 2N-1$. He also proved that $2N-1$ is the maximal order that could be achieved by any configuration of cardinality $N$. His proof \citep{Gau1815} is based on arguments from continued fractions theory \citep{Khi97}.
+He proved that for any positive integer $N$ there exists a unique configuration $\bm{x}_{G}$, also called the \emph{Gauss nodes}, of cardinality $N$ such that $M(\bm{x}_{G}) = 2N-1$. He also proved that $2N-1$ is the maximal order that could be achieved by any configuration of cardinality $N$. His proof \citep{Gau1815} is based on arguments from continued fractions theory \citep{Khi97}.
 % In particul there exists a remarkable design of nodes that achieves a higher degree of exactness: the approximation \eqref{eq:Newton_approx} is exact if $f$ is a polynomial of order less than $2N-1$.
 % An alternative proof was given by Jacobi , where he proved the existence of this optimal configuration using . 
-Latter, Jacobi [????] showed, using an alternative proof based on simple manipulations on polynomials, that $M(\bm{x}) = 2N-1$ if and only if for every polynomial $p$ of order smaller or equal $N-1$:
+Latter, \cite{Jac1826} showed, using an alternative proof based on simple manipulations on polynomials, that $M(\bm{x}) = 2N-1$ if and only if for every polynomial $p$ of order smaller or equal to $N-1$:
 
 \begin{equation}\label{eq:Legendre_orthogonality}
 \int_{a}^{b} p(t) \pi_{\bm{x}}(t) \mathrm{d}t = 0,
@@ -2010,13 +1981,15 @@ where $\pi_{\bm{x}}$ is the polynomial
 \begin{equation}
 \int_{a}^{b}f(t)\mathrm{d}\omega(t) \approx \sum\limits_{n \in [N]} w_{n}f(x_{n}).
 \end{equation}
-In particular, Christoffel \citep{Chr1877} generalized the Gauss-Jacobi construction to 
-measures $\mathrm{d}\omega(t) = \omega(t)\mathrm{d}t$ for arbitrary weight functions $\omega$ and his approach seems to be generalizable to Stieltjes measures \citep{Gau81}: $\mathrm{d}\omega$ is the Stieltjes measure associated to a non-decreasing function $\omega: \mathbb{R} \rightarrow \mathbb{R}$ with infinitely many points of increase. Typically, $\mathrm{d}\omega$ is assumed to has finite moments of all orders, so that the orthonormal polynomials with respect to $\mathrm{d}\omega$ are defined for all orders:
+
+% : $\mathrm{d}\omega$ is the Stieltjes measure associated to a non-decreasing function $\omega: \mathbb{R} \rightarrow \mathbb{R}$ with infinitely many points of increase.
+
+In particular, \cite{Chr1877} generalized the Gauss-Jacobi construction to 
+measures $\mathrm{d}\omega(t) = \omega(t)\mathrm{d}t$ for arbitrary weight functions $\omega$ and his approach is generalizable to even a broader class of measures \citep{Gau81}. Typically, $\mathrm{d}\omega$ is assumed to has finite moments of all orders, so that the orthonormal polynomials with respect to $\mathrm{d}\omega$ are defined for all orders:
 \begin{align}
 \forall m \in \mathbb{N}, \: \mathrm{deg} P_{m} & = m, \\
 \forall m,m' \in \mathbb{N}, \: \int_{a}^{b} P_{m}(t)P_{m'}(t) \mathrm{d}\omega(t) & = \delta_{m,m'}.
 \end{align}
-
 Again, the roots $x_{1}, \dots, x_{N}$ of $P_{N}$ achieve the maximal order $2N-1$ and the corresponding weights, 
 % the nodes of the quadrature are the roots of the $N$-th orthonormal polynomial 
 % The corresponding weights have the expression
@@ -2024,25 +1997,27 @@ Again, the roots $x_{1}, \dots, x_{N}$ of $P_{N}$ achieve the maximal order $2N-
 % \begin{equation}
 %  \:\: w_{n}^{GC} = \int_{a}^{b} \frac{\prod\limits_{m \in [N], m \neq n }(t-x_{m})}{\prod\limits_{m \in [N], m \neq n }(x_{n}-x_{m})} \mathrm{d}\omega(t),
 % \end{equation}
-called the \emph{Christoffel numbers}, satisfy the identity[???]: 
+called the \emph{Christoffel numbers}, satisfy the identity \citep{Sho29} (see also Theorem 3.4.2 in \citep{Sze39}): 
 \begin{equation}\label{eq:w_n_christoffel_number_formula}
-w_{n} = \frac{1}{\sum\limits_{m =0}^{N-1} P_{m}(x_{n})^{2}}.
+w_{n} = \frac{1}{\sum\limits_{m =0}^{N-1} P_{m}(x_{n})^{2}}. ????
 \end{equation}
 Observe that in \eqref{eq:w_n_christoffel_number_formula}, every $w_{n}$ depends only on the corresponding node $x_{n}$: the Christoffel numbers are the evaluations of  
-the so-called \emph{Christoffel function} on the roots of $P_{N}$. This function has an interesting interpretation in approximation theory that we recall in Chapter~\ref{chapter:signal_reconstruction}.
+the so-called \emph{Christoffel function} on the roots of $P_{N}$. This function has an interesting interpretation in approximation theory that will be recalled in Chapter~\ref{chapter:signal_reconstruction}.
 
 
 % defines a quadrature such that $\displaystyle \sum\limits_{n \in [N]} w_{n} f(x_{n})$ coincides with $\displaystyle  \int_{a}^{b} f(t) \mathrm{d}\omega(t)$ for every polynomial of degree smaller than $2N-1$. The weights of this quadrature 
-
-As for now, we recall a spectral characterization of the Gaussian quadrature. 
-% In practice, the nodes and the weights of the Gaussian quadrature can be calculated using a more elegant way.
-For this purpose, denote by $(a_{m})_{m \in \mathbb{N}}$ and $(b_{m})_{m \in \mathbb{N}}$ the sequences of the three-term recurrence coefficients associated to the $P_{m}$ with respect to $\mathrm{d}\omega$:
+\subsubsection{Jacobi matrices}
+ 
+In practice, the evaluation of the nodes and the weights of the Gaussian quadrature for a given measure $\mathrm{d}\omega$ goes through the evaluation the sequences of the three-term recurrence coefficients associated to the $P_{m}$:
 \begin{align}\label{eq:OP_reccurence_1}
 \forall m \in \mathbb{N}^{*}, \:\:t P_{m}(t) & = a_{m}P_{m+1}(t) + b_{m}P_{m}(t) + a_{m-1}P_{m-1}(t),\\
 \label{eq:OP_reccurence_2}
 t P_{0}(t) & = a_{0}P_{1}(t) + b_{0}P_{0}(t) .
 \end{align}
-A re-writing of \eqref{eq:OP_reccurence_1} and \eqref{eq:OP_reccurence_2} yields 
+% As for now, we recall a spectral characterization of the Gaussian quadrature. 
+% % In practice, the nodes and the weights of the Gaussian quadrature can be calculated using a more elegant way.
+% For this purpose, denote by $(a_{m})_{m \in \mathbb{N}}$ and $(b_{m})_{m \in \mathbb{N}}$  
+Indeed, a re-writing of \eqref{eq:OP_reccurence_1} and \eqref{eq:OP_reccurence_2} yields 
 
 \begin{equation}\label{eq:matrix_OP_reccurence}
 J_{N} \begin{pmatrix}
@@ -2073,7 +2048,27 @@ From \eqref{eq:matrix_OP_reccurence}, we conclude that the roots of $P_{N}$ are 
 P_{0}(x)  \\
 \vdots \\
 P_{N-1}(x) \\
-\end{pmatrix}$: the spectral decomposition of the Jacobi matrix gives the nodes and the weights of the Gaussian quadrature. The matrix $J_{N}$ is known explicitly for many classic measures $\mathrm{d}\omega$ such as .... Yet, building up this matrix is not a trivial problem for a general measure $\mathrm{d}\omega$.
+\end{pmatrix}$: the spectral decomposition of the Jacobi matrix gives the nodes and the weights of the Gaussian quadrature. The matrix $J_{N}$ is known explicitly for many classic orthogonal polynomials such as Chebyshev, Legendre, Hermite... Building up this matrices amount to the calculation of the moment of the measure $\mathrm{d}\omega$ which is a non trivial task for a general measure $\mathrm{d}\omega$. We refer to \citep{GoMe09} for more details on the algorithmic constructions of Gaussian quadratures.
+
+\subsubsection{The convergence guarantees of Gaussian quadratures}
+In general, the integrand $f$ is not a polynomial of low degree so that the quadrature is not exact. One would expect to give a control of the remainder 
+\begin{equation}
+R_{\bm{x},\bm{w}} [f] = \int_{a}^{b}f(t)\mathrm{d}t - \sum\limits_{n \in [N]} w_{n}f(x_{n}). 
+\end{equation}
+if the function $f$ is well-approximated by low degree polynomials. This is the case of holomorphic functions for which a considerable amount of research was devoted. We refer to ??? for an exhaustive review on this topic. Now, for functions of limited degree of smoothness, Taylor series with integral remainder can be used to give an upper bound on the integration error. This is the idea behind a technique developed by Peano who introduced a class of kernels $K_{s}$ so that the remainder of the quadrature writes
+\begin{equation}
+\int_{a}^{b}f(t)\mathrm{d}t - \sum\limits_{n \in [N]} w_{n}f(x_{n}) = \int\limits_{a}^{b}K_{s}(t)f^{(s)}(t)\mathrm{d}t,
+\end{equation}
+where $f$ is assumed to have a piecewise continuous derivative of order $s$; and the kernel $K_{s}$ have the following expression
+\begin{equation}
+K_{s}(t) = R_{\bm{x},\bm{w}} \bigg[ \frac{\max(.-t,0)^{s-1}}{(s-1)!} \bigg].
+\end{equation}
+
+
+ where only low-order derivatives of  one could use the Peano representation of the remainder 
+
+
+Since any polynomial of degree smaller or equal to $N-1$ is equal to its $N-1$-degree interpolant polynomial, the approximation \eqref{eq:Newton_approx} is exact if $f$ is a polynomial of order smaller or equal to $N-1$. 
 
 
 \subsubsection{High dimensional Gaussian quadratures}
@@ -2329,14 +2324,14 @@ This family of sequence is
 Several quadratures are based on nodes that follow the distribution of a Determinantal Point Process. The rationale behind this choice is the strong statisitical properties of these quadratures. We review in this section the results and the techniques used in this line of research. 
 
 \subsubsection{The quadrature based on the Circular Unitary Ensemble}
-We start by reviewing the case of the Circular Unitary Ensemble (CUE): the set of the eigenvalues of a random matrix chosen from Haar measure on the unitary group $\mathbb{U}_{N}$. \cite{Wey46} proved that this random set follows the distribution of a projection DPP defined on unit complex circle $\mathbb{U} = \{ u \in \mathbb{C}, |u| =1 \}$, and marginal kernel:
+We start by the case of the Circular Unitary Ensemble (CUE): the set of the eigenvalues of a random matrix chosen from Haar measure on the unitary group $\mathbb{U}_{N}$. \cite{Wey46} proved that this random set follows the distribution of a projection DPP defined on unit complex circle $\mathbb{U} = \{ u \in \mathbb{C}, |u| =1 \}$, and marginal kernel:
 \begin{equation}
 \KDPP(x,y) = \sum\limits_{n \in [N]} e^{2 \pi n \iota(x-y)}.
 \end{equation}
 
 Equivalently, the joint distribution of the elements of the CUE have the probability density with respect to the uniform measure on $\mathbb{U}^{N}$:
 \begin{equation}\label{eq:haar_eigenvalues_density}
- \frac{1}{N!(2\pi)^{N}} \prod\limits_{1 \leq n,n' \leq N} |e^{-i \theta_{n}} - e^{-i \theta_{n'}}|^{2}.
+ \frac{1}{N!(2\pi)^{N}} \prod\limits_{1 \leq n,n' \leq N} |e^{-\iota \theta_{n}} - e^{-\iota \theta_{n'}}|^{2}.
 \end{equation}
 
 
@@ -2388,12 +2383,12 @@ can be seen as a quadrature formula applied to the functions $z \mapsto z^{\ell}
 
 
 \begin{theorem}[\cite{Joh97}]
-Let $g$ be a real-valued function on $\mathbb{U}$ with $g(e^{\iota \theta}) = \sum\limits_{n =-\infty}^{+\infty} \hat{g}_{n}e^{\iota n \theta}$
- such that $\hat{g}_{0} = 0$ and $\displaystyle \sum\limits_{n \in \mathbb{N}^{*}} n|\hat{g}_{n}|^{2} <+\infty$ and let $(e^{\iota \theta_{n}})_{n \in [N]}$ be the CUE. \\
+Let $g$ be a real-valued function on $\mathbb{U}$ with $g(e^{\iota \theta}) = \sum\limits_{m =-\infty}^{+\infty} \hat{g}_{m}e^{\iota m \theta}$
+ such that $\hat{g}_{0} = 0$ and $\displaystyle \sum\limits_{m \in \mathbb{N}^{*}} m|\hat{g}_{m}|^{2} <+\infty$ and let $(e^{\iota \theta_{n}})_{n \in [N]}$ be the CUE. \\
  Then the random variable $\displaystyle \frac{1}{N}\sum\limits_{n \in [N]} g(e^{\iota\theta_{n}})$
  % a random element of $\mathbb{U}^{N}$ that follows the distribution defined by the density~\eqref{eq:haar_eigenvalues_density}
 % Let $\bm{\theta} = (\theta_{n})_{n \in [N]} \in [0,2\pi]^{N}$ a random vector, such that the joint distribution of $(\theta_{1}, \dots, \theta_{N})$ have the density~\eqref{eq:haar_eigenvalues_density}. 
-converges to $\displaystyle \mathcal{N}(0,\frac{2}{N}\sum\limits_{n \in \mathbb{N}^{*}} n|\hat{g}_{n}|^{2})$.
+converges to $\displaystyle \mathcal{N}(0,\frac{2}{N}\sum\limits_{m \in \mathbb{N}^{*}} m|\hat{g}_{m}|^{2})$.
 \end{theorem}
 
 
@@ -2423,86 +2418,166 @@ converges to $\displaystyle \mathcal{N}(0,\frac{2}{N}\sum\limits_{n \in \mathbb{
 \end{figure}
 
 \subsubsection{The quadratures based on Orthogonal Polynomial Ensembles}
-As we have seen in the last paragraph, the quadrature based on CUE and uniform weights achieves an asymptotic rate $\mathcal{O}(1/N)$ for sufficiently regular functions. It is legitimate to ask whether similar fast rates can be achieved in high-dimensional domains using DPPs.
-
-
-
-\cite{BaHa16} proved the first CLT for a DPP based quadrature for functions defined on a high dimensional domain. In particular,  this work focused on the approximation of integrals that write
-\begin{equation}
-\int_{[-1,1]^{d}} f(x) \mathrm{d}\omega(x),
-\end{equation}
-for a measure $\mathrm{d}\omega$ that  factorized as
+% It is possible to define DPPs on high-dimensional domains through random As we have seen previously, the quadrature based on CUE and uniform weights achieves a fast asymptotic rate $\mathcal{O}(1/N)$ for sufficiently regular functions. It is legitimate to ask whether similar fast rates can be achieved in high-dimensional domains using DPPs.
+\cite{BaHa16} proved the first CLT for a DPP based quadrature defined on a high dimensional domain. This time, the nodes follows an Orthogonal Polynomial Ensemble (OPE): the marginal kernel is  defined through orthogonal polynomials with respect to some measure $\mathrm{d}\omega$ that factorizes as
 \begin{equation}
 \mathrm{d}\omega(x) = \prod\limits_{\delta \in [d]} \mathrm{d}\omega_{\delta}(x_{\delta}),
 \end{equation}
-where the measures $\mathrm{d}\omega_{\delta}$, defined on $[-1,1]$, belong to what is called the \emph{Nevai class}. The nodes of the quadrature are an Orthogonal Polynomial Ensemble: a random set that follows the distribution of a projection DPP of reference measure $\mathrm{d}\omega$ and marginal kernel
-\begin{equation}
-\KDPP_{N}(x,y) = \sum\limits_{n \in [N]} P_{\bm{u}_{n}}(x)P_{\bm{u}_{n}}(y),
-\end{equation}
-where $(P_{\bm{u}_{n}})_{n \in [N]}$ are the first $N$ orthogonal polynomials with respect to $\mathrm{d}\omega$; and the corresponding weight for every node $x_{n}$ is $\displaystyle w_{n} =1/\KDPP_{N}(x_{n},x_{n})$.
-
-Before we review the main result of \citep{BaHa16}, we recall the definition of the Nevai class of measures in the following.
-
+where the measures $\mathrm{d}\omega_{\delta}$, defined on $[-1,1]$, belong to what is called the \emph{Nevai class}. 
 \begin{definition}
-
-
-Let $\mathrm{d}\tilde{\omega}$ a measure on the real line supported on $[-1,1]$. Denote by $(a_{m})_{m \in \mathbb{N}}$ and $(b_{m})_{m \in \mathbb{N}}$ the sequences of coefficients appearing in the three-term recurrence relation:
-\begin{equation}
-t P_{m}(t) = a_{m}P_{m+1}(t) + b_{m}P_{m}(t) + a_{m-1}P_{m-1}(t),
-\end{equation}
-associated to the sequence of orthogonal polynomials $(P_{m})_{m \in \mathbb{N}}$ with respect to $\mathrm{d}\tilde{\omega}$.
-
-The measure $\mathrm{d}\tilde{\omega}$ is said to be of Nevai class if and only if
+Let $\mathrm{d}\tilde{\omega}$ a measure supported on $[-1,1]$. $\mathrm{d}\tilde{\omega}$ is said to be of Nevai class if 
+the recurrence coefficients for
+the associated orthonormal polynomials satisfy
+% Denote by $(a_{m})_{m \in \mathbb{N}}$ and $(b_{m})_{m \in \mathbb{N}}$ the sequences of coefficients appearing in the three-term recurrence relation:
+% \begin{equation}
+% t P_{m}(t) = a_{m}P_{m+1}(t) + b_{m}P_{m}(t) + a_{m-1}P_{m-1}(t),
+% \end{equation}
+% associated to the sequence of orthogonal polynomials $(P_{m})_{m \in \mathbb{N}}$ with respect to $\mathrm{d}\tilde{\omega}$.
 \begin{equation}
 \lim\limits_{m \rightarrow +\infty} a_{m} = 1/2, \:\:\: \lim\limits_{m \rightarrow +\infty} b_{m} = 0.
 \end{equation}
 \end{definition}
-The particular case when 
+The simplest example of a Nevai class measure is the measure $\mathrm{d}\tilde{\omega}^{*}(x) = \tilde{\omega}^{*}(x) \mathrm{d}x$ with 
 \begin{equation}
-\forall m \in \mathbb{N}, \:\: a_{m} = \frac{1}{2}, \:\: b_{m} =0,
+\tilde{\omega}^{*}(x) = \frac{1}{\pi\sqrt{1-x^{2}}}.
 \end{equation}
-corresponds to the Chebyshev orthogonal polynomials of the first kind; and the corresponding measure $\mathrm{d}\tilde{\omega}^{*}$ admits a density $\tilde{\omega}^{*}$ with respect to the Lebesgue measure:
+It corresponds to the particular case when $a_{m} = a^{*}_{m} = \frac{1}{2}$ and $b_m =  b^{*}_{m} =0$ for $m \in \mathbb{N}^{*}$: the corresponding orthonormal polynomials are the Chebyshev polynomials of the first kind, that we denote $(T_{m})_{m \in \mathbb{N}}$.
+In a nutshell, the Nevai class contains measures that have three terms coefficients converging to the corresponding coefficients of $\mathrm{d}\tilde{\omega}^{*}$.
+ % the Nevai class contains measures that have similar recurrence coefficients as $\mathrm{d}\tilde{\omega}^{*}$ asymptotically. We recall latter the formal definition of this class of measures. 
+ This class contains, at least, measures that are absolutely continuous with respect to the Lebesgue measure with strictly positive densities; see Section 1.4 of \citep{Sim10} for details. 
+
+Now, the  marginal kernel of an OPE is constructed as follows: for $\delta \in [d]$, denote by 
+$(P^{\delta}_{m})_{m \in \mathbb{N}}$ the orthonormal polynomials with respect to $\mathrm{d}\omega_{\delta}$, and let
 \begin{equation}
-\tilde{\omega}^{*}(x) = \frac{1}{\sqrt{1-x^{2}}}.
+\KDPP_{N}(x,y) = \sum\limits_{n \in [N]} \bm{P}_{\bm{u}(n)}(x)\bm{P}_{\bm{u}(n)}(y),
+\end{equation}
+where the $\bm{u}_{n} \in \mathbb{N}^{d}$ are multi-indices ordered with respect to the graded lexicographic order, and $\bm{P}_{\bm{u}(n)}$ are multidimensional orthogonal polynomials
+\begin{equation}
+\bm{P}_{\bm{u}(n)}(x) = \prod\limits_{\delta \in [d]} P^{\delta}_{\bm{u}(n)_{\delta}}(x_{\delta}).
 \end{equation}
 
-In other words, the Nevai class contains measures that have three terms coefficients converging to the corresponding coefficients of $\mathrm{d}\tilde{\omega}^{*}$.
 
-A sufficient condition for a measure to be Nevai class is given in the following result.
-\begin{theorem}
-Let $\mathrm{d}\tilde{\omega}$ be a measure supported on $[-1,1]$, and consider its Lebesgue decomposition:
-\begin{equation}
-\mathrm{d}\tilde{\omega} = \tilde{\omega}(x) \mathrm{d}x + \mathrm{d}\tilde{\omega}_{s}.
+The authors studied the quadrature based on OPE, and for every node $x_{n}$ the corresponding weight $\displaystyle w_{n} =1/\KDPP_{N}(x_{n},x_{n})$. Among settings considered in the article, we recall the following theorem.
+
+ % and the authors established the following result.
+
+
+\begin{theorem}[Theorem 3 in \citep{BaHa16}]
+Let $\bm{x}$ an OPE with respect to the measure 
+\begin{equation}\label{eq:jacobi_measures}
+\mathrm{d}\omega(x) = \omega(x) \prod\limits_{\delta \in [d]} \mathrm{d}x_{\delta} := \prod\limits_{\delta \in [d]} (1-x_{\delta})^{\alpha_{\delta}}(1+x_{\delta})^{\beta_{\delta}} \mathbb{1}_{[-1,1]}(x_{\delta}) \mathrm{d}x_{\delta},
 \end{equation}
-If $\tilde{\omega}(x) >0$ almost everywhere, then $\mathrm{d}\tilde{\omega}$ is Nevai class.
-\end{theorem}
-
-Now for a given measure $\mathrm{d}\omega$ that decomposes as the product of $d$ Nevai class measures $\mathrm{d}\omega_{\delta}$, define ....
-
-and the projection kernel
-\begin{equation}
-\KDPP(x,y) = \sum\limits_{n \in [N]} ...
-\end{equation} 
-
-\begin{theorem}
-Let $\mu$ be a reference measure such that it's support is included in $[0,1]^{d}$, and assume that $\mu = \mu_{1} \otimes \dots \otimes \mu_{d}$, where each $\mu_{\delta}$ is Nevai class. 
-
-
-Then for every $f \in \mathcal{C}^{1}([0,1]^{d}, \mathbb{R})$,
+where $\alpha_{1}, \beta_{1}, \dots, \alpha_{d}, \beta_{d} > -1$; and denote $\displaystyle \omega^{*}(x) = \prod\limits_{\delta \in [d]} \tilde{\omega}^{*}(x_{\delta})$.
+% $\mathrm{d}\omega = \mathrm{d}\omega_{1} \otimes \dots \otimes \mathrm{d}\omega_{d}$, where each $\mathrm{d}\omega_{\delta}$ is Nevai class.
+Then for every $f \in \mathcal{C}^{1}([-1,1]^{d}, \mathbb{R})$,
 
 \begin{equation}
-\frac{1}{\sqrt{N^{1-1/d}}} \big( \sum\limits_{n \in [N]}f(x_{n}) - ... \big) \rightarrow \mathcal{N}(0,\sigma^{2}(f)),
+\lim\limits_{N \rightarrow +\infty} N^{1+1/d} \EX \bigg( \sum_{n \in [N]}\frac{f(x_{n})}{\KDPP_{N}(x_{n},x_{n})} - \int\limits_{[-1,1]^{d}} f(x) \mathrm{d}\omega(x) \bigg)^{2}  =  \sigma^{2}(f),
+\end{equation}
+and
+\begin{equation}
+\sqrt{N^{1+1/d}} \big( \sum_{n \in [N]}\frac{f(x_{n})}{\KDPP_{N}(x_{n},x_{n})} - \int\limits_{[-1,1]^{d}} f(x) \mathrm{d}\omega(x) \big) \rightarrow \mathcal{N}(0,\sigma^{2}(f)),
 \end{equation}
 where
 \begin{equation}
-\sigma^{2}(f) = \frac{1}{2} \sum\limits_{m_{1}, \dots , m_{d} = 0}^{+\infty} (m_{1}+\dots +m_{d}) \hat{f}(m_{1}, \dots, m_{d})^{2},
+\sigma^{2}(f) = \frac{1}{2} \sum\limits_{m_{1}, \dots , m_{d} = 0}^{+\infty} (m_{1}+\dots +m_{d}) \widehat{\frac{f \omega}{\omega^{*}}} (m_{1}, \dots, m_{d})^{2},
 \end{equation}
 and 
 \begin{equation}
-\hat{f}(m_{1},\dots,m_{d}) = \int_{[-1,1]^{d}} f(u_{1}, \dots, u_{d}) \prod\limits_{\delta \in [d]} T_{m_{\delta}}(u_{\delta}) \frac{1}{\pi \sqrt{1-u_{\delta}^{2}}} \mathrm{d}u_{\delta}
+\hat{\varphi}(m_{1},\dots,m_{d}) = \int_{[-1,1]^{d}} \varphi(u_{1}, \dots, u_{d}) \prod\limits_{\delta \in [d]} T_{m_{\delta}}(u_{\delta}) \frac{1}{\pi \sqrt{1-u_{\delta}^{2}}} \mathrm{d}u_{\delta}.
 \end{equation}
 
 \end{theorem}
+
+In other words, the quadrature based on the OPE converges with an asymptotic rate $\mathcal{O}(N^{-1-\frac{1}{d}})$ for functions in $\mathcal{C}$. 
+ As we can see, this rate is better than the Monte Carlo rate $\mathcal{O}(N^{-1})$ but the improvement worsen as the dimension increases because of the term $1/d$. This rate is also valid for tensor products of Nevai measures under some technical conditions as it was proved by the authors. In practice, as we have seen in Chapter~\ref{chapter:dpp}, the numerical implementation of an OPE requires the computation of the orthonormal polynomials $\bm{P}_{\bm{u}(n)}$ with respect to the measure $\mathrm{d}\omega$; which is possible for the measures \eqref{eq:jacobi_measures}, also called \emph{Jacobi measures}. 
+
+
+ Moreover, the quadrature, after scaling by the factor $\sqrt{N^{1+1/d}}$, satisfies a CLT with an asymptotic variance $\sigma^{2}(f)$ that depends on the coefficients of the function $\displaystyle f \omega / \omega^{*}$ on the orthonormal basis $\bm{T}_{\bm{u}(n)} = \prod\limits_{ \delta \in [d]} T_{\bm{u}(n)_{\delta}}$. In particular, when $\omega = \omega^{*}$, the asymptotic variance writes
+\begin{equation}
+\sigma^{2}(f) = \frac{1}{2} \sum\limits_{m_{1}, \dots , m_{d} = 0}^{+\infty} (m_{1}+\dots +m_{d}) \widehat{f} (m_{1}, \dots, m_{d})^{2},
+\end{equation}
+that could be interpreted as a semi-norm in a Hilbert space that reflect the regularity of the integrand $f$. Indeed, the authors proved the inequality [Proposition 1 in \citep{BaHa16}]
+\begin{equation}\label{eq:bound_baha_variance}
+\sigma^{2}(f) \leq \frac{1}{2} \sum\limits_{\delta \in [d]} \int_{[-1,1]^{d}} \bigg(\sqrt{1-x_{\delta}^{2}} \partial_{\delta}f(x_{1}, \dots,x_{d}) \bigg)^{2} \prod\limits_{\delta \in [d]} \frac{\mathrm{d}x_{\delta}}{\pi \sqrt{1-x_{\delta}^{2}}},
+\end{equation}
+the r.h.s of \eqref{eq:bound_baha_variance} depends on the fluctuations of the function $f$: $\sigma^{2}(f)$ is a measure of the smoothness of the function $f$. This connexion between the smoothness of the function $f$ and the statistical properties of a quadrature based on DPP nodes was confirmed in another setting.
+
+
+
+  % the smaller the value of $\sigma^{2}(f)$, the lower is the  
+
+
+
+% In particular, for measures that writes
+%  \begin{equation}
+% \mathrm{d}\omega(x) = \prod\limits_{\delta \in [d]} (1-x_{\delta})^{\alpha_{\delta}}(1+x_{\delta})^{\beta_{\delta}} \mathbb{1}_{[-1,1]}(x_{\delta}) \mathrm{d}x_{\delta},
+%  \end{equation}
+% where $\alpha_{1}, \beta_{1}, \dots, \alpha_{d}, \beta_{d} > -1$, the family of multivariate orthogonal polynomials $\bm{P}_{\bm{u}(n)}$ is computable,
+
+% It is well known that the corresponding  orthogonal polynomials are the Chebyshev polynomials of the first kind.
+
+
+% \begin{theorem}
+% Let $\bm{x}$ an OPE with respect to the measure $\mathrm{d}\omega = \mathrm{d}\omega_{1} \otimes \dots \otimes \mathrm{d}\omega_{d}$, where each $\mathrm{d}\omega_{\delta}$ is Nevai class. 
+
+
+% Then for every $f \in \mathcal{C}^{1}([0,1]^{d}, \mathbb{R})$,
+
+% \begin{equation}
+% \frac{1}{\sqrt{N^{1-1/d}}} \big( \sum_{n \in [N]}\frac{f(x_{n})}{\KDPP_{N}(x_{n},x_{n})} - \int\limits_{[-1,1]^{d}} f(x) \mathrm{d}\omega(x) \big) \rightarrow \mathcal{N}(0,\sigma^{2}(f)),
+% \end{equation}
+% where
+% \begin{equation}
+% \sigma^{2}(f) = \frac{1}{2} \sum\limits_{m_{1}, \dots , m_{d} = 0}^{+\infty} (m_{1}+\dots +m_{d}) \hat{f}(m_{1}, \dots, m_{d})^{2},
+% \end{equation}
+% and 
+% \begin{equation}
+% \hat{f}(m_{1},\dots,m_{d}) = \int_{[-1,1]^{d}} f(u_{1}, \dots, u_{d}) \prod\limits_{\delta \in [d]} T_{m_{\delta}}(u_{\delta}) \frac{1}{\pi \sqrt{1-u_{\delta}^{2}}} \mathrm{d}u_{\delta}.
+% \end{equation}
+
+% \end{theorem}
+
+% For now, 
+% The corresponding family of 
+
+
+
+
+% Before going into technical details, we recall the result in the simple case of ...
+
+
+
+ % the Chebyshev orthogonal polynomials of the first kind; and the corresponding 
+
+
+% $(P_{\bm{u}_{n}})_{n \in [N]}$ are the first $N$ orthogonal polynomials with respect to $\mathrm{d}\omega$
+
+
+% nodes of the quadrature are an Orthogonal Polynomial Ensemble: a random set that follows the distribution of a projection DPP of reference measure $\mathrm{d}\omega$ and marginal kernel
+
+% where $(P_{\bm{u}_{n}})_{n \in [N]}$ are the first $N$ orthogonal polynomials with respect to $\mathrm{d}\omega$.
+
+
+% Before we review the main result of \citep{BaHa16}, we recall the definition of the Nevai class of measures in the following.
+
+
+% A sufficient condition for a measure to be Nevai class is given in the following result.
+% \begin{theorem}
+% Let $\mathrm{d}\tilde{\omega}$ be a measure supported on $[-1,1]$, and consider its Lebesgue decomposition:
+% \begin{equation}
+% \mathrm{d}\tilde{\omega} = \tilde{\omega}(x) \mathrm{d}x + \mathrm{d}\tilde{\omega}_{s}.
+% \end{equation}
+% If $\tilde{\omega}(x) >0$ almost everywhere, then $\mathrm{d}\tilde{\omega}$ is Nevai class.
+% \end{theorem}
+
+% Now for a given measure $\mathrm{d}\omega$ that decomposes as the product of $d$ Nevai class measures $\mathrm{d}\omega_{\delta}$, define ....
+
+% and the projection kernel
+% \begin{equation}
+% \KDPP(x,y) = \sum\limits_{n \in [N]} ...
+% \end{equation} 
+
 
 \subsubsection{CLT using the Dirichlet kernel}
 In \citep*{CoMaAm20}, the authors proposed to study a quadrature based on a different projection DPP and using uniform weights. The integrand $f$ was assumed to be square integrable and periodic on the hypercube $[0,1]^{d}$. The repulsion kernel $\KDPP$ is constructed as following: let $N = \prod\limits_{\delta \in [d]}N_{\delta} \in \mathbb{N}^{*}$ for some $N_{1}, \dots, N_{d} \in \mathbb{N}^{*}$; and the projection DPP is defined by
