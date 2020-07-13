@@ -2055,7 +2055,7 @@ In general, the integrand $f$ is not a polynomial of low degree so that the quad
 \begin{equation}
 R_{\bm{x},\bm{w}} [f] = \int_{a}^{b}f(t)\mathrm{d}t - \sum\limits_{n \in [N]} w_{n}f(x_{n}). 
 \end{equation}
-if the function $f$ is well-approximated by low degree polynomials. This is the case of holomorphic functions for which a considerable amount of research was devoted. We refer to ??? for an exhaustive review on this topic. Now, for functions of limited degree of smoothness, Taylor series with integral remainder can be used to give an upper bound on the integration error. This is the idea behind a technique developed by Peano who introduced a class of kernels $K_{s}$ so that the remainder of the quadrature writes
+if the function $f$ is well-approximated by low degree polynomials. This is the case of holomorphic functions for which a considerable amount of research was devoted. We refer to ???? for an exhaustive review on this topic. Now, for functions of limited degree of smoothness, Taylor series with integral remainder can be used to give an upper bound on the integration error. This is the idea behind a technique developed by Peano who introduced a class of kernels $K_{s}$ so that the remainder of the quadrature writes
 \begin{equation}
 \int_{a}^{b}f(t)\mathrm{d}t - \sum\limits_{n \in [N]} w_{n}f(x_{n}) = \int\limits_{a}^{b}K_{s}(t)f^{(s)}(t)\mathrm{d}t,
 \end{equation}
@@ -2065,14 +2065,14 @@ K_{s}(t) = R_{\bm{x},\bm{w}} \bigg[ \frac{\max(.-t,0)^{s-1}}{(s-1)!} \bigg].
 \end{equation}
 
 
- where only low-order derivatives of  one could use the Peano representation of the remainder 
+ where only low-order derivatives of  one could use the Peano representation of the remainder ****
 
 
-Since any polynomial of degree smaller or equal to $N-1$ is equal to its $N-1$-degree interpolant polynomial, the approximation \eqref{eq:Newton_approx} is exact if $f$ is a polynomial of order smaller or equal to $N-1$. 
+% Since any polynomial of degree smaller or equal to $N-1$ is equal to its $N-1$-degree interpolant polynomial, the approximation \eqref{eq:Newton_approx} is exact if $f$ is a polynomial of order smaller or equal to $N-1$. 
 
 
 \subsubsection{High dimensional Gaussian quadratures}
-
+****
 
 \subsection{Quasi-Monte Carlo methods}
 As we have seen previously, a high precision approximation of a unidimensional integral  is possible using deterministic rules such as Newton-Cotes or Gaussian quadratures provided that the integrand is smooth. Now, for a smooth function defined on some high dimensional domains, one can use the tensor product of these rules. However, the number of the required evaluations grows exponentially with the dimension $d$. This poor scalability of grids with respect to the dimension $d$ motivated the emergence of a new class of quadratures called quasi-Monte Carlo rules: they are based on "well-spread" low discrepancy sequences and their weights are uniform $\displaystyle w_{n} = \frac{1}{N}$.
@@ -2226,9 +2226,11 @@ x_{n} = ((n-1)/N,v_{b_1,n}, \dots, v_{b_{d-1},n}).
 \end{equation}
 These cryptic configurations have an interesting property: they are low discrepancy sequences on $[0,1]^{d}$. Indeed, under the assumption that the $b_{1}, \dots, b_{d}$ are pairwise relatively prime, the star discrepancy of the Halton sequence is $\displaystyle \mathcal{O}\bigg(\frac{(\log N)^{d}}{N} \bigg)$; while the star discrepancy of the Hammersley sequence is $\displaystyle \mathcal{O} \bigg(\frac{(\log N)^{d-1}}{N} \bigg)$: for a sufficiently regular function, and for a sufficently large number of nodes $(N = \Omega(e^{d}))$, the rate of convergence of the Quasi-Monte Carlo quadrature based on these sequences would be faster compared to the Monte Carlo rate $\mathcal{O}(N^{-1/2})$. Figure~\ref{fig:halton_vs_grid_disc} compares the local discrepancy of the Halton sequence and the uniform grid for $N \in \{25,144,400\}$: the Halton sequence have always the smallest star-discrepancy that decreases faster as a function of $N$. 
 
+Another class of sequences ****
+
+% These rates are a consequence of a long line of research and the techniques of the proof are borrowed from ...
 
 
-These rates are a consequence of a long line of research and the techniques of the proof are borrowed from ...
 
 
 % %%%%%%%%%%
@@ -2289,33 +2291,38 @@ These rates are a consequence of a long line of research and the techniques of t
 
 % The star discrepancy of the Hammersley point sets scales as $\displaystyle \mathcal{O}(\frac{(\log N)^{d-1}}{N})$ which is a better rate than the Halton sequence rate.
 
+As it was mentioned in the introduction of this section, this review is limited to the fundamental aspects of Quasi-Monte Carlo methods relevant for the discussions latter, and many topics were dropped from this review. We refer to \citep{DiPi14} for more details on the topic. 
 
-Lattice point sets is another family of designs that contains some low discrepancy sequences.
+% Other families of configurations include lattice points, 
 
-\begin{definition}
-Let $\bm{g} \in \mathbb{N}^{d}$, $N \in \mathbb{N}$. A lattice point set of generating vector $\bm{g}$ is the design $\bm{x}$ defined by
-\begin{equation}
-x_{n} = \{ n\bm{g}/N \}.
-\end{equation}
-\end{definition}
+% Lattice point sets is another family of configurations that contains low discrepancy sequences. 
 
-The star discrepancy of a lattice is tractable and it is given by ...
+% Typically, their rates are 
 
-\begin{proposition}
-\begin{equation}
-\Delta_{*}(\bm{x}) \leq \frac{d}{N} + \frac{1}{2} \sum\limits_{h ...}
-\end{equation}
-\end{proposition}
+% \begin{definition}
+% Let $\bm{g} \in \mathbb{N}^{d}$, $N \in \mathbb{N}$. A lattice point set of generating vector $\bm{g}$ is the design $\bm{x}$ defined by
+% \begin{equation}
+% x_{n} = \{ n\bm{g}/N \}.
+% \end{equation}
+% \end{definition}
 
-This family of sequence is 
+% The star discrepancy of a lattice is tractable and it is given by ...
+
+% \begin{proposition}
+% \begin{equation}
+% \Delta_{*}(\bm{x}) \leq \frac{d}{N} + \frac{1}{2} \sum\limits_{h ...}
+% \end{equation}
+% \end{proposition}
+
+% This family of sequence is 
 
 
-....
+% ....
 
 
-....
+% ....
 
-....
+% ....
 
 
 
@@ -2761,6 +2768,8 @@ An element $f$ of $\mathcal{K}_{d,s}$ have square-integrable partial derivatives
 k_{QMC}(\bm{x},\bm{y}) = \prod\limits_{\delta \in [d]} (2-\min(x_{\delta},y_{\delta})).
 \end{equation}
 
+****
+
 
 \subsection{The Mercer decomposition}
 \label{subsec:mercer}
@@ -2897,9 +2906,9 @@ In other words, quasi-Monte Carlo rules fit within the kernel framework of quadr
 
 % We recall in the following the aspects shared between kernel quadrature and quasi-Monte Carlo methods and we show the potential benefits of optimal kernel quadrature rules. 
 
-\subsection{The link with Bayesian quadrature}
-\label{subsec:bayesian_quadrature}
-\emph{Bayesian Quadrature} initially \citep{Lar72} considered a fixed set of nodes and put a Gaussian process prior on the integrand $f$. Then, the weights were chosen to minimize the posterior variance of the integral of $f$. If the kernel of the Gaussian process is chosen to be $k$, this amounts to minimizing the RHS of \eqref{eq:integral_bound_mean_element}. The case of the Gaussian reference measure was later investigated in detail \citep{Hag91}, while parametric integrands were considered in \citep{Min00}.
+% \subsection{The link with Bayesian quadrature}
+% \label{subsec:bayesian_quadrature}
+
 \subsection{Optimal kernel quadrature}
 \label{subsec:okq_analysis_paradigm}
 
@@ -2931,12 +2940,37 @@ where $\bm{\Pi}_{\mathcal{T}(\bm{x})} = \bm{\Phi}(\bm{\Phi}^{*}\bm{\Phi})^{-1}\b
 \begin{equation}
 \forall n \in [N], \:\bm{\Phi}\hat{\bm{w}}(x_{n}) = \mu_{g}(x_{n}).
 \end{equation}
+We define the \emph{interpolation error} of $\mu_{g}$:
+\begin{equation}
+\|\mu_{g}- \Pi_{\mathcal{T}(\bm{x})}\mu_{g}\|_{\mathcal{F}}.
+\end{equation}
+As we have seen, under the assumption that the matrix $\bm{K}(\bm{x})$ is non-singular, the computation of the weights of the optimal kernel quadrature is a relatively simple task. Yet the task of designing a good configuration $\bm{x}$ is not trivial as we shall see in the next section where we review the main results on the literature about design problems for optimal kernel quadrature.
+\subsection{Designs for optimal kernel quadrature}
+We review in this section the literature on the design of configurations for optimal kernel quadrature.
+\subsubsection{Deterministic configurations}
+\cite{Boj81} proved that, for $g=1$, the interpolation of $\mu_{g}$ using the uniform grid over $\X = [0,1]$ has an error in $\mathcal{O}(N^{-2s})$ if $\F$ is the periodic Sobolev space of order $s$, and that any set of nodes leads to that rate at least. A similar rate was proved for $g$ not constant \citep{NoUlWo15} even though it is only asymptotically optimal in that case.
+% , is optimal\rb{What do you mean by optimal at this stage?} for the  , with a convergence rate in $\mathcal{O}(N^{-2s})$. If $g$ is not constant, the uniform grid is only optimal for large values of $N$  but the convergence rate remains $\mathcal{O}(N^{-2s})$ \citep{NoUlWo15}.
 
+In the quasi-Monte Carlo (QMC) literature, several designs were investigated for $\X = [0,1]^{d}$, $g = 1$ and $\F$ that may not even be a Hilbert space; see \citep{DiPi10}. In this context, the term \emph{QMC quadrature rule} means a low discrepancy sequence, loosely speaking a ``well-spread" set of nodes, along with uniform weights $w_{i} \equiv 1/N$. If $\F$ is a Korobov space of order $s \geq 1$, the Halton sequence of nodes \citep{Hal64} leads to $\mathcal{E}(\mu_1; \bm{x}, (1/N))^2$ in $\mathcal{O}(\log(N)^{2d} N^{-2})$ and higher-order digital nets converge faster as $\mathcal{O}(\log(N)^{2sd} N^{-2s})$ \citep{DiPi14}[Theorem 5].
 
-\subsection{Ridge leverage score quadrature}
+These rates are naturally inherited if the uniform weights are replaced by the respective optimal weights $\hat{\bm{w}}$, as observed by \cite{BOGOS2019}. In particular, \cite{BOGOS2019} emphasize that the bound for higher-order digital nets attains the optimal rate in this RKHS.
+For optimal kernel quadrature based on Halton sequences, this inheritance argument does not explain the fast $\mathcal{O}(\log(N)^{2sd} N^{-2s})$ rates observed empirically by \cite{Oett17}.
+
+Beside the hypercube, optimal kernel quadrature has been considered on the hypersphere equipped with the uniform measure \citep{EhGrCh19}, or on $\mathbb{R}^{d}$ equipped with the Gaussian measure \citep{KaSa19}. In these works, the design construction is adhoc for the space $\X$ and
+%except for the case of the uniform grid in $\X = [0,1]$,
+$g$ is usually assumed to be constant. Another approach is offered by optimisation algorithms that we review in Section~\ref{sec:sequential_algos}. Before that, we clarify the subtle difference between optimal kernel quadrature and kernel interpolation.
+
+\subsubsection{Sequential Bayesian quadrature}
+
+****
+
+\emph{Bayesian Quadrature} \citep{Lar72} initially considered a fixed set of nodes and put a Gaussian process prior on the integrand $f$. Then, the weights were chosen to minimize the posterior variance of the integral of $f$. If the kernel of the Gaussian process is chosen to be $k$, this amounts to minimizing the RHS of \eqref{eq:integral_bound_mean_element}. The case of the Gaussian reference measure was later investigated in detail \citep{Hag91}, while parametric integrands were considered in \citep{Min00}.
+
+\subsubsection{Ridge leverage score quadrature}
 \label{subsec:okq_algebraic_paradigm}
-
-The work of \cite{Bac17} highlights the fundamental role played by the spectral decomposition of the operator $\bm{\Sigma}$ in designing and analyzing kernel quadrature rules.
+The regularization of the problem~\eqref{eq:wce_repeated_optimization} offers an alternative approach for the design of the configuration $\bm{x}$ as it was shown in \citep{Bac17}.
+% A similar problem is the desig alternative approach is the regularization of the problem .... 
+This work highlights the fundamental role played by the spectral decomposition of the operator $\bm{\Sigma}$ in designing and analyzing kernel quadrature rules.
 In fact, the author proposed to sample the nodes $(x_j)$ i.i.d. from some proposal distribution $q$, and then take the vector of weights $\bm{w}$ to be the vector $\bm{w}_{\lambda}$ that solve the optimization problem
 \begin{equation}\label{eq:reg_kernel_opt_problem}
 \min\limits_{w \in \mathbb{R}^{N}} \Big\| \mu_{g} - \sum\limits_{j \in [N]} \frac{w_{j}}{q(x_{j})^{1/2}} k(x_{j},.) \Big\|_{\mathcal{F}}^{2} + \lambda N \|w\|_{2}^{2},
