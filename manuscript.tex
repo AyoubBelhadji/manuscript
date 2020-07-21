@@ -3156,7 +3156,7 @@ Now, the second reason to introduce the projection DPP associated to the the ker
 
 
 
-We explain this point more in details after presenting these theoretical guarantees in the following section.*****
+We explain this point more in details after presenting these theoretical guarantees in the following section. The details of the proofs are given in Section~\ref{s:proofs}.
 
 % To see this, we give the main results of this chapter, before 
 % This is achieved by considering the following upper bound for the interpolation error.
@@ -3170,10 +3170,8 @@ We explain this point more in details after presenting these theoretical guarant
 %  In Section~\ref{subsec:unreg_opt_problem} we prove that \eqref{eq:unreg_opt_problem} almost surely has a unique solution $\hat{\bm{w}}$ and state our main result, an upper bound on the expected approximation error $\|\mu_{g} - \bm{\Phi}\hat{\bm{w}}\|^{2}_{\mathcal{F}}$ under the proposed Projection DPP. 
 
 
- The sketch of the proofs of the main results are given in Section~\ref{subsec:dpp_quadrature_error_weak} and  Section~\ref{subsec:dpp_quadrature_error_strong}.
-
  %%%%%%%%
-\subsection{Main results}
+\subsection{The main results}
 \label{subsec:unreg_opt_problem}
 % Besides the uni-solvency property of the projection DPP defined in the beginning of this section, this choice of marginal kernel is amenable to theoretical analysis.
 
@@ -3189,16 +3187,21 @@ We explain this point more in details after presenting these theoretical guarant
 % \end{align}
 
 %%%
+In the section, we present the theoretical analysis of $\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\mathcal{F}}^{2}$ under the projection DPP $(\KDPP, \mathrm{d}\omega)$. We start by the first result.
 
-We present the first result of this section.
+% We present in this section,in th the  result and its consequences in this section.
 %%% THEOREM
 \begin{theorem}\label{thm:main_theorem}
-Let $\bm{x} = \{x_{1}, \dots , x_{N}\}$ be a random set that follows the projection DPP $(\mathrm{d}\omega, \KDPP )$. Let $g \in \mathbb{L}_{2}(\mathrm{d}\omega)$ such that $\|g\|_{\mathrm{d}\omega} \leq 1$, and define $\displaystyle \|g\|_{\mathrm{d}\omega,1} = \sum\limits_{n \in [N]} |\langle e_{n},g \rangle_{d\omega}|$. Then, 
-\begin{equation}\label{eq:main_result}
-\EX_{\DPP} \|\mu_{g} - \bm{\Phi}\hat{\bm{w}}\|_{\mathcal{F}}^{2}  \leq
+Let $\bm{x} = \{x_{1}, \dots , x_{N}\}$ be a random set that follows the distribution of the projection DPP $(\mathrm{d}\omega, \KDPP )$. Let $g \in \mathbb{L}_{2}(\mathrm{d}\omega)$ such that $\|g\|_{\mathrm{d}\omega} \leq 1$. Then, 
+\begin{equation}\label{eq:main_result_first}
+\EX_{\DPP} \|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\mathcal{F}}^{2}  \leq
 2\sigma_{N+1} +2\|g\|_{\mathrm{d}\omega,1}^{2}\left(   N r_{N} + \sum\limits_{\ell =2}^{N} \frac{\sigma_{1}}{\ell!^{2}}\left(\frac{Nr_{N}}{\sigma_{1}}\right)^{\ell} \right),
 \end{equation}
-where $r_{N} = \sum\limits_{m \geq N+1} \sigma_{m}$.
+where $\displaystyle \|g\|_{\mathrm{d}\omega,1} = \sum\limits_{n \in [N]} |\langle e_{n},g \rangle_{d\omega}|$ and $r_{N} = \sum\limits_{m \geq N+1} \sigma_{m}$. Moreover, 
+\begin{equation}\label{eq:main_result_sup_first}
+\EX_{\DPP} \sup\limits_{\|g\|_{\mathrm{d}\omega} \leq 1} \|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\mathcal{F}}^{2}  \leq
+2\sigma_{N+1} +2N\left(   N r_{N} + \sum\limits_{\ell =2}^{N} \frac{\sigma_{1}}{\ell!^{2}}\left(\frac{Nr_{N}}{\sigma_{1}}\right)^{\ell} \right).
+\end{equation}
 %with
 %\begin{equation}
 %	\label{eq:def_rN}
@@ -3206,23 +3209,56 @@ where $r_{N} = \sum\limits_{m \geq N+1} \sigma_{m}$.
 %\end{equation}
 \end{theorem}
 %%%
-In particular, if $Nr_{N} = o(1)$, then the right-hand side of \eqref{eq:main_result} is $N r_{N} + o(N r_{N})$. For example, take $\mathcal{X} = [0,1]$, $\mathrm{d}\omega$ the uniform measure on $\mathcal{X}$, and $\mathcal{F}$ the $s$-Sobolev space, then $\sigma_{m} = m^{-2s}$ \cite{BeTh11}. Now, if $s > 1$, the expected worst case quadrature error is bounded by $Nr_{N} = \mathcal{O}(N^{2-2s}) = o(1)$. Another example is the case of the Gaussian measure on $\mathcal{X} = \mathbb{R}$, with the Gaussian kernel. In this case $\sigma_{m} = \beta \alpha^{m}$ with $0 < \alpha < 1$ and $\beta >0$ \cite{RaWi06} so that $Nr_{N} = N\frac{\beta}{1-\alpha}\alpha^{N+1}=  o(1)$.
+
+
+Since the publication of \citep{BeBaCh19}, we obtained a refinement of Theorem~\ref{thm:main_theorem} that we give in the following.
+
+
+\begin{theorem}\label{thm:main_theorem_improved}
+Let $\bm{x} = \{x_{1}, \dots , x_{N}\}$ be a random set that follows the distribution of the projection DPP $(\mathrm{d}\omega, \KDPP )$. Let $g \in \mathbb{L}_{2}(\mathrm{d}\omega)$ such that $\|g\|_{\mathrm{d}\omega} \leq 1$. Then, 
+\begin{equation}\label{eq:main_result}
+\EX_{\DPP} \|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\mathcal{F}}^{2}  \leq
+2\sigma_{N+1} +2\|g\|_{\mathrm{d}\omega,1}^{2} N r_{N} ,
+\end{equation}
+where $\displaystyle \|g\|_{\mathrm{d}\omega,1} = \sum\limits_{n \in [N]} |\langle e_{n},g \rangle_{d\omega}|$ and $r_{N} = \sum\limits_{m \geq N+1} \sigma_{m}$. Moreover, 
+\begin{equation}\label{eq:main_result_sup}
+\EX_{\DPP} \sup\limits_{\|g\|_{\mathrm{d}\omega} \leq 1} \|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\mathcal{F}}^{2}  \leq
+2\sigma_{N+1} +2N^{2} r_{N}.
+\end{equation}
+%with
+%\begin{equation}
+%	\label{eq:def_rN}
+%	r_{N} = \sum\limits_{m \geq N+1} \sigma_{m}.
+%\end{equation}
+\end{theorem}
+
+Let us dissect the upper bounds of Theorem~\ref{thm:main_theorem_improved}. The first term in the upper bounds \eqref{eq:main_result} and \eqref{eq:main_result_sup} scales as $\sigma_{N+1}$. As we shall see later, $\sigma_{N+1}$ is the lower bound of interpolation in a sense that will be defined. The second terms in the upper bounds \eqref{eq:main_result} and \eqref{eq:main_result_sup} stem from the same proof. Indeed, the constant $\|g\|_{\mathrm{d}\omega,1}$ in $\eqref{eq:main_result}$ is the $\ell_1$ norm of the coefficients of projection of $g$ onto $\Span(e_{n})_{n \in [N]}$ in $\mathbb{L}_{2}(\mathrm{d}\omega)$. For example, for $g = e_{n}$, $\|g\|_{\mathrm{d}\omega,1} = 1$ if $n \in [N]$ and $\|g\|_{\mathrm{d}\omega,1} = 0$ if $n \geq N+1$. In the worst case, $\|g\|_{\mathrm{d}\omega,1} \leq \sqrt{N} \|g\|_{\mathrm{d}\omega} \leq \sqrt{N}$.
+% \begin{equation}\label{eq:l1_worst_case}
+% .\leq \sqrt{N} \sqrt{\sum\limits_{n \in [N]} \langle g, e_{n} \rangle_{\mathrm{d}\omega}^{2}}
+% \end{equation}
+Thus, we can obtain a uniform bound for $\|g\|_{\mathrm{d}\omega}\leq 1$ but with a supplementary factor $N$. Now, if $\sum\limits_{m \in \mathbb{N}^{*}} |\langle g,e_{m} \rangle_{\mathrm{d}\omega}| < +\infty$ for a particular $g \in \mathbb{L}_{2}(\mathrm{d}\omega)$, the r.h.s. of \eqref{eq:main_result} is $\mathcal{O}(Nr_{N})$ because $\sigma_{N+1} \leq Nr_{N}$. Similarly, the upper bound in \eqref{eq:main_result_sup} is dominated by $\mathcal{O}(N^{2}r_{N})$.
+
+Both these bounds converges to $0$ if the convergence of $(\sigma_{n})$ to $0$ is fast enough. For example, if $\sigma_{m} = m^{-2s}$, $\mathcal{O}(r_{N}) = N^{1-2s}$ thus $\mathcal{O}(Nr_{N}) = N^{2-2s}$ and $\mathcal{O}(N^{2}r_{N}) = N^{3-2s}$; and convergence is guaranteed if $s >1$ or if $s>3/2$ respectively. Another example is given by $\sigma_{m} = \beta \alpha^{m}$ with $0 < \alpha < 1$ and $\beta >0$ then $Nr_{N} = N\frac{\beta}{1-\alpha}\alpha^{N+1}=  o(1)$ and $N^{2}r_{N} = N^{2}\frac{\beta}{1-\alpha}\alpha^{N+1}=  o(1)$ for all values of $\alpha$ and $\beta$.
+
+
+
+% Since, , the uppers bounds are dominated respectively by these upper bounds are carried by  then the right-hand side of \eqref{eq:main_result} is $N r_{N} + o(N r_{N})$. 
+% take $\mathcal{X} = [0,1]$, $\mathrm{d}\omega$ the uniform measure on $\mathcal{X}$, and $\mathcal{F}$ the $s$-Sobolev space, then $\sigma_{m} = m^{-2s}$ \cite{BeTh11}. Now, if $s > 1$, the expected worst case quadrature error is bounded by $Nr_{N} = \mathcal{O}(N^{2-2s}) = o(1)$.
+
+
 % $\mathrm{d}\omega_{\nu}(x) = (2\pi\nu^{2})^{-1/2}e^{-\frac{1}{2\nu^{2}}x^{2}}$
 % $k_{\gamma}(x,y) = \exp[-(x-y)^{2}/2\gamma^{2}]$
 
 
 % \footnote{$\alpha_{\nu,\gamma} = \frac{1}{1+\frac{1}{2}\rho^{2}+\sqrt{\rho^{2}+\frac{1}{4}\rho^{4}}}$ and $\beta_{\nu,\gamma} = \sqrt{\frac{2}{1+\frac{1}{\rho}+\sqrt{1+2\frac{1}{\rho}}}}$, where $\rho = \frac{\gamma}{\nu}$ \cite{RaWi06} .}
-We have assumed that $\mathcal{F}$ is dense in $\mathbb{L}_{2}(\mathrm{d}\omega)$ but Theorem~\ref{thm:main_theorem} is valid also when $\mathcal{F}$ is finite-dimensional. In this case, denote $N_{0} = \dim \mathcal{F}$. Then, for $n > N_{0}$, $\sigma_{n} = 0$ and $r_{N_{0}} = 0$, so that \eqref{eq:main_result} implies
+We have assumed that $\mathcal{F}$ is dense in $\mathbb{L}_{2}(\mathrm{d}\omega)$ but Theorem~\ref{thm:main_theorem_improved} is valid also when $\mathcal{F}$ is finite-dimensional. In this case, denote $N_{0} = \dim \mathcal{F}$. Then, for $n > N_{0}$, $\sigma_{n} = 0$ and $r_{N_{0}} = 0$, so that \eqref{eq:main_result} implies
 \begin{equation}
-  \| \mu_{g} - \bm{\Phi}\hat{\bm{w}}\|_{\mathcal{F}}^{2} = 0 \:\: \text{a.s.}
+  \| \mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}\|_{\mathcal{F}}= 0 \:\: \text{a.s.}
 \end{equation}
-This compares favourably with herding, for instance, which comes with a rate in $\mathcal{O}(\frac{1}{N})$ for the quadrature based on herding with uniform weights \cite{BaLaOb12,ChWeSm10}.
+when $N= N_0$.
+This compares favourably with the quadrature based on herding with uniform weights that comes with a rate in $\mathcal{O}(\frac{1}{N})$  \cite{BaLaOb12,ChWeSm10}. 
 
-The constant $\|g\|_{\mathrm{d}\omega,1}$ in $\eqref{eq:main_result}$ is the $\ell_1$ norm of the coefficients of projection of $g$ onto $\Span(e_{n})_{n \in [N]}$ in $\mathbb{L}_{2}(\mathrm{d}\omega)$. For example, for $g = e_{n}$, $\|g\|_{\mathrm{d}\omega,1} = 1$ if $n \in [N]$ and $\|g\|_{\mathrm{d}\omega,1} = 0$ if $n \geq N+1$. In the worst case, $\|g\|_{\mathrm{d}\omega,1} \leq \sqrt{N} \|g\|_{\mathrm{d}\omega} \leq \sqrt{N}$.
-% \begin{equation}\label{eq:l1_worst_case}
-% .\leq \sqrt{N} \sqrt{\sum\limits_{n \in [N]} \langle g, e_{n} \rangle_{\mathrm{d}\omega}^{2}}
-% \end{equation}
-Thus, we can obtain a uniform bound for $\|g\|_{\mathrm{d}\omega}\leq 1$ in the spirit of Proposition~\ref{p:bach}, but with a supplementary factor $N$ in the upper bound in \eqref{eq:main_result}.
+
 % \paragraph{The Gaussian kernel}
 % Let,
 % \begin{equation}
@@ -3241,162 +3277,62 @@ Thus, we can obtain a uniform bound for $\|g\|_{\mathrm{d}\omega}\leq 1$ in the 
 % e_{m} = e^{-(c-a)x^{2}}H_{m}(\sqrt{2c}x).
 % \end{equation}
 
-Since the publication of [??], we obtained two refinements of Theorem~\ref{thm:main_theorem}. We report these results in the following Theorem.
 
-\begin{theorem}\label{thm:main_theorem_refined}
-Let $\bm{x} = \{x_{1}, \dots , x_{N}\}$ be a projection DPP with reference measure $\mathrm{d}\omega$ and kernel \eqref{e:kernel}. Let $\hat{\bm{w}}$ be the unique solution to \eqref{eq:unreg_opt_problem}. Assume that $\|g\|_{\mathrm{d}\omega} \leq 1$ and define $r_{N} = \sum\limits_{m \geq N+1} \sigma_{m}$, then
-\begin{equation}\label{eq:main_result_refined}
-\EX_{\DPP} \sup\limits_{\|g\|_{\mathrm{d}\omega} \leq 1}\|\mu_{g} - \bm{\Phi}\hat{\bm{w}}\|_{\mathcal{F}}^{2}  \leq 4 Nr_{N}.
-\end{equation}
-Moreover, if $g = e_{n}$ for some $m \in \Ns$, then
-\begin{equation}\label{eq:main_result_refined_eigfunction}
-\EX_{\DPP} \|\mu_{g} - \bm{\Phi}\hat{\bm{w}}\|_{\mathcal{F}}^{2}  \leq r_{N}.
-\end{equation}
-%with
-%\begin{equation}
-%	\label{eq:def_rN}
-%	r_{N} = \sum\limits_{m \geq N+1} \sigma_{m}.
-%\end{equation}
-\end{theorem}
-
-Of course, the results in Theorem~\ref{thm:main_theorem_refined} are stronger compared to the ones in Theorem~\ref{thm:main_theorem}. Yet, we think that the proof of Theorem~\ref{thm:main_theorem_refined} will become clearer if we recall the proof of Theorem~\ref{thm:main_theorem} and the intuitions behind. Section~\ref{subsec:dpp_quadrature_error_weak} contains the sketch of the proof of the weak version of our results, while Section~\ref{subsec:dpp_quadrature_error_strong} contains the sketch of the proof of the strong version of our results.
+% Of course, the results in Theorem~\ref{thm:main_theorem_refined} are stronger compared to the ones in Theorem~\ref{thm:main_theorem}. Yet, we think that the proof of Theorem~\ref{thm:main_theorem_refined} will become clearer if we recall the proof of Theorem~\ref{thm:main_theorem} and the intuitions behind. 
 
 
+In comparison with \cite{Bac17}, we emphasize that the dependence of our bound on the eigenvalues of the kernel $k$, via $r_{N}$, is explicit. This is in contrast with Proposition~\ref{p:bach} that depends on the eigenvalues of $\bm{\Sigma}$ through the degree of freedom $d_{\lambda}$ so that the necessary number of samples $N$ diverges when $\lambda \rightarrow 0$. On the contrary, our quadrature requires a finite number of points for $\lambda =0$. 
 
-\subsection{Bounding the interpolation error under the projection DPP}
-\label{subsec:dpp_quadrature_error_weak}
-In this section, we give the skeleton of the proofs of the results that we present in the last section. The details of the proofs are deferred to Section~\ref{s:proofs}.
-
-The starting point of the analysis is the observation that the interpolation error is the RKHS norm of the residual of $\mu_{g} - \Pi_{\mathcal{T}(\bm{x})} \mu_{g}$. Since, the subspace $\mathcal{T}(\bm{x})$ can be arbitrary, as $\bm{x}$ spans the set of uni-solvent of $\X$ of cardinality $N$, it is hard to make sense of how large the corresponding residual could be. For this reason, we consider the principal subspace $\mathcal{E}_N^{\mathcal{F}} = \Span(e_{n}^{\mathcal{F}})_{n \in [N]}$ and the corresponding \emph{filtering error} $\|\mu_{g} - \Pi_{\mathcal{E}_{N}^{\mathcal{F}}} \mu_{g}\|_{\mathcal{F}}$. The filtering error is easier to quantifies since we can prove easily that:
-
-\begin{equation}
-\|\mu_{g} - \Pi_{\mathcal{E}_{N}^{\mathcal{F}}} \mu_{g}\|_{\mathcal{F}}^{2} = \sum\limits_{m \geq N+1} \langle \mu_{g},e_{m}^{\mathcal{F}} \rangle_{\mathcal{F}}^{2} = \sum\limits_{m \geq N+1} \sigma_{m} \langle g,e_{m} \rangle_{\mathrm{d}\omega}^{2}.
-\end{equation}
-In particular, when $\|g\|_{\mathrm{d}\omega} \leq 1$, $\|\mu_{g} - \Pi_{\mathcal{E}_{N}^{\mathcal{F}}} \mu_{g}\|_{\mathcal{F}}^{2} \leq \sigma_{N+1}$ (with an equality when $g = e_{n+1}$); and if the two subspaces $\mathcal{E}_{N}^{\mathcal{F}}$ and $\mathcal{T}(\bm{x})$ are close to each other in some sense, we expect to have $\|\mu_{g} - \Pi_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\mathcal{F}}^{2}$ close to  $\sigma_{N+1}$ when $\|g\|_{\mathrm{d}\omega} \leq 1$. As a first step, we have the following lemma that gives an upper bound of $\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}\|^{2}_{\mathcal{F}}$ using the $\|\mu_{e_{n}^{\F}} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{e_{n}^{\F}}\|_{\mathcal{F}}^{2}$.
+% It would be interesting to extend the analysis of our quadrature in the regime $\lambda >0$.
 
 
-\begin{lemma}\label{lemma:approximation_error_spectral_bound}
-Assume that $\|g\|_{\mathrm{d}\omega} \leq 1$ then $\| \bm{\Sigma}^{-1/2} \mu_{g} \|_{\mathcal{F}} \leq 1$ and
-\begin{equation}
-	\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}\|^{2}_{\mathcal{F}} \leq 2 \bigg( \sigma_{N+1} + \|g\|_{\mathrm{d}\omega,1}^2  \max\limits_{ n \in [N]} \|\mu_{e_{n}^{\F}} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{e_{n}^{\F}}\|_{\mathcal{F}}^{2} \bigg) .
-\label{e:boundingOrthogonalProjection}
-\end{equation}
-% with $\displaystyle c(g) = \sum\limits_{n \in [N]} |\langle \bm{\Sigma}^{-1/2} \mu_{g}, e_{n}^{\mathcal{F}} \rangle_{\mathcal{F}}| = \sum\limits_{n \in [N]} |\langle g, e_{n} \rangle_{\mathrm{d}\omega}|$.
-\end{lemma}
-The term $2 \sigma_{N+1}$ converges to $0$ when $N$ goes to $+\infty$ and we shall see later that it scales as a specific lower bound. Now it remains to upper bound the $\|\mu_{e_{n}^{\F}} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{e_{n}^{\F}}\|_{\mathcal{F}}^{2}$  for $n \in [N]$ that also have the following expression
-% In other words, the upper bound of $\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}\|^{2}_{\mathcal{F}}$ decomposes on two terms: $\sigma_{N+1}$ that represents the interpolation error  and  $\|\mu_{e_{n}^{\F}} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{e_{n}^{\F}}\|_{\mathcal{F}}^{2}$ 
-% We give the proof of this lemma later. For now, we observe that for every $n$
-\begin{equation}\label{eq:interpolation_at_eigenfunctions_equivalent_expression}
- \|\mu_{e_{n}^{\F}} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{e_{n}^{\F}}\|_{\mathcal{F}}^{2} =  \sigma_{n} \|e_{n}^{\F} - \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{n}^{\F}\|_{\mathcal{F}}^{2}.
-\end{equation}
-% We argue that if $\bm{x}$ follows the distribution of the mentioned projection DPP, we can quantify the proximity between these two subspaces.
-% , where   is the ....   analysis of the  error  that the interpolation error $\|\mu_{g} - \Pi_{\mathcal{T}(\bm{x})} \mu_{g}\|^{2}_{\mathcal{F}}$ is the residual of 
-%  % the skeleton of the proof of Theorem~\ref{thm:main_theorem}, referring to the appendices for technical details.
-%   The proof is in two steps. First, we give an upper bound for the approximation error $\|\mu_{g} - \bm{\Phi}\hat{\bm{w}}\|^{2}_{\mathcal{F}}$ that involves the maximal principal angle between the functional subspaces of $\mathcal{F}$
-% $$\mathcal{E}_N^{\mathcal{F}} = \Span(e_{n}^{\mathcal{F}})_{n \in [N]} \quad\text{ and }\quad \mathcal{T}(\bm{x}) = \Span(k(x_{j},.))_{j \in [N]}.$$
-% The second step consists in developing the expectation of the bound under the projection DPP in a similar fashion as in Chapter ??: projection DPPs allow closed form expressions for the expectation of some trigonometric functions of the principal angles.
-% This quantification is achieved by the principal angles between subspaces 
-% As for now, we recall some properties of the principal angles between subspaces of a Hilbert space and we give the corresponding instantiation of these results when the Hilbert space is $\F$.
-% \rb{Make this an assumption using begin/end{assumption}, and comment on it, saying what it means and that others used the same.}
-Now, to upper bound the right-hand side of \eqref{eq:interpolation_at_eigenfunctions_equivalent_expression}, we note that $\sigma_{n} \|e_{n}^{\F} - \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{n}^{\F}\|_{\mathcal{F}}^{2}$ is the product of two terms: $\sigma_{n}$ is a decreasing function of $n$ while $\|e_{n}^{\F} - \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{n}^{\F}\|_{\mathcal{F}}^{2}$ is the interpolation error of the eigenfunction $e_{n}^{\mathcal{F}}$, measured in the $\|.\|_{\mathcal{F}}$ norm.
-We can bound the latter interpolation error uniformly in $n\in [N]$ using the geometric notion of maximal principal angle between $\mathcal{T}(\bm{x})$ and $\mathcal{E}^{\mathcal{F}}_{N} = \Span(e_{n}^{\mathcal{F}})_{ n \in [N]}$.
-This maximal principal angle is defined through its cosine
-\begin{equation}
-	\cos^{2} \theta_{N}(\mathcal{T}(\bm{x}),\mathcal{E}^{\mathcal{F}}_{N}) = \inf\limits_{\substack{\bm{u} \in \mathcal{T}(\bm{x}), \bm{v} \in \mathcal{E}^{\mathcal{F}}_{N}\\ \|u\|_{\mathcal{F}} = 1, \|v\|_{\mathcal{F}} = 1}} \langle \bm{u}, \bm{v} \rangle_{\mathcal{F}}.
-\end{equation}
-Similarly, we can define the $N$ principal angles $\theta_{n}(\mathcal{T}(\bm{x}),\mathcal{E}^{\mathcal{F}}_{N}) \in \left[0, \frac{\pi}{2}\right]$ for $ n\in [N]$ between the subspaces $\mathcal{E}^{\mathcal{F}}_{N}$ and $\mathcal{T}(\bm{x})$. These angles quantify the relative position of the two subspaces. See Appendix~\ref{subsec:principalangles} for more details about principal angles.
-% While principal angles in Euclidean spaces are a well-known notion \cite{GoVa96}, Section 6.4.3., we could not locate their extension to finite-dimensional subspaces of Hilbert spaces in the literature. \ab{This sentence to be discussed}
- % We thus give the necessary details in  .
-Now, we have the following lemma.
-% In the following, we use the maximal principal angle between the subspaces $\mathcal{E}^{\mathcal{F}}_{N}$ and $\mathcal{T}(\bm{x})$ to bound $\max\limits_{n \in [N]}  \|\bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}} e_{n}^{\mathcal{F}}\|_{\mathcal{F}}^{2}$.
-\begin{lemma}\label{lemma:max_error_cos}
-Let $\bm{x} = (x_{1}, \dots , x_{N}) \in \mathcal{X}^{N}$ such that $\Det \bm{E}(\bm{x}) \neq 0$. Then
-\begin{equation}\label{eq:max_error_as_function_of_cos}
-	\max_{ n \in [N]} \|e_{n}^{\F} - \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{n}^{\F}\|_{\mathcal{F}}^{2} \leq \frac{1}{\cos^{2} \theta_{N}(\mathcal{T}(\bm{x}),\mathcal{E}^{\mathcal{F}}_{N})} - 1  \leq \prod\limits_{n \in [N]}\frac{1}{\cos^{2} \theta_{n}(\mathcal{T}(\bm{x}),\mathcal{E}^{\mathcal{F}}_{N})} - 1.
-\end{equation}
-\end{lemma}
-To sum up, we have so far bounded the approximation error by the geometric quantity in the right-hand side of \eqref{eq:max_error_as_function_of_cos}. As we have seen in Chapter~\ref{chapter:cssp}, projection DPPs shine in taking expectations of such geometric quantities in finite dimensional vector spaces. We will show in the following that this is also true in RKHSs.
+One advantage of DPPs is that they can be sampled exactly. Because of the orthonormality of $(\psi_n)$, one can write the chain rule for \eqref{eq:pdpp_definition}; see \cite{HoKrPeVi06}. Sampling each conditional in turn, using e.g. rejection sampling \cite{RoCa04}, then yields an exact sampling algorithm. Rejection sampling aside, the cost of this algorithm is cubic in $N$ without further assumptions on the kernel. 
+
+%Simplifying assumptions can take many forms. 
+Theorem~\ref{thm:main_theorem_improved} gives a slightly sharper bound than Theorem~\ref{thm:main_theorem}, since if $Nr_{N} = o(1)$, then the right-hand side of \eqref{eq:main_result_first} is $N r_{N} + o(N r_{N})$. The proof of Theorem~\ref{thm:main_theorem_improved} follows the same steps as the proof of Theorem~\ref{thm:main_theorem}. We give the proofs of the two results simultaneously in the following section and we highlight the difference between the two in the end of the section.
 
 
-% \subsubsection{Taking the expectation under the DPP}
-% \label{subsec:expectation_under_the_DPP}
-Indeed, the upper bound in Lemma~\ref{lemma:max_error_cos} is valid whenever $\Det \bm{E}(\bm{x}) \neq 0$. As seen in Corollary~\ref{c:regularization}, this condition is satisfied almost surely when $\bm{x}$ is drawn from the projection DPP $(\mathrm{d}\omega, \KDPP)$. Furthermore, the expectation of the right-hand side of \eqref{eq:max_error_as_function_of_cos} can be written in terms of the eigenvalues of the kernel $k$.
-%% Proposition
-\begin{proposition}\label{prop:expected_value_of_product_of_cos}
-Let $\bm{x} = \{x_{1}, \dots , x_{N}\}$ be a random set that follows the projection DPP $(\mathrm{d}\omega, \KDPP )$. Then,
-\begin{equation}\label{eq:expected_value_of_product_of_cos}
-\EX_{\DPP} \prod\limits_{n \in [N]} \frac{1}{\cos^{2} \theta_{n}\bigg(\mathcal{T}(\bm{x}), \mathcal{E}^{\mathcal{F}}_{N} \bigg)}   = \sum\limits_{\substack{T \subset \mathbb{N}^{*} \\ |T| = N}} \frac{ \prod\limits_{t \in T}\sigma_{t}}{\prod\limits_{n \in [N]} \sigma_{n}} \:.
-\end{equation}
-\end{proposition}
+% We give the proofs of Theorem~\ref{thm:main_theorem} and Theorem~\ref{thm:main_theorem_improved} in the following section. 
 
-% \sum\limits_{n \in [N]}\frac{1}{\sigma_{n}}r_{N} + \dots + \frac{1}{\prod\limits_{n \in [N]} \sigma_{n}} \sum\limits_{\substack{T \subset \mathbb{N}^{*} \smallsetminus [N]\\ |T| = N}}\prod\limits_{t \in T}\sigma_{t}
+% shares 
+% The following section contains the sketch of the proof of this result. 
 
-% & =  \sum\limits_{\substack{T \subset \mathbb{N} \\ |T| = N}} \frac{ \prod\limits_{t \in T}\sigma_{t}}{\prod\limits_{n \in [N]^{0}} \sigma_{n}} -1\\
-% &
-The bound of Proposition~\ref{prop:expected_value_of_product_of_cos}, once reported in  Lemma~\ref{lemma:max_error_cos} and Lemma~\ref{lemma:approximation_error_spectral_bound}, already yields Theorem~\ref{thm:main_theorem} in the special case where $\sigma_{1} = \dots = \sigma_{N}$. This seems a very restrictive condition, but next Proposition~\ref{prop:kernel_perturbation_inequality} shows that we can always reduce the analysis to that case.
-% \subsubsection{An upper bound for $\max\limits_{n \in [N]^{0}} \sigma_{n}\|\Pi_{\mathcal{T}(x)^{\perp}} e_{n}^{\mathcal{F}}\|_{\mathcal{F}}^{2}$}
-% In this section, we give a bound of the approximation error $\|f - \bm{\Phi}\hat{\bm{w}}\|_{\mathcal{F}}$ using the maximal principal angle between the subspaces $\mathcal{E} = \Span(e_{m}^{\mathcal{F}})_{m \in [N]}$ and $\mathcal{T}(\bm{x}) =  \Span \bigg( k(x_{i},.) \bigg)_{i \in [N]}$.
-In fact, let the kernel $\tilde{k}$ be defined by
-\begin{equation}\label{eq:tilde_k_kernel_definition}
-\tilde{k}(x,y) = \sum\limits_{n \in [N]} \sigma_{1}e_{n}(x)e_{n}(y) + \sum\limits_{n \geq N+1} \sigma_{n}e_{n}(x)e_{n}(y) = \sum\limits_{n \in \mathbb{N}^{*}} \tilde{\sigma}_{n}e_{n}(x)e_{n}(y),
-\end{equation}
-and let $\tilde{\mathcal{F}}$ be the corresponding RKHS. Then one has the following inequality.
-%% PROPOSITION
-\begin{proposition}\label{prop:kernel_perturbation_inequality}
-Let $ \tilde{\mathcal{T}}(\bm{x}) = \Span \left( \tilde{k}(x_{j},.) \right)_{j \in [N]}$ and $\bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})}$ the orthogonal projection onto $\tilde{\mathcal{T}}(\bm{x})$ in $(\tilde{\mathcal{F}}, \langle .,.\rangle_{\tilde{\mathcal{F}}})$. Then,
-\begin{equation}\label{eq:kernel_perturbation_inequality}
-	\forall n \in [N], \:\: \sigma_{n} \|e_{n}^{\mathcal{F}} - \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{n}^{\mathcal{F}}\|_{\mathcal{F}}^{2} \leq \sigma_{1}   \|e_{n}^{\tilde{\mathcal{F}}} - \bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})} e_{n}^{\tilde{\mathcal{F}}}\|_{\tilde{\mathcal{F}}}^{2}.
-\end{equation}
-\end{proposition}
-%% END PROPOSITION
-Simply put, capping the first eigenvalues of $k$ yields a new kernel $\tilde{k}$ that captures the interaction between the terms $\sigma_{n}$ and $\|e_{n}^{\mathcal{F}} - \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{n}^{\mathcal{F}}\|_{\mathcal{F}}^{2}$ such that we only have to deal with the term $\|e_{n}^{\tilde{\mathcal{F}}} - \bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})} e_{n}^{\tilde{\mathcal{F}}}\|_{\tilde{\mathcal{F}}}^{2}$.
-Combining  Proposition~\ref{prop:expected_value_of_product_of_cos} with Proposition~\ref{prop:kernel_perturbation_inequality} applied to the kernel $\tilde{k}$ yields Theorem~\ref{thm:main_theorem}.
- % and Appendix~\ref{app:geometric_intuition} for the geometric intuition behind the proof
+% Again, the proof is based on the quantification of principal angles between subspaces. We recall this notion in the following section.
 
+ % weak version of our results, while Section~\ref{subsec:dpp_quadrature_error_strong} contains the sketch of the proof of the strong version of our results.
 
+% \subsection{Principal angles between subspaces in a Hilbert space}
+% \label{subsec:principalangles}
+% We recall in this section the definition of principal angles between subspaces in Hilbert spaces and we present a result that will be used later in the proofs. 
 
-% \subsubsection{Bounding the approximation error using principal angles}
-% \label{subsec:approximation_error_principal_angle}
+% %%% PROPOSITION
 
+% \begin{theorem}\label{prop:cos_between_subspaces}
+% Let $\mathcal{H}$ be a Hilbert space. Let $\mathcal{P}_{1}$ and $\mathcal{P}_{2}$ be two finite-dimensional subspaces of $\mathcal{H}$ with $N = \dim \mathcal{P}_{1} = \dim \mathcal{P}_{2}$. Denote $\bm{\Pi}_{\mathcal{P}_{1}}$ and $\bm{\Pi}_{\mathcal{P}_{2}}$ the orthogonal projections of $\mathcal{H}$ onto these two subspaces. There exist two orthonormal bases for $\mathcal{P}_{1}$ and $\mathcal{P}_{2}$ denoted $(\bm{v}_{i}^{1})_{i \in [N]}$ and $(\bm{v}_{i}^{2})_{i \in [N]}$, and a set of angles $\theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2}) \in [0,\frac{\pi}{2}]$ such that
+% \begin{equation}
+% \cos \theta_{N}(\mathcal{P}_{1},\mathcal{P}_{2}) \leq \dots \leq \cos \theta_{1}(\mathcal{P}_{1},\mathcal{P}_{2}) ,
+% \end{equation}
 
-% In other words, \eqref{e:finalTool} equates the approximation error to $\|\bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}}\mu_g\|^{2}_{\mathcal{F}}$, where $\bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}}$ is the orthogonal projection onto $\mathcal{T}(\bm{x})^{\perp}$.
-% % \rb{and maybe give a ref on the definition of the projection, since $\Phi$ is an operator}.
-% Now we have the following lemma.
-
-
-
-
-\subsection{Principal angles between subspaces in a Hilbert space}
-\label{subsec:principalangles}
-We recall in this section the definition of principal angles between subspaces in Hilbert spaces and connect them to the determinant of the Gramian matrix of their orthonormal bases.
-
-%%% PROPOSITION
-
-\begin{theorem}\label{prop:cos_between_subspaces}
-Let $\mathcal{H}$ be a Hilbert space. Let $\mathcal{P}_{1}$ and $\mathcal{P}_{2}$ be two finite-dimensional subspaces of $\mathcal{H}$ with $N = \dim \mathcal{P}_{1} = \dim \mathcal{P}_{2}$. Denote $\bm{\Pi}_{\mathcal{P}_{1}}$ and $\bm{\Pi}_{\mathcal{P}_{2}}$ the orthogonal projections of $\mathcal{H}$ onto these two subspaces. There exist two orthonormal bases for $\mathcal{P}_{1}$ and $\mathcal{P}_{2}$ denoted $(\bm{v}_{i}^{1})_{i \in [N]}$ and $(\bm{v}_{i}^{2})_{i \in [N]}$, and a set of angles $\theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2}) \in [0,\frac{\pi}{2}]$ such that
-\begin{equation}
-\cos \theta_{N}(\mathcal{P}_{1},\mathcal{P}_{2}) \leq \dots \leq \cos \theta_{1}(\mathcal{P}_{1},\mathcal{P}_{2}) ,
-\end{equation}
-
-
-and for $i \in [1,...,N]$
-\begin{equation}
-\langle \bm{v}_{i}^{1}, \bm{v}_{i}^{2} \rangle_{\mathcal{H}} = \cos \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2}),
-\end{equation}
-and
-\begin{equation}\label{eq:principal_vectors_projection_relationship}
- \bm{\Pi}_{\mathcal{P}_{1}}\bm{v}_{i}^{2} = \cos \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2}) \bm{v}_{i}^{1},
-\end{equation}
-and
-\begin{equation}
- \bm{\Pi}_{\mathcal{P}_{2}}\bm{v}_{i}^{1} = \cos \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2}) \bm{v}_{i}^{2}.
-\end{equation}
-In particular
-\begin{equation}\label{eq:costhetaN}
-\cos \theta_{N}(\mathcal{P}_{1},\mathcal{P}_{2}) = \inf\limits_{\bm{v} \in \mathcal{P}_{1},\|\bm{v}\|_{\mathcal{H}} = 1} \|\bm{\Pi}_{\mathcal{P}_{2}}\bm{v}\|_{\mathcal{H}}.
-\end{equation}
-\end{theorem}
-We refer to \cite{GoVa12} for the proof when $\mathcal{H}$ is finite-dimensional. We give a proof in the general case in ??; see also \cite{DaKa70}.
+%%%%%%%%%%%%
+% and for $i \in [1,...,N]$
+% \begin{equation}
+% \langle \bm{v}_{i}^{1}, \bm{v}_{i}^{2} \rangle_{\mathcal{H}} = \cos \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2}),
+% \end{equation}
+% and
+% \begin{equation}\label{eq:principal_vectors_projection_relationship}
+%  \bm{\Pi}_{\mathcal{P}_{1}}\bm{v}_{i}^{2} = \cos \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2}) \bm{v}_{i}^{1},
+% \end{equation}
+% and
+% \begin{equation}
+%  \bm{\Pi}_{\mathcal{P}_{2}}\bm{v}_{i}^{1} = \cos \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2}) \bm{v}_{i}^{2}.
+% \end{equation}
+% In particular
+% \begin{equation}\label{eq:costhetaN}
+% \cos \theta_{N}(\mathcal{P}_{1},\mathcal{P}_{2}) = \inf\limits_{\bm{v} \in \mathcal{P}_{1},\|\bm{v}\|_{\mathcal{H}} = 1} \|\bm{\Pi}_{\mathcal{P}_{2}}\bm{v}\|_{\mathcal{H}}.
+% \end{equation}
+% \end{theorem}
+% We refer to \cite{GoVa12} for the proof when $\mathcal{H}$ is finite-dimensional. We give a proof in the general case in ??; see also \cite{DaKa70}.
+%%%%%%%%%%%%%%
 % \begin{proof}
 % Assume that $\mathcal{P}_{1} \cap \mathcal{P}_{2} \neq \{\bm{0} \}$ and put $p = \dim \mathcal{P}_{1} \cap \mathcal{P}_{2}$. Let $(\bm{v}^{1}_{i})_{i \in [p]} = (\bm{v}^{2}_{i})_{i \in [p]}$ an orthonormal basis of $\mathcal{P}_{1} \cap \mathcal{P}_{2}$, and denote for $i \in [p], \: \theta_{i} = 0$. If $p = N$, $\mathcal{P}_{1} = \mathcal{P}_{2} = \mathcal{P}_{1} \cap \mathcal{P}_{2}$ and $\theta_{1} = \dots = \theta_{N} = 0$. If not, the subspace $\mathcal{P}_{1} \cap \mathcal{P}_{2}$ is strictly included in $\mathcal{P}_{1}$ and $\mathcal{P}_{2}$ such that the subspaces $\mathcal{P}_{1} \cap (\mathcal{P}_{1} \cap \mathcal{P}_{2})^{\perp}$ and $\mathcal{P}_{2} \cap (\mathcal{P}_{1} \cap \mathcal{P}_{2})^{\perp}$ are non-trivial. Now, let
 % \begin{equation}
@@ -3428,23 +3364,14 @@ We refer to \cite{GoVa12} for the proof when $\mathcal{H}$ is finite-dimensional
 % \forall i \in [N], \: \langle \bm{v}^{1}_{i}, \bm{v}^{2}_{i} \rangle_{\mathcal{H}} = \cos \theta_{i}.
 % \end{equation}
 % \end{proof}
-The following result shows that the principal angles are somewhat independent of the choice of orthonormal bases. It can be found in \cite{BjGo73,MiBe92} for the finite dimensional case. We give here the proof for the general case, for the sake of completeness.
-\begin{proposition}\label{prop:cos_det_relationship}
-Let $(\bm{w}^{1}_{i})_{i \in [N]}$ be any orthonormal basis of $\mathcal{P}_{1}$ and $(\bm{w}^{2}_{i})_{i \in [N]}$ be any orthonormal basis of $\mathcal{P}_{2}$, and let $\bm{W} = (\langle \bm{w}^{1}_{i},\bm{w}^{2}_{j} \rangle_{\mathcal{H}})_{1\leq i,j \leq N}$ and $\bm{G} = \bm{W}\bm{W}^{\Tran}$. Then
-the eigenvalues of $\bm{G}$ are the $\cos^{2} \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2})$. In particular, $\Det^{2} \bm{W} = \Det \bm{G} =  \prod\limits_{i \in [N]} \cos^{2} \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2})$.
-\end{proposition}
 
-
-A simple application of Proposition~\ref{prop:cos_det_relationship}, in the case $\mathcal{H} = \F$, $\mathcal{P}_{1} = \mathcal{E}_{N}^{\F}$ and $\mathcal{P}_{2} = \mathcal{T}(\bm{x})$ leads to the following result.
-
-\begin{corollary}\label{cor:cos_ratio_det}
-Let $\bm{x} =  (x_{1}, \dots , x_{N}) \in \mathcal{X}^{N} $ such that $\Det^{2} \bm{E}(\bm{x}) \neq 0$. Then,
-\begin{equation}
-\prod\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell} \left(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \right)} = \frac{\Det \bm{K}(\bm{x})}{\Det^{2} \bm{E}^{\mathcal{F}}(\bm{x})}.
-\end{equation}
-\end{corollary}
-
-
+%%%%%%%%%%%%
+% The following result shows that the principal angles are somewhat independent of the choice of orthonormal bases. It can be found in \cite{BjGo73,MiBe92} for the finite dimensional case. We give here the proof for the general case, for the sake of completeness.
+% \begin{proposition}\label{prop:cos_det_relationship}
+% Let $(\bm{w}^{1}_{i})_{i \in [N]}$ be any orthonormal basis of $\mathcal{P}_{1}$ and $(\bm{w}^{2}_{i})_{i \in [N]}$ be any orthonormal basis of $\mathcal{P}_{2}$, and let $\bm{W} = (\langle \bm{w}^{1}_{i},\bm{w}^{2}_{j} \rangle_{\mathcal{H}})_{1\leq i,j \leq N}$ and $\bm{G} = \bm{W}\bm{W}^{\Tran}$. Then
+% the eigenvalues of $\bm{G}$ are the $\cos^{2} \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2})$. In particular, $\Det^{2} \bm{W} = \Det \bm{G} =  \prod\limits_{i \in [N]} \cos^{2} \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2})$.
+% \end{proposition}
+%%%%%%%%%%%%
 
 
 % \pc{ Ici il faudra en dire un peu plus quand même... ce n'est pas si facile à voir.}
@@ -3456,13 +3383,185 @@ Let $\bm{x} =  (x_{1}, \dots , x_{N}) \in \mathcal{X}^{N} $ such that $\Det^{2} 
 % \end{equation}
 % \end{proposition}
 
-\section{Numerical simulations}
 
+\subsection{Bounding the interpolation error under the projection DPP}
+\label{subsec:dpp_quadrature_error_weak}
+In this section, we give the skeleton of the proofs of the results that we present in the last section. The details of the proofs are deferred to Section~\ref{s:proofs}.
+
+The starting point of the analysis is the observation that the interpolation error is the RKHS norm of the residual of $\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}$. Since the subspace $\mathcal{T}(\bm{x})$ can be arbitrary, as $\bm{x}$ spans the set of uni-solvent of $\X$ of cardinality $N$, it is hard to reckon how large the corresponding residual would be. For this reason, we consider the principal subspace $\mathcal{E}_N^{\mathcal{F}} = \Span(e_{n}^{\mathcal{F}})_{n \in [N]}$ and the corresponding \emph{filtering error} $\|\mu_{g} - \bm{\Pi}_{\mathcal{E}_{N}^{\mathcal{F}}} \mu_{g}\|_{\mathcal{F}}$. The filtering error is easier to quantify because we can prove easily that:
+
+\begin{equation}
+\|\mu_{g} - \bm{\Pi}_{\mathcal{E}_{N}^{\mathcal{F}}} \mu_{g}\|_{\mathcal{F}}^{2} = \sum\limits_{m \geq N+1} \langle \mu_{g},e_{m}^{\mathcal{F}} \rangle_{\mathcal{F}}^{2} = \sum\limits_{m \geq N+1} \sigma_{m} \langle g,e_{m} \rangle_{\mathrm{d}\omega}^{2}.
+\end{equation}
+In particular, when $\|g\|_{\mathrm{d}\omega} \leq 1$, $\|\mu_{g} - \bm{\Pi}_{\mathcal{E}_{N}^{\mathcal{F}}} \mu_{g}\|_{\mathcal{F}}^{2} \leq \sigma_{N+1}$ (with an equality when $g = e_{n+1}$); and if the two subspaces $\mathcal{E}_{N}^{\mathcal{F}}$ and $\mathcal{T}(\bm{x})$ are close to each other in some sense, we expect to have $\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\mathcal{F}}^{2}$ close to  $\sigma_{N+1}$ when $\|g\|_{\mathrm{d}\omega} \leq 1$. As a first step, we have the following lemma that gives an upper bound of $\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}\|^{2}_{\mathcal{F}}$ using the $\|\mu_{e_{n}^{\F}} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{e_{n}^{\F}}\|_{\mathcal{F}}^{2}$.
+
+%$\| \bm{\Sigma}^{-1/2} \mu_{g} \|_{\mathcal{F}} \leq 1$
+
+\begin{lemma}\label{lemma:approximation_error_spectral_bound}
+Assume that $\|g\|_{\mathrm{d}\omega} \leq 1$ then 
+\begin{equation}
+	\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}\|^{2}_{\mathcal{F}} \leq 2 \bigg( \sigma_{N+1} + \|g\|_{\mathrm{d}\omega,1}^2  \max\limits_{ n \in [N]} \|\mu_{e_{n}^{\F}} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{e_{n}^{\F}}\|_{\mathcal{F}}^{2} \bigg) .
+\label{e:boundingOrthogonalProjection}
+\end{equation}
+% with $\displaystyle c(g) = \sum\limits_{n \in [N]} |\langle \bm{\Sigma}^{-1/2} \mu_{g}, e_{n}^{\mathcal{F}} \rangle_{\mathcal{F}}| = \sum\limits_{n \in [N]} |\langle g, e_{n} \rangle_{\mathrm{d}\omega}|$.
+\end{lemma}
+The term $2 \sigma_{N+1}$ converges to $0$ when $N$ goes to $+\infty$ and we shall see later that it scales as a specific lower bound. Now it remains to upper bound the $\|\mu_{e_{n}^{\F}} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{e_{n}^{\F}}\|_{\mathcal{F}}^{2}$  for $n \in [N]$ that also have the following expression
+% In other words, the upper bound of $\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}\|^{2}_{\mathcal{F}}$ decomposes on two terms: $\sigma_{N+1}$ that represents the interpolation error  and  $\|\mu_{e_{n}^{\F}} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{e_{n}^{\F}}\|_{\mathcal{F}}^{2}$ 
+% We give the proof of this lemma later. For now, we observe that for every $n$
+\begin{equation}\label{eq:interpolation_at_eigenfunctions_equivalent_expression}
+ \|\mu_{e_{n}^{\F}} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{e_{n}^{\F}}\|_{\mathcal{F}}^{2} =  \sigma_{n} \|e_{n}^{\F} - \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{n}^{\F}\|_{\mathcal{F}}^{2}.
+\end{equation}
+% We argue that if $\bm{x}$ follows the distribution of the mentioned projection DPP, we can quantify the proximity between these two subspaces.
+% , where   is the ....   analysis of the  error  that the interpolation error $\|\mu_{g} - \Pi_{\mathcal{T}(\bm{x})} \mu_{g}\|^{2}_{\mathcal{F}}$ is the residual of 
+%  % the skeleton of the proof of Theorem~\ref{thm:main_theorem}, referring to the appendices for technical details.
+%   The proof is in two steps. First, we give an upper bound for the approximation error $\|\mu_{g} - \bm{\Phi}\hat{\bm{w}}\|^{2}_{\mathcal{F}}$ that involves the maximal principal angle between the functional subspaces of $\mathcal{F}$
+% $$\mathcal{E}_N^{\mathcal{F}} = \Span(e_{n}^{\mathcal{F}})_{n \in [N]} \quad\text{ and }\quad \mathcal{T}(\bm{x}) = \Span(k(x_{j},.))_{j \in [N]}.$$
+% The second step consists in developing the expectation of the bound under the projection DPP in a similar fashion as in Chapter ??: projection DPPs allow closed form expressions for the expectation of some trigonometric functions of the principal angles.
+% This quantification is achieved by the principal angles between subspaces 
+% As for now, we recall some properties of the principal angles between subspaces of a Hilbert space and we give the corresponding instantiation of these results when the Hilbert space is $\F$.
+% \rb{Make this an assumption using begin/end{assumption}, and comment on it, saying what it means and that others used the same.}
+
+\begin{figure}[]
+\centering
+\input{img/neurips/principalangles/func_principal_angles_3D.tex}
+ \caption{Illustration of the largest principal angle between the subspaces $\mathcal{T}(\bm{x})$ and $\mathcal{E}_{N}^{\mathcal{F}}$ in the case of the periodic Sobolev space of order 1.  \label{fig:func_principal_angles}}
+\end{figure}
+
+
+Now, to upper bound the right-hand side of \eqref{eq:interpolation_at_eigenfunctions_equivalent_expression}, we note that $\sigma_{n} \|e_{n}^{\F} - \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{n}^{\F}\|_{\mathcal{F}}^{2}$ is the product of two terms: $\sigma_{n}$ is a decreasing function of $n$ while $\|e_{n}^{\F} - \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{n}^{\F}\|_{\mathcal{F}}^{2}$ is the interpolation error of the eigenfunction $e_{n}^{\mathcal{F}}$, measured in the $\|.\|_{\mathcal{F}}$ norm.
+We can bound the latter interpolation error uniformly in $n\in [N]$ using the largest principal angle between $\mathcal{T}(\bm{x})$ and $\mathcal{E}^{\mathcal{F}}_{N} = \Span(e_{n}^{\mathcal{F}})_{ n \in [N]}$; see Section?? in Chapter~\ref{chapter:cssp} for details on principal angles between subspaces. In particular, remember that the maximal principal angle is defined through its cosine
+\begin{equation}
+	\cos^{2} \theta_{N}(\mathcal{T}(\bm{x}),\mathcal{E}^{\mathcal{F}}_{N}) = \inf\limits_{\substack{\bm{u} \in \mathcal{T}(\bm{x}), \bm{v} \in \mathcal{E}^{\mathcal{F}}_{N}\\ \|u\|_{\mathcal{F}} = 1, \|v\|_{\mathcal{F}} = 1}} \langle \bm{u}, \bm{v} \rangle_{\mathcal{F}};
+\end{equation}
+and we can define successively the $N$ principal angles $\theta_{n}(\mathcal{T}(\bm{x}),\mathcal{E}^{\mathcal{F}}_{N}) \in \left[0, \frac{\pi}{2}\right]$ for $ n\in [N]$ between the subspaces $\mathcal{E}^{\mathcal{F}}_{N}$ and $\mathcal{T}(\bm{x})$. These angles quantify the relative position of theses two subspaces. Now, we have the following lemma.
+
+
+
+
+
+
+% See Appendix~\ref{subsec:principalangles} for more details about principal angles.
+% While principal angles in Euclidean spaces are a well-known notion \cite{GoVa96}, Section 6.4.3., we could not locate their extension to finite-dimensional subspaces of Hilbert spaces in the literature. \ab{This sentence to be discussed}
+ % We thus give the necessary details in  .
+
+% In the following, we use the maximal principal angle between the subspaces $\mathcal{E}^{\mathcal{F}}_{N}$ and $\mathcal{T}(\bm{x})$ to bound $\max\limits_{n \in [N]}  \|\bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}} e_{n}^{\mathcal{F}}\|_{\mathcal{F}}^{2}$.
+\begin{lemma}\label{lemma:max_error_cos}
+Let $\bm{x} = \{x_{1}, \dots , x_{N}\} \subset \mathcal{X}$ such that $\Det \bm{E}(\bm{x}) \neq 0$. Then
+\begin{equation}\label{eq:max_error_as_function_of_cos}
+	\max_{ n \in [N]} \|e_{n}^{\F} - \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{n}^{\F}\|_{\mathcal{F}}^{2} \leq \frac{1}{\cos^{2} \theta_{N}(\mathcal{T}(\bm{x}),\mathcal{E}^{\mathcal{F}}_{N})} - 1. 
+\end{equation}
+In particular
+\begin{equation}\label{eq:max_error_as_function_of_cos_prod}
+\max_{ n \in [N]} \|e_{n}^{\F} - \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{n}^{\F}\|_{\mathcal{F}}^{2} \leq \prod\limits_{n \in [N]}\frac{1}{\cos^{2} \theta_{n}(\mathcal{T}(\bm{x}),\mathcal{E}^{\mathcal{F}}_{N})} - 1,
+\end{equation}
+and
+\begin{equation}\label{eq:max_error_as_function_of_cos_sum}
+\max_{ n \in [N]} \|e_{n}^{\F} - \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{n}^{\F}\|_{\mathcal{F}}^{2} \leq \sum\limits_{n \in [N]}\frac{1}{\cos^{2} \theta_{n}(\mathcal{T}(\bm{x}),\mathcal{E}^{\mathcal{F}}_{N})} - N.
+\end{equation}
+\end{lemma}
+
+
+
+
+
+To sum up, we have so far bounded the approximation error by the geometric quantities in the right-hand side of \eqref{eq:max_error_as_function_of_cos_prod} and \eqref{eq:max_error_as_function_of_cos_sum}.
+The proof of Theorem~\ref{thm:main_theorem} uses the symmetrization \eqref{eq:max_error_as_function_of_cos_prod}, while
+the proof of Theorem~\ref{thm:main_theorem_improved} uses the symmetrization \eqref{eq:max_error_as_function_of_cos_sum}.
+
+As we have seen in Chapter~\ref{chapter:cssp}, projection DPPs shine in taking expectations of such symmetric geometric quantities in finite dimensional vector spaces. We will show in the following that this is also true in RKHSs. Indeed, a simple application of Proposition~\ref{prop:principal_angles_spectral_hilbert_spaces} of Chapter~\ref{chapter:cssp}, in the case $\mathcal{H} = \F$, $\mathcal{P}_{1} = \mathcal{E}_{N}^{\F}$ and $\mathcal{P}_{2} = \mathcal{T}(\bm{x})$ leads to the following result.
+
+
+
+\begin{corollary}\label{cor:cos_ratio_det}
+Let $\bm{x} =  \{ x_{1}, \dots , x_{N}\} \subset \mathcal{X}$ such that $\Det^{2} \bm{E}(\bm{x}) \neq 0$. Then,
+\begin{equation}
+\prod\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell} \left(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \right)} = \frac{\Det \bm{K}(\bm{x})}{\Det^{2} \bm{E}^{\mathcal{F}}(\bm{x})},
+\end{equation}
+and
+\begin{equation}
+\sum\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell} \bigg(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \bigg)} = \Tr \bigg(\bm{E}^{\mathcal{F}}(\bm{x})^{\Tran^{-1}}  \bm{K}(\bm{x}) \bm{E}^{\mathcal{F}}(\bm{x})^{-1} \bigg).
+\end{equation}
+\end{corollary}
+
+
+
+
+
+% \subsubsection{Taking the expectation under the DPP}
+% \label{subsec:expectation_under_the_DPP}
+Corollary~\ref{cor:cos_ratio_det} allows to obtain tractable formulas, in terms of the eigenvalues of the kernel $k$, of the expectation of the right-hand side of \eqref{eq:max_error_as_function_of_cos_prod} and \eqref{eq:max_error_as_function_of_cos_sum}.
+This is achieved in the following two results.
+% prove the following two results that   can 
+
+% Now, the upper bound in Lemma~\ref{lemma:max_error_cos} is satisfied whenever $\Det \bm{E}(\bm{x}) \neq 0$. As seen in Corollary~\ref{c:regularization}, this condition is satisfied almost surely when $\bm{x}$ is drawn from the projection DPP $(\mathrm{d}\omega, \KDPP)$. 
+
+The first one concerns the multiplicative symmetrization.
+%% Proposition
+\begin{proposition}\label{prop:expected_value_of_product_of_cos}
+Let $\bm{x} = \{x_{1}, \dots , x_{N}\}$ be a random set that follows the projection DPP $(\mathrm{d}\omega, \KDPP )$. Then,
+\begin{equation}\label{eq:expected_value_of_product_of_cos}
+\EX_{\DPP} \prod\limits_{n \in [N]} \frac{1}{\cos^{2} \theta_{n}\bigg(\mathcal{T}(\bm{x}), \mathcal{E}^{\mathcal{F}}_{N} \bigg)}   = \sum\limits_{\substack{T \subset \mathbb{N}^{*} \\ |T| = N}} \frac{ \prod\limits_{t \in T}\sigma_{t}}{\prod\limits_{n \in [N]} \sigma_{n}} \:.
+\end{equation}
+\end{proposition}
+
+The second result concerns the additive symmetrization.
+
+\begin{proposition}\label{prop:ex_dpp_sum_inv_cos}
+Let $\bm{x} = \{x_{1}, \dots , x_{N}\}$ be a random set that follows the projection DPP $(\mathrm{d}\omega, \KDPP )$. Then,
+\begin{equation}
+\EX_{\DPP}  \sum\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell} \bigg(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \bigg)} -N =  \sum\limits_{v \in [N]} \frac{1}{\sigma_{v}} \sum\limits_{w \in \mathbb{N}^{*}\smallsetminus [N]} \sigma_{w}.
+\end{equation}
+% In particular for the saturated kernel, we have
+% \begin{equation}
+% \EX_{\DPP}  \sum\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell} \bigg(\mathcal{E}^{\tilde{\mathcal{F}}}_{N}, \tilde{\mathcal{T}}(\bm{x}) \bigg)}  -N =  \frac{N}{\sigma_{1}} \sum\limits_{w \in \mathbb{N}^{*}\smallsetminus [N]} \sigma_{w}.
+% \end{equation}
+\end{proposition}
+
+
+
+% \sum\limits_{n \in [N]}\frac{1}{\sigma_{n}}r_{N} + \dots + \frac{1}{\prod\limits_{n \in [N]} \sigma_{n}} \sum\limits_{\substack{T \subset \mathbb{N}^{*} \smallsetminus [N]\\ |T| = N}}\prod\limits_{t \in T}\sigma_{t}
+
+% & =  \sum\limits_{\substack{T \subset \mathbb{N} \\ |T| = N}} \frac{ \prod\limits_{t \in T}\sigma_{t}}{\prod\limits_{n \in [N]^{0}} \sigma_{n}} -1\\
+% &
+The bound of Proposition~\ref{prop:expected_value_of_product_of_cos}, once reported in  Lemma~\ref{lemma:max_error_cos} and Lemma~\ref{lemma:approximation_error_spectral_bound}, already yields Theorem~\ref{thm:main_theorem} in the special case where $\sigma_{1} = \dots = \sigma_{N}$. This seems a very restrictive condition, but next Proposition~\ref{prop:kernel_perturbation_inequality} shows that we can always reduce the analysis to that case.
+% \subsubsection{An upper bound for $\max\limits_{n \in [N]^{0}} \sigma_{n}\|\Pi_{\mathcal{T}(x)^{\perp}} e_{n}^{\mathcal{F}}\|_{\mathcal{F}}^{2}$}
+% In this section, we give a bound of the approximation error $\|f - \bm{\Phi}\hat{\bm{w}}\|_{\mathcal{F}}$ using the maximal principal angle between the subspaces $\mathcal{E} = \Span(e_{m}^{\mathcal{F}})_{m \in [N]}$ and $\mathcal{T}(\bm{x}) =  \Span \bigg( k(x_{i},.) \bigg)_{i \in [N]}$.
+In fact, let the kernel $\tilde{k}$ be defined by
+\begin{equation}\label{eq:tilde_k_kernel_definition}
+\tilde{k}(x,y) = \sum\limits_{n \in [N]} \sigma_{1}e_{n}(x)e_{n}(y) + \sum\limits_{n \geq N+1} \sigma_{n}e_{n}(x)e_{n}(y) = \sum\limits_{n \in \mathbb{N}^{*}} \tilde{\sigma}_{n}e_{n}(x)e_{n}(y),
+\end{equation}
+and let $\tilde{\mathcal{F}}$ be the corresponding RKHS. Then one has the following inequality.
+%% PROPOSITION
+\begin{proposition}\label{prop:kernel_perturbation_inequality}
+Let $ \tilde{\mathcal{T}}(\bm{x}) = \Span \left( \tilde{k}(x_{j},.) \right)_{j \in [N]}$ and $\bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})}$ the orthogonal projection onto $\tilde{\mathcal{T}}(\bm{x})$ in $(\tilde{\mathcal{F}}, \langle .,.\rangle_{\tilde{\mathcal{F}}})$. Then,
+\begin{equation}\label{eq:kernel_perturbation_inequality}
+	\forall n \in [N], \:\: \sigma_{n} \|e_{n}^{\mathcal{F}} - \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{n}^{\mathcal{F}}\|_{\mathcal{F}}^{2} \leq \sigma_{1}   \|e_{n}^{\tilde{\mathcal{F}}} - \bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})} e_{n}^{\tilde{\mathcal{F}}}\|_{\tilde{\mathcal{F}}}^{2}.
+\end{equation}
+\end{proposition}
+%% END PROPOSITION
+Simply put, capping the first eigenvalues of $k$ yields a new kernel $\tilde{k}$ that captures the interaction between the terms $\sigma_{n}$ and $\|e_{n}^{\mathcal{F}} - \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{n}^{\mathcal{F}}\|_{\mathcal{F}}^{2}$ such that we only have to deal with the term $\|e_{n}^{\tilde{\mathcal{F}}} - \bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})} e_{n}^{\tilde{\mathcal{F}}}\|_{\tilde{\mathcal{F}}}^{2}$.
+Combining  Proposition~\ref{prop:expected_value_of_product_of_cos} with Proposition~\ref{prop:kernel_perturbation_inequality} applied to the kernel $\tilde{k}$ yields Theorem~\ref{thm:main_theorem}. 
+
+The same steps are followed to obtain the Theorem~\ref{thm:main_theorem_improved} using Proposition~\ref{prop:ex_dpp_sum_inv_cos}.
+ % and Appendix~\ref{app:geometric_intuition} for the geometric intuition behind the proof
+% \subsubsection{Bounding the approximation error using principal angles}
+% \label{subsec:approximation_error_principal_angle}
+% In other words, \eqref{e:finalTool} equates the approximation error to $\|\bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}}\mu_g\|^{2}_{\mathcal{F}}$, where $\bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}}$ is the orthogonal projection onto $\mathcal{T}(\bm{x})^{\perp}$.
+% % \rb{and maybe give a ref on the definition of the projection, since $\Phi$ is an operator}.
+% Now we have the following lemma.
+The additive symmetrization gives a neater upper bound of $\displaystyle \EX_{\DPP}  1/\cos^{2} \theta_{N} \bigg(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \bigg)$ compared to the multiplicative symmetrization. Nevertheless the proof of Proposition~\ref{prop:ex_dpp_sum_inv_cos} is more technical.
+
+
+
+\section{Numerical simulations}
+This section is devoted to numerical simulations that illustrate the main results of Section~\ref{subsec:unreg_opt_problem}.
 
 \subsection{The periodic Sobolev space}\label{s:sobolev_numsim}
 Let $\mathrm{d}\omega$ be the uniform measure on $\mathcal{X} = [0,1]$, and let the RKHS kernel be \citep{BeTh11}
-$$k_{s}(x,y) = 1+ 2\sum\limits_{m \in \mathbb{N}^{*}} \frac{1}{m^{2s}} \cos(2\pi m(x-y)),$$
-so that $\mathcal{F}=\mathcal{F}_{s}$ is the periodic Sobolev space of order $s$ on $[0,1]$. Note that $k_{s}$ can be expressed in closed form using Bernoulli polynomials \cite{Wah90}. We take $g\equiv 1$ so that the mean element $\mu_{g} \equiv 1$. We compare the following algorithms: $(i)$ the quadrature rule DPPKQ we propose in Theorem~\ref{thm:main_theorem}, $(ii)$ the quadrature rule DPPUQ based on the same projection DPP but with uniform weights, implicitly studied in \cite{Joh97}, $(iii)$ the kernel quadrature rule \eqref{eq:reg_kernel_opt_problem} of \cite{Bac17}, which we denote LVSQ for \emph{leverage score quadrature}, with regularization parameter $\lambda \in \{0,0.1,0.2\}$ (note that the optimal proposal is $q_{\lambda}^* \equiv 1$), $(iv)$ herding with uniform weights \citep{BaLaOb12,ChWeSm10}, $(v)$ sequential Bayesian quadrature (SBQ) \citep{HuDu12} with regularization to avoid numerical instability, and $(vi)$ Bayesian quadrature on the uniform grid (UGBQ). We take $N \in [5,50]$. Figures~\ref{fig:a} and \ref{fig:b} show log-log plots of the worst case quadrature error w.r.t. $N$, averaged over 50 samples for each point, for $s \in \{1,3\}$.
+\begin{equation}
+k_{s}(x,y) = 1+ 2\sum\limits_{m \in \mathbb{N}^{*}} \frac{1}{m^{2s}} \cos(2\pi m(x-y)),
+\end{equation}
+so that $\mathcal{F}=\mathcal{F}_{s}$ is the periodic Sobolev space of order $s$ on $[0,1]$. We take $g\equiv 1$ so that the mean element $\mu_{g} \equiv 1$. We compare the following algorithms: $(i)$ the quadrature rule DPPKQ we propose in Theorem~\ref{thm:main_theorem}, $(ii)$ the quadrature rule DPPUQ based on the same projection DPP but with uniform weights, implicitly studied in \cite{Joh97}, $(iii)$ the kernel quadrature rule \eqref{eq:reg_kernel_opt_problem} of \cite{Bac17}, which we denote LVSQ for \emph{leverage score quadrature}, with regularization parameter $\lambda \in \{0,0.1,0.2\}$ (note that the optimal proposal is $q_{\lambda}^* \equiv 1$), $(iv)$ herding with uniform weights \citep{BaLaOb12,ChWeSm10}, $(v)$ sequential Bayesian quadrature (SBQ) \citep{HuDu12} with regularization to avoid numerical instability, and $(vi)$ Bayesian quadrature on the uniform grid (UGBQ). We take $N \in [5,50]$. Figures~\ref{fig:a} and \ref{fig:b} show log-log plots of the worst case quadrature error w.r.t. $N$, averaged over 50 samples for each point, for $s \in \{1,3\}$.
 
 
  We observe that the approximation errors of all first four quadratures converge to $0$ with different rates. Both UGBQ and DPPKQ converge to $0$ with a rate of $\mathcal{O}(N^{-2s})$, which indicates that our $\mathcal{O}(N^{2-2s})$ bound in Theorem~\ref{thm:main_theorem} is not tight in the Sobolev case. Meanwhile, the rate of DPPUQ is $\mathcal{O}(N^{-2})$ across the three values of $s$: it does not adapt to the regularity of the integrands. This corresponds to the CLT proven in \cite{Joh97}.
@@ -3470,22 +3569,38 @@ so that $\mathcal{F}=\mathcal{F}_{s}$ is the periodic Sobolev space of order $s$
   % However, we recall that it is the only algorithm here with no theoretical guarantee on its error.
 Overall, in the Sobolev case, DPPKQ and UGBQ have the best convergence rate. UGBQ --~known to be optimal in this case \cite{Boj81}~-- has a better constant.
 \subsection{The Korobov space}
-Now, for a multidimensional example, consider the ``Korobov" kernel $k_{s}$ defined on $[0,1]^{d}$ by
+Now, we consider the Korobov kernel $k_{s,d}$ defined on $[0,1]^{d}$ by
 \begin{equation}
-\forall x, y \in [0,1]^{d}, \:\:k_{s,d}(x,y) = \prod\limits_{i \in [d]} k_{s}(x_{i},y_{i}).
+\forall x, y \in [0,1]^{d}, \:\:k_{s,d}(x,y) = \prod\limits_{\delta \in [d]} k_{s}(x_{\delta},y_{\delta}).
 \end{equation}
 
+% The Mercer decomposition
+Remember that the Mercer decomposition of $k_{s,d}$ with respect to the measure $\mathrm{d}\bm{\omega}(x) = \prod\limits_{\delta \in [d]} \mathrm{d}\omega(x_{\delta})$ writes
 
-The definition of the projection DPP and its kernel $\frak K$ now require that we fix an order on multi-indices. We choose an order $\prec$ that keeps eigenvalues decreasing, as in the univariate case where $\sigma_{1} \geq \sigma_{2}\geq\dots$. Whenever the univariate eigenvalues take the form $\sigma_{i} = \frac{1}{(1+i)^{\eta}}$ with $\eta >0$, such as in the Korobov case, it holds
+\begin{equation}
+k_{s,d}(x,y) = \sum\limits_{u \in (\mathbb{N}\smallsetminus \{0\})^{d}} \prod\limits_{\delta \in [d]} \sigma_{\delta} e_{\delta}(x_{\delta}) e_{\delta}(y_{\delta}),
+\end{equation}
+
+where the $(\sigma_{m})$ and the $(e_{m})$ are respectively the eigenvalues and the eigenfunctions of the kernel $k_{s}$ with respect to the measure $\mathrm{d}\omega$.
+
+
+The definition of the DPP kernel $\frak K$ requires to define an order on multi-indices. We choose an order $\prec$ that keeps the eigenvalues of $k_{s,d}$ decreasing:
+\begin{equation}
+u \prec v \iff  \prod\limits_{\delta \in [d]} \sigma_{u_{\delta}} \leq \prod\limits_{\delta \in [d]} \sigma_{v_{\delta}}.
+\end{equation}
+% as in the univariate case where $\sigma_{1} \geq \sigma_{2}\geq\dots$.
+
+
+ Whenever the univariate eigenvalues take the form $\sigma_{i} = \frac{1}{(1+i)^{\eta}}$ with $\eta >0$, such as in the Korobov case, it holds
 \begin{align}
-\prod\limits_{i \in [d]} \sigma_{u_{i}} \leq \prod\limits_{i \in [d]} \sigma_{v_{i}}  & \Leftrightarrow \left(\prod\limits_{i \in [d]} \frac{1}{1+u_{i}} \right)^{\eta} \leq \left(\prod\limits_{i \in [d]} \frac{1}{1+v_{i}} \right)^{\eta} \\
+u \prec v  & \Leftrightarrow \left(\prod\limits_{i \in [d]} \frac{1}{1+u_{i}} \right)^{\eta} \leq \left(\prod\limits_{i \in [d]} \frac{1}{1+v_{i}} \right)^{\eta} \\
 & \Leftrightarrow \sum\limits_{i \in [d]} \log(1+v_{i})  \leq \sum\limits_{i \in [d]} \log(1+u_{i}) .
 \label{e:orderSobolev}
 \end{align}
 
-We define $\bm{u}\prec \bm{v}$ to be equivalent to \eqref{e:orderSobolev}; and we define $\textbf{u}= (u^{1}, u^{2},\dots)\in (\mathbb{N} \smallsetminus \{0\})^d$ the family of multi-indices ordered according to $\prec$. The repulsion kernel is defined as
+We define $u \prec v$ to be equivalent to \eqref{e:orderSobolev}; and we define $\textbf{u}= (u^{1}, u^{2},\dots)\in (\mathbb{N} \smallsetminus \{0\})^d$ the family of multi-indices ordered according to $\prec$. The repulsion kernel is defined as
 \begin{equation}
-\KDPP(x,y) = \sum\limits_{n \in [N]} \prod\limits_{\delta \in [d]}e_{u^{n}_{\delta}} (x_{\delta}) e_{u^{n}_{\delta}} (y_{\delta}), \quad x,y\in\mathbb{R}^d.
+\KDPP(x,y) = \sum\limits_{n \in [N]} \prod\limits_{\delta \in [d]}e_{u^{n}_{\delta}} (x_{\delta}) e_{u^{n}_{\delta}} (y_{\delta}), \quad x,y\in [0,1]^d.
 \end{equation}
 We sampled from the corresponding DPP using the generic sampling algorithm in \cite{HoKrPeVi06}, using the uniform as proposal in the successive rejection sampling steps.
 
@@ -3607,14 +3722,32 @@ The numerical simulations shows that the empirical rate of DPPKQ is $\mathcal{O}
 
 \section{Discussion}
 \label{s:discussion}
+
+
+
+Since the publication of [??], we obtained two refinements of Theorem~\ref{thm:main_theorem}. We report these results in the following Theorem.
+
+\begin{theorem}\label{thm:main_theorem_refined}
+Let $\bm{x} = \{x_{1}, \dots , x_{N}\}$ be a projection DPP with reference measure $\mathrm{d}\omega$ and kernel \eqref{e:kernel}. Let $\hat{\bm{w}}$ be the unique solution to \eqref{eq:unreg_opt_problem}. Assume that $\|g\|_{\mathrm{d}\omega} \leq 1$ and define $r_{N} = \sum\limits_{m \geq N+1} \sigma_{m}$, then
+\begin{equation}\label{eq:main_result_refined}
+\EX_{\DPP} \sup\limits_{\|g\|_{\mathrm{d}\omega} \leq 1}\|\mu_{g} - \bm{\Phi}\hat{\bm{w}}\|_{\mathcal{F}}^{2}  \leq 4 Nr_{N}.
+\end{equation}
+Moreover, if $g = e_{n}$ for some $m \in \Ns$, then
+\begin{equation}\label{eq:main_result_refined_eigfunction}
+\EX_{\DPP} \|\mu_{g} - \bm{\Phi}\hat{\bm{w}}\|_{\mathcal{F}}^{2}  \leq r_{N}.
+\end{equation}
+%with
+%\begin{equation}
+%	\label{eq:def_rN}
+%	r_{N} = \sum\limits_{m \geq N+1} \sigma_{m}.
+%\end{equation}
+\end{theorem}
+
+
+
 We have arbitrarily introduced a product in the right-hand side of \eqref{eq:max_error_as_function_of_cos}, which is a rather loose majorization. Our motivation is that the expected value of this symmetric quantity is tractable under the DPP. Getting rid of the product could make the bound much tighter. Intuitively, taking the upper bound in \eqref{eq:expected_value_of_product_of_cos} to the power $1/N$ results in a term in $\mathcal{O}(r_{N})$ for the RKHS $\tilde{\mathcal{F}}$. Improving the bound in \eqref{eq:expected_value_of_product_of_cos} would require a de-symmetrization by comparing the maximum of the $1/\cos^{2} \theta_{\ell}(\mathcal{T}(\bm{x}),\mathcal{E}^{\mathcal{F}}_{N})$ to their geometric mean.
 % We expect techniques from the literature on interlacing families \cite{MaSpSr15,AnGh14} to help for the de-symmetrization, but this is beyond the scope of this article.
 An easier route than de-symmetrization could be to replace the product in \eqref{eq:max_error_as_function_of_cos} by a sum, but this is beyond the scope of this article.
-
-In comparison with \cite{Bac17}, we emphasize that the dependence of our bound on the eigenvalues of the kernel $k$, via $r_{N}$, is explicit. This is in contrast with Proposition~\ref{p:bach} that depends on the eigenvalues of $\bm{\Sigma}$ through the degree of freedom $d_{\lambda}$ so that the necessary number of samples $N$ diverges when $\lambda \rightarrow 0$. On the contrary, our quadrature requires a finite number of points for $\lambda =0$. It would be interesting to extend the analysis of our quadrature in the regime $\lambda >0$.
-
-
-One advantage of DPPs is that they can be sampled exactly. Because of the orthonormality of $(\psi_n)$, one can write the chain rule for \eqref{eq:pdpp_definition}; see \cite{HKPV06}. Sampling each conditional in turn, using e.g. rejection sampling \cite{RoCa04}, then yields an exact sampling algorithm. Rejection sampling aside, the cost of this algorithm is cubic in $N$ without further assumptions on the kernel. Simplifying assumptions can take many forms. 
 
 
 \subsection{Bounding the approximation error under the DPP: the strong version}
@@ -3844,10 +3977,10 @@ Combining \eqref{eq:prod_cos_det_E}, \eqref{eq:AN_times_EN} and \eqref{eq:det_AN
 \end{equation}
 
 
-\subsection{Technical results}
+\subsection{A borrowed result: leverage score changes under rank 1 updates} \label{subsec:lv_score_updates}
 
 
-\subsubsection{Leverage score changes under rank 1 updates}\label{subsec:lv_score_updates}
+\subsubsection{}
 In this section we prove a lemma inspired from Lemma 5 in \cite{Coh15}. This lemma concerns the changes of leverage scores under rank 1 updates.
 
 We start by recalling the definition of leverage scores, which play an important role in randomized linear algebra \citep{DrMaMu06}. Let $N,M \in \mathbb{N}^{*}$, $M \geq N$. Let $\bm{A} \in \mathbb{R}^{N \times M}$ be a matrix of full rank.

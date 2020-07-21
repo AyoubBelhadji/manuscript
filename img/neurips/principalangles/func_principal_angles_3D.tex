@@ -20,14 +20,14 @@
 %\node[transform shape] at (0,0) (ImageA)  {\includegraphics[width=3cm]{fig/signal_reconstruction_principle_2.pdf}};
 
 %\node[canvas is plane={O(0,0,0)x(2.2/2.41,1/2.41,0)y(2.2/2.41,3/2.41,0)}] at (1.1,1.1) {\includegraphics[width=4cm]{fig/signal_reconstruction_principle_2.pdf}};
-\node[canvas is plane={O(0,2,0)x(0,1,0)y(1,2,0)}] at (0.9,-0.9) {\includegraphics[width=2.4cm, height=2.4cm]{img/principalangles/signal_eigreconstruction_modes.pdf}};
+\node[canvas is plane={O(0,2,0)x(0,1,0)y(1,2,0)}] at (0.9,-0.9) {\includegraphics[width=2.4cm, height=2.4cm]{img/neurips/principalangles/signal_eigreconstruction_modes.pdf}};
 
-\node[canvas is plane={O(0,2,0)x(0,1,0)y(1.8/2.34,2+1.5/2.34,0)}] at (0.65,-0.35,0.1) {\includegraphics[width=2.4cm, height=2.7cm]{img/principalangles/signal_reconstruction_principle_2.pdf}};
+\node[canvas is plane={O(0,2,0)x(0,1,0)y(1.8/2.34,2+1.5/2.34,0)}] at (0.65,-0.35,0.1) {\includegraphics[width=2.4cm, height=2.7cm]{img/neurips/principalangles/signal_reconstruction_principle_2.pdf}};
 
 \begin{scope}
-	\draw (0,-1.3,0) node[above left = 0.5mm] {$\theta_{N}(\tilde{\mathcal{T}}(\bm{x}),\mathcal{E}_{N}^{\tilde{\mathcal{F}}})$};
-	\draw (2.2,-0.8,0) node[below ] {$\mathcal{E}_{N}^{\tilde{\mathcal{F}}} = \Span (e_{j}^{\tilde{\mathcal{F}}})_{j \in [N]}$};
-	\draw (-0,6,0) node[below right=0.5mm] {$\tilde{\mathcal{T}}(\bm{x}) = \Span \tilde{k}(x_{i},.)_{i \in [N]}$};
+	\draw (0,-1.3,0) node[above left = 0.5mm] {$\theta_{N}(\mathcal{T}(\bm{x}),\mathcal{E}_{N}^{\mathcal{F}})$};
+	\draw (2.2,-0.8,0) node[below ] {$\mathcal{E}_{N}^{\mathcal{F}} = \Span (e_{j}^{\mathcal{F}})_{j \in [N]}$};
+	\draw (-0,6,0) node[below right=0.5mm] {$\mathcal{T}(\bm{x}) = \Span k(x_{i},.)_{i \in [N]}$};
     \clip (C) -- (A) -- (B) -- cycle;
     \draw[-] circle[at=(A),radius=4mm];
   
