@@ -3565,7 +3565,7 @@ so that $\mathcal{F}=\mathcal{F}_{s}$ is the periodic Sobolev space of order $s$
 
 We consider a set of three numerical experiments. In the first one, we consider the approximation of $\mu_{g}$ when $g \equiv 1$ using several quadratures; in the second one, we consider the approximation of $\mu_{g}$ when $g$ is an eigenfunction of $\bm{\Sigma}$ using the optimal kernel quadrature based on the projection DPP; in the third one, we consider the worst interpolation error when $g$ spans the unit ball of $\mathbb{L}_{2}(\mathrm{d}\omega)$. 
 \subsubsection{A first experiment}
- We take $g\equiv 1$ so that the mean element $\mu_{g} \equiv 1$. We compare the following algorithms: $(i)$ the quadrature rule DPPKQ we propose in Theorem~\ref{thm:main_theorem} (optimal kernel quadrature based on the projection DPP), $(ii)$ the quadrature rule DPPUQ based on the same projection DPP but with uniform weights $(w_{n} = 1/N)$ \cite{Joh97}, $(iii)$ the kernel quadrature rule \eqref{eq:reg_kernel_opt_problem} of \cite{Bac17}, which we denote LVSQ for \emph{leverage score quadrature}, with regularization parameter $\lambda \in \{0,0.1,0.2\}$ (note that the optimal proposal is $q_{\lambda}^* \equiv 1$), $(iv)$ herding with uniform weights \citep{BaLaOb12,ChWeSm10}, $(v)$ sequential Bayesian quadrature (SBQ) \citep{HuDu12} with regularization to avoid numerical instability, and $(vi)$ optimal kernel quadrature on the uniform grid (UGKQ). We take $N \in [5,50]$. Figures~\ref{fig:pDPP_results_pSobolev_exp_1} and \ref{fig:b} show log-log plots of the worst case quadrature error w.r.t. $N$, averaged over 50 samples for each point, for $s \in \{1,3\}$.
+ We take $g\equiv 1$ so that the mean element $\mu_{g} \equiv 1$. We compare the following algorithms: $(i)$ the quadrature rule DPPKQ we propose in Theorem~\ref{thm:main_theorem} (optimal kernel quadrature based on the projection DPP), $(ii)$ the quadrature rule DPPUQ based on the same projection DPP but with uniform weights $(w_{n} = 1/N)$ \cite{Joh97}, $(iii)$ the kernel quadrature rule \eqref{eq:reg_kernel_opt_problem} of \cite{Bac17}, which we denote LVSQ for \emph{leverage score quadrature}, with regularization parameter $\lambda \in \{0,0.1,0.2\}$ (note that the optimal proposal is $q_{\lambda}^* \equiv 1$), $(iv)$ herding with uniform weights \citep{BaLaOb12,ChWeSm10}, $(v)$ sequential Bayesian quadrature (SBQ) \citep{HuDu12} with regularization to avoid numerical instability, and $(vi)$ optimal kernel quadrature on the uniform grid (UGKQ). We take $N \in [5,50]$. Figure~\ref{fig:pDPP_results_pSobolev_exp_1} shows log-log plots of the worst case quadrature error w.r.t. $N$, averaged over 50 samples for each point, for $s \in \{1,3\}$.
 
 
  We observe that the approximation errors of all first four quadratures converge to $0$ with different rates. Both UGKQ and DPPKQ converge to $0$ with a rate of $\mathcal{O}(N^{-2s})$, which indicates that our $\mathcal{O}(N^{2-2s})$ bound in Theorem~\ref{thm:main_theorem} is not tight in the Sobolev case. Meanwhile, the rate of DPPUQ is $\mathcal{O}(N^{-2})$ across the three values of $s$: it does not adapt to the regularity of the integrands. This corresponds to the CLT proven in \cite{Joh97}.
@@ -3579,14 +3579,14 @@ Overall, in the Sobolev case, DPPKQ and UGKQ have the best convergence rate. UGK
 \centering
 \includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/Sobolev_kernel_order_1_fig_1.pdf}
 \includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/Sobolev_kernel_order_3_fig_1.pdf}\\
-\caption{Squared interpolation error vs. number of nodes $N$ for $s = 1$ (left) and $s=3$ (right).
+\caption{Squared approximation error vs. number of nodes $N$ in the case of the periodic Sobolev space for $s = 1$ (left) and $s=3$ (right).
 \label{fig:pDPP_results_pSobolev_exp_1}}
 \end{figure}
 
 Observe that in this case $g$ is an eigenfunction of $\bm{\Sigma}$ corresponding to the largest eigenvalue that equals $1$. We consider in the next section, the interpolation of $\mu_{g}$ when $g$ is a generic eigenfunction of $\bm{\Sigma}$.
 
 \subsubsection{The reconstruction of the embeddings of eigenfunctions}
-We consider $g$ to be an eigenfunction $\bm{\Sigma}$: $g \in \{e_{5},e_{10},e_{14},e_{15},e_{16},e_{17}\}$, so that $\mu_{g} = \bm{\Sigma}g \in \{\sigma_{5}e_{5},\sigma_{10}e_{10},\sigma_{14}e_{14},\sigma_{15}e_{15},\sigma_{16}e_{16},\sigma_{17}e_{17}\}$. We observe the interpolation error under the projection DPP (DPPKQ) for $N \in [5,50]$. Figures~\ref{fig:pDPP_results_pSobolev_exp_2} and ?? show log-log plots of the interpolation error  w.r.t. $N$, averaged over 50 samples for each point, for $s \in \{1,3\}$.
+We consider $g$ to be an eigenfunction $\bm{\Sigma}$: $g \in \{e_{5},e_{10},e_{14},e_{15},e_{16},e_{17}\}$, so that $\mu_{g} = \bm{\Sigma}g \in \{\sigma_{5}e_{5},\sigma_{10}e_{10},\sigma_{14}e_{14},\sigma_{15}e_{15},\sigma_{16}e_{16},\sigma_{17}e_{17}\}$. We observe the interpolation error under the projection DPP (DPPKQ) for $N \in [5,50]$. Figure~\ref{fig:pDPP_results_pSobolev_exp_2} shows log-log plots of the interpolation error  w.r.t. $N$, averaged over 50 samples for each point, for $s \in \{1,3\}$.
 
 
  We observe that for every $g = e_{n}$, the interpolation error goes through two phases: in the first phase ($N < n$) the interpolation error is practically equal to \emph{the initial error} that is $\|\mu_{g}\|_{\mathcal{F}}^{2} = \sigma_{n}$; in the second phase ($N \geq n$) the interpolation error decreases to $0$ at the rate $\mathcal{O}(N^{-2s})$. These observations indicate again that the $\mathcal{O}(N^{2-2s})$ bound in Theorem~\ref{thm:main_theorem} is not tight.
@@ -3595,7 +3595,7 @@ We consider $g$ to be an eigenfunction $\bm{\Sigma}$: $g \in \{e_{5},e_{10},e_{1
 \centering
 \includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/multig_interpolation_pSobolev_s_1_fig_1.pdf}
 \includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/multig_interpolation_pSobolev_s_3_fig_1.pdf}\\
-\caption{Squared interpolation error vs. number of nodes $N$ for $s = 1$ (left) and $s=3$ (right).
+\caption{Squared interpolation error for the embedding of the eigenfunctions vs. number of nodes $N$ in the periodic Sobolev space for $s = 1$ (left) and $s=3$ (right).
 \label{fig:pDPP_results_pSobolev_exp_2}}
 \end{figure}
 \subsubsection{The uniform reconstruction of the embeddings of the element of the unit ball}
@@ -3603,17 +3603,17 @@ We consider $g$ to be an eigenfunction $\bm{\Sigma}$: $g \in \{e_{5},e_{10},e_{1
 
 
 In the previous experiments, we investigated empirically the interpolation error $\|\mu_{g}~-~\bm{\Pi}_{\mathcal{T}(\bm{x})}~\mu_{g}\|_{\mathcal{F}}^{2}$ for some functions $g$ in the unit ball of $\mathbb{L}_{2}(\mathrm{d}\omega)$. Remember, that the bound \eqref{eq:main_result_sup} in Theorem~\ref{thm:main_theorem_improved} deals with the worst case interpolation error defined by:
-\begin{equation}
+\begin{equation}\label{eq:worst_interpolation_error_supunitball}
 \sup\limits_{\|g\|_{\mathrm{d}\omega} \leq 1} \|\mu_{g}-\bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\mathcal{F}}^{2}.
 \end{equation}
 
 We investigate this quantity by considering the following surrogate:
 \begin{equation}\label{eq:surrogate_worst_inerpolation_error}
-\sup\limits_{g = \sum\limits_{\delta \in [\Delta]} \epsilon_{\delta} e_{\delta}} \|\mu_{g}-\bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\mathcal{F}}^{2},
+\sup\limits_{g \in \mathcal{G}_{\Delta} } \|\mu_{g}-\bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\mathcal{F}}^{2},
 \end{equation}
-where $\mathcal{I} = \{ \frac{1}{\sqrt{\Delta}} (\epsilon_{1}, \dots, \epsilon_{\Delta}), \epsilon_{i} \in \{-1,1\} \}$ for some $\Delta \in \mathbb{N}^{*}$. The quantity~\eqref{eq:surrogate_worst_inerpolation_error} is an approximation of the worst interpolation error. Indeed, if $g = \sum\limits_{\delta \in [\Delta]} \epsilon_{\delta} e_{\delta}$ for some $(\epsilon_{1}, \dots, \epsilon_{\Delta})$, then $\|g\|_{\mathrm{d}\omega} = 1$ and the quality of the approximation improves as $\Delta \rightarrow +\infty$.
+where $\mathcal{G}_{\Delta} = \{ \frac{1}{\sqrt{\Delta}} \sum\limits_{\delta \in [\Delta]} \epsilon_{\delta} e_{\delta}; \epsilon_{\delta} \in \{-1,1\}\}$ for some $\Delta \in \mathbb{N}^{*}$. The quantity~\eqref{eq:surrogate_worst_inerpolation_error} is an approximation of the worst interpolation error. Indeed, if $g = \sum\limits_{\delta \in [\Delta]} \epsilon_{\delta} e_{\delta}$ for some $(\epsilon_{1}, \dots, \epsilon_{\Delta})$, then $\|g\|_{\mathrm{d}\omega} = 1$.
 
-Again, we compare the following quadratures defined previously: $(i)$ the quadrature rule DPPKQ, $(ii)$ LVSQ with regularization parameter $\lambda = 0$, and $(iii)$ UGKQ. We take $N \in [5,50]$. Figures~\ref{fig:pDPP_results_pSobolev_exp_3} and ?? show log-log plots of the worst case quadrature error  w.r.t. $N$, averaged over 50 samples for each point, for $s \in \{1,3\}$.
+We compare the following quadratures defined previously: $(i)$ the quadrature rule DPPKQ, $(ii)$ LVSQ with regularization parameter $\lambda = 0$, and $(iii)$ UGKQ. We take $N \in [5,50]$. Figures~\ref{fig:pDPP_results_pSobolev_exp_3_G6} and \ref{fig:pDPP_results_pSobolev_exp_3_G7} show log-log plots of the worst interpolation error, on $\mathcal{G}_{6}$ and $\mathcal{G}_{7}$ respectively, w.r.t. $N$, averaged over 50 samples for each point, for $s \in \{1,3\}$. 
 
 
 
@@ -3621,17 +3621,28 @@ Again, we compare the following quadratures defined previously: $(i)$ the quadra
 \centering
 \includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_1_binarycubeM_64_fig_1.pdf}
 \includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_3_binarycubeM_64_fig_1.pdf}\\
-\includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_1_binarycubeM_128_fig_1.pdf}
-\includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_3_binarycubeM_128_fig_1.pdf}\\
-\caption{Squared interpolation error vs. number of nodes $N$ for $s = 1$ (left) and $s=3$ (right).
-\label{fig:pDPP_results_pSobolev_exp_3}}
+% \includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_1_binarycubeM_128_fig_1.pdf}
+% \includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_3_binarycubeM_128_fig_1.pdf}\\
+\caption{Squared worst interpolation error on $\mathcal{G}_{6}$ error vs. number of nodes $N$ for $s = 1$ (left) and $s=3$ (right).
+\label{fig:pDPP_results_pSobolev_exp_3_G6}}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_1_binarycubeM_64_fig_1.pdf}
+\includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_3_binarycubeM_64_fig_1.pdf}\\
+% \includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_1_binarycubeM_128_fig_1.pdf}
+% \includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_3_binarycubeM_128_fig_1.pdf}\\
+\caption{Squared worst interpolation error on $\mathcal{G}_{7}$ error vs. number of nodes $N$ for $s = 1$ (left) and $s=3$ (right).
+\label{fig:pDPP_results_pSobolev_exp_3_G7}}
 \end{figure}
 % For a given configuration $\bm{x} \subset \X$, the worst interpolation error on $\mathcal{I}$ is defined by
 % \begin{equation}
 % \sup\limits_{g = \sum\limits_{\delta \in [\Delta]} \epsilon_{\delta} e_{\delta}} \|\mu_{g}-\bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\mathcal{F}}^{2}.
 % \end{equation}
 % We consider the following experience. 
-We observe that the worst interpolation errors, of the three quadratures, converge  to $0$. DPPKQ converges at the rate $\mathcal{O}(N^{-2s})$ better than the theoretical rate $\mathcal{O}(N^{3-2s})$ of Theorem~\ref{thm:main_theorem_improved}. UGKQ seems to have a better rate than $\mathcal{O}(N^{-2s})$ for $s=3$. ?????
+We observe that the worst interpolation errors, of the three quadratures, converge  to $0$. DPPKQ converges at the rate $\mathcal{O}(N^{-2s})$ better than the theoretical rate $\mathcal{O}(N^{3-2s})$ of Theorem~\ref{thm:main_theorem_improved}. UGKQ seems to converge at the rate $\mathcal{O}(N^{-2s})$ with a better constant than DPPKQ. Finally, LVSQ converges at a rate slower than $\mathcal{O}(N^{-2s})$. 
+
+Among the three algorithms, DPPKQ is the only one to have guarantees for the worst interpolation error on the unit ball of $\mathbb{L}_{2}(\mathrm{d}\omega)$~\eqref{eq:worst_interpolation_error_supunitball} although the empirical investigation shows that the rates are pessimistic.
 
 \subsection{The Korobov space}
 Now, we consider the Korobov kernel $k_{s,d}$ defined on $[0,1]^{d}$ by
@@ -3640,13 +3651,13 @@ Now, we consider the Korobov kernel $k_{s,d}$ defined on $[0,1]^{d}$ by
 \end{equation}
 
 % The Mercer decomposition
-Remember that the Mercer decomposition of $k_{s,d}$ with respect to the measure $\mathrm{d}\bm{\omega}(x) = \prod\limits_{\delta \in [d]} \mathrm{d}\omega(x_{\delta})$ writes
+Remember that the Mercer decomposition of $k_{s,d}$ with respect to the uniform measure $\mathrm{d}\omega(x) = \prod\limits_{\delta \in [d]} \mathrm{d}\omega_{1}(x_{\delta})$, where $\mathrm{d}\omega_{1}$ is the uniform measure on $[0,1]$, writes
 
 \begin{equation}
-k_{s,d}(x,y) = \sum\limits_{u \in (\mathbb{N}\smallsetminus \{0\})^{d}} \prod\limits_{\delta \in [d]} \sigma_{\delta} e_{\delta}(x_{\delta}) e_{\delta}(y_{\delta}),
+k_{s,d}(x,y) = \sum\limits_{u \in (\mathbb{N}\smallsetminus \{0\})^{d}} \prod\limits_{\delta \in [d]} \sigma_{\delta}^{1} e_{\delta}^{1}(x_{\delta}) e_{\delta}^{1}(y_{\delta}),
 \end{equation}
 
-where the $(\sigma_{m})$ and the $(e_{m})$ are respectively the eigenvalues and the eigenfunctions of the kernel $k_{s}$ with respect to the measure $\mathrm{d}\omega$.
+where the $(\sigma_{m}^{1})$ and the $(e_{m}^{1})$ are respectively the eigenvalues and the eigenfunctions of the kernel $k_{s}$ with respect to the measure $\mathrm{d}\omega_{1}$.
 
 
 The definition of the DPP kernel $\frak K$ requires to define an order on multi-indices. We choose an order $\prec$ that keeps the eigenvalues of $k_{s,d}$ decreasing:
@@ -3656,24 +3667,40 @@ u \prec v \iff  \prod\limits_{\delta \in [d]} \sigma_{u_{\delta}} \leq \prod\lim
 % as in the univariate case where $\sigma_{1} \geq \sigma_{2}\geq\dots$.
 
 
- Whenever the univariate eigenvalues take the form $\sigma_{i} = \frac{1}{(1+i)^{\eta}}$ with $\eta >0$, such as in the Korobov case, it holds
+ Whenever the univariate eigenvalues take the form $\sigma_{i} = \frac{1}{(1+i)^{\eta}}$ with $\eta >0$, as in the case of the Korobov kernel, it holds
 \begin{align}
 u \prec v  & \Leftrightarrow \left(\prod\limits_{i \in [d]} \frac{1}{1+u_{i}} \right)^{\eta} \leq \left(\prod\limits_{i \in [d]} \frac{1}{1+v_{i}} \right)^{\eta} \\
 & \Leftrightarrow \sum\limits_{i \in [d]} \log(1+v_{i})  \leq \sum\limits_{i \in [d]} \log(1+u_{i}) .
 \label{e:orderSobolev}
 \end{align}
 
-We define $u \prec v$ to be equivalent to \eqref{e:orderSobolev}; and we define $\textbf{u}= (u^{1}, u^{2},\dots)\in (\mathbb{N} \smallsetminus \{0\})^d$ the family of multi-indices ordered according to $\prec$. The repulsion kernel is defined as
+We define $u \prec v$ to be equivalent to \eqref{e:orderSobolev}; and we define $\textbf{u}= (u^{1}, u^{2},\dots)\in (\mathbb{N} \smallsetminus \{0\})^d$ the family of multi-indices ordered according to $\prec$. Moreover, we define the eigenfunctions $e_{1}, e_{2}, \dots$ and the corresponding eigenvalues $\sigma_{1}, \sigma_{2}, \dots$ as follows
 \begin{equation}
-\KDPP(x,y) = \sum\limits_{n \in [N]} \prod\limits_{\delta \in [d]}e_{u^{n}_{\delta}} (x_{\delta}) e_{u^{n}_{\delta}} (y_{\delta}), \quad x,y\in [0,1]^d.
+e_{n}(x) = \prod\limits_{\delta \in [d]} e_{u_{\delta}^{n}}^{1}(x_{\delta}),
 \end{equation}
-We sampled from the corresponding DPP using the generic sampling algorithm in \cite{HoKrPeVi06}, using the uniform as proposal in the successive rejection sampling steps.
+and 
+
+\begin{equation}
+\sigma_{n} = \prod\limits_{\delta \in [d]} \sigma_{u_{\delta}^{n}}^{1}.
+\end{equation}
 
 
-We still take $g\equiv 1$ so that $\mu_{g} \equiv 1$. We compare $(i)$ our DPPKQ, $(ii)$ LVSQ without regularization ($\lambda =0$), $(iii)$ the kernel quadrature based on the uniform grid UGBQ, $(iv)$ the kernel quadrature SGBQ based on the sparse grid from \citep{Smo63}, $(v)$ the kernel quadrature based on the Halton sequence HaltonBQ \citep{Hal64}. We take $N \in [5,1000]$ and $s =1$. The results are shown in Figure~\ref{fig:c}. This time, UGBQ suffers from the dimension with a rate in $\mathcal{O}(N^{-2s/d})$, while DPPKQ, HaltonBQ and LVSQ $(\lambda = 0)$ all perform similarly well. They scale as $\mathcal{O}((\log N)^{2s(d-1)} N^{-2s})$, which is a tight upper bound on $\sigma_{N+1}$, see \citep{Bac17}.
+
+Finally, the repulsion kernel writes
+\begin{equation}
+\KDPP(x,y) =\sum\limits_{n \in [N]} e_{n}(x)e_{n}(y) = \sum\limits_{n \in [N]} \prod\limits_{\delta \in [d]}e_{u^{n}_{\delta}}^{1} (x_{\delta}) e_{u^{n}_{\delta}}^{1} (y_{\delta}), \quad x,y\in [0,1]^d.
+\end{equation}
+We sampled from the corresponding DPP using the generic sampling algorithm in \cite{HoKrPeVi06}. The implementation requires to sample from density $x \mapsto \frac{1}{N} \KDPP(x,x)$ which possible the uniform density as a proposal in the successive rejection sampling steps. Indeed, the analytical expression of $\KDPP(x,x)$ involves the squares of cosine and sine functions that can be upper bounded by constants.
+
+
+Similarly to the periodic Sobolev space, we consider a set of three numerical experiments. In the first one, we consider the approximation of $\mu_{g}$ when $g \equiv 1$ using several quadratures; in the second one, we consider the approximation of $\mu_{g}$ when $g$ is an eigenfunction of $\bm{\Sigma}$ using the optimal kernel quadrature based on the projection DPP; in the third one, we consider the worst interpolation error when $g$ spans the unit ball of $\mathbb{L}_{2}(\mathrm{d}\omega)$. 
+
+
+\subsubsection{The reconstruction of the embeddings of the first eigenfunction}
+We still take $g\equiv 1$ so that $\mu_{g} \equiv 1$. We compare $(i)$ our DPPKQ, $(ii)$ LVSQ without regularization ($\lambda =0$), $(iii)$ the optimal kernel quadrature based on the uniform grid UGKQ, $(iv)$ the optimal kernel quadrature SGKQ based on the sparse grid from \citep{Smo63}, $(v)$ the optimal kernel quadrature based on the Halton sequence HaltonKQ \citep{Hal64}. We take $N \in [5,1000]$ and $s =1$. The results are shown in Figure~\ref{fig:Korobov_DPPKQ_multialgo_results}. This time, UGKQ suffers from the dimension with a rate in $\mathcal{O}(N^{-2s/d})$, while DPPKQ, HaltonKQ and LVSQ $(\lambda = 0)$ all perform similarly well. They scale as $\mathcal{O}((\log N)^{2s(d-1)} N^{-2s})$, which is a tight upper bound on $\sigma_{N+1}$, see \citep{Bac17}.
 % We observe that the empirical approximation error of DPPKQ scales as $\sigma_{N+1}$ that is upper bounded by  (. We give a detailed empirical comparison of $\sigma_{N+1}$ and $\mathcal{O}((\log N)^{2s(d-1)} N^{-2s})$ in the appendix. :
 % UGBQ have a rate of $\mathcal{O}(N^{-2s/d})$ the uniform grid is optimal for kernel quadrature in the unidimensional setting but have a poor scaling with the dimension $d$.
- SGBQ seems to lag slightly behind with a rate $\mathcal{O}((\log N)^{2(s+1)(d-1)} N^{-2s})$ 
+ SGKQ seems to lag slightly behind with a rate $\mathcal{O}((\log N)^{2(s+1)(d-1)} N^{-2s})$ 
  \citep{Hol08,Smo63}.
  % Finally, we observe that HaltonBQ and LVSQ ($\lambda =0$) share the same rate as DPPKQ.
   % However, the Halton sequences are adapted for the Korobov space and there is no natural extension to wider settings (such as the Gaussian kernel/Gaussian measure) and in general implementing LVSQ is not possible?.
@@ -3684,9 +3711,73 @@ We still take $g\equiv 1$ so that $\mu_{g} \equiv 1$. We compare $(i)$ our DPPKQ
 \includegraphics[width=0.45\textwidth]{img/neurips/multiSobolev/Sobolev_2D_ko_2_fig_2.pdf}\\
 \includegraphics[width=0.45\textwidth]{img/neurips/multiSobolev/Sobolev_3D_ko_1_fig_2.pdf}
 \includegraphics[width=0.45\textwidth]{img/neurips/multiSobolev/Sobolev_3D_ko_2_fig_2.pdf}
-\caption{Squared error vs. number of nodes $N$ for various kernels.
-\label{fig:results}}
+\caption{Squared approximation error vs. number of nodes $N$ in the case of the Korobov space for $s = 1$ (left) and $s=3$ (right); and for $d =2$ (top) and $d=3$ (bottom).
+\label{fig:Korobov_DPPKQ_multialgo_results}}
 \end{figure} 
+
+\subsubsection{The reconstruction of the embeddings of the eigenfunctions}
+
+We consider now $g$ to be an eigenfunction $\bm{\Sigma}$, $g \in \{e_{1},\dots,e_{8},e_{11},e_{12},e_{21},e_{22}\}$, so that $\mu_{g} = \bm{\Sigma}g \in \{\sigma_{1}e_{1},\dots,\sigma_{8}e_{8},\sigma_{11}e_{11},\sigma_{12}e_{12},\sigma_{21}e_{21},\sigma_{22}e_{22}\}$. We observe the interpolation errors for the following algorithms $(i)$ our DPPKQ, $(ii)$ LVSQ without regularization ($\lambda =0$), $(iii)$ the optimal kernel quadrature based on the uniform grid UGKQ for $N \in [5,1000]$. Figure~\ref{fig:Korobov_multig_results} shows log-log plots of the interpolation errors of the corresponding embedding  w.r.t. $N$, averaged over 50 samples (in the case of DPPKQ and LVSQ) for each point, for $s \in \{1,3\}$; respectively for the DPPKQ, LVSQ and UGKQ.
+
+Once again, we observe that under DPPKQ, the empirical expected interpolation error  curves manifest two phases: the plateau of the initial error $(N<n)$ followed by the convergence at the rate $\mathcal{O}(\sigma_{N+1})$. Moreover, we observe again that eigenfunctions with the same eigenvalue have similar curves; and for a sufficiently large value of $N$ all the curves seems to coincide. As for LVSQ, the empirical curves seems to have the same rates as those of DPPKQ yet with worst constants. Finally, the empirical curves of UGKQ converges to $0$ at the rate $\mathcal{O}(N^{-2s/d})$ and the curves do not seem to coincide for large values of $N$.
+
+Once again, the rates predicted by the bounds in Theorem~\ref{thm:main_theorem} are pessimistic compared to the empirical rates of DPPKQ. 
+
+ % We observe that for every $g = e_{n}$, the interpolation error goes through two phases: in the first phase ($N < n$) the interpolation error is practically equal to \emph{the initial error} that is $\|\mu_{g}\|_{\mathcal{F}}^{2} = \sigma_{n}$; in the second phase ($N \geq n$) the interpolation error decreases to $0$ at the rate $\mathcal{O}(N^{-2s})$. These observations indicate again that the $\mathcal{O}(N^{2-2s})$ bound in Theorem~\ref{thm:main_theorem} is not tight.
+ % Moreover, we observe that given two eigenfunctions $e_{n}$ and $e_{n'}$ corresponding to the same eigenvalue, the expected interpolation error is practically the same. This is the case, for instance, of $e_{14}$ and $e_{15}$ or $e_{16}$ and $e_{17}$.
+\begin{figure}
+\centering
+\includegraphics[width=0.45\textwidth]{img/neurips/multiSobolev/multig_interpolation_Korobov_s_1_fig_1.pdf}
+\includegraphics[width=0.45\textwidth]{img/neurips/multiSobolev/multig_interpolation_Korobov_s_2_fig_1.pdf}\\
+% \caption{Squared interpolation error for the embedding of the eigenfunctions vs. number of nodes $N$ in the Korobov space for $s = 1$ (left) and $s=3$ (right) under DPPKQ.
+% \label{fig:Korobov_DPPKQ_multig_results}}
+% \end{figure}~\begin{figure}
+% \centering
+\includegraphics[width=0.45\textwidth]{img/neurips/multiSobolev/LVSQ_multig_interpolation_Korobov_s_1_fig_1.pdf}
+\includegraphics[width=0.45\textwidth]{img/neurips/multiSobolev/LVSQ_multig_interpolation_Korobov_s_2_fig_1.pdf}\\
+% \caption{Squared interpolation error for the embedding of the eigenfunctions vs. number of nodes $N$ in the Korobov space for $s = 1$ (left) and $s=3$ (right) under LVSQ.
+% \label{fig:Korobov_LVSQ_multig_results}}
+% \end{figure}~\begin{figure}
+% \centering
+\includegraphics[width=0.45\textwidth]{img/neurips/multiSobolev/UGKQ_multig_interpolation_Korobov_s_1_fig_1.pdf}
+\includegraphics[width=0.45\textwidth]{img/neurips/multiSobolev/UGKQ_multig_interpolation_Korobov_s_2_fig_1.pdf}\\
+\caption{Squared interpolation error for the embedding of the eigenfunctions vs. number of nodes $N$ in the Korobov space for $s = 1$ (left) and $s=3$ (right) under DPPKQ (top), LVSQ (middle) and UGKQ (bottom).
+\label{fig:Korobov_multig_results}}
+\end{figure} 
+
+\subsubsection{The uniform reconstruction of the embeddings of the element of the unit ball}
+
+
+% In the previous experiments, we investigated empirically the interpolation error $\|\mu_{g}~-~\bm{\Pi}_{\mathcal{T}(\bm{x})}~\mu_{g}\|_{\mathcal{F}}^{2}$ for some functions $g$ in the unit ball of $\mathbb{L}_{2}(\mathrm{d}\omega)$. Remember, that the bound \eqref{eq:main_result_sup} in Theorem~\ref{thm:main_theorem_improved} deals with the worst case interpolation error defined by:
+% \begin{equation}\label{eq:worst_interpolation_error_supunitball}
+% \sup\limits_{\|g\|_{\mathrm{d}\omega} \leq 1} \|\mu_{g}-\bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\mathcal{F}}^{2}.
+% \end{equation}
+
+We investigate, again, the surrogate:
+\begin{equation}\label{eq:surrogate_worst_inerpolation_error_2}
+\sup\limits_{g \in \mathcal{G}_{\Delta} } \|\mu_{g}-\bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\mathcal{F}}^{2},
+\end{equation}
+in the Korobov space for $d =2$ and $s \in \{1,3\}$.
+
+
+% where $\mathcal{G}_{\Delta} = \{ \frac{1}{\sqrt{\Delta}} \sum\limits_{\delta \in [\Delta]} \epsilon_{\delta} e_{\delta}; \epsilon_{\delta} \in \{-1,1\}\}$ for some $\Delta \in \mathbb{N}^{*}$. 
+
+We compare the quadratures: $(i)$ DPPKQ, $(ii)$ LVSQ $(\lambda = 0)$, $(iii)$ HaltonKQ and $(iv)$ UGKQ. We take $N \in [5,1000]$. Figure~\ref{fig:Korobov_DPPKQ_suponunitball_results_G4} shows log-log plots of the worst interpolation error on $\mathcal{G}_{4}$ w.r.t. $N$, averaged over 50 samples for each point, for $s \in \{1,3\}$. 
+
+We observe that the worst interpolation errors, of the three quadratures, converge  to $0$. DPPKQ converges at the rate $\mathcal{O}(\sigma_{N+1})$ better than the theoretical rate of Theorem~\ref{thm:main_theorem_improved}. HaltonKQ converges also at the rate $\mathcal{O}(\sigma_{N+1})$ with a better constant; and LVSQ converges at the same rate yet with a worst constant. Finally, UGKQ seems to converge at the rate $\mathcal{O}(N^{-2s/d})$. 
+
+Among the four algorithms, DPPKQ is the only one to have guarantees for the worst interpolation error on the unit ball of $\mathbb{L}_{2}(\mathrm{d}\omega)$~\eqref{eq:worst_interpolation_error_supunitball} although the empirical investigation shows that the rates are pessimistic.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.45\textwidth]{img/neurips/multiSobolev/suponunitball_interpolation_Korobov_s_1_binarycubeM_16_fig_1.pdf}
+\includegraphics[width=0.45\textwidth]{img/neurips/multiSobolev/suponunitball_interpolation_Korobov_s_2_binarycubeM_16_fig_1.pdf}
+\caption{Squared worst interpolation error on $\mathcal{G}_{4}$ error vs. number of nodes $N$ in the Korobov space for $d=2$ and $s = 1$ (left) and $s=3$ (right).
+\label{fig:Korobov_DPPKQ_suponunitball_results_G4}}
+\end{figure} 
+
+
+
 
 \subsection{The unidimensional Gaussian kernel}\label{s:gaussian_numsim}
 % \rb{replace BQ by sequential BQ in the next paragraph}
