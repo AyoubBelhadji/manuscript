@@ -721,15 +721,23 @@ Now, if $\gamma_{1}$ is absolutely continuous with respect to $\mathrm{d}\omega$
 The intuition behind~\eqref{eq:first_intensity_function} depend on $\Omega$. We give two examples.
 
 \begin{example}
-Let $\Omega$ be a finite set and define the measure $\mathrm{d}\omega = \sum\limits_{x \in \Omega} \delta_x$. Then 
+Let $\Omega$ be a finite set and define the counting measure $\mathrm{d}\omega = \sum\limits_{x \in \Omega} \delta_x$. Then, for a simple point process $\gamma$
+\begin{align}
+\gamma_1(B) & = \sum\limits_{n \in \mathbb{N}} \Prb(\gamma(B) = n) n\\
+& = \sum\limits_{n \in \mathbb{N}} \Prb(\gamma(B) = n) \sum\limits_{b \in B} \Prb \big( \gamma(\{b\}) = 1| \gamma(B) = n \big) \nonumber\\
+& = \sum\limits_{b \in B} \sum\limits_{n \in \mathbb{N}} \Prb(\gamma(B) = n)  \Prb \big( \gamma(\{b\}) = 1| \gamma(B) = n \big) \nonumber\\
+& = \sum\limits_{b \in B}  \Prb \big( \gamma(\{b\}) = 1\big) \nonumber\\
+& = \int_{B} \rho_{1}(x) \mathrm{d}\omega(x), \nonumber
+\end{align}
+where 
 \begin{equation}
-\rho_{1}(x) = \mathbb{P}( x \in \gamma ).
+\rho_{1}(x) = \mathbb{P} \big(\gamma(\{x\}) = 1 \big).
 \end{equation}
 
 \end{example}
 
 \begin{example}
-$\Omega = \mathbb{R}$ and $\mathrm{d}\omega$ is the Lebesgue measure then for every $x \in \mathbb{R}$, ... then
+$\Omega = \mathbb{R}^{d}$ and $\mathrm{d}\omega$ is the Lebesgue measure then for every $x \in \mathbb{R}$, ... then
 \begin{equation}
 \rho_{1}(x) = ...
 \end{equation}
@@ -737,12 +745,70 @@ $\Omega = \mathbb{R}$ and $\mathrm{d}\omega$ is the Lebesgue measure then for ev
 % simpler di
 %  can be described by
 % its joint intensities
-\begin{definition}
-Let $\gamma$ be a simple point process. The joint intensities of $\gamma$ with respect to $\mathrm{d}\omega$ are functions $\rho_{L}: \Omega^{L} \rightarrow [0,+\infty[$ for $\ell \in \mathbb{N}^{*}$, such that for any family of mutually disjoint Borel subsets $W_{1}, \dots, W_{L}$ of $\Omega$
-\begin{equation}\label{eq:pointprocess_intensity}
-\mathbb{E} \prod\limits_{\ell \in [L]} \gamma(W_{\ell}) = \int_{\prod\limits_{\ell \in [L]}W_{\ell}} \rho_{L}(x_{1}, \dots, x_{L}) \mathrm{d}\omega(x_{1}) \dots \mathrm{d}\omega(x_{L}).
+% Again, we can calculate the joint intensities $\rho_L$ for
+The first intensity measure gives a statistical description of the evaluation of the random measure $\gamma$ on one Borel set $B \in \mathcal{B}$. One can be interested by the statistical description of the evaluation of $\gamma$ on a family of Borel sets $B_{1}, \dots, B_{L} \in \mathcal{B}$. 
+
+There many ways to give the statistical description of the evaluation of a point process $\gamma$ on a family of Borel sets $B_{1}, \dots, B_{L} \in \mathcal{B}$. For example, we can consider the measure $\gamma_{L}^{*}$ defined on the measurable space $(\Omega^{L}, \mathcal{B}^{L})$
+\begin{equation}
+\gamma_{L}^{*} \big( \prod\limits_{\ell \in [L]}B_\ell \big) = \EX \prod\limits_{\ell \in [L]} \gamma(B_\ell).
 \end{equation}
+
+Defined this way, $\gamma_{L}^{*}$ can be seen as the first intensity measure of the product point process $\gamma^{\otimes_{L}}$ defined on $\Omega^{L}$. However, the measure $\gamma_L^{*}$ can be hard to manipulate due to the potential intersections between the Borel sets $B_{1}, \dots, B_{L}$. A less ambitious, yet more practical, definition would be to restrain the description of $\gamma$ to families of pairwise disjoint Borel subsets. This requires to define the set 
+\begin{equation}
+\Omega_{\neq}^{L} = \{ (x_{1}, \dots, x_{L}) \in \Omega^{L}; \: \forall \ell,\ell' \in [L], \: x_{\ell} \neq x_{\ell^{'}} \}.
+\end{equation}
+
+The set $\Omega_{\neq}^{L}$ is an open set of $\Omega^{L}$ (equipped with the product topology)
+
+% $B_{1}, \dots, B_{L}$ of $\Omega$
+
+
+
+% $\gamma(B_1), \dots, \gamma(B_L)$ 
+
+
+\begin{definition}
+Let $\gamma$ be a simple point process. The joint intensities of $\gamma$ with respect to $\mathrm{d}\omega$ are functions $\rho_{L}: \Omega^{L} \rightarrow [0,+\infty[$ for $\ell \in \mathbb{N}^{*}$, such that for any family of pairwise disjoint Borel subsets $B_{1}, \dots, B_{L}$ of $\Omega$
+\begin{equation}\label{eq:pointprocess_intensity}
+\mathbb{E} \prod\limits_{\ell \in [L]} \gamma(B_{\ell}) = \int_{\prod\limits_{\ell \in [L]}B_{\ell}} \rho_{L}(x_{1}, \dots, x_{L}) \mathrm{d}\omega(x_{1}) \dots \mathrm{d}\omega(x_{L}),
+\end{equation}
+and satisfies
+\begin{equation}
+\rho_{L}(x_{1}, \dots, x_{L}) = 0,
+\end{equation}
+when $x_{\ell} = x_{\ell^{'}}$ for some $\ell \neq \ell^{'}$.
 \end{definition}
+
+
+For example, this is possible for a Poisson point process $\gamma$ associated to an intensity $\mu$, where $\mu$ is a $\sigma$-finite measure on $\Omega$. Indeed, consider $B_{1}, \dots, B_{L} \in \mathcal{B}$ pairwise disjoint Borel sets, \eqref{eq:poisson_cylinder_prb} yields
+\begin{equation}\label{eq:ppp_orthogonality}
+ \mathbb{E} \prod\limits_{\ell \in [L]} \gamma(B_\ell) = \prod\limits_{\ell \in [L]}\mu(B_\ell).
+\end{equation}
+
+A process that satisfies the property \eqref{eq:ppp_orthogonality} is sometimes called \emph{completely orthogonal} point process and its characterize the Poisson point process if the first intensity measure is not .... ???? This property reflects the independence of the random variables $\gamma(B_{1}), \dots, \gamma(B_L)$ when $\gamma$ follows the distribution of a Poisson point process. 
+
+
+% Therefore, the of $\gamma$ is simply equal to $\mu$.
+
+\begin{theorem}
+Let $\gamma$ be simple point process in $\Omega$, and let $f: \Omega^{L} \rightarrow \mathbb{R}$ be a nonnegative measurable function. Then 
+\begin{equation}
+\sum\limits_{(x_{1}, \dots, x_{L}) \in \gamma} f(x_{1}, \dots, x_{L})
+\end{equation}
+is measurable and 
+\begin{equation}
+\mathbb{E}\sum\limits_{(x_{1}, \dots, x_{L}) \in \gamma} f(x_{1}, \dots, x_{L}) = \int_{\Omega^{L}} f(x_{1}, \dots, x_{L}) \rho_{L}(x_{1}, \dots, x_{L}) \mathrm{d}\omega(x_{1}) \times \dots \times \mathrm{d}\omega(x_{L}).
+\end{equation}
+
+\end{theorem}
+
+
+
+%   For example, let $\gamma$ be a Poisson point process  It is immediate from~\eqref{eq:poisson_cylinder_prb} that 
+% \begin{equation}
+
+% \end{equation}
+
 
 In particular, for $ L = 1$, \eqref{eq:pointprocess_intensity} is equivalent to
 
