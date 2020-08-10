@@ -825,36 +825,40 @@ In this section, we introduce determinantal point processes that are the first
 
 \section{Determinantal point processes}\label{sec:dpp_defs}
 
-We give now the definition of a DPP. First, we consider a measurable function $\kappa: \Omega \times \Omega \rightarrow \mathbb{C}$.
+We give now the definition of a DPP. First, consider a measurable function $\kappa: \Omega \times \Omega \rightarrow \mathbb{C}$.
 \begin{definition}
-Let $\gamma$ be a simple point process on $\Omega$. $\gamma$ is said to be a determinantal point process with kernel $\kappa$ and reference measure $\mathrm{d}\omega$ if its joint intensities with respect to the measure $\mathrm{d}\omega$ satisfies
+Let $\gamma$ be a simple point process on $\Omega$. $\gamma$ is said to be a determinantal point process with kernel $\kappa$ and reference measure $\mathrm{d}\omega$ if the corresponding joint intensities $\rho_L$, for $L \in \mathbb{N}^{*}$, with respect to the measure $\mathrm{d}\omega$ are well defined and satisfies
 \begin{equation}\label{eq:correlation_functions_dpp_def}
-\forall x_{1}, \dots, x_{m} \in \Omega, \:\: \rho_{m}(x_{1}, \dots, x_{m}) = \Det \bm{\kappa}(\{ x_{1}, \dots, x_{m} \}),
+\forall x_{1}, \dots, x_{L} \in \Omega, \:\: \rho_{L}(x_{1}, \dots, x_{L}) = \Det \bm{\kappa}\big( x_{1}, \dots, x_{L} \big),
 \end{equation}
-for every $m \in \mathbb{N}^{*}$.
+where $\bm{\kappa}\big( x_{1}, \dots, x_{L} \big) = (\kappa(x_{\ell},x_{\ell^{'}}))_{\ell,\ell^{'} \in [L]} \in \mathbb{C}^{N \times N}$.
+
 \end{definition}
 
-The existence of such a simple point process is conditioned by some properties that $\kappa$ should satisfy. First, since the correlation functions are positive functions a.s. 
+The existence of a simple point process that satisfies~\eqref{eq:correlation_functions_dpp_def} enforces some constraints on $\kappa$. First, since the correlation functions are positive functions a.s., $\kappa$ should satisfy 
 \begin{equation}\label{eq:positivitiy_of_dets_condition}
-\Det \bm{\kappa}(\{x_{1}, \dots, x_{m}\}) \geq 0, \text{a.s.} (\mathrm{d}\omega^{\otimes m}) .
+\Det \bm{\kappa}\big(x_{1}, \dots, x_{L} \big) \geq 0 \:\: \text{a.s.} 
 \end{equation}
-The constraint \eqref{eq:positivitiy_of_dets_condition} is satisfied whenever $\kappa$ is Hermitian:
-\begin{equation} 
-\kappa(x,y) = \overline{\kappa(y,x)}, \: \text{a.s.}  (\mathrm{d}\omega \times \mathrm{d}\omega),
+The constraint \eqref{eq:positivitiy_of_dets_condition} is satisfied whenever $\kappa$ is Hermitian
+\begin{equation} \label{eq:hermitian_condition_kappa}
+\kappa(x,y) = \overline{\kappa(y,x)} \:\: \text{a.s.}  
 \end{equation}
-and positive:
-\begin{equation}
-\forall a_{1}, \dots, a_{M} \in \mathbb{C}, \:\: \sum\limits_{m,m' \in [M]} a_{m}\overline{a_{m'}} \kappa(x_{m},x_{m'}) \geq 0.
+and positive
+\begin{equation}\label{eq:positivity_condition_kappa}
+\forall a_{1}, \dots, a_{L} \in \mathbb{C}, \:\: \sum\limits_{\ell,\ell^{'} \in [L]} a_{\ell}\overline{a_{\ell'}} \kappa(x_{\ell},x_{\ell^{'}}) \geq 0.
 \end{equation} 
 
-Note that the Hermitian assumption on $\kappa$ can be relaxed: there are examples of DPPs with non-Hermitian kernels [??], [??]. Yet, many interesting aspects of DPPs require this condition: negative correlations, tractable numerical simulation, $\dots$ For this reason, we keep this assumption.
 
-The conditions assumed previously are still not enough to guarantee the existence of a simple point process that satisfies~\eqref{eq:correlation_functions_dpp_def}. We make a further assumption: $\kappa$ is is locally square integrable on $\Omega^{2}$, that is for any compact set $C$ of $\Omega$, we have
-\begin{equation}
-\int_{C^{2}} |\kappa(x,y)|^{2} \mathrm{d}\omega(x) \mathrm{d}\omega(y) < +\infty.
+
+The conditions \eqref{eq:hermitian_condition_kappa} and \eqref{eq:positivity_condition_kappa} are still not enough to guarantee the existence of a simple point process that satisfies~\eqref{eq:correlation_functions_dpp_def}. 
+ We make a further assumption: $\kappa$ is square integrable on $\Omega^{2}$, that is 
+\begin{equation}\label{eq:integrability_condition_kappa}
+\int_{\Omega^{2}} |\kappa(x,y)|^{2} \mathrm{d}\omega(x) \mathrm{d}\omega(y) < +\infty,
 \end{equation}
+so that we can define the corresponding integration operator with respect to $\mathrm{d}\omega$
 
- yet they are enough to define an operator with interesting properties: the corresponding integration operator with respect to $\mathrm{d}\omega$
+
+ % yet they are enough to define an operator with interesting properties: 
 % \begin{equation}
 % \bm{\Sigma}_{\kappa}: .
 % \end{equation}
@@ -864,45 +868,100 @@ The conditions assumed previously are still not enough to guarantee the existenc
   g & \mapsto \int_{\Omega}g(.) k(.,y) \mathrm{d}\omega(y). \nonumber
 \end{align}
 
-Indeed, $\bm{\Sigma}_{\kappa}$ is a non-negative definite self-adjoint integral operator on $\mathbb{L}_{2}(\mathrm{d}\omega)$.
+Now the condition \eqref{eq:hermitian_condition_kappa} implies that $\bm{\Sigma}_{\kappa}$ is a self-adjoint operator on $\mathbb{L}_{2}(\mathrm{d}\omega)$; the condition \eqref{eq:positivity_condition_kappa} implies that $\bm{\Sigma}_{\kappa}$ is non-negative definite; and \eqref{eq:integrability_condition_kappa} implies that $\bm{\Sigma}_{\kappa}$ is a compact operator [??]. Therefore, by the the spectral theorem for compact self-adjoint operators [??], $\mathbb{L}(\mathrm{d}\omega)$ has an orthonormal basis $(v_{n})_{n \in \mathbb{N}^{*}}$ of eigenfunctions of $\bm{\Sigma}_{\kappa}$, the corresponding eigenvalues $\sigma_n$ are non-negative, have finite multiplicities and $0$ is the only possible accumulation point of the spectrum. Furthermore, $\bm{\Sigma}_{\kappa}$ is said to be of \emph{trace class} if
+
+\begin{equation}\label{eq:traceclass_condition_kappa}
+\sum\limits_{n \in \mathbb{N}^{*}} \sigma_n <+\infty.
+\end{equation}
+Now, we are ready to recall a fundamental characterization of kernels that define DPPs.
+
+% By  and ,  is a self-adjoint integral operator on $\mathbb{L}_{2}(\mathrm{d}\omega)$.
 
 
 
-\begin{theorem} [\cite{Mac75,Sos00}]
-Let $\kappa$ a kernel such that the integral operator $\bm{\Sigma}_{\kappa}$ is self-adjoint and locally trace class. 
-
-Then $\kappa$ defines a DPP on $\Omega$ if and only if the spectrum of $\bm{\Sigma}_{\kappa}$ is contained in $[0,1]$.
+%a kernel 
+%the integral operator
+\begin{theorem} [\cite{Mac75,Sos00}] \label{thm:mac_sos}
+Let $\kappa$ such that $\bm{\Sigma}_{\kappa}$ is self-adjoint and of trace class. 
+Then $\kappa$ defines a DPP if and only if the spectrum of $\bm{\Sigma}_{\kappa}$ is contained in $[0,1]$.
 \end{theorem}
+%The most basic example of a kernel that satisfies
+Projection kernels form a large class of kernels that satisfy the conditions of Theorem~\ref{thm:mac_sos} and they define what is commonly known as \emph{projection DPPs}. They define DPPs with deterministic cardinalities as it is stated in the following result.
 
-\begin{example}\label{ex:projection_dpp}
-Let $v_{1}, \dots, v_{M} \in \mathbb{L}_{2}(\mathrm{d}\omega)$, such that $(v_{m})_{m \in [M]}$ is an orthonormal family of $\mathbb{L}_{2}(\mathrm{d}\omega)$, and define the kernel
-\begin{equation}
-\kappa(x,y) = \sum\limits_{m \in [M]}v_{m}(x)\overline{v_{m}(y)}. 
-\end{equation} 
-Then there exists a DPP with kernel $\kappa$. 
-\end{example}
-A DPP defined using a projection kernel, like in Example~\ref{ex:projection_dpp}, is called a projection DPP. These DPPs are important ... They define DPPs with deterministic cardinalities.
+
 \begin{proposition}
 Let $v_{1}, \dots, v_{M} \in \mathbb{L}_{2}(\mathrm{d}\omega)$, such that $(v_{m})_{m \in [M]}$ is an orthonormal family of $\mathbb{L}_{2}(\mathrm{d}\omega)$, and define the kernel
 \begin{equation}
 \kappa(x,y) = \sum\limits_{m \in [M]}v_{m}(x)\overline{v_{m}(y)}. 
 \end{equation} 
-Then $\gamma$ has $M$ points a.s.
+Let $\gamma$ be the DPP associated to the kernel $\kappa$ and reference measure $\mathrm{d}\omega$, then 
+\begin{equation}
+\gamma(\Omega) = M \:\: \text{a.s.}
+\end{equation}
+
 
 \end{proposition}
 
-\begin{theorem}
-Let $\gamma$ be a DPP with a kernel $\kappa$ satisfying the usual conditions.
 
-Define $(\sigma_{m},v_{m})$ the eigenpairs of the integration operator $\bm{\Sigma}_{\kappa}$ with $\sigma_{m} \in [0,1]$.
+These DPPs are important in the characterization of DPPs that satisfy the conditions of Theorem~\ref{thm:mac_sos}. Indeed, we have the following result. 
+
+
+\begin{theorem}\label{thm:mixture_of_projection_DPPs}
+Let $\kappa$ be a kernel satisfying the usual conditions \eqref{eq:hermitian_condition_kappa}, \eqref{eq:positivity_condition_kappa}, \eqref{eq:integrability_condition_kappa} and \eqref{eq:traceclass_condition_kappa}; and assume that the spectrum of $\bm{\Sigma}_{\kappa}$ is included in $[0,1]$, and denote $(\sigma_{m},v_{m})$ its eigenpairs.
+
+ % $\kappa$ is  the usual assumptions ??, ??, and ??. Define $(\sigma_{m},v_{m})$ the eigenpairs of the integration operator  with $\sigma_{m} \in [0,1]$.
 
 Let $\gamma$ be the point process defined as follows. Consider the random variables $I_{1},I_{2}, \dots $ to be independent random variables such that for every $m \in \mathbb{N}^{*}$, $I_{m}$ is a Bernoulli variable of parameter $\sigma_m$; and let $\gamma_{I}$ be the projection DPP associated to the kernel
 \begin{equation}
 \kappa_{I}(x,y) = \sum\limits_{m \in \mathbb{N}^{*}} I_{m} v_{m}(x)\overline{v_{m}(y)}.
 \end{equation}
 
-Then $\gamma_{I}$ is determinantal point process associated to the kernel $\kappa$.
+Then $\gamma_{I}$ follows the distribution of the determinantal point process associated to the kernel $\kappa$ and the reference measure $\mathrm{d}\omega$.
 \end{theorem}
+Theorem~\ref{thm:mixture_of_projection_DPPs} implies that any DPP defined trough a kernel $\kappa$ that satisfies the usual conditions is a mixture of projection DPPs.
+Observe that the intermediate projection kernel $\kappa_{I}$ is of finite rank a.s. This is a consequence of the trace class condition that guarantees that 
+\begin{equation}
+\sum\limits_{m \in \mathbb{N}^{*}} I_{m} <+\infty \:\: \text{a.s.}
+\end{equation}
+An immediate consequence of Theorem~\ref{thm:mixture_of_projection_DPPs} is the characterization of the cardinality of this class of DPPs.
+\begin{corollary}
+Let $\kappa$ be a kernel satisfying the usual conditions \eqref{eq:hermitian_condition_kappa}, \eqref{eq:positivity_condition_kappa}, \eqref{eq:integrability_condition_kappa} and \eqref{eq:traceclass_condition_kappa}; and assume that the spectrum of $\bm{\Sigma}_{\kappa}$ is included in $[0,1]$, and denote by $(\sigma_{m})$ its eigenvalues. Let $\gamma$ be the DPP associated to the kernel $\kappa$ and reference measure $\mathrm{d}\omega$, then $\gamma(\Omega)$ follows the distribution of 
+\begin{equation}
+\sum\limits_{m \in \mathbb{N}^{*}} I_{m},
+\end{equation}
+where the $(I_m)$ are independent random variables, and every $I_m$ is a Bernoulli random variable of parameter $\sigma_m$.
+\end{corollary}
+
+% \begin{example}\label{ex:projection_dpp}
+% Let $v_{1}, \dots, v_{M} \in \mathbb{L}_{2}(\mathrm{d}\omega)$, such that $(v_{m})_{m \in [M]}$ is an orthonormal family of $\mathbb{L}_{2}(\mathrm{d}\omega)$, and define the kernel
+% \begin{equation}
+% \kappa(x,y) = \sum\limits_{m \in [M]}v_{m}(x)\overline{v_{m}(y)}. 
+% \end{equation} 
+% Then there exists a DPP with kernel $\kappa$. 
+% \end{example}
+% A DPP defined using a projection kernel, like in Example~\ref{ex:projection_dpp}, is called a 
+
+The assumptions made previously can be relaxed in many ways. We review two relaxations that are common in the literature.
+
+First, the assumption~\eqref{eq:integrability_condition_kappa} is usually relaxed so that $\kappa$ is only assumed to be locally square integrable: for any compact set $C$ of $\Omega$
+\begin{equation}
+\int_{C^{2}} |\kappa(x,y)|^{2} \mathrm{d}\omega(x) \mathrm{d}\omega(y) < +\infty.
+\end{equation}
+
+Under this relaxed assumption, the domain of definition of the integration operator $\bm{\Sigma}_{\kappa}$ should be restrained to elements of $\mathbb{L}(\mathrm{d}\omega)$ that vanish $a.e.$ outside a compact subset of $\Omega$. More importantly, Theorem~\ref{thm:mac_sos} and Theorem~\ref{thm:mixture_of_projection_DPPs} and their consequences are still valid but for localized integration operators: for a compact set $C \subset \Omega$, define the localized integration operator
+\begin{align}
+  \bm{\Sigma}_{C,\kappa} : \mathbb{L}_{2}(\mathrm{d}\omega) & \rightarrow \mathbb{L}_{2}(\mathrm{d}\omega) \nonumber \\
+  g & \mapsto \int_{\Omega}g(.) k(.,y) \mathrm{d}\omega(y). \nonumber
+\end{align}
+
+
+ We make a further assumption: $\kappa$ is is  on $\Omega^{2}$
+
+
+Note that the Hermitian assumption on $\kappa$ can be relaxed: there are examples of DPPs with non-Hermitian kernels [??], [??]. Yet, many interesting aspects of DPPs require this condition: negative correlations, tractable numerical simulation, $\dots$ For this reason, we keep this assumption.
+
+
+
 
 
 \subsubsection{Examples}
