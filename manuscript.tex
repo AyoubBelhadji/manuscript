@@ -889,7 +889,7 @@ Then $\kappa$ defines a DPP if and only if the spectrum of $\bm{\Sigma}_{\kappa}
 Projection kernels form a large class of kernels that satisfy the conditions of Theorem~\ref{thm:mac_sos} and they define what is commonly known as \emph{projection DPPs}. They define DPPs with deterministic cardinalities as it is stated in the following result.
 
 
-\begin{proposition}
+\begin{proposition}\label{prop:projection_DPP_cardinality}
 Let $v_{1}, \dots, v_{M} \in \mathbb{L}_{2}(\mathrm{d}\omega)$, such that $(v_{m})_{m \in [M]}$ is an orthonormal family of $\mathbb{L}_{2}(\mathrm{d}\omega)$, and define the kernel
 \begin{equation}
 \kappa(x,y) = \sum\limits_{m \in [M]}v_{m}(x)\overline{v_{m}(y)}. 
@@ -969,7 +969,9 @@ We review in this section some examples of DPPs.
 \paragraph{The Circular Unitary Ensemble}
 
 
-For $N \in \mathbb{N}^{*}$, denote by $\mathbb{U}_{N}$ the group of $N \times N$ unitary matrices. $\mathbb{U}_{N}$ endowed with the topology ??? is compact; therefor, there exists a unique Borel probability measure on $\mathbb{U}_{N}$, called \emph{Haar measure}, that is invariant under left multiplication by unitary matrices; see Theorem 5.14 in \citep{Rud91}. The set of the eigenvalues of a random matrix chosen from Haar measure on the unitary group $\mathbb{U}_{N}$ is called the Circular Unitary Ensemble (CUE). The following theorem proved by Weyl implies that the CUE is a random set that follows the distribution of a projection DPP. 
+For $N \in \mathbb{N}^{*}$, denote by $\mathbb{U}_{N}$ the group of $N \times N$ unitary matrices. $\mathbb{U}_{N}$ endowed with the topology ??? is compact; therefor, there exists a unique Borel probability measure $\mathrm{d}M$ on $\mathbb{U}_{N}$, called \emph{Haar measure}, that is invariant under left multiplication by unitary matrices; see Theorem 5.14 in \citep{Rud91}. The set of the eigenvalues of a random matrix chosen from Haar measure on the unitary group $\mathbb{U}_{N}$, also called the Circular Unitary Ensemble (CUE), was introduced by \cite{Dys62}. The following result is fundamental in the statistical description of the CUE.
+
+ % implies that the CUE follows the distribution of a projection DPP. 
 
 
 
@@ -978,28 +980,46 @@ Let $f: \mathbb{U}_{N} \rightarrow \mathbb{C}$ that satisfies
 \begin{equation}\label{eq:weil_condition}
 \forall \: V, M \in \mathbb{U}_{N}, \:  f(V^{-1}M V) = f(M),
 \end{equation}
-and denote for $\bm{\theta} = (\theta_{n})_{n \in [N]} \in [0,2\pi]^{N}$, the diagonal matrix $D(\bm{\theta}) = \mathrm{Diag}(e^{i \theta_{n}})_{n \in [N]}$.
+and denote for $\bm{\theta} = (\theta_{n})_{n \in [N]} \in [0,2\pi]^{N}$, the diagonal matrix $D(\bm{\theta}) = \mathrm{Diag}(e^{\mathbf{i} \theta_{n}})_{n \in [N]}$.
 Then
-\begin{equation}
+\begin{equation}\label{eq:weyl_integration_formula}
 \int_{\mathbb{U}_{N}}f(M) \mathrm{d}M = \frac{1}{N!(2 \pi)^{N}} \int_{[0,2\pi]^{N}} f(D(\theta)) \Delta(\theta)^{2} \mathrm{d}^{N}\theta,
 \end{equation}
 where 
 \begin{equation}
-\Delta(\theta) = \prod\limits_{1 \leq n,n' \leq N} | e^{i \theta_{n}} -e^{i \theta_{n'}} |.
+\Delta(\theta) = \prod\limits_{1 \leq n,n' \leq N} | e^{\mathbf{i} \theta_{n}} -e^{\mathbf{i} \theta_{n'}} |.
 \end{equation}
 \end{theorem}
-
-
-
- \cite{Wey46} proved that this random set follows the distribution of a projection DPP defined on unit complex circle $\mathbb{U} = \{ u \in \mathbb{C}, |u| =1 \}$, and marginal kernel:
+The identity~\eqref{eq:weyl_integration_formula} is known as the \emph{Weyl integration formula}: it gives an explicit formula to integrate  over $\mathbb{U}_N$ a function that only depends on the eigenvalues. This identity highlights the important term $\Delta(\theta)^{2}$ that has a determinantal representation
 \begin{equation}
-\KDPP(x,y) = \sum\limits_{n \in [N]} e^{2 \pi n \iota(x-y)}.
+\Delta(\theta)^{2} = \Det (\kappa(e^{\mathbf{i}\theta_{n}},e^{\mathbf{i}\theta_{n^{'}}}))_{n,n^{'} \in [N]},
 \end{equation}
+where
 
-Equivalently, the joint distribution of the elements of the CUE have the probability density with respect to the uniform measure on $\mathbb{U}^{N}$:
-\begin{equation}\label{eq:haar_eigenvalues_density}
- \frac{1}{N!(2\pi)^{N}} \prod\limits_{1 \leq n,n' \leq N} |e^{-\iota \theta_{n}} - e^{-\iota \theta_{n'}}|^{2}.
+\begin{equation}
+\kappa(e^{\mathbf{i}\theta},e^{\mathbf{i}\theta^{'}}) = \frac{1}{2 \pi}\sum\limits_{n \in [N]} e^{2 \pi n \mathbf{i}(\theta-\theta^{'})}.
 \end{equation}
+This representation implies the following result.
+\begin{theorem}[\cite{Dys62}]\label{thm:CUE_is_DPP}
+The counting measure of the CUE is a determinantal point process on unit complex circle $\mathbb{U} = \{ u \in \mathbb{C}, |u| =1 \}$ with kernel $\kappa$ and reference measure is the Lebesgue measure on $\mathbb{U}$.
+
+\end{theorem}
+
+Observe that the kernel $\kappa$ defines a projection operator into the $N$ dimensional subspace spanned by the functions $z \mapsto z^{n}$; n $\in \{0, \dots, N-1 \}$. This is an illustration of Proposition~\ref{prop:projection_DPP_cardinality}. 
+
+Figure~\ref{fig:cue_vs_iid_particles} shows three realizations of the CUE ($N = 15$) compared to three realizations from the binomial process ($N = 15$) corresponding to the the Lebesgue measure on $\mathbb{U}$. We observe that the CUE tends to be cover the unit circle with more regularity than the binomial process.
+
+% coherence with the fact that the cardina thus 
+% In other words, the Weyl integration formula gives a very explicit
+% formula for how to integrate 
+
+%  \cite{Wey46} proved that this random set follows the distribution of a projection DPP defined , and marginal kernel:
+
+
+% Equivalently, the joint distribution of the elements of the CUE have the probability density with respect to the uniform measure on $\mathbb{U}^{N}$:
+% \begin{equation}\label{eq:haar_eigenvalues_density}
+%  \frac{1}{N!(2\pi)^{N}} \prod\limits_{1 \leq n,n' \leq N} |e^{-\iota \theta_{n}} - e^{-\iota \theta_{n'}}|^{2}.
+% \end{equation}
 
 \begin{figure}
 \centering
@@ -1012,11 +1032,11 @@ Equivalently, the joint distribution of the elements of the CUE have the probabi
  
 
 
-In other words, the joint distribution of the eigenvalues of a random unitary matrix with respect to Haar measure have the probability density:
-\begin{equation}\label{eq:haar_eigenvalues_density}
-\frac{1}{N!(2\pi)^{N}} \prod\limits_{1 \leq n,n' \leq N} |e^{-i \theta_{n}} - e^{-i \theta_{n'}}|^{2}
-\end{equation}
-on $\mathbb{U}^{N}$.
+% In other words, the joint distribution of the eigenvalues of a random unitary matrix with respect to Haar measure have the probability density:
+% \begin{equation}\label{eq:haar_eigenvalues_density}
+% \frac{1}{N!(2\pi)^{N}} \prod\limits_{1 \leq n,n' \leq N} |e^{-i \theta_{n}} - e^{-i \theta_{n'}}|^{2}
+% \end{equation}
+% on $\mathbb{U}^{N}$.
 
 
 
