@@ -1,0 +1,18 @@
+\begin{tikzpicture}
+
+  % Define nodes
+  \node[obs]                               (y) {$\bm{X}$};
+  \node[latent, above=of y, xshift=0cm]  (x) {$\bm{\Sigma}$};
+  \node[latent, right=1.5cm of y]            (w) {$\bm{U}$};
+  \node[latent, left=1.5cm of y]            (V) {$\bm{V}$};
+  \node[latent, left=1.5cm of V]            (Vk) {$\bm{V}_{k}$};
+  \node[latent, left=1.5cm of Vk]            (l) {$\bm{\ell}$};
+  \node[latent, left=1.5cm of l]            (p) {$p$};
+  % Connect the nodes
+  \edge {x,V,w} {y} ; %
+  \edge {Vk} {V} ; %
+  \edge {l} {Vk} ; %
+  \edge {p} {l} ; %
+  %\plate {} {(w)(y)(yx.north west)(yx.south west)} {$M$} ;
+
+\end{tikzpicture}

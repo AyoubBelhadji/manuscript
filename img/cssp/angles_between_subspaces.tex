@@ -1,0 +1,18 @@
+\begin{tikzpicture}
+  \coordinate (v1) at (0,0);
+  \coordinate (v2) at (2,0);
+  \coordinate (v3) at (1.4,1.4);
+  \coordinate (v4) at (1.4,0);
+  % add coordinate at the extension of the line from v1 to v2
+  \coordinate (v2-2) at ($(v1)!1.2!(v2)$); 
+
+  \draw[->] (v1) -- node[below] {$\bm{v}_{1}$} (v2);
+  \draw[->] (v1) -- node[above] {$\bm{v}_{2}$} (v3);
+  \draw[red,-] (v1) -- node[below] {} (v4);
+  \draw[dashed] (v4) -- node[below] {} (v3);
+
+  % draw line and angle
+  \draw 
+     pic [draw,angle radius=4mm,angle eccentricity=1.5, "$\theta$" font=\scriptsize] {angle=v2--v1--v3};
+
+\end{tikzpicture}
