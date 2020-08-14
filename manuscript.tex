@@ -1140,7 +1140,7 @@ Note that the Hermitian assumption on $\kappa$ can be relaxed: there are example
 
 
 
-\subsubsection{Examples}
+\subsubsection{Examples}\label{eq:DPP_examples}
 We review in this section some examples of DPPs.
 \paragraph{The Circular Unitary Ensemble}
 
@@ -1321,7 +1321,7 @@ In particular, when $d=1$, and $\omega$ is a Gaussian, gamma \cite{DuEd02}, or b
 
 
 \paragraph{The sequential algorithm HKPV}
-Consider $(\psi_{m})_{m \in [N]}$ an orthonormal family with respect to the measure $\mathrm{d}\omega$. In \citep*{HoKrPeVi06}, a sequential algorithm was proposed for the numerical simulation of a random set that follows the distribution of the projection DPP of marginal kernel
+Consider $(\psi_{m})_{m \in [N]}$ an orthonormal family with respect to the measure $\mathrm{d}\omega$. In \citep*{HoKrPeVi06}, a sequential algorithm was proposed for the numerical simulation of a random set that follows the distribution of the projection DPP of  kernel
 \begin{equation}
 \KDPP(x,y) = \sum\limits_{m \in [N]} \psi_{m}(x)\psi_{m}(y).
 \end{equation}
@@ -3835,16 +3835,16 @@ Numerical integration is at the heart of many tasks in applied mathematics and s
 \end{equation}
 
 Integrals that can be written in closed form are the exception; in general the value of~\eqref{eq:general_integral_formula} is only known through approximations. The problem of approximating an integral find its roots in an older problem:
-the evaluation of the area of a domain bounded by curves. In particular, the problem of squaring a circle occupied minds for centuries: a first estimation of $\pi \approx $ was already known by Egyptians as it can be witnessed by the Rhind papyrus [????]; Archimedes bounded the value of $\pi$  [???] [????]
+the evaluation of the perimeter or the area of a domain bounded by curves. For example, the problem of squaring a circle occupied minds for centuries. By approximating a circle by a union of squares, a first estimation of $\pi \approx 256/81 \approx 3.1605$ was already known by Egyptians as it can be witnessed by the Rhind papyrus \citep{RoSh87}. Archimedes achieved a better approximation of the value of $\pi$ by computing the perimeter of the regular 96-gons and obtained \citep{Hea03}
 $$3+\frac{10}{71} < \pi < 3+\frac{1}{7}.$$
 
-
+% inscribed and circumscribed of ,   [???] 
 
  These geometric techniques were further developed after the invention of calculus. For instance, Newton considered the approximation of the integral of a function $f$ on some interval $[a,b]$ using some evaluations of $f(x_{1}), \dots, f(x_{N})$ of $f$
 \begin{equation}
 \int_{a}^{b}f(t)\mathrm{d}t \approx \sum\limits_{n \in [N]}w_{n}f(x_{n}).
 \end{equation}
- In modern words, his approach goes as follows: evaluate $f$ on equally distanced nodes $x_{1}, \dots, x_{N}$ and consider the interpolating polynomial 
+ In modern words, his approach goes as follows: evaluate $f$ on equally distanced nodes $x_{1}, \dots, x_{N}$ and consider the interpolating polynomial $p_{N-1}$
 
  % $p_{N-1}$ of $f$ on the $x_{1}, \dots, x_{N}$ then approximate the value of $\displaystyle \int_{a}^{b}f(t)\mathrm{d}t$ by $\displaystyle \int_{a}^{b}p_{N-1}(t)\mathrm{d}t$. In other words, consider the polynomial
 
@@ -3852,7 +3852,7 @@ $$3+\frac{10}{71} < \pi < 3+\frac{1}{7}.$$
 \begin{equation}
 p_{N-1}(t) = \sum\limits_{n \in [N]} f(x_{n}) \ell_{n,\bm{x}}(t) \in \mathbb{R}_{N-1}[t],
 \end{equation}
-where $\ell_{n,\bm{x}}$ are the Lagrange polynomial basis polynomials defined by
+where $\ell_{n,\bm{x}}$ are the Lagrange polynomial  \footnote{ At that time, Newton considered divided differences interpolation polynomial \citep{BuFa97}.} basis polynomials defined by \citep{BuFa97}
 \begin{equation}
 \ell_{n,\bm{x}}(t) = \frac{\prod\limits_{m \in [N], m \neq n }(t-x_{m})}{\prod\limits_{m \in [N], m \neq n }(x_{n}-x_{m})}.
 \end{equation}
@@ -4292,15 +4292,17 @@ As it was mentioned in the introduction of this section, this review is limited 
 Several quadratures are based on nodes that follow the distribution of a Determinantal Point Process. The rationale behind this choice is the strong statisitical properties of these quadratures. We review in this section the results and the techniques used in this line of research. 
 
 \subsubsection{The quadrature based on the Circular Unitary Ensemble}
-We start by the case of the Circular Unitary Ensemble (CUE): the set of the eigenvalues of a random matrix chosen from Haar measure on the unitary group $\mathbb{U}_{N}$. \cite{Wey46} proved that this random set follows the distribution of a projection DPP defined on unit complex circle $\mathbb{U} = \{ u \in \mathbb{C}, |u| =1 \}$, and marginal kernel:
+We start by the case of the Circular Unitary Ensemble (CUE) presented in Section~\ref{eq:DPP_examples}. Remember that this DPP is defined on the unit complex circle $\mathbb{U} = \{ u \in \mathbb{C}, |u| =1 \}$ equipped with Lebesgue measure, and the corresponding kernel:
 \begin{equation}
-\KDPP(x,y) = \sum\limits_{n \in [N]} e^{2 \pi n \iota(x-y)}.
-\end{equation}
+\KDPP(x,y) = \sum\limits_{n \in [N]} e^{2 \pi n \mathbf{i}(x-y)}.
+\end{equation}  
 
-Equivalently, the joint distribution of the elements of the CUE have the probability density with respect to the uniform measure on $\mathbb{U}^{N}$:
-\begin{equation}\label{eq:haar_eigenvalues_density}
- \frac{1}{N!(2\pi)^{N}} \prod\limits_{1 \leq n,n' \leq N} |e^{-\iota \theta_{n}} - e^{-\iota \theta_{n'}}|^{2}.
-\end{equation}
+the corresponding kernel $\KDPP$  to the DPP : the set of the eigenvalues of a random matrix chosen from Haar measure on the unitary group $\mathbb{U}_{N}$. \cite{Wey46} proved that this random set follows the distribution of a projection DPP defined on 
+
+% Equivalently, the joint distribution of the elements of the CUE have the probability density with respect to the uniform measure on $\mathbb{U}^{N}$:
+% \begin{equation}\label{eq:haar_eigenvalues_density}
+%  \frac{1}{N!(2\pi)^{N}} \prod\limits_{1 \leq n,n' \leq N} |e^{-\mathbf{i} \theta_{n}} - e^{-\mathbf{i} \theta_{n'}}|^{2}.
+% \end{equation}
 
 
 %%%%%% Weyl theorem%%%%%%%
@@ -4341,22 +4343,22 @@ Equivalently, the joint distribution of the elements of the CUE have the probabi
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-The first theoretical analysis of a  quadrature based on the CUE can be tracked to the work of Diaconis and Shahshahani \citep{DiSh94}. Indeed, the following identity satisfied by any unitary matrix $M \in \mathbb{U}_{N}$ with eigenvalues $e^{\iota \theta_{1}}, \dots, e^{\iota \theta_{N}}$,
+The first theoretical analysis of a  quadrature based on the CUE can be tracked to the work of Diaconis and Shahshahani \citep{DiSh94}. Indeed, the following identity satisfied by any unitary matrix $M \in \mathbb{U}_{N}$ with eigenvalues $e^{\mathbf{i} \theta_{1}}, \dots, e^{\mathbf{i} \theta_{N}}$,
 \begin{equation}
-\forall \ell \in \mathbb{N}^{*}, \: \Tr M^{\ell}  = \sum\limits_{n \in [N]} (e^{\iota \theta_{n}})^{\ell},
+\forall \ell \in \mathbb{N}^{*}, \: \Tr M^{\ell}  = \sum\limits_{n \in [N]} (e^{\mathbf{i} \theta_{n}})^{\ell},
 \end{equation}
-can be seen as a quadrature formula applied to the functions $z \mapsto z^{\ell}$: the nodes are the $e^{\iota \theta_{1}}, \dots, e^{\iota \theta_{N}}$ and the weights are uniform.
+can be seen as a quadrature formula applied to the functions $z \mapsto z^{\ell}$: the nodes are the $e^{\mathbf{i} \theta_{1}}, \dots, e^{\mathbf{i} \theta_{N}}$ and the weights are uniform.
  % on the study of the set of the eigenvalues of a random matrix chosen from Haar measure on the unitary group $\mathbb{U}_{N}$.
   The authors proved that these traces converges to centered Gaussian distributions, in the regime $N \rightarrow +\infty$, when $M$ is chosen from Haar measure on the unitary group $\mathbb{U}_{N}$. They concluded that the elements of the are \emph{very regularly spread out} on the unit disc as $N$ goes to infinity; see Figure~\ref{fig:cue_vs_iid_particles} for an illustration. This line of work was pursued by Johansson who extended the analysis to analytical functions.
 
 
 \begin{theorem}[\cite{Joh97}]
-Let $g$ be a real-valued function on $\mathbb{U}$ with $g(e^{\iota \theta}) = \sum\limits_{m =-\infty}^{+\infty} \hat{g}_{m}e^{\iota m \theta}$
- such that $\hat{g}_{0} = 0$ and $\displaystyle \sum\limits_{m \in \mathbb{N}^{*}} m|\hat{g}_{m}|^{2} <+\infty$ and let $(e^{\iota \theta_{n}})_{n \in [N]}$ be the CUE. \\
- Then the random variable $\displaystyle \frac{1}{N}\sum\limits_{n \in [N]} g(e^{\iota\theta_{n}})$
+Let $g$ be a real-valued function on $\mathbb{U}$ with $g(e^{\mathbf{i}  \theta}) = \sum_{m =-\infty}^{+\infty} \hat{g}_{m}e^{\mathbf{i}  m \theta}$
+ such that $\hat{g}_{0} = 0$ and $ \sum\limits_{m \in \mathbb{N}^{*}} m|\hat{g}_{m}|^{2} <+\infty$ and let $(e^{\mathbf{i} \theta_{n}})_{n \in [N]}$ be the CUE. \\
+ Then the random variable $ \frac{1}{N}\sum_{n \in [N]} g(e^{\mathbf{i}\theta_{n}})$
  % a random element of $\mathbb{U}^{N}$ that follows the distribution defined by the density~\eqref{eq:haar_eigenvalues_density}
 % Let $\bm{\theta} = (\theta_{n})_{n \in [N]} \in [0,2\pi]^{N}$ a random vector, such that the joint distribution of $(\theta_{1}, \dots, \theta_{N})$ have the density~\eqref{eq:haar_eigenvalues_density}. 
-converges to $\displaystyle \mathcal{N}(0,\frac{2}{N}\sum\limits_{m \in \mathbb{N}^{*}} m|\hat{g}_{m}|^{2})$.
+converges to $ \mathcal{N}(0,\frac{2}{N}\sum_{m \in \mathbb{N}^{*}} m|\hat{g}_{m}|^{2})$.
 \end{theorem}
 
 
@@ -4376,9 +4378,9 @@ converges to $\displaystyle \mathcal{N}(0,\frac{2}{N}\sum\limits_{m \in \mathbb{
 
 
 
-\subsubsection{The quadratures based on Orthogonal Polynomial Ensembles}
+\subsubsection{Quadratures based on Orthogonal Polynomial Ensembles}
 % It is possible to define DPPs on high-dimensional domains through random As we have seen previously, the quadrature based on CUE and uniform weights achieves a fast asymptotic rate $\mathcal{O}(1/N)$ for sufficiently regular functions. It is legitimate to ask whether similar fast rates can be achieved in high-dimensional domains using DPPs.
-\cite{BaHa16} proved the first CLT for a DPP based quadrature defined on a high dimensional domain. This time, the nodes follows an Orthogonal Polynomial Ensemble (OPE): the marginal kernel is  defined through orthogonal polynomials with respect to some measure $\mathrm{d}\omega$ that factorizes as
+\cite{BaHa16} proved the first CLT for a DPP based quadrature defined on a domain of arbitrary dimension. This time, the nodes follow an Orthogonal Polynomial Ensemble (OPE): the marginal kernel is  defined through orthogonal polynomials with respect to some measure $\mathrm{d}\omega$ that factorizes as
 \begin{equation}
 \mathrm{d}\omega(x) = \prod\limits_{\delta \in [d]} \mathrm{d}\omega_{\delta}(x_{\delta}),
 \end{equation}
@@ -4397,18 +4399,18 @@ the associated orthonormal polynomials satisfy
 \end{equation}
 \end{definition}
 The simplest example of a Nevai class measure is the measure $\mathrm{d}\tilde{\omega}^{*}(x) = \tilde{\omega}^{*}(x) \mathrm{d}x$ with 
-\begin{equation}
+\begin{equation}\label{eq:omega_star}
 \tilde{\omega}^{*}(x) = \frac{1}{\pi\sqrt{1-x^{2}}}.
 \end{equation}
 It corresponds to the particular case when $a_{m} = a^{*}_{m} = \frac{1}{2}$ and $b_m =  b^{*}_{m} =0$ for $m \in \mathbb{N}^{*}$: the corresponding orthonormal polynomials are the Chebyshev polynomials of the first kind, that we denote $(T_{m})_{m \in \mathbb{N}}$.
-In a nutshell, the Nevai class contains measures that have three terms coefficients converging to the corresponding coefficients of $\mathrm{d}\tilde{\omega}^{*}$.
+In a nutshell, the Nevai class contains measures that have three-term recurrence coefficients converging to the corresponding coefficients of $\mathrm{d}\tilde{\omega}^{*}$.
  % the Nevai class contains measures that have similar recurrence coefficients as $\mathrm{d}\tilde{\omega}^{*}$ asymptotically. We recall latter the formal definition of this class of measures. 
- This class contains, at least, measures that are absolutely continuous with respect to the Lebesgue measure with strictly positive densities; see Section 1.4 of \citep{Sim10} for details. 
+ This class contains, at least, all measures that are absolutely continuous with respect to the Lebesgue measure with strictly positive densities; see Section 1.4 of \citep{Sim10} for details. 
 
 Now, the  marginal kernel of an OPE is constructed as follows: for $\delta \in [d]$, denote by 
 $(P^{\delta}_{m})_{m \in \mathbb{N}}$ the orthonormal polynomials with respect to $\mathrm{d}\omega_{\delta}$, and let
 \begin{equation}
-\KDPP_{N}(x,y) = \sum\limits_{n \in [N]} \bm{P}_{\bm{u}(n)}(x)\bm{P}_{\bm{u}(n)}(y),
+\mathfrak{K}_{N}(x,y) = \sum\limits_{n \in [N]} \bm{P}_{\bm{u}(n)}(x)\bm{P}_{\bm{u}(n)}(y),
 \end{equation}
 where the $\bm{u}_{n} \in \mathbb{N}^{d}$ are multi-indices ordered with respect to the graded lexicographic order, and $\bm{P}_{\bm{u}(n)}$ are multidimensional orthogonal polynomials
 \begin{equation}
@@ -4416,17 +4418,17 @@ where the $\bm{u}_{n} \in \mathbb{N}^{d}$ are multi-indices ordered with respect
 \end{equation}
 
 
-The authors studied the quadrature based on OPE, and for every node $x_{n}$ the corresponding weight $\displaystyle w_{n} =1/\KDPP_{N}(x_{n},x_{n})$. Among settings considered in the article, we recall the following theorem.
+The authors studied the quadrature based on OPE, and for every node $x_{n}$ the corresponding weight $\displaystyle w_{n} =1/\mathfrak{K}_{N}(x_{n},x_{n})$. Among settings considered in the article, we recall the following theorem.
 
  % and the authors established the following result.
 
 
 \begin{theorem}[Theorem 3 in \citep{BaHa16}]
-Let $\bm{x}$ an OPE with respect to the measure 
+Let $\bm{x}$ be an OPE with respect to the measure 
 \begin{equation}\label{eq:jacobi_measures}
 \mathrm{d}\omega(x) = \omega(x) \prod\limits_{\delta \in [d]} \mathrm{d}x_{\delta} := \prod\limits_{\delta \in [d]} (1-x_{\delta})^{\alpha_{\delta}}(1+x_{\delta})^{\beta_{\delta}} \mathbb{1}_{[-1,1]}(x_{\delta}) \mathrm{d}x_{\delta},
 \end{equation}
-where $\alpha_{1}, \beta_{1}, \dots, \alpha_{d}, \beta_{d} > -1$; and denote $\displaystyle \omega^{*}(x) = \prod\limits_{\delta \in [d]} \tilde{\omega}^{*}(x_{\delta})$.
+where $\alpha_{1}, \beta_{1}, \dots, \alpha_{d}, \beta_{d} > -1$; and denote $ \omega^{*}(x) = \prod_{\delta \in [d]} \tilde{\omega}^{*}(x_{\delta})$, where $\tilde{\omega}^{*}$ is defined in \eqref{eq:omega_star}.
 % $\mathrm{d}\omega = \mathrm{d}\omega_{1} \otimes \dots \otimes \mathrm{d}\omega_{d}$, where each $\mathrm{d}\omega_{\delta}$ is Nevai class.
 Then for every $f \in \mathcal{C}^{1}([-1,1]^{d}, \mathbb{R})$,
 
@@ -4435,7 +4437,7 @@ Then for every $f \in \mathcal{C}^{1}([-1,1]^{d}, \mathbb{R})$,
 \end{equation}
 and
 \begin{equation}
-\sqrt{N^{1+1/d}} \big( \sum_{n \in [N]}\frac{f(x_{n})}{\KDPP_{N}(x_{n},x_{n})} - \int\limits_{[-1,1]^{d}} f(x) \mathrm{d}\omega(x) \big) \rightarrow \mathcal{N}(0,\sigma^{2}(f)),
+\sqrt{N^{1+1/d}} \bigg( \sum_{n \in [N]}\frac{f(x_{n})}{\KDPP_{N}(x_{n},x_{n})} - \int\limits_{[-1,1]^{d}} f(x) \mathrm{d}\omega(x) \bigg) \rightarrow \mathcal{N}(0,\sigma^{2}(f)),
 \end{equation}
 where
 \begin{equation}
@@ -4448,19 +4450,19 @@ and
 
 \end{theorem}
 
-In other words, the quadrature based on the OPE converges with an asymptotic rate $\mathcal{O}(N^{-1-\frac{1}{d}})$ for functions in $\mathcal{C}$. 
- As we can see, this rate is better than the Monte Carlo rate $\mathcal{O}(N^{-1})$ but the improvement worsen as the dimension increases because of the term $1/d$. This rate is also valid for tensor products of Nevai measures under some technical conditions as it was proved by the authors. In practice, as we have seen in Chapter~\ref{chapter:dpp}, the numerical implementation of an OPE requires the computation of the orthonormal polynomials $\bm{P}_{\bm{u}(n)}$ with respect to the measure $\mathrm{d}\omega$; which is possible for the measures \eqref{eq:jacobi_measures}, also called \emph{Jacobi measures}. 
+In other words, the quadrature based on the OPE with the reference measure $\mathrm{d}\omega$ converges with an asymptotic rate $\mathcal{O}(N^{-1-\frac{1}{d}})$ for functions in $\mathcal{C}$. 
+ As we can see, this rate is better than the Monte Carlo rate $\mathcal{O}(N^{-1})$ but the improvement worsen as the dimension increases because of the term $1/d$. This rate is also valid for tensor products of Nevai measures under some technical conditions as it was proved by the authors. In practice, as we have seen in Chapter~\ref{chapter:dpp}, the numerical sampling of a general OPE requires the computation of the orthonormal polynomials $\bm{P}_{\bm{u}(n)}$ with respect to the measure $\mathrm{d}\omega$; which is possible for the measures \eqref{eq:jacobi_measures}, also called \emph{Jacobi measures}. 
 
 
  Moreover, the quadrature, after scaling by the factor $\sqrt{N^{1+1/d}}$, satisfies a CLT with an asymptotic variance $\sigma^{2}(f)$ that depends on the coefficients of the function $\displaystyle f \omega / \omega^{*}$ on the orthonormal basis $\bm{T}_{\bm{u}(n)} = \prod\limits_{ \delta \in [d]} T_{\bm{u}(n)_{\delta}}$. In particular, when $\omega = \omega^{*}$, the asymptotic variance writes
 \begin{equation}
 \sigma^{2}(f) = \frac{1}{2} \sum\limits_{m_{1}, \dots , m_{d} = 0}^{+\infty} (m_{1}+\dots +m_{d}) \widehat{f} (m_{1}, \dots, m_{d})^{2},
 \end{equation}
-that could be interpreted as a semi-norm in a Hilbert space that reflect the regularity of the integrand $f$. Indeed, the authors proved the inequality [Proposition 1 in \citep{BaHa16}]
+can be interpreted as a semi-norm in a Hilbert space that reflects the regularity of the integrand $f$. Indeed, the authors proved the inequality [Proposition 1 in \citep{BaHa16}]
 \begin{equation}\label{eq:bound_baha_variance}
 \sigma^{2}(f) \leq \frac{1}{2} \sum\limits_{\delta \in [d]} \int_{[-1,1]^{d}} \bigg(\sqrt{1-x_{\delta}^{2}} \partial_{\delta}f(x_{1}, \dots,x_{d}) \bigg)^{2} \prod\limits_{\delta \in [d]} \frac{\mathrm{d}x_{\delta}}{\pi \sqrt{1-x_{\delta}^{2}}},
 \end{equation}
-the r.h.s of \eqref{eq:bound_baha_variance} depends on the fluctuations of the function $f$: $\sigma^{2}(f)$ is a measure of the smoothness of the function $f$. This connexion between the smoothness of the function $f$ and the statistical properties of a quadrature based on DPP nodes was confirmed in another setting.
+the r.h.s of \eqref{eq:bound_baha_variance} depends on the fluctuations of the function $f$: $\sigma^{2}(f)$ is a measure of the smoothness of the function $f$. This connection between the smoothness of the function $f$ and the statistical properties of a quadrature based on DPP nodes was confirmed in another setting.
 
 
 
@@ -4538,10 +4540,10 @@ the r.h.s of \eqref{eq:bound_baha_variance} depends on the fluctuations of the f
 % \end{equation} 
 
 
-\subsubsection{CLT using the Dirichlet kernel}
-In \citep*{CoMaAm20}, the authors proposed to study a quadrature based on a different projection DPP and using uniform weights. The integrand $f$ was assumed to be square integrable and periodic on the hypercube $[0,1]^{d}$. The repulsion kernel $\KDPP$ is constructed as following: let $N = \prod\limits_{\delta \in [d]}N_{\delta} \in \mathbb{N}^{*}$ for some $N_{1}, \dots, N_{d} \in \mathbb{N}^{*}$; and the projection DPP is defined by
+\subsubsection{Another CLT using the Dirichlet kernel}
+In \citep*{CoMaAm20}, the authors proposed to study a quadrature based on a different projection DPP and using uniform weights. The integrand $f$ was assumed to be square integrable and periodic on the hypercube $[0,1]^{d}$. The repulsion kernel $\KDPP$ is constructed as follows. Let $N = \prod\limits_{\delta \in [d]}N_{\delta} \in \mathbb{N}^{*}$ for some $N_{1}, \dots, N_{d} \in \mathbb{N}^{*}$, and the projection DPP be defined by
 \begin{equation}\label{eq:Dirichlet_kernel}
-\KDPP(x,x) = \sum\limits_{m \in \mathcal{M}_{N}}e^{2i \pi m^{\Tran}(x-y) },
+\KDPP(x,y) = \sum\limits_{m \in \mathcal{M}_{N}}e^{2\mathbf{i} \pi m^{\Tran}(x-y) },
 \end{equation}
 where 
 \begin{equation}
@@ -4553,9 +4555,9 @@ It can be shown that this is equivalent to define $\KDPP$ to be the tensor produ
 % \mathcal{M}_{N} = \prod\limits_{\delta \in [d]} \{-\lfloor{N_{\delta}/2}\rfloor, \dots, \lfloor{N_{\delta}/2}\rfloor \},
 % \end{equation}
 % if the $N_{\delta}$ are odds, which lead to the tensor product of Dirichlet kernels. For this reason, the authors adopted the name of $(N,d)$-Dirichlet DPP for the projection DPP associated to the kernel~\eqref{eq:Dirichlet_kernel}.
-The proposed quadrature defines an unbiased estimator of the integral $\displaystyle \int_{[0,1]^{d}} f(u_{1}, \dots, u_{d}) \otimes_{\delta \in [d]} \mathrm{d}u_{\delta}$ with a variance that depends on the Fourier coefficients of $f$. 
+The proposed quadrature defines an unbiased estimator of the integral $ \int_{[0,1]^{d}} f(u_{1}, \dots, u_{d}) \otimes_{\delta \in [d]} \mathrm{d}u_{\delta}$ with a variance that depends on the Fourier coefficients of $f$. 
 \begin{proposition}\label{prop:dirichlet_estimator} [Proposition 3.1, \citep{CoMaAm20} ]
-Let $\bm{x}$ a random set of $[0,1]^{d}$ that follows the distribution of $(N,d)$-Dirichlet DPP, and $f \in \mathbb{L}_{2}([0,1]^{d})$ and periodic; and define, 
+Let $\bm{x}$ be a random set of $[0,1]^{d}$ that follows an $(N,d)$-Dirichlet DPP, and $f \in \mathbb{L}_{2}([0,1]^{d})$ and periodic. Define
 \begin{equation}
 \hat{I}_{N}(f) =  \frac{1}{N} \sum\limits_{n \in [N]}f(x_{n}).
 \end{equation}
@@ -4608,16 +4610,16 @@ Let $\bm{x}$ and $f$ as in Proposition~\ref{prop:dirichlet_estimator}. Assume th
 
 \end{theorem}
 
-In other words, under the assumption that the integrand $f$ belongs to the functional subspace $\mathcal{F}_{s}([0,1]^{d})$, that can be seen as a Sobolev space, the variance of the estimator $\Var (\hat{I}_{N}(f))$ converges at the rate $\mathcal{O}(N^{-1-\frac{\min(2s,1)}{d}})$; and a CLT holds when $s>1/2$ and the function is essentially bounded. Again, the improvement upon Monte Carlo rate worsen with the dimension, and the asymptotic variance involves the constant 
+In other words, under the assumption that the integrand $f$ belongs to the functional subspace $\mathcal{F}_{s}([0,1]^{d})$, that can be seen as a Sobolev space, the variance of the estimator $\Var (\hat{I}_{N}(f))$ converges at the rate $\mathcal{O}(N^{-1-\frac{\min(2s,1)}{d}})$; and a CLT holds when $s>1/2$ and the function is essentially bounded. Again, the improvement upon the Monte Carlo rate worsens with the dimension, and the asymptotic variance involves the constant 
 \begin{equation}
-\sigma^{2}(f) = \sum\limits_{m \in \mathbb{Z}^{d}}(\sum\limits_{\delta = 1}^{d} \frac{|m_{\delta}|}{\alpha_{\delta}} ) |\hat{f}_{m}|^{2},
+\sigma^{2}(f) = \sum\limits_{m \in \mathbb{Z}^{d}}\bigg(\sum\limits_{\delta = 1}^{d} \frac{|m_{\delta}|}{\alpha_{\delta}} \bigg) |\hat{f}_{m}|^{2},
 \end{equation}
-that is reminiscent to a Sobolev norm.
+that is reminiscent of a Sobolev norm.
 
 
-To sum up, we reviewed three settings where a DPP based quadrature benefit from a fast asymptotic rate of convergence compared to  Monte Carlo rate. These fast rates are achieved when the integrand belongs to some functional subspace, a Sobolev space, and the asymptotic variance involves a constant that can be interpreted as a norm on the functional subspace.
+To sum up, we reviewed three settings where a DPP-based quadrature leads to a fast asymptotic rate of convergence compared to  Monte Carlo. These fast rates are achieved when the integrand belongs to some functional subspace, a Sobolev space, and the asymptotic variance involves a constant that can be interpreted as a norm on the functional subspace.
 
-These observations suggest the possibility to define DPP based quadratures on other functional subspaces. Indeed, we introduce a class of DPP based quadratures in Section~\ref{sec:pDPP_OKQ} for functions living in a generic reproducing kernel Hilbert space, that can be seen as generalization of Sobolev spaces (under some conditions that will be outlined latter).
+These observations suggest the possibility to define DPP-based quadratures on other functional spaces. Indeed, we introduce a class of DPP-based quadratures in Section~\ref{sec:pDPP_OKQ} for functions living in a generic reproducing kernel Hilbert space, that can be seen as generalizing  Sobolev spaces.
 This new class of quadratures fit within the kernel framework for quadratures that we recall in the following section.
 
 \section{The kernel framework for quadratures}
@@ -4888,7 +4890,7 @@ Now, under the assumption that $\bm{K}(\bm{x})$ is non-singular, the dimension o
 %  &= \|\mu_{g} - \bm{\Phi}(\bm{\Phi}^{*}\bm{\Phi})^{-1}\bm{\Phi}^{*} \mu_{g} \|^{2}_{\mathcal{F}}\\
 % &=\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}\|^{2}_{\mathcal{F}},\label{e:finalTool}
 % \end{align}
-where $\bm{\Pi}_{\mathcal{T}(\bm{x})} = \bm{\Phi}(\bm{\Phi}^{*}\bm{\Phi})^{-1}\bm{\Phi}^{*}$ is the orthogonal projection onto $\mathcal{T}(\bm{x})$ with $\bm{\Phi}^{*}$ the dual\footnote{For $\mu \in \mathcal{F}$,$\bm{\Phi}^{*}\mu = (\mu(x_{j}))_{j \in [N]}$. $\bm{\Phi}^{*}\bm{\Phi}$ is an operator from $\mathbb{R}^{N}$ to $\mathbb{R}^{N}$ that can be identified with $\bm{K}(\bm{x})$.} of $\bm{\Phi}$: $\bm{\Phi}\hat{\bm{w}}$ is the orthogonal projection of $\mu_{g}$ on the subspace $\mathcal{T}(\bm{x})$. Moreover, we can prove easily that $\bm{\Phi}\hat{\bm{w}}$ interpolates $\mu_{g}$ on the nodes $x_{1}, \dots, x_{N}$:
+where $\bm{\Pi}_{\mathcal{T}(\bm{x})} = \bm{\Phi}(\bm{\Phi}^{*}\bm{\Phi})^{-1}\bm{\Phi}^{*}$ is the orthogonal projection onto $\mathcal{T}(\bm{x})$ with $\bm{\Phi}^{*}$ the dual\footnote{For $\mu \in \mathcal{F}$,$\bm{\Phi}^{*}\mu = (\mu(x_{j}))_{j \in [N]}$. $\bm{\Phi}^{*}\bm{\Phi}$ is an operator from $\mathbb{R}^{N}$ to $\mathbb{R}^{N}$ that can be identified with $\bm{K}(\bm{x})$.} of $\bm{\Phi}$. $\bm{\Phi}\hat{\bm{w}}$ is the orthogonal projection of $\mu_{g}$ on the subspace $\mathcal{T}(\bm{x})$. Moreover, we can prove easily that $\bm{\Phi}\hat{\bm{w}}$ interpolates $\mu_{g}$ on the nodes $x_{1}, \dots, x_{N}$:
 \begin{equation}
 \forall n \in [N], \:\bm{\Phi}\hat{\bm{w}}(x_{n}) = \mu_{g}(x_{n}).
 \end{equation}
@@ -4991,7 +4993,7 @@ Moreover, the optimal density $q_{\lambda}^*$ is in general only available as th
 
 \section{Projection DPP for optimal kernel quadrature}\label{sec:pDPP_OKQ}
 % \subsubsection{The proposed algorithm}
-In this section, we propose to study optimal kernel quadrature based on nodes that follows the distribution of a projection DPP. We follow in the footsteps of \cite{Bac17}, as reviewed in Section~\ref{subsec:okq_algebraic_paradigm}, but with two main differences:
+In this section, we give our first contribution of this chapter \citep{BeBaCh19}. We propose to study optimal kernel quadrature based on nodes that follows the distribution of a projection DPP. We follow in the footsteps of \cite{Bac17}, as reviewed in Section~\ref{subsec:okq_algebraic_paradigm}, but with two main differences:
 \begin{itemize}
 \item we study the un-regularized optimization problem \eqref{eq:wce_repeated_optimization},
 \item we use a projection DPP rather than independent sampling to obtain the nodes.
@@ -5002,7 +5004,7 @@ In a nutshell, we consider nodes $(x_{j})_{j \in [N]}$ that are drawn from the p
   \KDPP(x,y) = \sum\limits_{n \in [N]} e_{n}(x)e_{n}(y),
   \label{e:kernel}
 \end{equation}
-where we recall that $(e_{n})_{n \in \mathbb{N}^{*}}$ is the o.n.b of $\mathbb{L}_{2}(\mathrm{d}\omega)$ that diagonalizes $\bm{\Sigma}$. This boils down to sample a random configuration $\bm{x}$ in $\mathcal{X}^{N}$ from the probability distribution:
+where we recall that $(e_{n})_{n \in \mathbb{N}^{*}}$ is an o.n.b of $\mathbb{L}_{2}(\mathrm{d}\omega)$ that diagonalizes $\bm{\Sigma}$; see Section~\ref{subsec:mercer}. As seen in Chapter~\ref{chapter:dpp}, this boils down to sample a random configuration $\bm{x}$ in $\mathcal{X}^{N}$ from the probability distribution
 
 \begin{equation}\label{eq:pdpp_definition}
 \frac{1}{N!} \Det(\KDPP(x_{i},x_{j})_{i,j \in [N]}) \prod_{i \in [N]} \mathrm{d}\omega(x_{i}).
@@ -5010,10 +5012,10 @@ where we recall that $(e_{n})_{n \in \mathbb{N}^{*}}$ is the o.n.b of $\mathbb{L
 
 
 
-Among many possible choices of kernels, the one defined in~\eqref{e:kernel} stands out for several reasons: i) it is intuitive and comes with a theoretical analysis, ii)
-it defines a random configuration such that the un-regularized optimization problem~\eqref{eq:wce_repeated_optimization} admits a unique solution, iii) it is amenable to exact sampling in many settings.
+As we shall see, among many possible choices of kernels, the one defined in~\eqref{e:kernel} stands out for several reasons: i) it is intuitive and comes with a theoretical analysis, ii)
+it defines a random configuration such that the un-regularized optimization problem~\eqref{eq:wce_repeated_optimization} admits a unique solution with probability one, iii) it is amenable to exact sampling in many settings.
 
-We explain more in details these three reasons in the following and we start by the first one. This projection DPP defines a uni-solvent configuration $\bm{x}$ with respect to the kernel $k$: the subspace $\mathcal{T}(\bm{x}) = \Span (k(x_{n},.))_{n \in [N]}$ is $N$-dimensional a.s. or equivalently, the matrix $\bm{K}(\bm{x})$ is invertible a.s. This is a consequence of the following result.
+We explain more in detail these three reasons in the following and we start by the first one. This projection DPP defines a uni-solvent configuration $\bm{x}$ with respect to the kernel $k$: the subspace $\mathcal{T}(\bm{x}) = \Span (k(x_{n},.))_{n \in [N]}$ is $N$-dimensional a.s., or equivalently, the matrix $\bm{K}(\bm{x})$ is invertible a.s. This is a consequence of the following result.
 
 
 
@@ -5058,7 +5060,7 @@ Since the pdf \eqref{eq:pdpp_definition} of the projection DPP with kernel \eqre
 
 
 
- As we have seen previously, under the assumption that $\bm{K}(\bm{x})$ is non singular the optimal approximation of $\mu_{g}$ by an element of $\mathcal{T}(\bm{x})$, with respect to the RKHS norm, is $\bm{\Phi}\hat{\bm{w}}$, and the optimal approximation error writes
+ As we have seen in Section~\ref{subsec:okq_analysis_paradigm}, under the assumption that $\bm{K}(\bm{x})$ is non singular the optimal approximation of $\mu_{g}$ by an element of $\mathcal{T}(\bm{x})$, with respect to the RKHS norm, is $\bm{\Phi}\hat{\bm{w}}$. The optimal approximation error then writes
 \begin{equation}
 \|\mu_{g} - \bm{\Phi}\hat{\bm{w}}\|^{2}_{\mathcal{F}} =\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}\|^{2}_{\mathcal{F}},\label{e:finalTool}
 \end{equation}
@@ -5082,7 +5084,7 @@ Now, the second reason to introduce the projection DPP associated to the the ker
 
 
 
-We explain this point more in details after presenting these theoretical guarantees in the following section. The details of the proofs are given in Section~\ref{s:proofs}.
+We explain this point more in detail after presenting our theoretical guarantees in the following section. The details of the proofs are given in Section~\ref{s:proofs}.
 
 % To see this, we give the main results of this chapter, before 
 % This is achieved by considering the following upper bound for the interpolation error.
@@ -5113,12 +5115,12 @@ We explain this point more in details after presenting these theoretical guarant
 % \end{align}
 
 %%%
-In the section, we present the theoretical analysis of $\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\mathcal{F}}^{2}$ under the projection DPP $(\KDPP, \mathrm{d}\omega)$. We start by the first result.
+In the section, we present the theoretical analysis of $\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\mathcal{F}}^{2}$ under the projection DPP $(\KDPP, \mathrm{d}\omega)$, where $\KDPP$ is defined in \eqref{e:kernel}. We start with a result that we obtained in \citep*{BeBaCh19}, which quantifies the expected interpolation error in terms of the spectrum of the integration operator $\bm{\Sigma}$.
 
 % We present in this section,in th the  result and its consequences in this section.
 %%% THEOREM
 \begin{theorem}\label{thm:main_theorem}
-Let $\bm{x} = \{x_{1}, \dots , x_{N}\}$ be a random set that follows the distribution of the projection DPP $(\mathrm{d}\omega, \KDPP )$. Let $g \in \mathbb{L}_{2}(\mathrm{d}\omega)$ such that $\|g\|_{\mathrm{d}\omega} \leq 1$. Then, 
+Let $\bm{x} = \{x_{1}, \dots , x_{N}\}$ be a random set that follows the distribution of the projection DPP $(\KDPP,\mathrm{d}\omega )$. Let $g \in \mathbb{L}_{2}(\mathrm{d}\omega)$ such that $\|g\|_{\mathrm{d}\omega} \leq 1$. Then, 
 \begin{equation}\label{eq:main_result_first}
 \EX_{\DPP} \|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\mathcal{F}}^{2}  \leq
 2\sigma_{N+1} +2\|g\|_{\mathrm{d}\omega,1}^{2}\left(   N r_{N} + \sum\limits_{\ell =2}^{N} \frac{\sigma_{1}}{\ell!^{2}}\left(\frac{Nr_{N}}{\sigma_{1}}\right)^{\ell} \right),
@@ -5158,13 +5160,13 @@ where $\displaystyle \|g\|_{\mathrm{d}\omega,1} = \sum\limits_{n \in [N]} |\lang
 %\end{equation}
 \end{theorem}
 
-Let us dissect the upper bounds of Theorem~\ref{thm:main_theorem_improved}. The first term in the upper bounds \eqref{eq:main_result} and \eqref{eq:main_result_sup} scales as $\sigma_{N+1}$. As we shall see later, $\sigma_{N+1}$ is the lower bound of interpolation in a sense that will be defined. The second terms in the upper bounds \eqref{eq:main_result} and \eqref{eq:main_result_sup} stem from the same proof. Indeed, the constant $\|g\|_{\mathrm{d}\omega,1}$ in $\eqref{eq:main_result}$ is the $\ell_1$ norm of the coefficients of projection of $g$ onto $\Span(e_{n})_{n \in [N]}$ in $\mathbb{L}_{2}(\mathrm{d}\omega)$. For example, for $g = e_{n}$, $\|g\|_{\mathrm{d}\omega,1} = 1$ if $n \in [N]$ and $\|g\|_{\mathrm{d}\omega,1} = 0$ if $n \geq N+1$. In the worst case, $\|g\|_{\mathrm{d}\omega,1} \leq \sqrt{N} \|g\|_{\mathrm{d}\omega} \leq \sqrt{N}$.
+Let us comment on the upper bounds of Theorem~\ref{thm:main_theorem_improved}. The first term in the upper bounds \eqref{eq:main_result} and \eqref{eq:main_result_sup} scales as $\sigma_{N+1}$. As we shall in Section ??, $\sigma_{N+1}$ is the lower bound of interpolation in a sense that will be defined. The second terms in the upper bounds \eqref{eq:main_result} and \eqref{eq:main_result_sup} stem from our proof technique. Indeed, the constant $\|g\|_{\mathrm{d}\omega,1}$ in $\eqref{eq:main_result}$ is the $\ell_1$ norm of the coefficients of the projection of $g$ onto $\Span(e_{n})_{n \in [N]}$ in $\mathbb{L}_{2}(\mathrm{d}\omega)$. For example, for $g = e_{n}$, $\|g\|_{\mathrm{d}\omega,1} = 1$ if $n \in [N]$ and $\|g\|_{\mathrm{d}\omega,1} = 0$ if $n \geq N+1$. In the worst case, $\|g\|_{\mathrm{d}\omega,1} \leq \sqrt{N} \|g\|_{\mathrm{d}\omega} \leq \sqrt{N}$.
 % \begin{equation}\label{eq:l1_worst_case}
 % .\leq \sqrt{N} \sqrt{\sum\limits_{n \in [N]} \langle g, e_{n} \rangle_{\mathrm{d}\omega}^{2}}
 % \end{equation}
 Thus, we can obtain a uniform bound for $\|g\|_{\mathrm{d}\omega}\leq 1$ but with a supplementary factor $N$. Now, if $\sum\limits_{m \in \mathbb{N}^{*}} |\langle g,e_{m} \rangle_{\mathrm{d}\omega}| < +\infty$ for a particular $g \in \mathbb{L}_{2}(\mathrm{d}\omega)$, the r.h.s. of \eqref{eq:main_result} is $\mathcal{O}(Nr_{N})$ because $\sigma_{N+1} \leq Nr_{N}$. Similarly, the upper bound in \eqref{eq:main_result_sup} is dominated by $\mathcal{O}(N^{2}r_{N})$.
 
-Both these bounds converges to $0$ if the convergence of $(\sigma_{n})$ to $0$ is fast enough. For example, if $\sigma_{m} = m^{-2s}$, $\mathcal{O}(r_{N}) = N^{1-2s}$ thus $\mathcal{O}(Nr_{N}) = N^{2-2s}$ and $\mathcal{O}(N^{2}r_{N}) = N^{3-2s}$; and convergence is guaranteed if $s >1$ or if $s>3/2$ respectively. Another example is given by $\sigma_{m} = \beta \alpha^{m}$ with $0 < \alpha < 1$ and $\beta >0$ then $Nr_{N} = N\frac{\beta}{1-\alpha}\alpha^{N+1}=  o(1)$ and $N^{2}r_{N} = N^{2}\frac{\beta}{1-\alpha}\alpha^{N+1}=  o(1)$ for all values of $\alpha$ and $\beta$.
+Both these bounds converge to $0$ if the convergence of $(\sigma_{n})$ to $0$ is fast enough. For example, if $\sigma_{m} = m^{-2s}$, $\mathcal{O}(r_{N}) = N^{1-2s}$ thus $\mathcal{O}(Nr_{N}) = N^{2-2s}$ and $\mathcal{O}(N^{2}r_{N}) = N^{3-2s}$; and convergence is guaranteed if $s >1$ or if $s>3/2$ respectively. Another example is given by $\sigma_{m} = \beta \alpha^{m}$ with $0 < \alpha < 1$ and $\beta >0$ then $Nr_{N} = N\frac{\beta}{1-\alpha}\alpha^{N+1}=  o(1)$ and $N^{2}r_{N} = N^{2}\frac{\beta}{1-\alpha}\alpha^{N+1}=  o(1)$ for all values of $\alpha$ and $\beta$.
 
 
 
@@ -5182,7 +5184,7 @@ We have assumed that $\mathcal{F}$ is dense in $\mathbb{L}_{2}(\mathrm{d}\omega)
   \| \mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}\|_{\mathcal{F}}= 0 \:\: \text{a.s.}
 \end{equation}
 when $N= N_0$.
-This compares favourably with the quadrature based on herding with uniform weights that comes with a rate in $\mathcal{O}(\frac{1}{N})$  \cite{BaLaOb12,ChWeSm10}. 
+This compares favourably with the quadrature based on herding with uniform weights that comes with a rate in $\mathcal{O}(\frac{1}{N})$  \citep{ChWeSm10,BaLaOb12}. 
 
 
 % \paragraph{The Gaussian kernel}
@@ -5212,7 +5214,7 @@ In comparison with \cite{Bac17}, we emphasize that the dependence of our bound o
 % It would be interesting to extend the analysis of our quadrature in the regime $\lambda >0$.
 
 
-One advantage of DPPs is that they can be sampled exactly. Because of the orthonormality of $(\psi_n)$, one can write the chain rule for \eqref{eq:pdpp_definition}; see \cite{HoKrPeVi06}. Sampling each conditional in turn, using e.g. rejection sampling \cite{RoCa04}, then yields an exact sampling algorithm. Rejection sampling aside, the cost of this algorithm is cubic in $N$ without further assumptions on the kernel. 
+Another advantage of DPPs is that they can be sampled exactly. Because of the orthonormality of $(\psi_n)$, one can write the chain rule for \eqref{eq:pdpp_definition}; see \citep{HoKrPeVi06}. Sampling each conditional in turn, using e.g. rejection sampling \citep{RoCa04}, then yields an exact sampling algorithm. Rejection sampling aside, the cost of this algorithm is cubic in $N$ without further assumptions on the kernel. The main limitation is the availability of good proposals for the successive rejection sampling routines.
 
 %Simplifying assumptions can take many forms. 
 Theorem~\ref{thm:main_theorem_improved} gives a slightly sharper bound than Theorem~\ref{thm:main_theorem}, since if $Nr_{N} = o(1)$, then the right-hand side of \eqref{eq:main_result_first} is $N r_{N} + o(N r_{N})$. The proof of Theorem~\ref{thm:main_theorem_improved} follows the same steps as the proof of Theorem~\ref{thm:main_theorem}. We give the proofs of the two results simultaneously in the following section and we highlight the difference between the two in the end of the section.
@@ -5312,14 +5314,14 @@ Theorem~\ref{thm:main_theorem_improved} gives a slightly sharper bound than Theo
 
 \subsection{Bounding the interpolation error under the projection DPP}
 \label{subsec:dpp_quadrature_error_weak}
-In this section, we give the skeleton of the proofs of the results that we present in the last section. The details of the proofs are deferred to Section~\ref{s:proofs}.
+In this section, we give the skeleton of the proofs of Theorem~\ref{thm:main_theorem} and Theorem~\ref{thm:main_theorem_refined}. The details of the proofs are deferred to Section~\ref{s:proofs}.
 
-The starting point of the analysis is the observation that the interpolation error is the RKHS norm of the residual of $\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}$. Since the subspace $\mathcal{T}(\bm{x})$ can be arbitrary, as $\bm{x}$ spans the set of uni-solvent of $\X$ of cardinality $N$, it is hard to reckon how large the corresponding residual would be. For this reason, we consider the principal subspace $\mathcal{E}_N^{\mathcal{F}} = \Span(e_{n}^{\mathcal{F}})_{n \in [N]}$ and the corresponding \emph{filtering error} $\|\mu_{g} - \bm{\Pi}_{\mathcal{E}_{N}^{\mathcal{F}}} \mu_{g}\|_{\mathcal{F}}$. The filtering error is easier to quantify because we can prove easily that:
+The starting point of the analysis is the observation that the interpolation error is the RKHS norm of the residual $\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}$. Since the subspace $\mathcal{T}(\bm{x})$ can be arbitrary, as $\bm{x}$ spans the set of uni-solvent of $\X$ of cardinality $N$, it is hard to reckon how large the corresponding residual can be. For this reason, we consider the principal subspace $\mathcal{E}_N^{\mathcal{F}} = \Span(e_{n}^{\mathcal{F}})_{n \in [N]}$ and the corresponding \emph{filtering error} $\|\mu_{g} - \bm{\Pi}_{\mathcal{E}_{N}^{\mathcal{F}}} \mu_{g}\|_{\mathcal{F}}$. The filtering error is easier to quantify because we can prove easily that
 
 \begin{equation}
 \|\mu_{g} - \bm{\Pi}_{\mathcal{E}_{N}^{\mathcal{F}}} \mu_{g}\|_{\mathcal{F}}^{2} = \sum\limits_{m \geq N+1} \langle \mu_{g},e_{m}^{\mathcal{F}} \rangle_{\mathcal{F}}^{2} = \sum\limits_{m \geq N+1} \sigma_{m} \langle g,e_{m} \rangle_{\mathrm{d}\omega}^{2}.
 \end{equation}
-In particular, when $\|g\|_{\mathrm{d}\omega} \leq 1$, $\|\mu_{g} - \bm{\Pi}_{\mathcal{E}_{N}^{\mathcal{F}}} \mu_{g}\|_{\mathcal{F}}^{2} \leq \sigma_{N+1}$ (with an equality when $g = e_{n+1}$); and if the two subspaces $\mathcal{E}_{N}^{\mathcal{F}}$ and $\mathcal{T}(\bm{x})$ are close to each other in some sense, we expect to have $\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\mathcal{F}}^{2}$ close to  $\sigma_{N+1}$ when $\|g\|_{\mathrm{d}\omega} \leq 1$. As a first step, we have the following lemma that gives an upper bound of $\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}\|^{2}_{\mathcal{F}}$ using the $\|\mu_{e_{n}^{\F}} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{e_{n}^{\F}}\|_{\mathcal{F}}^{2}$.
+In particular, when $\|g\|_{\mathrm{d}\omega} \leq 1$, $\|\mu_{g} - \bm{\Pi}_{\mathcal{E}_{N}^{\mathcal{F}}} \mu_{g}\|_{\mathcal{F}}^{2} \leq \sigma_{N+1}$, with equality when $g = e_{n+1}$. Moreover, if the two subspaces $\mathcal{E}_{N}^{\mathcal{F}}$ and $\mathcal{T}(\bm{x})$ are close to each other in some sense, we expect to have $\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\mathcal{F}}^{2}$ close to  $\sigma_{N+1}$ when $\|g\|_{\mathrm{d}\omega} \leq 1$. As a first step, we have the following lemma that gives an upper bound of $\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}\|^{2}_{\mathcal{F}}$ using the $\|\mu_{e_{n}^{\F}} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{e_{n}^{\F}}\|_{\mathcal{F}}^{2}$.
 
 %$\| \bm{\Sigma}^{-1/2} \mu_{g} \|_{\mathcal{F}} \leq 1$
 
@@ -5354,12 +5356,12 @@ The term $2 \sigma_{N+1}$ converges to $0$ when $N$ goes to $+\infty$ and we sha
 \end{figure}
 
 
-Now, to upper bound the right-hand side of \eqref{eq:interpolation_at_eigenfunctions_equivalent_expression}, we note that $\sigma_{n} \|e_{n}^{\F} - \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{n}^{\F}\|_{\mathcal{F}}^{2}$ is the product of two terms: $\sigma_{n}$ is a decreasing function of $n$ while $\|e_{n}^{\F} - \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{n}^{\F}\|_{\mathcal{F}}^{2}$ is the interpolation error of the eigenfunction $e_{n}^{\mathcal{F}}$, measured in the $\|.\|_{\mathcal{F}}$ norm.
+To upper bound the right-hand side of \eqref{eq:interpolation_at_eigenfunctions_equivalent_expression}, we note that $\sigma_{n} \|e_{n}^{\F} - \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{n}^{\F}\|_{\mathcal{F}}^{2}$ is the product of two terms: $\sigma_{n}$ is a decreasing function of $n$ while $\|e_{n}^{\F} - \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{n}^{\F}\|_{\mathcal{F}}^{2}$ is the interpolation error of the eigenfunction $e_{n}^{\mathcal{F}}$, measured in the $\|.\|_{\mathcal{F}}$ norm.
 We can bound the latter interpolation error uniformly in $n\in [N]$ using the largest principal angle between $\mathcal{T}(\bm{x})$ and $\mathcal{E}^{\mathcal{F}}_{N} = \Span(e_{n}^{\mathcal{F}})_{ n \in [N]}$; see Section?? in Chapter~\ref{chapter:cssp} for details on principal angles between subspaces. In particular, remember that the maximal principal angle is defined through its cosine
 \begin{equation}
-	\cos^{2} \theta_{N}(\mathcal{T}(\bm{x}),\mathcal{E}^{\mathcal{F}}_{N}) = \inf\limits_{\substack{\bm{u} \in \mathcal{T}(\bm{x}), \bm{v} \in \mathcal{E}^{\mathcal{F}}_{N}\\ \|u\|_{\mathcal{F}} = 1, \|v\|_{\mathcal{F}} = 1}} \langle \bm{u}, \bm{v} \rangle_{\mathcal{F}};
+	\cos^{2} \theta_{N}(\mathcal{T}(\bm{x}),\mathcal{E}^{\mathcal{F}}_{N}) = \inf\limits_{\substack{\bm{u} \in \mathcal{T}(\bm{x}), \bm{v} \in \mathcal{E}^{\mathcal{F}}_{N}\\ \|u\|_{\mathcal{F}} = 1, \|v\|_{\mathcal{F}} = 1}} \langle \bm{u}, \bm{v} \rangle_{\mathcal{F}}.
 \end{equation}
-and we can define successively the $N$ principal angles $\theta_{n}(\mathcal{T}(\bm{x}),\mathcal{E}^{\mathcal{F}}_{N}) \in \left[0, \frac{\pi}{2}\right]$ for $ n\in [N]$ between the subspaces $\mathcal{E}^{\mathcal{F}}_{N}$ and $\mathcal{T}(\bm{x})$. These angles quantify the relative position of theses two subspaces. Now, we have the following lemma.
+We can then define successively the $N-1$ principal angles $\theta_{n}(\mathcal{T}(\bm{x}),\mathcal{E}^{\mathcal{F}}_{N}) \in \left[0, \frac{\pi}{2}\right]$ for $ n\in [N-1]$ between the subspaces $\mathcal{E}^{\mathcal{F}}_{N}$ and $\mathcal{T}(\bm{x})$. These angles quantify the relative position of theses two subspaces. Now, we have the following lemma.
 
 
 
@@ -5449,7 +5451,7 @@ Let $\bm{x} = \{x_{1}, \dots , x_{N}\}$ be a random set that follows the project
 
 % & =  \sum\limits_{\substack{T \subset \mathbb{N} \\ |T| = N}} \frac{ \prod\limits_{t \in T}\sigma_{t}}{\prod\limits_{n \in [N]^{0}} \sigma_{n}} -1\\
 % &
-The bound of Proposition~\ref{prop:expected_value_of_product_of_cos}, once reported in  Lemma~\ref{lemma:max_error_cos} and Lemma~\ref{lemma:approximation_error_spectral_bound}, already yields Theorem~\ref{thm:main_theorem} in the special case where $\sigma_{1} = \dots = \sigma_{N}$. This seems a very restrictive condition, but next Proposition~\ref{prop:kernel_perturbation_inequality} shows that we can always reduce the analysis to that case.
+The bound of Proposition~\ref{prop:expected_value_of_product_of_cos}, once reported in  Lemma~\ref{lemma:max_error_cos} and Lemma~\ref{lemma:approximation_error_spectral_bound}, already yields Theorem~\ref{thm:main_theorem} in the special case where $\sigma_{1} = \dots = \sigma_{N}$. This seems a very restrictive condition, but Proposition~\ref{prop:kernel_perturbation_inequality} below shows that we can always reduce the analysis to that case.
 % \subsubsection{An upper bound for $\max\limits_{n \in [N]^{0}} \sigma_{n}\|\Pi_{\mathcal{T}(x)^{\perp}} e_{n}^{\mathcal{F}}\|_{\mathcal{F}}^{2}$}
 % In this section, we give a bound of the approximation error $\|f - \bm{\Phi}\hat{\bm{w}}\|_{\mathcal{F}}$ using the maximal principal angle between the subspaces $\mathcal{E} = \Span(e_{m}^{\mathcal{F}})_{m \in [N]}$ and $\mathcal{T}(\bm{x}) =  \Span \bigg( k(x_{i},.) \bigg)_{i \in [N]}$.
 In fact, let the kernel $\tilde{k}$ be defined by
@@ -5465,7 +5467,7 @@ Let $ \tilde{\mathcal{T}}(\bm{x}) = \Span \left( \tilde{k}(x_{j},.) \right)_{j \
 \end{equation}
 \end{proposition}
 %% END PROPOSITION
-Simply put, capping the first eigenvalues of $k$ yields a new kernel $\tilde{k}$ that captures the interaction between the terms $\sigma_{n}$ and $\|e_{n}^{\mathcal{F}} - \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{n}^{\mathcal{F}}\|_{\mathcal{F}}^{2}$ such that we only have to deal with the term $\|e_{n}^{\tilde{\mathcal{F}}} - \bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})} e_{n}^{\tilde{\mathcal{F}}}\|_{\tilde{\mathcal{F}}}^{2}$.
+Simply put, capping the first eigenvalues of $k$ yields a new kernel $\tilde{k}$ that captures the interaction between the terms $\sigma_{n}$ and $\|e_{n}^{\mathcal{F}} - \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{n}^{\mathcal{F}}\|_{\mathcal{F}}^{2}$, so that we only have to deal with the term $\|e_{n}^{\tilde{\mathcal{F}}} - \bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})} e_{n}^{\tilde{\mathcal{F}}}\|_{\tilde{\mathcal{F}}}^{2}$.
 Combining  Proposition~\ref{prop:expected_value_of_product_of_cos} with Proposition~\ref{prop:kernel_perturbation_inequality} applied to the kernel $\tilde{k}$ yields Theorem~\ref{thm:main_theorem}. 
 
 The same steps are followed to obtain the Theorem~\ref{thm:main_theorem_improved} using Proposition~\ref{prop:ex_dpp_sum_inv_cos}.
@@ -5475,7 +5477,7 @@ The same steps are followed to obtain the Theorem~\ref{thm:main_theorem_improved
 % In other words, \eqref{e:finalTool} equates the approximation error to $\|\bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}}\mu_g\|^{2}_{\mathcal{F}}$, where $\bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}}$ is the orthogonal projection onto $\mathcal{T}(\bm{x})^{\perp}$.
 % % \rb{and maybe give a ref on the definition of the projection, since $\Phi$ is an operator}.
 % Now we have the following lemma.
-The additive symmetrization gives a neater upper bound of $\displaystyle \EX_{\DPP}  1/\cos^{2} \theta_{N} \bigg(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \bigg)$ compared to the multiplicative symmetrization. Nevertheless the proof of Proposition~\ref{prop:ex_dpp_sum_inv_cos} is more technical.
+The additive symmetrization gives a neater upper bound compared to the multiplicative symmetrization. Nevertheless the proof of Proposition~\ref{prop:ex_dpp_sum_inv_cos} is more technical.
 
 
 
@@ -7154,8 +7156,27 @@ we get
 \clearpage
 
 \chapter{Kernel interpolation using Volume Sampling}
+\section{Introduction}
+\label{sec:introduction}
+Kernel approximation is a recurrent task in machine learning  \citep*{HaTiFr09}[Chapter 5], signal processing \citep{Uns00} or numerical quadrature \citep{Lar72}. Expressed in its general form, we are given a reproducing kernel Hilbert space $\mathcal{F}$ (RKHS; \citealp{BeTh11}) of functions over $\mathcal{X}$, with a symmetric kernel $k: \X \times \X \rightarrow \mathbb{R}_{+}$, and an element $\mu : \X \rightarrow \mathbb{R}$ of $\mathcal{F}$. We ask for conditions on a \emph{design} $\bm{x} = (x_{1},\dots,x_N)\in \mathcal{X}^N$, and on the corresponding weights $w_1,\dots,w_N$, such that the RKHS norm
+\begin{equation}
+\left\Vert \mu - \sum_{i=1}^N w_{i}k(x_{i},.)\right\Vert_{\mathcal{F}}
+\label{e:residual}
+\end{equation}
+%\pc{Je continue de pousser pour utiliser $h$ plutôt que $\mu$ ici.}
+is small. In other words, $\mu$ should be well reconstructed in $\mathcal{F}$ by the weighted design.
 
-\subsection{Related work}\label{s:relatedWork}
+Measuring the error in RKHS norm has a computational advantage. Indeed, minimizing \eqref{e:residual} boils down to minimizing a quadratic form; and given a design $\bm{x}$ such that $\Det \bm{K}(\bm{x}) = \Det (k(x_i,x_j)) >0$, Equation~\eqref{e:residual} has a unique set of minimizing weights. The minimizer corresponds to the weights $\hat{\bm{w}} = \bm{K}(\bm{x})^{-1} \mu(\bm{x})$, where $\mu(\bm{x})\in\mathbb{R}^N$ contains the evaluation of $\mu$ at the $N$ design nodes $x_{i}$. Whenever the weights are chosen to be $\hat{\bm{w}}$, the sum in \eqref{e:residual} takes the same values as $\mu$ at the nodes $x_{i}$, and the optimal value of \eqref{e:residual} is thus called \emph{interpolation error}; otherwise we speak of \emph{approximation error}.
+Note that when the kernel $k$ is bounded, guarantees in RKHS norm translate to guarantees in the supremum norm.
+
+In this work, we propose and analyze the interpolation based on a random design drawn from a distribution called \emph{continuous volume sampling}, which favors designs $\bm{x}$ with a large value of $\Det \bm{K}(\bm{x})$. After introducing this new distribution, we prove non-asymptotic guarantees on the interpolation error which depend on the spectrum of the kernel $k$. Previous kernel-based randomized designs, both i.i.d. \citep{Bac17} and repulsive \citep{BeBaCh19}, can be hard to compute in practice since they require access to the Mercer decomposition of $k$. We show here that continuous volume sampling enjoys similar error bounds as well as some additional interpretable geometric properties, while having a joint density that can be evaluated as soon as one can evaluate the RKHS kernel $k$. In particular, this opens the possibility of Markov chain Monte Carlo samplers \citep{ReGh19}.
+
+Volume sampling was originally introduced on a finite domain \citep{DRVW06}, where it has been used in matrix subsampling for linear regression and low-rank approximations \citep{DeWa17,BeBaCh18}. Like \citep{BeBaCh19}, our work connects the discrete problem of subsampling columns from a matrix and the continuous problem of interpolating functions in an RKHS.
+
+
+ % Th
+
+\section{Related work}\label{s:relatedWork}
 % \rb{Not sure we should call it sampling}
 This section reviews some results on kernel interpolation to better situate our contributions. The literature on this topic is prolific and cannot be covered in details here. In particular, we start by reviewing results on optimal kernel quadrature, a particular case of kernel interpolation.
 
