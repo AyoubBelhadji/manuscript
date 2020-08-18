@@ -49,6 +49,8 @@
 \newtheorem{assumption}{Assumption}
 \newtheorem{problem}{Problem}
 \newtheorem{example}{Example}
+%\newtheorem{assumption}{Assumption}
+%\renewcommand*{\theassumption}{\Alph{assumption}}
 
 
 \numberwithin{theorem}{chapter}
@@ -57,6 +59,7 @@
 \numberwithin{corollary}{chapter}
 \numberwithin{example}{chapter}
 \numberwithin{lemma}{chapter}
+\numberwithin{assumption}{chapter}
 
 %\DeclareMathOperator{\dim}{\mathrm{dim}}
 \DeclareMathOperator{\Tr}{Tr}
@@ -1142,10 +1145,58 @@ Note that the Hermitian assumption on $\kappa$ can be relaxed: there are example
 
 \subsubsection{Examples}\label{eq:DPP_examples}
 We review in this section some examples of DPPs.
+\paragraph{Discret DPPs}
+
+This class of DPPs is the simplest to define and it was investigated recently for machine learning applications; we refer the reader to \citep{KuTa12} for details. In this setting, the domain is taken to be a finite subset of $\mathbb{N}$ and usually; the reference measure is the counting measure $\mathrm{d}\omega = \sum\limits_{n \in \Omega} \delta_{n}$; and the definition~\eqref{eq:def_dpp} is equivalent to the following.
+
+
+% For all the definitions in this section, Recall that $[d] = \{1,\dots,d\}$.% A point process on $[d]$ is a probability measure over subsets of $[d]$.
+\begin{definition}[Discret DPP]
+Let $\bm{K} \in \mathbb{R}^{N\times N}$ be a positive semi-definite matrix.
+A random subset $Y \subseteq [d]$ is drawn from a DPP of marginal kernel $\bm{K}$ if and only if
+\begin{equation}\label{eq:def_dpp}
+\forall S \subseteq [N],\quad \Prb(S \subseteq Y) = \Det(\bm{K}_{S}),
+\end{equation}
+where $\bm{K}_{S} = [\bm{K}_{i,j}]_{i,j \in S}$. We take as a convention $\Det(\bm{K}_{\emptyset}) = 1$.
+\end{definition}
+
+According to Theorem~\ref{thm:mac_sos}, a sufficient condition, for a given matrix $\bm{K}$ to consistently define a DPP, is that $\bm{K}$ is symmetric and its spectrum is in $[0,1]$.
+
+\begin{example}
+...
+\end{example}
+
+%In this paper, we use a definition of DPPs through their ...
+%Note that it is also common to see in the literature a related definition called an $\bm{L}$-ensemble \citet{KuTa12}.
+ % it is not obvious that \eqref{eq:def_dpp} consistently defines a point process. One ; see \citep{Mac75} and \citep{Sos00}[Theorem 3].
+
+  % In particular, when the spectrum of $\bm{K}$ is included in $\{0,1\}$, we call $\bm{K}$ a projection kernel and the corresponding DPP a \emph{projection} DPP\footnote{All projection DPPs in this paper have symmetric kernels}. Letting $r$ be the number of unit eigenvalues of its kernel, samples from a projection DPP have fixed cardinality $r$ with probability 1 \cite*[Lemma 17]{HoKrPeVi06}.
+
+For symmetric kernels $\bm{K}$, a DPP can be seen as a \emph{repulsive} distribution, in the sense that for all $i,j\in [d]$,
+\begin{align}
+  \Prb(\{i,j\} \subseteq Y) &= \bm{K}_{i,i} \bm{K}_{j,j} - \bm{K}^2_{i,j}\\
+  &= \Prb(\{i\} \subseteq Y)\Prb(\{j\} \subseteq Y) - \bm{K}^2_{i,j}\\
+  &\leq \Prb(\{i\} \subseteq Y)\Prb(\{j\} \subseteq Y).
+\end{align}
+
+Besides projection DPPs, there is another natural way of using a kernel matrix to define a random subset of $[d]$ with prespecified cardinality $k$.
+\begin{definition}[$k$-DPP]\label{def:kDPP}
+Let $\bm{L} \in \mathbb{R}^{d\times d}$ be a positive semidefinite matrix.
+A random subset $Y \subseteq [d]$ is drawn from a $k$-DPP of kernel $\bm{L}$ if and only if
+\begin{equation}\label{eq:def_kdpp}
+\forall S \subseteq [d],\quad \Prb(Y = S) \propto \mathbb{1}_{\{\vert S\vert = k\}}\Det(\bm{L}_{S})
+\end{equation}
+where $\bm{L}_{S} = [\bm{L}_{i,j}]_{i,j \in S}$.
+\end{definition}
+DPPs and $k$-DPPs are closely related but different objects. For starters, $k$-DPPs are always well-defined provided $\bm{L}$ has a nonzero minor of size $k$.
+
+
+
+
 \paragraph{The Circular Unitary Ensemble}
 
 
-For $N \in \mathbb{N}^{*}$, denote by $\mathbb{U}_{N}$ the group of $N \times N$ unitary matrices. $\mathbb{U}_{N}$ endowed with the topology ??? is compact; therefor, there exists a unique Borel probability measure $\mathrm{d}M$ on $\mathbb{U}_{N}$, called \emph{Haar measure}, that is invariant under left multiplication by unitary matrices; see Theorem 5.14 in \citep{Rud91}. The set of the eigenvalues of a random matrix chosen from Haar measure on the unitary group $\mathbb{U}_{N}$, also called the Circular Unitary Ensemble (CUE), was introduced by \cite{Dys62}. The following result is fundamental in the statistical description of the CUE.
+For $N \in \mathbb{N}^{*}$, denote by $\mathbb{U}_{N}$ the group of $N \times N$ unitary matrices. $\mathbb{U}_{N}$ endowed with the induced topology, as a subset of the set of $N\times N$ complex-valued matrices, is compact; therefore, there exists a unique Borel probability measure $\mathrm{d}M$ on $\mathbb{U}_{N}$, called \emph{Haar measure}, that is invariant under left multiplication by unitary matrices; see Theorem 5.14 in \citep{Rud91}. The set of the eigenvalues of a random matrix chosen from Haar measure on the unitary group $\mathbb{U}_{N}$, also called the Circular Unitary Ensemble (CUE), was introduced by \cite{Dys62}. The following result is fundamental in the statistical description of the CUE.
 
  % implies that the CUE follows the distribution of a projection DPP. 
 
@@ -1177,7 +1228,7 @@ where
 \end{equation}
 This representation implies the following result.
 \begin{theorem}[\cite{Dys62}]\label{thm:CUE_is_DPP}
-The counting measure of the CUE is a determinantal point process on unit complex circle $\mathbb{U} = \{ u \in \mathbb{C}, |u| =1 \}$ with kernel $\kappa$ and reference measure is the Lebesgue measure on $\mathbb{U}$.
+The counting measure of the CUE is a determinantal point process on the unit complex circle $\mathbb{U} = \{ u \in \mathbb{C}, |u| =1 \}$ with kernel $\kappa$ and reference measure is the Lebesgue measure on $\mathbb{U}$.
 
 \end{theorem}
 
@@ -1235,49 +1286,85 @@ with respect to the reference measure $\mathrm{d}\omega(z) = \frac{1}{\pi}e^{-|z
 
 
 
+\begin{figure}
+\centering
+\includegraphics[width= 0.32\textwidth]{img/Ginibre/Ginibre_100_example_id_1.pdf}~\includegraphics[width= 0.32\textwidth]{img/Ginibre/Ginibre_200_example_id_2.pdf}~
+\includegraphics[width= 0.32\textwidth]{img/Ginibre/Ginibre_500_example_id_3.pdf}\\
+\includegraphics[width= 0.32\textwidth]{img/Ginibre/Ginibre_histogram_1000_N_100_example_2.pdf}~
+\includegraphics[width= 0.32\textwidth]{img/Ginibre/Ginibre_histogram_1000_N_200_example_2.pdf}~\includegraphics[width= 0.32\textwidth]{img/Ginibre/Ginibre_histogram_1000_N_500_example_2.pdf}
+\caption{A realization of the Ginibre ensemble with $N = 100$ (left), $N = 200$ (middle) and $N = 500$ (right). The histogram of the radii $|z|$ of 1000 realization of the Ginibre ensemble compared to the theoretical density $f_{N}$, with $N = 100$ particles (left) $N = 200$ particles (middle) and $N = 500$ particles (right). \label{fig:ginibre}}
+\end{figure}
 
-\begin{theorem}[\cite{Gin65}]
-Let $M$ be an $N\times N$ matrix with i.i.d. standard complex Gaussian entries.
-Then the eigenvalues of $M$ follows the distribution of the determinantal point
+
+% \begin{figure}
+% \centering
+
+% \caption{. \label{fig:ginibre_mean_measure}}
+% \end{figure}
+
+
+Observe that the kernel $\kappa$ defines a projection operator from $\mathbb{L}_{2}(\mathrm{d}\omega)$ onto the $N$ dimensional subspace spanned by the functions $z \mapsto z^{n}$; $n \in \{0, \dots, N-1 \}$. As $N \rightarrow +\infty$, the kernel $\kappa$ converges to the kernel
+\begin{equation}
+\kappa_{\infty}(z,w) = e^{z \overline{w}},
+\end{equation} 
+that defines the space
+of all entire functions in $\mathbb{L}_{2}(\mathrm{d}\omega)$. 
+
+The top of Figure~\ref{fig:ginibre} shows a  realization of three Ginibre ensembles corresdponding to $N \in \{100,200,500\}$. We observe that for the three values of $N$, the configuration takes a "spherical form" that can be explained by the rotational invariance of the mean measure $\kappa(z,z) \mathrm{d}\omega(z)$. Moreover, the modulus of the elements of the Genibre ensemble form a point process on $\mathbb{R}_{+}$, and the corresdponding mean measure have a density with respect to the Lebesgue measure that writes
+\begin{equation}
+f_{N}(r) = \frac{2}{N}\sum\limits_{\ell =0}^{N-1} \frac{r^{2\ell+1}}{\ell!}e^{-r^{2}} \mathbb{1}_{\mathbb{R}_{+}}(r).
+\end{equation}
+
+The bottom of the Figure~\ref{fig:ginibre} shows histograms of the modulus computed on 1000 samples of the Ginibre ensemble for the three values of $N \in \{100,200,500\}$  compared to the respective densities $f_{100},f_{200}$ and $f_{500}$. Besides the matching between the theoretical density $f_{N}$ and the empirical histogram observed for the three values of $N$; we observe that density $f_{N}$ is unimodal and achieves its maximal value at $r \approx \sqrt{N}$, then manifest a sharp drop to very low values: .....
+
+% Figure~\ref{fig:ginibre_mean_measure} shows the histograms of the modulus calculated using 1000 realizations of the Ginibre ensemble with $N \in \{ 100,200,500\}$ compared to the corresponding densities $f_{100},f_{200},f_{500}$. 
+
+ % compared to three realizations from the binomial process ($N = 15$) corresponding to the the Lebesgue measure on $\mathbb{U}$. We observe that the CUE tends to be cover the unit circle with more regularity than the binomial process.
+
+
+\paragraph{The spherical enemble}
+The spherical ensemble is another example of a DPP based on the eigenvalues of random matrices. Interestingly, this ensemble have two representations; it can be seen as a DPP on the complex plan or as a DPP on the  sphere $\mathbb{S}^{2}$, hence the name. This ensemble was already used in theoretical physics for the modeling of repulsive particles in the sphere [??] [??]. The connection with eigenvalues of random matrices was proved by ??? 
+
+
+
+\begin{theorem}[Theorem 5.0.4 in ???]
+Let $A,B$ be independent $N\times N$ matrix with i.i.d. standard complex Gaussian entries. Define the set of eigenvalues $\{z_{1}, \dots, z_{N}\} \subset \mathbb{C}$ of $A^{-1}B$; and for every $n \in [N]$ let $x_n$ be the stereographic projection of $z_n$ from the complex plan to the sphere $\mathbb{S}^{2}$.
+
+
+
+Then, $\{z_{1}, \dots, z_{N}\}$ follows the distribution of the determinantal point
 process associated to the kernel defined on the complex plan
 \begin{equation}
-\kappa(z,w) = \sum\limits_{\ell =0}^{N-1} \frac{(z \overline{w})^{\ell}}{\ell!},
+\kappa_{\mathbb{C}}(z,w) = (1+z\overline{w})^{N-1},
 \end{equation}
-with respect to the reference measure $\mathrm{d}\omega(z) = \frac{1}{\pi}e^{-|z|^{2}} \mathrm{d}\lambda(z)$, where $\mathrm{d}\lambda$ is the Lebesgue measure on $\mathbb{C}$.
+with respect to the reference measure $\mathrm{d}\omega(z) = \frac{N}{\pi(1+|z|^{2})^{N+1}} \mathrm{d}\lambda(z)$, where $\mathrm{d}\lambda$ is the Lebesgue measure on $\mathbb{C}$; and $\{x_{1}, \dots, x_{N}\}$ follows the distribution of the determinantal point
+process associated to the kernel
+\begin{equation}
+\kappa_{\mathbb{S}^{2}}(x,y) = \sum\limits_{n=1}^{N} ...
+\end{equation}
+with respect to the uniform measure on $\mathbb{S}^{2}$.
 \end{theorem}
 
-For all the definitions in this section, we refer the reader to \citep{KuTa12}. Recall that $[d] = \{1,\dots,d\}$.% A point process on $[d]$ is a probability measure over subsets of $[d]$.
-\begin{definition}[DPP]
-Let $\bm{K} \in \mathbb{R}^{d\times d}$ be a positive semi-definite matrix.
-A random subset $Y \subseteq [d]$ is drawn from a DPP of marginal kernel $\bm{K}$ if and only if
-\begin{equation}\label{eq:def_dpp}
-\forall S \subseteq [d],\quad \Prb(S \subseteq Y) = \Det(\bm{K}_{S}),
-\end{equation}
-where $\bm{K}_{S} = [\bm{K}_{i,j}]_{i,j \in S}$. We take as a convention $\Det(\bm{K}_{\emptyset}) = 1$.
-\end{definition}
-%In this paper, we use a definition of DPPs through their ...
-%Note that it is also common to see in the literature a related definition called an $\bm{L}$-ensemble \citet{KuTa12}.
-For a given matrix $\bm{K}$, it is not obvious that \eqref{eq:def_dpp} consistently defines a point process. One sufficient condition is that $\bm{K}$ is symmetric and its spectrum is in $[0,1]$; see \citep{Mac75} and \citep{Sos00}[Theorem 3]. In particular, when the spectrum of $\bm{K}$ is included in $\{0,1\}$, we call $\bm{K}$ a projection kernel and the corresponding DPP a \emph{projection} DPP\footnote{All projection DPPs in this paper have symmetric kernels}. Letting $r$ be the number of unit eigenvalues of its kernel, samples from a projection DPP have fixed cardinality $r$ with probability 1 \cite*[Lemma 17]{HoKrPeVi06}.
-
-For symmetric kernels $\bm{K}$, a DPP can be seen as a \emph{repulsive} distribution, in the sense that for all $i,j\in [d]$,
-\begin{align}
-  \Prb(\{i,j\} \subseteq Y) &= \bm{K}_{i,i} \bm{K}_{j,j} - \bm{K}^2_{i,j}\\
-  &= \Prb(\{i\} \subseteq Y)\Prb(\{j\} \subseteq Y) - \bm{K}^2_{i,j}\\
-  &\leq \Prb(\{i\} \subseteq Y)\Prb(\{j\} \subseteq Y).
-\end{align}
-
-Besides projection DPPs, there is another natural way of using a kernel matrix to define a random subset of $[d]$ with prespecified cardinality $k$.
-\begin{definition}[$k$-DPP]\label{def:kDPP}
-Let $\bm{L} \in \mathbb{R}^{d\times d}$ be a positive semidefinite matrix.
-A random subset $Y \subseteq [d]$ is drawn from a $k$-DPP of kernel $\bm{L}$ if and only if
-\begin{equation}\label{eq:def_kdpp}
-\forall S \subseteq [d],\quad \Prb(Y = S) \propto \mathbb{1}_{\{\vert S\vert = k\}}\Det(\bm{L}_{S})
-\end{equation}
-where $\bm{L}_{S} = [\bm{L}_{i,j}]_{i,j \in S}$.
-\end{definition}
-DPPs and $k$-DPPs are closely related but different objects. For starters, $k$-DPPs are always well-defined provided $\bm{L}$ has a nonzero minor of size $k$.
 
 
+\begin{figure}
+\centering
+\includegraphics[width= 0.32\textwidth]{img/Spherical/Spherical_50_example_id_1.pdf}~\includegraphics[width= 0.32\textwidth]{img/Spherical/Spherical_50_example_id_2.pdf}
+~\includegraphics[width= 0.32\textwidth]{img/Spherical/Spherical_50_example_id_3.pdf}\\
+\includegraphics[width= 0.32\textwidth]{img/Spherical/Spherical_beforestero_50_example_id_1.pdf}~\includegraphics[width= 0.32\textwidth]{img/Spherical/Spherical_beforestero_50_example_id_2.pdf}
+~\includegraphics[width= 0.32\textwidth]{img/Spherical/Spherical_beforestero_50_example_id_3.pdf}\\
+\caption{Three realizations from the spherical ensemble with $N = 50$ particles (top) compared to their stereographic projections on the complex plan (bottom). \label{fig:spherical_ensemble}}
+\end{figure}
+
+% \begin{theorem}[\cite{Gin65}]
+% Let $M$ be an $N\times N$ matrix with i.i.d. standard complex Gaussian entries.
+% Then the eigenvalues of $M$ follows the distribution of the determinantal point
+% process associated to the kernel defined on the complex plan
+% \begin{equation}
+% \kappa(z,w) = \sum\limits_{\ell =0}^{N-1} \frac{(z \overline{w})^{\ell}}{\ell!},
+% \end{equation}
+% with respect to the reference measure $\mathrm{d}\omega(z) = \frac{1}{\pi}e^{-|z|^{2}} \mathrm{d}\lambda(z)$, where $\mathrm{d}\lambda$ is the Lebesgue measure on $\mathbb{C}$.
+% \end{theorem}
 
 
 \section{Numerical aspects}\label{sec:num_algos_dpps}
@@ -4641,39 +4728,44 @@ To sum up, we reviewed three settings where a DPP-based quadrature leads to a fa
 These observations suggest the possibility to define DPP-based quadratures on other functional spaces. Indeed, we introduce a class of DPP-based quadratures in Section~\ref{sec:pDPP_OKQ} for functions living in a generic reproducing kernel Hilbert space, that can be seen as generalizing  Sobolev spaces.
 This new class of quadratures fit within the kernel framework for quadratures that we recall in the following section.
 
-\section{The kernel framework for quadratures}
+\section{The kernel quadrature framework}
 
 
-The analysis of quadratures using kernel methods is convenient and elegant at the same time and it is expressed using functional analysis tools similarly to DPPs. Added to that, many results in quasi-Monte Carlo theory have an interpretation within this framework. 
+The analysis of quadrature using kernel methods is convenient and elegant and it is expressed using functional analysis tools, similarly to DPPs. Added to that, many results in quasi-Monte Carlo theory have an interpretation within this framework. 
 
-The strength of this framework is its flexibility: the integration domain $\mathcal{X}$ is assumed to be a metric space endowed with a Borel measure $\mathrm{d}\omega$, and we consider approximating an integral $\displaystyle \int_{\X} f(x)g(x)\mathrm{d}\omega(x)$, where $f,g \in \mathbb{L}_{2}(\mathrm{d}\omega)$ and $f$  is continuous, using a quadrature rule $(\bm{x}, \bm{w}) \in \X^{N} \times \mathbb{R}^{N}$:
+The strength of this framework is its flexibility: the integration domain $\mathcal{X}$ is assumed to be a metric space endowed with a Borel measure $\mathrm{d}\omega$, and we consider approximating an integral $ \int_{\X} f(x)g(x)\mathrm{d}\omega(x)$, where $f,g \in \mathbb{L}_{2}(\mathrm{d}\omega)$ and $f$  is continuous, using a quadrature rule $(\bm{x}, \bm{w}) \in \X^{N} \times \mathbb{R}^{N}$:
 \begin{equation}\label{eq:int_error}
-\int_{\X} f(x)g(x)\mathrm{d}\omega(x) \approx \sum\limits_{n \in [N]} w_{n} f(x_{n}),
+\int_{\X} f(x)g(x)\mathrm{d}\omega(x) \approx \sum\limits_{n \in [N]} w_{n} f(x_{n}).
 \end{equation}
 
-where $\mathbb{L}_{2}(\mathrm{d}\omega)$ is the Hilbert space of square integrable, real-valued functions defined on $\mathcal{X}$, with the usual inner product denoted by $\langle \cdot, \cdot \rangle_{\mathrm{d}\omega}$, and the associated norm by $\|.\|_{\mathrm{d}\omega}$.
+Here $\mathbb{L}_{2}(\mathrm{d}\omega)$ is the Hilbert space of square integrable, real-valued functions defined on $\mathcal{X}$, with the usual inner product denoted by $\langle \cdot, \cdot \rangle_{\mathrm{d}\omega}$, and the associated norm by $\|.\|_{\mathrm{d}\omega}$.
 
 % As we shall see, the analysis of the integration error in~\eqref{eq:int_error} is convenient if $f$ belongs to a Reproducing Kernel Hilbert Space (RKHS).
 
-We recall in the following some classic results on kernel quadratures. In particular, in Section~\ref{subsec:rkhs},  the definition of RKHSs is recalled along with the assumed hypothesis; in Section~\ref{subsec:mercer}, the Mercer theorem and its various extensions; in Section~\ref{subsec:int_error}, the definition of the worst integration error on an RKHS is recalled; in Section~\ref{subsec:kernel_examples}, we give some examples of kernels widely used in the literature of kernel quadrature; in Section~\ref{subsec:bayesian_quadrature}, we recall the link between kernel quadrature and Gaussian processes approximations along with Bayesian quadrature; in Section~\ref{subsec:okq_analysis_paradigm} and Section~\ref{subsec:okq_algebraic_paradigm}, we review the two paradigms of nodes design for kernel quadratures.
+We recall in the following some classic results on kernel quadrature. In particular, in Section~\ref{subsec:rkhs},  the definition of RKHSs is recalled along with our assumptions; in Section~\ref{subsec:mercer}, Mercer's theorem and its various extensions; in Section~\ref{subsec:int_error}, the definition of the worst case integration error on an RKHS is recalled; in Section~\ref{subsec:kernel_examples}, we give some examples of kernels widely used in the literature on kernel quadrature; in Section~\ref{subsec:bayesian_quadrature}, we recall the link between kernel quadrature and Gaussian process approximation, along with Bayesian quadrature; in Section~\ref{subsec:okq_analysis_paradigm} and Section~\ref{subsec:okq_algebraic_paradigm}, we review two paradigms of node design for kernel quadrature.
 \subsection{Reproducing Kernel Hilbert Spaces}\label{subsec:rkhs}
-
-We start by the definition of a kernel over $\mathcal{X}$. A function $k: \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}_{+}$ is said to be a kernel over $\mathcal{X}$ if $k$ is symmetric and for any finite set of points in $\mathcal{X}$, the matrix of pairwise kernel evaluations is positive semi-definite.
-
-A reproducing kernel Hilbert space (RKHS) over $\mathcal{X}$ is a Hilbert space $\mathcal{F}$ endowed with a kernel $k$ that satisfies the following two properties \cite{BeTh11}: 
+Let $\mathcal{X}$ be a metric space. A function $k: \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}_{+}$ is said to be a kernel over $\mathcal{X}$ if $k$ is symmetric and for any finite set of points in $\mathcal{X}$, the matrix of pairwise kernel evaluations is positive semi-definite. A reproducing kernel Hilbert space (RKHS) over $\mathcal{X}$ is a Hilbert space $\mathcal{F}$ endowed with a kernel $k$ that satisfies the following two properties \cite{BeTh11}: 
 \begin{itemize}
-\item the continuity property: for every $x \in \mathcal{X}$, the evaluation function $f \mapsto f(x)$ is continuous with respect to the norm of $\mathcal{F}$ 
+\item the continuity property: for every $x \in \mathcal{X}$, the evaluation function $f \mapsto f(x)$ is continuous with respect to the norm of $\mathcal{F}$, that is
 
 \begin{equation}
 \forall x \in \mathcal{X}, \: \exists M_{x} >0 , \: \forall f \in \mathcal{F}, \: |f(x)| \leq M_{x} \|f\|_{\mathcal{F}},\nonumber
 \end{equation} 
-\item the reproducibility property:\begin{equation}
+\item the reproducibility property\begin{equation}
 \forall (x,f) \in \mathcal{X}\times\mathcal{F}, \: f(x) = \langle f, k(x,.) \rangle_{\mathcal{F}}. \nonumber
 \end{equation}
 \end{itemize}
- 
-We assume that the kernel $k$ is continuous with respect to the induced topology of $\mathcal{X} \times \mathcal{X}$, and we assume that $x \mapsto k(x,x)$ is integrable with respect to $\mathrm{d}\omega$ so that $\mathcal{F} \subset \mathbb{L}_{2}(\mathrm{d}\omega)$.
-We discuss latter a case where the continuity of the kernel is not verified. ???
+We suppose the follwoing assumption on the kernel $k$.
+\begin{assumption}\label{hyp:k_is_continuous}
+$k$ is continuous with respect to the product topology of $\mathcal{X} \times \mathcal{X}$.
+\end{assumption}
+
+\begin{assumption}\label{hyp:the_diagonal_k_is_integrable}
+$x \mapsto k(x,x)$ is integrable with respect to $\mathrm{d}\omega$ so that $\mathcal{F} \subset \mathbb{L}_{2}(\mathrm{d}\omega)$.
+\end{assumption}
+
+We assume that the kernel , and we assume that ??????
+We discuss later a case where the continuity of the kernel is not verified. ???
 
 
 % In order to present this framework, we introduce some notations.
@@ -4687,7 +4779,7 @@ We discuss latter a case where the continuity of the kernel is not verified. ???
 
 \subsection{Examples of typical kernels}
 \label{subsec:kernel_examples}
-\paragraph{Periodic Sobolev spaces and Korobov spaces}
+\subsubsection{Periodic Sobolev spaces and Korobov spaces}
 
 
 
@@ -4741,26 +4833,39 @@ An element $f$ of $\mathcal{K}_{d,s}$ have square-integrable partial derivatives
 k_{QMC}(\bm{x},\bm{y}) = \prod\limits_{\delta \in [d]} (2-\min(x_{\delta},y_{\delta})).
 \end{equation}
 
-****
+\subsubsection{Dot product kernels on hypersphers}
+
+Let $\mathcal{X}$ bet the $d$-dimensional hypersphere $\mathbb{S}^{d} \subset \mathbb{R}^{d+1}$ equipped with the ... associated to the uniform measure $\mathrm{d}\omega$. Let $(a_{m})_{ m \in \mathbb{N}}$ be a sequence of non-negative real numbers, and consider the kernel $k$ defined on $\X$ by
+\begin{equation}
+k(x,y) = \sum\limits_{m \in \mathbb{N}} a_m L_{m}^{d}(x^{\Tran}y),
+\end{equation}
+where the $(L_{m}^{d})_{m \in \mathbb{N}}$ are the associated Legendre polynomials of order $d$.
+
+For every, ..., define $Y_{n,j}^{d}$ the $n$-spherical harmonic of dimension $d$ and ...
+
+By Funk-Hecke equation
+\begin{equation}
+L_{m}^{d}(x^{\Tran}y) = \frac{...}{N(d,m)} \sum\limits_{j =1}^{N(d,m)} Y_{m,j}^{d}(x)Y_{m,j}^{d}(y),
+\end{equation}
 
 
 \subsection{The Mercer decomposition}
 \label{subsec:mercer}
-As we have seen, Sobolev spaces are characterized by the Fourier coefficients of their elements. This property is not ???? and it is satisfied by other RKHSs. Indeed, recall that under an assumption the RKHS $\mathcal{F}$ is a subspace of $\mathbb{L}_{2}(\mathrm{d}\omega)$. The Mercer theorem gives a finer description of $\mathcal{F}$ as a subspace of $\mathbb{L}_{2}(\mathrm{d}\omega)$.
+As we have seen, Sobolev spaces are characterized by the Fourier coefficients of their elements. This property is not specific to Sobolev spaces and it is satisfied by other RKHSs. Indeed, recall that under the Assumption~\ref{hyp:the_diagonal_k_is_integrable}, the RKHS $\mathcal{F}$ is a subspace of $\mathbb{L}_{2}(\mathrm{d}\omega)$. The Mercer theorem gives a finer description of $\mathcal{F}$ as a subspace of $\mathbb{L}_{2}(\mathrm{d}\omega)$.
 
  % This property can be proven by an application of the Mercer theorem. Indeed, 
 
 
-The Mercer Theorem was first proven when $\mathcal{X} = [0,1]$ and $\mathrm{d}\omega$ is the Lebesgue measure in \cite{Mer1909}.
+The Mercer's theorem was first proven when $\mathcal{X} = [0,1]$ and $\mathrm{d}\omega$ is the Lebesgue measure in \cite{Mer1909}.
 A modern proof of this classic result can be found in \cite{Lax02}. An extension to a general compact space $\mathcal{X}$ can be  found in \cite{CuZh07}. To state this classic result, we consider the integration operator
 % In this section we recall Mercer's theorem and its extensions to non-compact spaces. Let $\mathcal{X}$ be a measurable space and $\mathrm{d}\omega$ a measure on $\mathcal{X}$. 
 
 % Assume $k$ is a positive definite kernel on $\mathcal{X}$. Whenever it is well-defined, we consider the operator
 \begin{equation}
-\bm{\Sigma} f(x) = \int\limits_{\mathcal{X}} k(x,y)f(y) \mathrm{d}\omega(y).
+\bm{\Sigma} f(x) = \int_{\mathcal{X}} k(x,y)f(y) \mathrm{d}\omega(y).
 \end{equation}
 \begin{theorem}\label{thm:Mercer_for_compact}
-Assume that $\mathcal{X}$ is a compact space and $\mathrm{d}\omega$ is a finite Borel measure on $\mathcal{X}$.
+Assume that $\mathcal{X}$ is a compact space and $\mathrm{d}\omega$ is a non-degenerate finite Borel measure on $\mathcal{X}$.
 Then, there exists an orthonormal basis $(e_{n})_{n \in \mathbb{N}^{*}}$ of $\mathbb{L}_{2}(\mathrm{d}\omega)$ consisting of eigenfunctions of $\bm{\Sigma}$, and the corresponding eigenvalues are non-negative.
 The eigenfunctions corresponding to non-vanishing eigenvalues can be taken to be continuous, and the kernel $k$ writes
 \begin{equation}
@@ -4768,6 +4873,46 @@ k(x,y) = \sum\limits_{n \in \mathbb{N}^{*}} \sigma_{n} e_{n}(x)e_{n}(y),
 \end{equation}
 where the convergence is absolute and uniform.
 \end{theorem}
+The existence of the orthonormal basis $(e_m)_{m \in \mathbb{N}^{*}}$ is a consequence of the spectral theorem applied to the compact operator $\bm{\Sigma}$ \footnote{The compactness of $\bm{\Sigma}$ is proved using the Arzelà–Ascoli theorem applied to the compact set $\X$. }. The continuity of the $e_{m}$ corresponding to non vanishing eigenvalues is a consequence of
+\begin{equation}
+e_{m}(.) = \frac{1}{\sigma_m} \int_{\X}k(.,y) e_{m}(y) \mathrm{d}\omega(.),
+\end{equation}
+and $e_{m} \in \F$. 
+Moreover, as a consequence of Theorem~\ref{thm:Mercer_for_compact}, the family $(e_{m}^{\F} = \sqrt{\sigma_m}e_m; \sigma_m>0)_{m \in \mathbb{N}^{*}}$ is an o.n.b. of $\mathcal{F}$; see Theorem?? in \cite{CuZh07}. In particular
+\begin{equation}
+\|e_{m}^{\F}\|_{\F}^{2} = \sigma_{m}\|e_{m}\|_{\F}^{2} = 1,
+\end{equation}
+and the coefficients of an element $f \in \F$ in the o.n.b. $(e_{m}^{\F})_{m \in \mathbb{N}^{*}}$, depend??? on the coefficients of $f$, seen as an element of $\mathbb{L}_{2}(\mathrm{d}\omega)$, in the o.n.b. $(e_{m})_{m \in \mathbb{N}^{*}}$. Indeed
+% , write the deco its decomposition in $\mathbb{L}_{2}(\mathrm{d}\omega)$
+% By the fact that $\F \subset\mathbb{L}_{2}(\mathrm{d}\omega)$, the decomposition of an element $f$ of $\F$ can be decomposed
+% Now, let $f \in \F$, and 
+\begin{equation}
+f  = \sum\limits_{m \in \mathbb{N}^{*}} \langle f, e_m \rangle_{\mathrm{d}\omega} e_m =  \sum\limits_{m \in \mathbb{N}^{*}} \frac{\langle f, e_m \rangle_{\mathrm{d}\omega}}{\sqrt{\sigma_m}} e_{m}^{\F},
+\end{equation}
+so that
+\begin{equation}
+\langle f, e_{m}^{\F} \rangle_{\F} = \frac{\langle f,e_m \rangle_{\mathrm{d}\omega}}{\sqrt{\sigma_m}}, 
+\end{equation}
+and
+\begin{equation}\label{eq:rkhs_norm_ltwo_norm}
+\|f\|_{\F}^{2} = \sum\limits_{m \in \mathbb{N}^{*}} \frac{\langle f, e_m \rangle_{\mathrm{d}\omega}^{2}}{\sigma_m}.
+\end{equation}
+%  This gives the following characterization of the RKHS norm $\|.\|_{\F}$
+% \begin{equation}
+% \|f\|_{\F}^{2} = \sum\limits_{m \in \mathbb{N}^{*}} \frac{\langle f,e_m \rangle_{\mathrm{d}\omega}^{2}}{\sigma_m}
+% \end{equation}
+In other words, the RKHS $\mathcal{F}$ is equal to the set
+\begin{equation}
+\bigg \{ f \in \mathbb{L}_{2}(\mathrm{d}\omega), \: \sum\limits_{m \in \mathbb{N}^{*}} \frac{\langle f,e_m \rangle_{\mathrm{d}\omega}^{2}}{\sigma_m} < +\infty \bigg\}.
+\end{equation}
+
+The identity~\eqref{eq:rkhs_norm_ltwo_norm} proves that the operator $\bm{\Sigma}^{1/2}: \mathbb{L}_{2}(\mathrm{d}\omega) \rightarrow \F$ is an isometry, and $\mathcal{F}$ can be seen as an ellipsoid in $\mathbb{L}_{2}(\mathrm{d}\omega)$ as it is illustrated in Figure~\ref{fig:rkhs_is_ellipsoid}: the principal axis correspond to the directions spanned by the eigenfunctions $e_{m}$.
+
+\begin{figure}
+    \centering
+    \resizebox{0.6\textwidth}{!}{\input{img/unit_balls/func_unit_balls_1.tex}}
+    \caption{The RKHS $\F$ is an ellipsoid in $\mathbb{L}_{2}(\mathrm{d}\omega)$. \label{fig:rkhs_is_ellipsoid}}
+\end{figure}
 
 
 The compactness assumption in Theorem~\ref{thm:Mercer_for_compact} excludes some classic RKHSs: the RKHSs corresponding to the Gaussian kernel or the Laplace kernels on $\mathbb{R}^{d}$...
@@ -4779,7 +4924,7 @@ In \cite{Sun05}, the author extended Theorem~\ref{thm:Mercer_for_compact} to $\m
   f &\longmapsto f
 \end{align*}
 is compact.
-A sufficient condition for this assumption is the integrability of the diagonal (Lemma 2.3, \citep{StSc12}):
+A sufficient condition for this assumption is the integrability of the diagonal (Lemma 2.3, \citep{StSc12}), that is,
 \begin{equation}
 \int_{\mathcal{X}} k(x,x) \mathrm{d}\omega(x) < \infty.
 \end{equation}
@@ -4810,18 +4955,17 @@ When the integrand $f$ belongs to $\mathcal{F}$, the integration error reads \ci
 \end{align}
 where
 \begin{equation}
-\mu_{g} = \int_{\mathcal{X}} k(x,.) g(x) \mathrm{d}\omega(x),
+\mu_{g} = \int_{\mathcal{X}} k(x,.) g(x) \mathrm{d}\omega(x)
 \end{equation}
- is the so-called \emph{mean element} \citep{DiPi14,MuFuSrSc17} of the measure $g \mathrm{d}\omega$. The approximation error of the embedding $\mu_{g}$ by the kernel translates $\displaystyle \sum\limits_{n \in [N]} w_{n}k(x_{n},.)$ in the RKHS norm gives an upper bound on the integration error of the quadrature $(\bm{x}, \bm{w})$ independently of the integrand $f$: it is the worst case integration error in the unit ball of $\F$:
+ is the so-called \emph{mean element} \citep{DiPi14,MuFuSrSc17} of the measure $g \mathrm{d}\omega$ or the \emph{embedding} of $g$. \eqref{eq:integral_bound_mean_element} entails that the approximation error of the embedding $\mu_{g}$ by the kernel translates $\sum_{n \in [N]} w_{n}k(x_{n},.)$ in the RKHS norm gives an upper bound on the integration error of the quadrature $(\bm{x}, \bm{w})$, independently of the integrand $f$. It actually is the worst case integration error in the unit ball of $\F$,
 \begin{equation}\label{eq:wce_kquadrature}
-\|\mu_{g} - \sum\limits_{n \in [N]}w_{n} k(x_{n},.) \|_{\mathcal{F}} = \sup\limits_{\substack{f \in \mathcal{F}\\ \|f\|_{\mathcal{F}} \leq 1}} \bigg|\int_{\mathcal{X}} f(x)g(x)\mathrm{d}\omega(x) - \sum\limits_{j \in [N]} w_{j}f(x_{j}) \bigg|.
+\sup\limits_{\substack{f \in \mathcal{F}\\ \|f\|_{\mathcal{F}} \leq 1}} \bigg|\int_{\mathcal{X}} f(x)g(x)\mathrm{d}\omega(x) - \sum\limits_{j \in [N]} w_{j}f(x_{j}) \bigg| = \|\mu_{g} - \sum\limits_{n \in [N]}w_{n} k(x_{n},.) \|_{\mathcal{F}}.
 \end{equation}
 
 
 
 
-
-This idea can be tracked to Hickernell \citep{Hic96,Hic98} who introduced reproducing kernels to the QMC community. Indeed, \cite{Hic96} derived a tractable formula for the worst-case integration error of a quasi-Monte Carlo rule ($\X=[0,1]^{d}$, $g$ is the constant function that take the value $1$ and $w_{n}= 1/N$):
+The characterization~\eqref{eq:wce_kquadrature}, of the worst case integration error, motivates the use of a kernel in the evaluation of a quadrature. This idea can be tracked to Hickernell \citep{Hic96,Hic98} who introduced reproducing kernels to the QMC community. Indeed, \cite{Hic96} derived a tractable formula for the worst-case integration error of a quasi-Monte Carlo rule ($\X=[0,1]^{d}$, $g$ is the constant function that take the value $1$ and $w_{n}= 1/N$)
 
 \begin{equation}\label{eq:wce_qmc}
  \sup\limits_{\substack{f \in \mathcal{F}\\ \|f\|_{\mathcal{F}} \leq 1}} \bigg|\int_{[0,1]^{d}} f(x)\mathrm{d}x - \frac{1}{N}\sum\limits_{n \in [N]} f(x_{n}) \bigg|^{2}.
@@ -4933,7 +5077,7 @@ Beside the hypercube, optimal kernel quadrature has been considered on the hyper
 %except for the case of the uniform grid in $\X = [0,1]$,
 $g$ is usually assumed to be constant. Another approach is offered by optimisation algorithms that we review in Section~\ref{sec:sequential_algos}. Before that, we clarify the subtle difference between optimal kernel quadrature and kernel interpolation.
 
-\subsubsection{Sequential Bayesian quadrature}
+\subsubsection{Sequential Bayesian quadrature}\label{subsec:bayesian_quadrature}
 
 ****
 
@@ -8216,16 +8360,28 @@ Finally, while optimal kernel quadrature may be the main application of our resu
 
 \chapter{Interpolation problems in signal processing}\label{chapter:signal_reconstruction}
 
-\chapter{The Richest Hermite Kernel and integration problems in $\mathbb{R}^{d}$}
+% \chapter{The Richest Hermite Kernel and integration problems in $\mathbb{R}^{d}$}
 
-\chapter{Future work and conclusion}
+\chapter{Conclusion and Perspectives}
+
+%\subsubsection{Perspectives}
+\paragraph{\Large\selectfont{Conclusion}}
+
+\paragraph{\Large\selectfont{Perspectives}}
+\paragraph{An exhaustive analysis of other problems}
+\paragraph{A random quadrature based on DPPs that achieves the Bakhvalov lower bound?}
+\paragraph{A refined analysis of the principal angles}
+
+\listoffigures
+
+\listoftables
 
 \bibliography{bibliography}
 
-\appendix
+% \appendix
 
-\section{Details about the simulations of Chapter~\ref{chapter:cssp} }
-\section{Proofs of the main results appearing in Chapter~\ref{chapter:cssp} }
+% \section{Details about the simulations of Chapter~\ref{chapter:cssp} }
+% \section{Proofs of the main results appearing in Chapter~\ref{chapter:cssp} }
 
 %\printbibliography
 \end{document}
