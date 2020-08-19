@@ -4058,9 +4058,9 @@ the so-called \emph{Christoffel function} at the roots of $P_{N}$. This function
  %goes through the evaluation the sequences of
 In practice, the evaluation of the nodes and weights of Gaussian quadrature for a given measure $\mathrm{d}\omega$ relies on  the three-term recurrence coefficients associated to the polynomials $P_{m}$
 \begin{align}\label{eq:OP_reccurence_1}
-\forall m \in \mathbb{N}^{*}, \:\:t P_{m}(t) & = a_{m}P_{m+1}(t) + b_{m}P_{m}(t) + a_{m-1}P_{m-1}(t),\\
+\forall m \in \mathbb{N}, \:\:t P_{m}(t) & = \sqrt{b_{m+1}}P_{m+1}(t) + a_mP_{m}(t) + \sqrt{b_{m}}P_{m-1}(t),\\
 \label{eq:OP_reccurence_2}
-t P_{0}(t) & = a_{0}P_{1}(t) + b_{0}P_{0}(t) .
+t P_{0}(t) & = a_{0}P_{1}(t) + \sqrt{b_{0}}P_{0}(t) .
 \end{align}
 % As for now, we recall a spectral characterization of the Gaussian quadrature. 
 % % In practice, the nodes and the weights of the Gaussian quadrature can be calculated using a more elegant way.
@@ -4068,10 +4068,10 @@ t P_{0}(t) & = a_{0}P_{1}(t) + b_{0}P_{0}(t) .
 Indeed, let $J_{N}$ the tridiagonal matrix of order $N$ defined by
 \begin{equation}
 J_N = \left( \begin{array}{cccc}
-a_{0} & b_{1} & & 0\\
-b_{1} & \ddots & \ddots & \\
-& \ddots & \ddots & b_{N-1} \\
-0 & & b_{N-1} & a_{N-1} \end{array} \right).
+a_{1} & \sqrt{b_{1}} & & 0\\
+\sqrt{b_{1}} & \ddots & \ddots & \\
+& \ddots & \ddots & \sqrt{b_{N-1}} \\
+0 & & \sqrt{b_{N-1}} & a_{N} \end{array} \right).
 \end{equation}
 The roots of the $P_{N}$ are the eigenvalues of the tridiagonal matrix $J_{N}$, and for every eigenvalue $x$ the corresponding eigenvector is the vector $\big(P_{0}(x), \dots, P_{N-1}(x) \big)^{\Tran}$; see Theorem 2.13 in \citep{GoMe09}. In other words, the spectral decomposition of the Jacobi matrix gives the nodes and the weights of the Gaussian quadrature. The matrix $J_{N}$ is known explicitly for many classic orthogonal polynomials such as Chebyshev, Legendre, Hermite... Building up this matrices amount to the calculation of the moments of the measure $\mathrm{d}\omega$ which is a non trivial task for a general measure $\mathrm{d}\omega$. We refer to \citep{GoMe09} for more details on the algorithmic construction of Gaussian quadrature.
 
@@ -4101,6 +4101,89 @@ The roots of the $P_{N}$ are the eigenvalues of the tridiagonal matrix $J_{N}$, 
 % \vdots \\
 % P_{N-1}(x) \\
 % \end{pmatrix}$
+\subsubsection{A connection with DPP}
+
+\begin{figure}[]
+    \centering
+% \includegraphics[width= 0.45\textwidth]{img/neurips/Hermite/HermiteOP_kernel_diagonal}~
+% \caption{..... \label{fig:diagonalHermiteEnsemble}}
+% \end{figure}
+% \begin{figure}[]
+%     \centering
+\includegraphics[width= 0.45\textwidth]{img/neurips/Hermite/HermiteOP_kernel_diagonal_N_5_vs_50000_empirical}~
+\includegraphics[width= 0.45\textwidth]{img/neurips/Hermite/HermiteOP_kernel_diagonal_N_10_vs_50000_empirical}
+\caption{The histogram of the eigenvalues of $\tilde{J}_{N}$ based on 50000 realizations compared to the first intensity function of the projection DPP eigenvalues of $J_{N}$ (the red dots)  with $N \in\{5,10\}$.   \label{fig:unidimHermiteEnsembleChristoffel}}
+\end{figure}
+
+We illustrate the construction of Gaussian quadrature based on the spectral decomposition of the matrix $J_N$ using the case of the Gaussian measure on the real line. The aim of this illustration is to highlight a connection between Gaussian quadrature and DPPs.
+
+Now, let $\mathrm{d}\omega(t) = \omega(t) \mathrm{d}t$ be the Gaussian measure on $\mathbb{R}$ 
+\begin{equation}
+\omega(t) = \frac{1}{\sqrt{2\pi}} e^{-t^{2}/2}.
+\end{equation}
+ % through  in the case of  This illustration will and we 
+It is well known, that the corresponding orthonormal polynomials are proportional to the probabilists Hermite polynomials, and the corresponding Jacobi matrix writes
+% \begin{equation}
+% H_{n}(t) = (-1)^{n}e^{t^{2}/2}\frac{\mathrm{d}^{n}}{\mathrm{d}t^{n}} e^{-t^{2}/2}
+% \end{equation}
+
+%  defines a sequence of orthogonal polynomials with respect to $\mathrm{d}\omega$ the corresponding family of orthonormal polynomials, .... In this case
+\begin{equation}
+J_N = \left( \begin{array}{cccc}
+0 & \sqrt{N} & & 0\\
+\sqrt{N} & \ddots & \ddots & \\
+& \ddots & \ddots & \sqrt{N} \\
+0 & & \sqrt{N} & 0 \end{array} \right).
+\end{equation}
+Now consider the following random matrix
+\begin{equation}
+\tilde{J}_N = \left( \begin{array}{cccc}
+\mathcal{N}(0,1) & \chi_{(N-1)} & & 0\\
+\chi_{(N-1)} & \ddots & \ddots & \\
+& \ddots & \ddots & \chi_{1} \\
+0 & & \chi_{1} & \mathcal{N}(0,1) \end{array} \right),
+\end{equation}
+
+where $\mathcal{N}(0,1)$ is a random variable that follows the standard normal distribution, and $\chi_{n}$ is a random variable that follows the chi distribution with $n$ degrees of freedom.
+% In particular
+% \begin{equation}
+% \EX \tilde{J}_N = J_N.
+% \end{equation}
+It is well known that eigenvalues $\{x_{1}, \dots, x_{N} \}$ of $\tilde{J}_{N}$ have the following density \citep{DuEd05}
+
+\begin{equation}\label{eq:J_tilde_eigenvalue_distribution}
+(x_{1}, \dots, x_{N}) \propto \prod\limits_{n =1}^{N}e^{-x_{n}^{2}/2} \prod\limits_{1 \leq n<n' \leq N}  |x_{n}-x_{n'}|^{2}.
+\end{equation}
+Observe that
+\begin{equation}
+\EX \tilde{J}_N = J_N.
+\end{equation}
+From~\eqref{eq:J_tilde_eigenvalue_distribution}, we can prove that the eigenvalues of $\tilde{J}_{N}$ form a DPP of marginal kernel 
+\begin{equation}
+\kappa(x,y) = \sum\limits_{n=0}^{N-1} P_{n}(x)P_{n}(y),
+\end{equation}
+and the $\mathrm{d}\omega$ as a reference measure.
+
+% On the other hand, assume that the $(\psi_{n})$ are the family of orthonormal polynomials with respect to $\mathrm{d}\omega$. Let $x \in \mathcal{X}$ and $\bm{x}$ a random subset of $\mathcal{X}^{N}$ drawn from the Projection DPP $(\KDPP, \mathrm{d}\omega)$, then
+% \begin{equation}
+% \Prb_{\DPP}(x \in \bm{x}) = \frac{1}{N}\KDPP(x,x)\mathrm{d}\omega(x) = \frac{1}{N}\sum\limits_{n \in [N]} \psi_{n}(x)\psi_{n}(x) \mathrm{d}\omega(x)= \frac{1}{NC_{N,\mathrm{d}\omega}(x)} \mathrm{d}\omega(x).
+% \end{equation}
+% In other words, the inclusion probability of the corresponding projection DPP is related to the inverse of the Christoffel function as defined in \eqref{eq:Christoffel_functions_definition}. 
+
+
+Figure \ref{fig:unidimHermiteEnsembleChristoffel} shows the histogram of the eigenvalues of the matrix $\tilde{J}_N$ with $N \in \{5,10 \}$ calculated over 50000 realizations of $\tilde{J}_N$ compared to the first intensity function of the projection DPP defined by the kernel $\kappa$ and the reference measure $\mathrm{d}\omega$. We observe that the histogram matches the first intensity function that have local maxima around the eigenvalues of the matrix $J_{N}$ (the red dots), that are the scaled roots of probabilistic Hermite polynomial of degree $N$.
+% the evaluations of the inclusion probability of the projection DPP in the case of RKHS  Recall that in this case the eigenfunctions are given by
+% \begin{equation}
+% \tilde{e}_{m}(.) = H_{m}(\sqrt{2c}.).
+% \end{equation}
+In other words, in this case, the projection DPP can be seen as a probabilistic relaxation of Gaussian quadrature. 
+
+This case is far from being anecdotal. Indeed, this probabilistic relaxation is possible for Gaussian quadrature of other measures, and the resulting point process coincides with a projection DPP; see ???? for details on this topic.
+% The theoretical analysis of these local maxima was carried out in . More precisely, the authors studied the approximations of those bumps by Gaussians centred on the Hermite polynomials roots, see Figure \ref{fig:unidimHermiteEnsembleChristoffel} (b).
+
+ % In other words, the quadratures based on nodes sampled according to a projection DPP are probabilistic relaxations of classical quadratures based on roots of orthogonal polynomials that can be defined even if $N$ is not the square of an integer (the cases $N \in \{17,21\}$ in Figure~\ref{fig:HermiteEnsembleChristoffel}).
+
+
 \subsubsection{The convergence guarantees}
 
 ????
@@ -4108,8 +4191,22 @@ In general, the integrand $f$ is not a polynomial of low degree so that the quad
 \begin{equation}
 R_{\bm{x},\bm{w}} [f] = \int_{a}^{b}f(t)\mathrm{d}t - \sum\limits_{n \in [N]} w_{n}f(x_{n}),
 \end{equation}
-if the function $f$ is well approximated by low degree polynomials. This is the case of holomorphic functions for which a considerable amount of research was devoted; see Section 4.6 in \citep{DavRab84}. In particular for such functions, $R_{\bm{x},\bm{w}}$ converges to $0$ at an exponential rate. Now, for functions of limited degree of smoothness, Taylor series with integral remainder can be used to give an upper bound on the integration error. 
+if the function $f$ is well approximated by low degree polynomials. This is the case of holomorphic functions for which a considerable amount of research was devoted; see Section 4.6 in \citep{DavRab84}. In particular for such functions, $R_{\bm{x},\bm{w}}$ converges to $0$ at an exponential rate. Now, for functions of limited degree of smoothness, Taylor series with integral remainder can be used to give an upper bound on the integration error. This is the idea behind a technique developed by \cite{Pea1913} who introduced kernels $K_{N}$ so that the remainder of the quadrature writes
+\begin{equation}\label{eq:peano_identity}
+\int_{a}^{b}f(t)\mathrm{d}t - \sum\limits_{n \in [N]} w_{n}f(x_{n}) = \int_{a}^{b}K_{N}(t)f^{(s)}(t)\mathrm{d}t,
+\end{equation}
+where $f$ is assumed to have a piecewise continuous derivative of order $N$; and the kernel $K_{N}$ have the following expression
+\begin{equation}
+K_{N}(t) = R_{\bm{x},\bm{w}} \bigg[ \frac{\max(.-t,0)^{N-1}}{(N-1)!} \bigg].
+\end{equation}
+Peano's representation can be used in different ways to give an upper bound of the absolute value of the remainder. For example, \eqref{eq:peano_identity} yields
+\begin{equation}
+\bigg|\int_{a}^{b}f(t)\mathrm{d}t - \sum\limits_{n \in [N]} w_{n}f(x_{n}) \bigg| \leq \max\limits_{t \in [a,b]} |f^{(s)}(t)| \int_{a}^{b}|K_{N}(t)|\mathrm{d}t
+\end{equation}
 
+This technique is valid only when the integrand $f$ is sufficiently smooth....
+
+An alternative approach  
 
 % This is the idea behind a technique developed by Peano who introduced a class of kernels $K_{s}$ so that the remainder of the quadrature writes
 % \begin{equation}
@@ -4125,7 +4222,18 @@ if the function $f$ is well approximated by low degree polynomials. This is the 
 
 
 % Since any polynomial of degree smaller or equal to $N-1$ is equal to its $N-1$-degree interpolant polynomial, the approximation \eqref{eq:Newton_approx} is exact if $f$ is a polynomial of order smaller or equal to $N-1$. 
+
+
 \subsubsection{Gaussian quadrature in high dimension domains}
+
+
+Finally, there were many attempts to extend Gaussian quadrature to a high dimensional domain using common zeros of multidimensional orthogonal polynomials; see \citep{Xu94} for details on this topic. For example, the construction of a high dimensional Gaussian quadrature would require to work with block Jacobi matrices instead of tridiagonal Jacobi matrices \citep{Xu94b}. However, this line of research is not developed yet from an algorithmic point of view. ????
+
+% this class of quadrature are it seems that there is no satisfactory algorithmic toolbox for 
+
+
+ 
+
 
 
 

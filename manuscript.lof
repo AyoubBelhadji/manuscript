@@ -70,21 +70,22 @@
 \contentsline {figure}{\numberline {3.17}{\ignorespaces The interlacing relationships \textup {\hbox {\mathsurround \z@ \normalfont (\ignorespaces \ref {eq:GT_polytope_equations}\unskip \@@italiccorr )}} satisfied by the outer eigensteps of a frame. Thick triangles are used in place of $\leq $ for improved readability.\relax }}{68}{figure.caption.55}
 \contentsline {figure}{\numberline {3.18}{\ignorespaces The pseudocode of the generator of random valid eigensteps taking as input $(\bm {\ell },\bm {\sigma })$.\relax }}{70}{figure.caption.56}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces The local discrapancy of a configuration $\bm {x}$ depends on the set $[\bm {0},u]$. \relax }}{76}{figure.caption.61}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces The local discrepancy $\Delta _{\bm {x}}$ for two designs: in the top panel, the Halton sequence with $N \in \{9,25,144\}$; in the bottom panel, the uniform grid with $N \in \{9,25,144\}$. \relax }}{79}{figure.caption.63}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces The evaluation of the kernel $k_{s}$ for $s \in \{1,2,3,4,5\}$. \relax }}{85}{figure.caption.68}
-\contentsline {figure}{\numberline {4.4}{\ignorespaces The RKHS $\F $ is an ellipsoid in $\mathbb {L}_{2}(\mathrm {d}\omega )$. \relax }}{88}{figure.caption.71}
-\contentsline {figure}{\numberline {4.5}{\ignorespaces $\mu _{g}$ in the periodic Sobolev space for three different $g$. \relax }}{90}{figure.caption.72}
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Illustration of the largest principal angle between the subspaces $\mathcal {T}(\bm {x})$ and $\mathcal {E}_{N}^{\mathcal {F}}$ in the case of the periodic Sobolev space of order 1. \relax }}{96}{figure.caption.76}
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Squared approximation error vs. number of nodes $N$ in the case of the periodic Sobolev space for $s = 1$ (left) and $s=3$ (right). \relax }}{99}{figure.caption.78}
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Squared interpolation error for the embedding of the eigenfunctions vs. number of nodes $N$ in the periodic Sobolev space for $s = 1$ (left) and $s=3$ (right). \relax }}{100}{figure.caption.80}
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Squared worst interpolation error on $\mathcal {G}_{6}$ error vs. number of nodes $N$ for $s = 1$ (left) and $s=3$ (right). \relax }}{101}{figure.caption.82}
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Squared worst interpolation error on $\mathcal {G}_{7}$ error vs. number of nodes $N$ for $s = 1$ (left) and $s=3$ (right). \relax }}{101}{figure.caption.83}
-\contentsline {figure}{\numberline {4.11}{\ignorespaces Squared approximation error vs. number of nodes $N$ in the case of the Korobov space for $s = 1$ (left) and $s=3$ (right); and for $d =2$ (top) and $d=3$ (bottom). \relax }}{104}{figure.caption.85}
-\contentsline {figure}{\numberline {4.12}{\ignorespaces Squared interpolation error for the embedding of the eigenfunctions vs. number of nodes $N$ in the Korobov space for $s = 1$ (left) and $s=3$ (right) under DPPKQ (top), LVSQ (middle) and UGKQ (bottom). \relax }}{105}{figure.caption.87}
-\contentsline {figure}{\numberline {4.13}{\ignorespaces Squared worst interpolation error on $\mathcal {G}_{4}$ error vs. number of nodes $N$ in the Korobov space for $d=2$ and $s = 1$ (left) and $s=3$ (right). \relax }}{106}{figure.caption.89}
-\contentsline {figure}{\numberline {4.14}{\ignorespaces Squared error vs. number of nodes $N$ for various kernels. \relax }}{107}{figure.caption.90}
-\contentsline {figure}{\numberline {4.15}{\ignorespaces The squared error for the Gaussian space ($d \in \{2,3\}$, $\gamma =1$). \relax }}{107}{figure.caption.91}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces The histogram of the eigenvalues of $\mathaccentV {tilde}07E{J}_{N}$ based on 50000 realizations compared to the first intensity function of the projection DPP eigenvalues of $J_{N}$ (the red dots) with $N \in \{5,10\}$. \relax }}{75}{figure.caption.59}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces The local discrapancy of a configuration $\bm {x}$ depends on the set $[\bm {0},u]$. \relax }}{77}{figure.caption.63}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces The local discrepancy $\Delta _{\bm {x}}$ for two designs: in the top panel, the Halton sequence with $N \in \{9,25,144\}$; in the bottom panel, the uniform grid with $N \in \{9,25,144\}$. \relax }}{81}{figure.caption.65}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces The evaluation of the kernel $k_{s}$ for $s \in \{1,2,3,4,5\}$. \relax }}{87}{figure.caption.70}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces The RKHS $\F $ is an ellipsoid in $\mathbb {L}_{2}(\mathrm {d}\omega )$. \relax }}{90}{figure.caption.73}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces $\mu _{g}$ in the periodic Sobolev space for three different $g$. \relax }}{92}{figure.caption.74}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Illustration of the largest principal angle between the subspaces $\mathcal {T}(\bm {x})$ and $\mathcal {E}_{N}^{\mathcal {F}}$ in the case of the periodic Sobolev space of order 1. \relax }}{98}{figure.caption.78}
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Squared approximation error vs. number of nodes $N$ in the case of the periodic Sobolev space for $s = 1$ (left) and $s=3$ (right). \relax }}{101}{figure.caption.80}
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Squared interpolation error for the embedding of the eigenfunctions vs. number of nodes $N$ in the periodic Sobolev space for $s = 1$ (left) and $s=3$ (right). \relax }}{102}{figure.caption.82}
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Squared worst interpolation error on $\mathcal {G}_{6}$ error vs. number of nodes $N$ for $s = 1$ (left) and $s=3$ (right). \relax }}{103}{figure.caption.84}
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Squared worst interpolation error on $\mathcal {G}_{7}$ error vs. number of nodes $N$ for $s = 1$ (left) and $s=3$ (right). \relax }}{103}{figure.caption.85}
+\contentsline {figure}{\numberline {4.12}{\ignorespaces Squared approximation error vs. number of nodes $N$ in the case of the Korobov space for $s = 1$ (left) and $s=3$ (right); and for $d =2$ (top) and $d=3$ (bottom). \relax }}{106}{figure.caption.87}
+\contentsline {figure}{\numberline {4.13}{\ignorespaces Squared interpolation error for the embedding of the eigenfunctions vs. number of nodes $N$ in the Korobov space for $s = 1$ (left) and $s=3$ (right) under DPPKQ (top), LVSQ (middle) and UGKQ (bottom). \relax }}{107}{figure.caption.89}
+\contentsline {figure}{\numberline {4.14}{\ignorespaces Squared worst interpolation error on $\mathcal {G}_{4}$ error vs. number of nodes $N$ in the Korobov space for $d=2$ and $s = 1$ (left) and $s=3$ (right). \relax }}{108}{figure.caption.91}
+\contentsline {figure}{\numberline {4.15}{\ignorespaces Squared error vs. number of nodes $N$ for various kernels. \relax }}{109}{figure.caption.92}
+\contentsline {figure}{\numberline {4.16}{\ignorespaces The squared error for the Gaussian space ($d \in \{2,3\}$, $\gamma =1$). \relax }}{109}{figure.caption.93}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
