@@ -2,7 +2,7 @@
 \usepackage[margin=3cm]{geometry}
 
 
-
+\usepackage{relsize}
 
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -174,32 +174,82 @@
 %\section{Introduction en français}
 \chapter{Introduction}\label{chap:introduction}
 %\subsection{Sensing on budget} 
-Many tasks in data analysis, signal processing or machine learning can be reformulated as problems of sensing under budget constraints, i.e. the estimation of some function of the data based on a partial knowledge of the available data. This is the case of subset selection problems, numerical integration problems or interpolation problems. 
+%data analysis, signal processing or machine learning
+Many tasks in applied mathematics can be reformulated as problems of sensing under budget constraints, that is the estimation of some function of the data based on a partial knowledge of the available data; this function can be a scalar, a vector, a matrix or even an element of a Hilbert space. Examples of these sensing problems include subset selection, numerical integration or interpolation. 
 
-Subset selection initially were used for the pre-conditioning of linear solvers [??]. Yet, the use of this paradigm expanded and covered different problems in various settings: coresets for a learning task, subset selection in numerical linear algebra especially for regression tasks and for efficient factorization of gram kernel matrices, signal recovery on graphs, low rank matrices, efficient implementations of Bayesian inference algorithms based on Markov chain Monte Carlo samplers...
+The aim of a subset selection algorithm is to approximate a finite dimensional object (scalar, vector or matrix) that is defined on a large set using only a small subset. This class of approximations are conducted, mainly, for three purposes: improving the numerical complexity of an existing algorithm, reducing the cost of labeling for a supervised learning algorithm or making an algorithm more interpretable.
+A large class of subset selection algorithms deal with linear algebra operations; and for this class of algorithms the object to be approximated have an additive structure and the task usually boils down to approximating a large sum of scalars, vectors or matrices using a smaller sum. This additive structure can be also found in numerical integration problems and interpolation problems of elements of a Hilbert space. These tasks aim to approximate a function defined on some domain using few evaluations of this function that is usually an infinite dimensional object, and boils down to the approximation of an infinite sum using a finite sum.
+%tool used offer a strong
+% the object to approximate 
+% have, usually,  related to the ....
+% Among all the subset selection algorithms, those who deal  are the most studied. 
+ % informational or  approximation can be benfical from 
 
-Numerical integration problems deal with the numerical approximation of intractable integrals. This problem exists, at least, since the invention of calculus .... by Newton. Since then, several approaches
-
-
-Interpolation problems are closely tied to numerical integration problems. These deep connections between the two fields do not prevent the first one to develop in its own way especially for questions emerging in numerical communication. The case of Shannon-??-?? is as an example of such independent development
-
-
-
-
-When dealing with such approximation problems, the main concern would be the numerical implementation and the theoretical guarantees of such an algorithm. Many algorithms were proposed
-
+% On the other hand, numerical integration and interpolation aim to approximate a function defined on some domain using few evaluations of this function that is usually an infinite dimensional object. Now, when the function is assumed to belong to some Hilbert space, we recover again an object with an additive structure. 
 
 
-In particular, algorithms that are optimal in some sense are sought ...
+Randomization is usually used for sub sampling for its versatility and its strong theoretical guarantees. These guarantees are based on probabilistic inequalities that were the object of intense research since .... In particular, operator concentration inequalities are the culmination of this line of research.
+A major question when working with randomized sums is to control the variance of this sum.
 
-A plausible solution of one of these approximation problems is an algorithm that...
+
+ % The approximation 
+
+% concern the approximation of a function  Numerical integration 
+%are also problems of sensing under budget. These problems
+
+% Numerical integration is another problem of sensing under budget, it deals with the numerical approximation of intractable integrals. This problem exists, at least, since the invention of calculus???. Since then, several approaches were proposed for approximating integrals: Gaussian quadrature, Monte Carlo methods, Quasi-Monte Carlo methods and recently kernel methods. This variety of approaches reflects  main challenge for numerical integration problems 
 
 
-(3 pages)
-\subsection{Design problems in applied mathematics}
-In order to situate the contributions of this thesis, we give a very brief review on  matrix sparsification techniques and ......
+% Interpolation problems are closely tied to numerical integration problems. These connections, between the two fields, did not prevent the first one to develop in its own way especially for questions emerging in numerical communication. The case of Whittaker–Shannon–Kotelnikov sampling theory is an example of such independent development.
+
+Indeed, one may expect to reduce the sensing budget if the design avoids redundancy and allows to capture the essential of the information. 
+
+The negative correlation property manifested by this probabilistic models seems appealing to use in design problems.
+This thesis is devoted to investigate the suitability of using determinantal point processes as models for randomized sensing.
+
+
+% Recently, a new class of probabilistic models were studied mnew class of sensing algorithms emerged for the study of these problems.
+
+
+% When dealing with such approximation problems, The main concern in the developpemnt of these approximation schemes is the numerical implementation and the theoretical
+
+% % . Many algorithms were proposed
+
+
+
+% In particular, algorithms that are optimal in some sense are sought ...
+
+% A plausible solution of one of these approximation problems is an algorithm that...
+
+
+
+% This thesis studies determinantal point processes as a universal tool for subsampling. 
+
+
+ Determinantal Point Processes (DPPs) were introduced by \cite{Mac75} as probabilistic models for beams of fermions in quantum optics. Since then, DPPs have been thoroughly studied in random matrix theory \citep{Joh05}, and have more recently been adopted in machine learning \citep*{KuTa12}, spatial statistics \citep*{LaMoRu15}, and Monte Carlo methods \citep{BaHa16}.
+% a large class of DPPs 
+The negative correlation property manifested by this probabilistic models seems appealing to use in design problems. Indeed, one may expect to reduce the sensing budget if the design avoids redundancy and allows to capture the essential of the information. 
+Another appealing aspect about DPPs is numerical: the numerical simulation of these probabilistic models is tractable and witnessed many promising developments recently.
+% several simulation algorithms were proposed recently the possibility of numerically simulate these probabilistic models as several numerical simulation algorithms were proposed and analyzed recently. 
+This make DPP-based algorithms amenable to empirical testing.
+ 
+
+
+A brief introduction to the theory of DPPs is given in the following. As a probabilistic model, DPPs appear in two forms: discrete DPPs and continuous DPPs. This does not prevent us from giving a unified definition of the two forms. We shall see in the end of this section that these two forms deal with two different approximation problems. Moreover, the two forms diverges regarding the efficiency of the numerical simulations.
+
+In order to situate the contributions of this thesis, a brief review on matrix sparsification and operator discretization is given in the following.
+
+
+ % we give a very brief review on  matrix sparsification techniques and ......
+%in Design problems in applied mathematics
+\section{Subsampling problems}
+
+ %  that can be decomposed as aggolmeration of 
+
+ % usually  initially were used for the pre-conditioning of linear solvers \citep{Golub1965} [???] that is purely a numerical routine in numerical linear algebra. Yet, the use of the subset selection paradigm expanded and covered different problems in various settings: coresets for a learning task, subset selection in numerical linear algebra especially for regression tasks and for efficient factorization of gram kernel matrices, signal recovery on graphs, low rank factorization of matrices, efficient implementations of Bayesian inference based on MCMC algorithms...
+
 \subsubsection{Matrix sparsification}
-The problem of matrix sparsification is at the heart of many applications in data analysis and machine learning: pre-conditioning of linear systems [??], subsampling for linear regression \citep*{DrMaMu06}, low rank approximations \citep*{DrMaMu07}, NystrÖm approximations [??], linear systems on graphs \citep*{SpTe04,SpSr11} and signal recovery on graphs \citep*{PuTrGrVa18}. All these problems start with an s.d.p matrix that writes
+The problem of matrix sparsification is at the heart of many applications in data analysis and machine learning: pre-conditioning of linear systems (solvers) \citep{Golub1965}, subsampling for linear regression \citep*{DrMaMu06}, low rank approximations \citep*{DrMaMu07}, low-rank kernel matrix approximations \citep{Bac13,AlMa15}, linear systems on graphs \citep*{SpTe04,SpSr11} and signal recovery on graphs \citep*{PuTrGrVa18}. All these problems start with an s.d.p matrix that writes
 \begin{equation}
 \bm{M} = \sum\limits_{n \in [N]} v_{n}v_{n}^{\Tran},
 \end{equation}
@@ -208,22 +258,26 @@ and it is required to sparsify $\bm{M}$ i.e. find a vector $\bm{w} \in \mathbb{R
 \begin{equation}
 \bm{M}_{\bm{w}} = \sum\limits_{n \in [N]} w_{n} v_{n}v_{n}^{\Tran},
 \end{equation}
-are similar to the spectral properties of $\bm{M}$ with the constraint that the support size of $\bm{w}$ is as small as possible. 
-The vectors $v_{n}$ may have different interpretation depending on the context of the problem. For example, in the context of linear regression on budget, $N$ is the number of initial observations that lives in dimension $d$, the $v_{i}$ are the observations, and $\bm{M}$ is simply the empirical covariance matrix; another example in the case of Graph sparsification, the $N$ represents the number of edges, $d$ the number of vertices, the $v_{i}$ are ..., and $\bm{M}$ is the Laplacian matrix.
+are similar to the spectral properties of $\bm{M}$ with the constraint that the size of the support of $\bm{w}$ , $|\{ i \in [N]; w_{i} \neq 0 \}|$ is as small as possible. 
+The vectors $v_{n}$ may have different interpretation depending on the context of the problem. For example, in the context of linear regression on budget, $N$ is the number of initial observations that lives in dimension $d$, the $v_{i}$ are the observations, and $\bm{M}$ is the empirical covariance matrix. Graph sparsification offers another example of this setting; here the $v_{i}$ represents the edges and $d$ is the number of vertices and $\bm{M}$ is the Laplacian matrix.
 
 
 
 
-The similarity between $\bm{M}_{\bm{w}}$ and $\bm{M}$ are measured by the similarity of the respective eigenvalues a condition that can be formalized using the Lowner order: $\bm{M}_{\bm{w}}$ and $\bm{M}$  are similar if there exists $\alpha,\beta>0$ such that
+The similarity between $\bm{M}_{\bm{w}}$ and $\bm{M}$ are measured by the similarity of the respective eigenvalues, a condition that can be formalized using the Loewner order: $\bm{M}_{\bm{w}}$ and $\bm{M}$  are similar if there exists $\alpha,\beta>0$ such that
 
 \begin{equation}\label{eq:matrix_similarity_condition}
 \alpha \bm{M} \prec \bm{M}_{\bm{w}} \prec \beta \bm{M}.
 \end{equation}
-This spectral similarity is essential and defines a class of "good" matrix sparsifiers. For example, the condition~\eqref{eq:matrix_similarity_condition} guarantees that the null-spaces of $\bm{M}$ and $\bm{M}_{\bm{w}}$ are the same. More interestingly, this condition implies that $\rank(\bm{M}) = \rank(\bm{M}_{\bm{w}})$ and thus guarantees that the respective pseudo-inverses are similar \citep{MiAk77}:
+%and defines a class of "good" matrix sparsifiers.
+% More interestingly, this condition implies
+%thus guarantees
+%respective 
+This spectral similarity is essential 
+and guarantees the preservation of many other "spectral quantities" related to the initial matrix $\bm{M}$. For example, the condition~\eqref{eq:matrix_similarity_condition} guarantees that the null-spaces of $\bm{M}$ and $\bm{M}_{\bm{w}}$ are the same, that $\rank(\bm{M}) = \rank(\bm{M}_{\bm{w}})$ and that the pseudo-inverses are similar \citep{MiAk77}
 \begin{equation}
 \frac{1}{\beta} \bm{M}^{+} \prec \bm{M}_{\bm{w}}^{+} \prec \frac{1}{\alpha} \bm{M}^{+}.
 \end{equation}
-
 Also, it guarantees that 
 \begin{equation}
 \forall \bm{x} \in \mathbb{R}^{d}, \:\:
@@ -232,43 +286,101 @@ Also, it guarantees that
 
 the preservation of many other "spectral quantities" related to the initial matrix $\bm{M}$: flows ?? in graph 
 
+% Now, assume for a moment that $\bm{M}$ is equal to the identity matrix $\mathbb{I}_{d}$. 
 
 
 
 
-this condition is equivalent to
+Now, the condition~\eqref{eq:matrix_similarity_condition} can be written as
 \begin{equation}
-\alpha \mathbb{I}_{d} \prec \bm{M}^{-1/2}\bm{M}_{\bm{w}} \bm{M}^{-1/2} \prec \beta \mathbb{I}_{d}
+\alpha \mathbb{I}_{d} \prec \bm{M}^{-1/2}\bm{M}_{\bm{w}} \bm{M}^{-1/2} \prec \beta \mathbb{I}_{d},
 \end{equation}
-
+with
 \begin{equation}
- \bm{M}^{-1/2}\bm{M}_{\bm{w}} \bm{M}^{-1/2}  = \sum\limits_{n \in [N]} w_{n} \bm{M}^{-1/2} v_{n} (\bm{M}^{-1/2} v_{n})^{\Tran}
+ \bm{M}^{-1/2}\bm{M}_{\bm{w}} \bm{M}^{-1/2}  = \sum\limits_{n \in [N]} w_{n} \bm{M}^{-1/2} v_{n} (\bm{M}^{-1/2} v_{n})^{\Tran} = \sum\limits_{n \in [N]} w_{n} \tilde{v}_{n} \tilde{v}_{n}^{\Tran},
 \end{equation}
-
-
-Therefore, the problem is equivalent to the sparsification of $\mathbb{I}_{d}$:
-
+where
+\begin{equation}
+\forall n \in [N], \:\:\tilde{v}_{n} = \bm{M}^{-1/2} v_{n}.
+\end{equation}
+Therefore, the problem of sparsfication of $\bm{M}$ boils down to the sparsification of $\mathbb{I}_{d}$
 \begin{equation}\label{eq:sum_to_identity}
-\mathbb{I}_{d} = \sum\limits_{n \in [N]}v_{n}v_{n}^{\Tran},
+\mathbb{I}_{d} = \sum\limits_{n \in [N]}\tilde{v}_{n}\tilde{v}_{n}^{\Tran}.
 \end{equation}
 
-Consider the following problem: let $v_{1}, \dots, v_{N} \in \mathbb{R}^{d}$ such that
+As an example of a randomized sparsification, we recall the following result.
+
+
+
+
+\begin{theorem}\label{thm:matrix_bernstein_identity_sparsification}
+Let $\tilde{v}_{1}, \dots, \tilde{v}_{N} \in \mathbb{R}^{d}$, that satisfy the condition~\eqref{eq:sum_to_identity}, and
+$\bm{p} \in (\mathbb{R}_{+}^{*})^{N}$ such that
 \begin{equation}
- \sum\limits_{n \in [N]} v_{n} v_{n}^{\Tran} = \mathbb{I}_{d},
+\sum\limits_{n \in [N]} p_{n} = 1.
 \end{equation}
-we ask for an algorithm that outputs a set $S \subset [N]$ and a vector of weights $\bm{w}\in \mathbb{R}^{N}$ such that
+Let $c \in \mathbb{N}^{*}$, and define the matrix $\mathbb{I}_{d,c}~\in~\mathbb{R}^{d\times d}$ by
 \begin{equation}
-m \mathbb{I}_{d} \leq \sum\limits_{n \in [N]} w_{n}v_{n}v_{n}^{\Tran} \leq M \mathbb{I}_{d}.
+\mathbb{I}_{d,c} = \sum\limits_{j \in [c]} \frac{1}{p_{i(j)}}\tilde{v}_{i(j)}^{\phantom{\Tran}}\tilde{v}_{i(j)}^{\Tran},
 \end{equation} 
+where
+% \begin{equation}\label{eq:conditions_on_the_vector_p}
+% \sum\limits_{j} p_{j} = 1, \:\: p_{j}>0,
+% \end{equation}
+%and
+the $(i(j))_{j \in [c]}$ are independent random variables that follows the multinomial distribution of parameter $\bm{p}$. Then
+\begin{equation}
+\EX \mathbb{I}_{d,c} = \mathbb{I}_{d},
+\end{equation}
+and for $\delta >0$
+\begin{equation}
+\Prb \bigg( \|\mathbb{I}_{d,c} - \mathbb{I}_{d}\|_{2} \bigg) \geq 
+\end{equation}
 
 
-The condition~\eqref{eq:sum_to_identity} 
+% Let , and $c \geq d \log d ...$, then with probability higher than $1-\delta$,
 
-First let's comment the 
+% \begin{equation}
+%  (1-\epsilon) \mathbb{I}_{d} \prec \bm{M}_{c} \prec (1+\epsilon) \mathbb{I}_{d}.
+% \end{equation}
+
+\end{theorem}
+
+The matrix $\bm{M}_{c}$ in the theorem can be written as a sum $\displaystyle \sum\limits_{n \in [N]}w_{n}v_{n}v_{n}^{\Tran}$ where $|\mathrm{Supp}(\bm{w})|~=~...$ and it is indeed a sparsification of the identity matrix $\mathbb{I}_{d}$. Moreover, any vector $\bm{p}$ satisfying the two conditions~\eqref{eq:conditions_on_the_vector_p} can be used for sampling. Yet, the bound on the size of the support of $\bm{w}$ is only significant for a class of vectors $\bm{p}$. To see this, assume that $\bm{p} = (1/N)_{j \in [N]}$ that represents uniform sampling. Then, in order to obtain the guarantees of Theorem~\ref{thm:matrix_bernstein_identity_sparsification}, it is required to have  $c \geq ... d \log d $. When the \emph{coherence} $\mu$ is low $(\mu \approx 1)$, the sparsification is guaranteed with $\mathcal{O}(d \log d)$ independently of the initial number $N$. This reduction is significant, especially for large values of $N$. Yet, in the worst case $\mu = N$, and it is required that $c \geq N$. In other words, the sparsification using uniform sampling is only guaranteed if the coherence is low.
+
+We can see the issue with the uniform distribution 
+
+\begin{equation}
+...
+\end{equation}
+
+are interesting. To see this, consider $p$
+
+ and as we have seen, the distribution of the elements of the support of $\bm{w}$ are chosen according to some multinomial distribution of parameter $\bm{p}$.
+
+To summarize, random sampling allows to obtain almost optimal sparisifiers with a budget that scales as $\mathcal{O}(d \log d)$. The logarithmic term in the matrix concentration inequalities was shown to be almost optimal in [??]. 
+In the following, we review a class of sparsifiers that achieves sparsification budget that scales as $\mathcal{O}(d)$.
+
+
+
+
+% Consider the following problem: let $v_{1}, \dots, v_{N} \in \mathbb{R}^{d}$ such that
+% \begin{equation}
+%  \sum\limits_{n \in [N]} v_{n} v_{n}^{\Tran} = \mathbb{I}_{d},
+% \end{equation}
+% we ask for an algorithm that outputs a set $S \subset [N]$ and a vector of weights $\bm{w}\in \mathbb{R}^{N}$ such that
+% \begin{equation}
+% m \mathbb{I}_{d} \leq \sum\limits_{n \in [N]} w_{n}v_{n}v_{n}^{\Tran} \leq M \mathbb{I}_{d}.
+% \end{equation} 
+
+
+% The condition~\eqref{eq:sum_to_identity} 
+
+% First let's comment the 
 
 
 \paragraph{Random sparsification}
-Random sampling algorithms are widely used in matrix sparsification. The popularity of these algorithms stems from the fact that they are relatively easy to implement and they benefits from theoretical guarantees.  Typically, the theoretical guarantees of such an algorithm goes through matrix concentration inequalities [??]. We give in the following an example of a matrix concentration inequality. 
+Random sampling algorithms are widely used in matrix sparsification. The popularity of these algorithms stems from the fact that they are relatively easy to implement and they benefits from strong theoretical guarantees.  Typically, the theoretical guarantees of such an algorithm goes through matrix concentration inequalities [??]. We give in the following an example of a matrix concentration inequality. 
 
 
 \begin{theorem}\label{thm:matrix_bernstein}
@@ -296,37 +408,6 @@ This result is widely known under the name of \emph{Matrix Bernstein concentrati
 
 An application of Theorem~\ref{thm:matrix_bernstein} is the following sparsification result.
 
-\begin{theorem}\label{thm:matrix_bernstein_identity_sparsification}
-Let $v_{1}, \dots, v_{N} \in \mathbb{R}^{d}$, that satisfies the condition~\eqref{eq:sum_to_identity}. Define the matrix $\bm{M}_{c}~\in~\mathbb{R}^{d\times d}$ as
-\begin{equation}
-\bm{M}_{c} = \sum\limits_{j \in [c]} \frac{1}{p_{i(j)}}v_{i(j)}v_{i(j)},
-\end{equation} 
-where
-\begin{equation}\label{eq:conditions_on_the_vector_p}
-\sum\limits_{j} p_{j} = 1, \:\: p_{j}>0,
-\end{equation}
-and the $(i(j))_{j \in [c]}$ are independent random variables that follows the multinomial distribution of parameter $\bm{p} = (p_{j})_{j \in [N]}$. Let $\delta >0$, and $c \geq d \log d ...$, then with probability higher than $1-\delta$,
-
-\begin{equation}
- (1-\epsilon) \mathbb{I}_{d} \prec \bm{M}_{c} \prec (1+\epsilon) \mathbb{I}_{d}.
-\end{equation}
-
-\end{theorem}
-
-The matrix $\bm{M}_{c}$ in the theorem can be written as a sum $\displaystyle \sum\limits_{n \in [N]}w_{n}v_{n}v_{n}^{\Tran}$ where $|\mathrm{Supp}(\bm{w})|~=~...$ and it is indeed a sparsification of the identity matrix $\mathbb{I}_{d}$. Moreover, any vector $\bm{p}$ satisfying the two conditions~\eqref{eq:conditions_on_the_vector_p} can be used for sampling. Yet, the bound on the size of the support of $\bm{w}$ is only significant for a class of vectors $\bm{p}$. To see this, assume that $\bm{p} = (1/N)_{j \in [N]}$ that represents uniform sampling. Then, in order to obtain the guarantees of Theorem~\ref{thm:matrix_bernstein_identity_sparsification}, it is required to have  $c \geq ... d \log d $. When the \emph{coherence} $\mu$ is low $(\mu \approx 1)$, the sparsification is guaranteed with $\mathcal{O}(d \log d)$ independently of the initial number $N$. This reduction is significant, especially for large values of $N$. Yet, in the worst case $\mu = N$, and it is required that $c \geq N$. In other words, the sparsification using uniform sampling is only guaranteed if the coherence is low.
-
-We can see the issue with the uniform distribution 
-
-\begin{equation}
-...
-\end{equation}
-
-are interesting. To see this, consider $p$
-
- and as we have seen, the distribution of the elements of the support of $\bm{w}$ are chosen according to some multinomial distribution of parameter $\bm{p}$.
-
-To summarize, random sampling allows to obtain almost optimal sparisifiers with a budget that scales as $\mathcal{O}(d \log d)$. The logarithmic term in the matrix concentration inequalities was shown to be almost optimal in [??]. 
-In the following, we review a class of sparsifiers that achieves sparsification budget that scales as $\mathcal{O}(d)$.
 
 \paragraph{Greedy sparsification}
 An alternative approach to sparisification was proposed in \citep*{BaSpSr12}. While the primary motivation of the authors was graph sparsification, they proved a general result for the sparisification of the identity matrix.
@@ -357,15 +438,7 @@ control of the eigenvalues of the matrices ... under rank-one updates.
 (3-6 pages)
 \section{Mathematical framework: Determinantal point processes}
 (7-10 pages)
-  Determinantal Point Processes (DPPs) were introduced by \cite{Mac75} as probabilistic models for beams of fermions in quantum optics. Since then, DPPs have been thoroughly studied in random matrix theory \citep{Joh05}, and have more recently been adopted in machine learning \citep*{KuTa12}, spatial statistics \citep*{LaMoRu15}, and Monte Carlo methods \citep{BaHa16}.
-
-The negative correlation property manifested by a large class of DPPs seems appealing to use in design problems. Indeed, one may expect to reduce the sensing budget if the design avoids redundancy and allows to capture the essential of the information. 
-Another appealing aspect about DPPs is the possibility of numerically simulate these probabilistic models as several numerical simulation algorithms were proposed and analyzed recently. This make these models amenable to empirical investigations.
  
-
-This thesis is devoted to investigate the suitability of using Determinantal Point Processes (DPPs) as models for randomized designs adapted to the applications evoked previously.
-
-A brief introduction to the theory of DPPs is given in the following. As a probabilistic model, DPPs appear in two forms: discrete DPPs and continuous DPPs. This does not prevent us from giving a unified definition of the two forms. We shall see in the end of this section that these two forms deal with two different approximation problems. Moreover, the two forms diverges regarding the efficiency of the numerical simulations.
 
 Before giving the definitions of DPPs, we recall some basic properties of determinant that are connected to the geometric notion of volume.
 
@@ -556,55 +629,69 @@ These closed formulas allow us to prove sharp upper bounds ... In particular, we
 \clearpage
 \chapter{Determinantal point processes}\label{chapter:dpp}
 
-This chapter is devoted to a formal introduction on determinantal point processes. As it was mentioned in Chapter~\ref{chap:introduction}, these probabilistic models appear, mainly, in two forms: discrete DPPs and continuous DPPs. We shall give a unified and abstract definition of Determinantal Point Processes, thereafter we recall the consequences of this definition in both settings and highlight the differences between...
+This chapter is dedicated to give a formal introduction on determinantal point processes. As it was mentioned in the Introduction, these probabilistic models appear mainly in two forms: discrete DPPs and continuous DPPs. We shall give an abstract definition that includes the two settings, thereafter we instantiate this definition to highlight the differences between them. For this reason, we adopted a different notation in this chapter that will change in the next chapters. The rationale behind this choice is to keep the notation as close as possible to the usual ones in the corresponding literatures.
 
-The definition of a DPP, given in Section~\ref{sec:dpp_defs}, goes through the theory of point processes that we shall recall, briefly, the basics in Section~\ref{sec:pointprocesses}. Finally, Section~\ref{sec:num_algos_dpps} is dedicated for a review on numerical simulation algorithms of DPPs and their variations.
+We start by recalling some elements of the theory of point processes, that is the natural framework where DPPs are defined, in Section~\ref{sec:pointprocesses}; then we give the definition of a DPP and some basic notions and results on the theory in Section~\ref{sec:dpp_defs}. In particular, we give several examples of DPPs in Section~\ref{sec:DPP_examples} and we recall the HKPV algorithm, for the numerical simulation of a DPP, in Section~\ref{sec:num_algos_dpps}.
 
-Finally, we mention that we considered a different notation in this chapter and we will two notations in the next chapters: one for discrete DPPs and the other ones for continuous DPPs. The rationale behind this choice is to keep the notation as close as possible to the usual ones in the corresponding literatures.
 
-\section{A very brief history of DPPs} 
+% The definition of a DPP, given in  goes through the theory of point processes that we shall recall, briefly, the basics in Section~\ref{sec:pointprocesses}. Finally, Section~\ref{sec:num_algos_dpps} is dedicated for a review on numerical simulation algorithms of DPPs and their variations.
+
+% Finally,  
+
+% \section{A very brief history of DPPs} 
 
 \section{Point processes}\label{sec:pointprocesses}
 
-Intuitively, a point process is a random collection of isolated points in some set $\Omega$. In order to define such a concept within the usual framework of probability theory, $\Omega$ have to satisfy some typical conditions. 
-
-First, we assume that $(\Omega,d)$ is a metric space for some metric $d$. The Borel $\sigma$-algebra $\mathcal{B}$ is the smallest $\sigma$-algebra in $\Omega$ that contains all open subsets of $\Omega$; and its elements are called Borel sets. This assumption is not restrictive, as it includes a wide class of sets: discrete sets endowed by the discrete metric, subsets of $\mathbb{R}^{d}$ with the Euclidean distance, manifolds ... 
-
-Moreover, we assume that $(\Omega,d)$ is complete, and separable: there is a countable set $\{\omega_{1}, \omega_{2}, \dots \}$ that is dense in $\Omega$. This condition insures that 
+Intuitively, a point process is a random collection of isolated points in some set $\mathcal{D}$. In order to define such a concept within the usual framework of probability theory, it is more convenient to see a discrete subset of $\mathcal{D}$ as an atomic measure defined on $\mathcal{D}$. Indeed, the set of measures on $\mathcal{D}$ have properties that are compatible with the standard setting of probability theory. 
 
 
-%  make this definition rigorous, some conditions on $\Omega$ will be assumed. 
-% Informally, a point process is a random discret subset of some set $\Omega$. A rigorous definition requires to define a sample space that contains all discrete subsets of $\Omega$; and, as it is usually done in probability theory, this sample space is assumed to be a complete separable metric space. 
+% the set of discrete subsets of $\mathcal{D}$ have to 
 
-The space of $\sigma$-finite Borel measures on $\Omega$, denoted $M(\Omega)$, is a complete separable metric space if and only if $\Omega$ is a complete separable metric space \citep{Par05}??.
 
-% We assume in the rest of the manuscript that this condition on $\Omega$ is satisfied. Indeed, this condition is more than sufficient for all the settings that we consider: it is easy to prove that dis...
 
-Denote by $\mathbf{M}(\Omega)$ the set of locally finite measure: an element $\mu$ of $\mathbf{M}(\Omega)$ is a measure on $\Omega$ such that for every compact set $C$ of $\Omega$
+% In order to define such a concept within the usual framework of probability theory, $\mathcal{D}$ have to satisfy some conditions. 
+
+Let $(\mathcal{D},\mathcal{T})$ be a topological space that is \emph{locally compact} (every point has a compact neighborhood), \emph{second countable} ($\mathcal{T}$ has a countable base) and \emph{Hausdorff} (for any two distinct points there exist neighborhoods of each point that are disjoint).
+ These three conditions guarantee that $(\mathcal{D},\mathcal{T})$ is a Polish space, that is there exists some metric $d$ on $\mathcal{D}$ such that the
+topology induced by $d$ is equal to $\mathcal{T}$ and $(\mathcal{D},d)$ is a \emph{complete} and \emph{separable} (there is a countable set $\{x_{n}; n \in \mathbb{N}\}$ that is dense in $\mathcal{D}$)
+metric space; see Theorem 5.3 in \citep{Kec95}.
+% First, we assume that $(\mathcal{D},d)$ is a metric space for some metric $d$. 
+\begin{example}
+discrete sets endowed by the discrete metric, subsets of $\mathbb{R}^{d}$ with the Euclidean distance, manifolds ...????
+\end{example}
+
+Define $\mathcal{B}$ to be the Borel $\sigma$-algebra: the smallest $\sigma$-algebra in $\mathcal{D}$ that contains all open subsets of $\mathcal{D}$. Its elements are called Borel sets. A measure $\mu$ is a function from $\mathcal{B}$ to $\mathbb{R}_{+} \cup \{\infty \}$ that is \emph{non-negative}, $\sigma$-\emph{additive} and vanishes at the empty set. A locally finite measure is a measure $\mu$ on $(\mathcal{D},\mathcal{B})$ such that for every compact set $C$ of $\mathcal{D}$
 \begin{equation}
 \mu(C) <+\infty.
 \end{equation}
-
-
-We supply $\mathbf{M}(\Omega)$ with the $\sigma$-algebra $\mathcal{M}(\Omega)$ generated by the evaluation maps defined for every Borel set $B \in \mathcal{B}$
+Denote by $\mathbf{M}(\mathcal{D})$ the set of locally finite measures.
+% This assumption is not restrictive, as it includes a wide class of sets:  
+% Moreover, we assume that $(\Omega,d)$ is complete, and separable: . This condition insures that 
+%  make this definition rigorous, some conditions on $\Omega$ will be assumed. 
+% Informally, a point process is a random discret subset of some set $\Omega$. A rigorous definition requires to define a sample space that contains all discrete subsets of $\Omega$; and, as it is usually done in probability theory, this sample space is assumed to be a complete separable metric space. 
+% The space of $\sigma$-finite Borel measures on $\Omega$, denoted $M(\Omega)$, is a complete separable metric space if and only if $\Omega$ is a complete separable metric space \citep{Par05}??.
+% We assume in the rest of the manuscript that this condition on $\Omega$ is satisfied. Indeed, this condition is more than sufficient for all the settings that we consider: it is easy to prove that dis...
+%A measure $\mathcal{D}$ is 
+We supply $\mathbf{M}(\mathcal{D})$ with the $\sigma$-algebra $\mathcal{M}(\mathcal{D})$ generated by the evaluation maps defined for every Borel set $B \in \mathcal{B}$
 \begin{align}
-\Phi_{B}: M(\Omega) &\rightarrow \mathbb{R}\cup \{\infty \}. \nonumber\\
+\Phi_{B}: M(\mathcal{D}) &\rightarrow \mathbb{R}_{+}\cup \{\infty \}. \nonumber\\
 \mu & \mapsto \mu(B) \nonumber
 \end{align}
 
-In other words, $\mathcal{M}(\Omega)$ is the smallest $\sigma$-algebra for which all the evaluations maps $\Phi_{B}$ are measurable. This $\sigma$-algebra is generated by the cylinder sets
+In other words, $\mathcal{M}(\mathcal{D})$ is the smallest $\sigma$-algebra for which all the evaluations maps $\Phi_{B}$ are measurables. This $\sigma$-algebra is generated by the cylinder sets (Lemma 3.1.1 in \citep{ScWe08})
 
 \begin{equation}
-\{ \mu \in \mathbf{M}(\Omega), \:\: \mu(B_{1}) \in A_{1}, \dots, \mu(B_{m}) \in A_{m} \},
+\Big\{ \mu \in \mathbf{M}(\mathcal{D}), \:\: \mu(B_{1}) \in [0,r_1], \dots, \mu(B_{m}) \in [0,r_m] \Big\},
 \end{equation}
-where $m \in \mathbb{N}^{*}$, $B_{1}, \dots, B_{m}$  are Borel sets of $\Omega$ and $A_{1}, \dots, A_{m}$ are Borel sets of $\mathbb{R}$.
+where $m \in \mathbb{N}^{*}$, $B_{1}, \dots, B_{m}$ are open relatively compact subsets of $\mathcal{D}$ and $r_{1}, \dots, r_{m} \in \mathbb{R}_{+}$.
 
 
 
-An example of an element of $\mathcal{M}(\Omega)$ is the set of counting measures defined by
+The set of counting measures defined by
 \begin{equation}
-\mathbf{N}(\Omega) = \bigg\{ \mu \in \mathbf{M}(\Omega); \:\: \forall B \in \mathcal{B}, \mu(B) \in \mathbb{N}\cup \{+\infty\} \bigg\}.
+\mathbf{N}(\mathcal{D}) = \Big\{ \mu \in \mathbf{M}(\mathcal{D}); \:\: \forall B \in \mathcal{B}, \mu(B) \in \mathbb{N}\cup \{+\infty\} \Big\}
 \end{equation}
+is an example  of an element of $\mathcal{M}(\mathcal{D})$; see Lemma 3.1.2 in \citep{ScWe08}.
 %  an element $\mu$ of $\mathbf{N}(\Omega)$ takes values on $\mathbb{N}$
 % \begin{equation}
 % \mu(B) \in \mathbb{N}.
@@ -625,13 +712,13 @@ An example of an element of $\mathcal{M}(\Omega)$ is the set of counting measure
 % \begin{equation}
 % \mu(B) \in \{0,1\}.
 % \end{equation}
-Another example of a measurable subset of $\mathbf{M}(\Omega)$ is the set of simple counting measures 
+Another example is given by the set of simple counting measures Lemma 3.1.4 in \citep{ScWe08}
 \begin{equation}
-\mathbf{N}_{s}(\Omega) = \bigg\{ \mu \in \mathbf{M}(\Omega); \:\: \forall x \in \Omega, \mu(\{x\}) \in \{0,1\} \bigg\}.
+\mathbf{N}_{s}(\mathcal{D}) = \Big\{ \mu \in \mathbf{M}(\mathcal{D}); \:\: \forall x \in \mathcal{D}, \mu(\{x\}) \in \{0,1\} \Big\}.
 \end{equation}
-We refer to Lemma 3.1.2 and Lemma 3.1.4 in \citep{ScWe08} for the proofs that $\mathbf{N}(\Omega)$ and $\mathbf{N}_{s}(\Omega)$ (are you sure????) belong to $\mathcal{M}(\Omega)$.
+% We refer to Lemma 3.1.2 and  for the proofs that $\mathbf{N}(\mathcal{D})$ and $\mathbf{N}_{s}(\mathcal{D})$ (are you sure????) belong to $\mathcal{M}(\mathcal{D})$.
 
-Starting from a collection of points $x_{1}, \dots, x_{N}$ in $\Omega$, one can define a counting measure
+Starting from a collection of points $x_{1}, \dots, x_{N}$ in $\mathcal{D}$, one can define a counting measure
 \begin{equation}
 \mu = \sum\limits_{n \in [N]}\delta_{x_n},
 \end{equation}
@@ -645,7 +732,7 @@ $$
 \right.
 $$
 
-In this case, $\mu \in \mathbf{N}_s(\Omega)$ if and only if the $x_{n}$ are pairwise distinct; and $\mu$ can be identified to a the subset $\{x_{1}, \dots, x_{N}\}$. Otherwise, $\mu$ can be seen as as a discrete subset of $\Omega$ with multiplicities.
+In this case, $\mu \in \mathbf{N}_s(\mathcal{D})$ if and only if the $x_{n}$ are pairwise distinct; and $\mu$ can be identified to a the subset $\{x_{1}, \dots, x_{N}\}$. In particular, we use the notation $x \in \mu$ to express that $\mu (\{x\}) =1$. Otherwise, $\mu$ can be seen as as a discrete subset of $\mathcal{D}$ with multiplicities.
 % Discrete subsets of $\Omega$ can be identified to simple counting measures by considering the corresponding atomic measures. Thereby, general counting measures can be seen as discrete subsets with multiplicities. 
 % In this manuscript, we will be mostly interested in simple counting measures; even tough we give ...
 
@@ -656,9 +743,9 @@ In this case, $\mu \in \mathbf{N}_s(\Omega)$ if and only if the $x_{n}$ are pair
 % Any discrete subset $\bm{x} = \{x_{1}, \dots, x_{N}\}$ of $\Omega$ can be identified to  a simple counting measure: $\sum\limits_{n \in [N]} \delta_{x_{n}}$. Counting measures are stric
 
 \begin{definition}
-A random measure $\gamma$ on $\Omega$ is a measurable map from some probability space $(\Omega, \mathcal{A}, \mathbb{P})$  into the measurable space $(\mathbf{M}(\Omega), \mathcal{M}(\Omega))$. The distribution of $\gamma$ is given by the probability measure $\mathbb{P}_{\gamma}$ defined on $\mathcal{M}(\Omega)$ by
+A random measure $\gamma$ on $\mathcal{D}$ is a measurable map from some probability space $(\Omega, \mathcal{A}, \mathbb{P})$  into the measurable space $(\mathbf{M}(\mathcal{D}), \mathcal{M}(\mathcal{D}))$. The distribution of $\mathcal{D}$ is given by the probability measure $\mathbb{P}_{\gamma}$ defined on $\mathcal{M}(\mathcal{D})$ by
 \begin{equation}
-\forall M \in \mathcal{M}(\Omega), \:\mathbb{P}_{\gamma}(M) = \mathbb{P}(\gamma \in M).
+\forall M \in \mathcal{M}(\mathcal{D}), \:\mathbb{P}_{\gamma}(M) = \mathbb{P}(\gamma \in M).
 \end{equation}
 
 % process $\gamma$ on $\Omega$ is a random positive Radon measure
@@ -1143,7 +1230,7 @@ Note that the Hermitian assumption on $\kappa$ can be relaxed: there are example
 
 
 
-\subsubsection{Examples}\label{eq:DPP_examples}
+\subsection{Examples}\label{sec:DPP_examples}
 We review in this section some examples of DPPs.
 \paragraph{Discret DPPs}
 
@@ -1367,8 +1454,8 @@ with respect to the uniform measure on $\mathbb{S}^{2}$.
 % \end{theorem}
 
 
-\section{Numerical aspects}\label{sec:num_algos_dpps}
-\subsection{The numerical simulation of a projection DPP}
+\subsection{Numerical simulation}\label{sec:num_algos_dpps}
+\subsubsection{The numerical simulation of a projection DPP}
 We review in this section the literature on the numerical simulation of projection Determinantal point processes. Recall that a random set that follows the distribution of a projection DPP of marginal kernel $\KDPP$ have a deterministic cardinal equals to $N$, where $N$ is the rank of the integral operator associated to the kernel $\KDPP$. For this reason, we can identify such a random set with a sample from a random variable defined on $\mathcal{X}^{N}$.
 
 Let $\bm{x} = \{x_{1}, \dots, x_{N}\}$ a random set that follows the distribution of a projection DPP of marginal kernel $\KDPP_{N}$. The joint distribution of the random variable $(x_{1}, \dots, x_{N}) \in \X^{N}$ have a density with respect to the measure $\mathrm{d}\bm{\omega}(\bm{x}) = \otimes_{n\in [N]}\mathrm{d}\omega(x_{n})$:
@@ -3576,6 +3663,794 @@ Then,
 \label{app:proofs}
 
 
+%\subsection{proofs}\label{proofs}
+\subsection{Technical lemmas}
+We start with two useful lemmas borrowed from the literature.
+\begin{lemma}[Lemma 3.1, \citealp{BoDrMI11}]\label{refined_analysis_of_approximation_bound}
+Let $S \subset [d]$, then
+%, and let $\bm{S} \in \{0,1\}^{d \times k}$ be the corresponding sampling matrix: $\bm{S}$ is defined by $\forall \bm{M} \in \mathbb{R}^{N\times d}, \bm{M}\bm{S} = \bm{M}_{.,S}$.
+
+\begin{equation}
+\| \bm{X} - \Pi_{S,k}^{\nu} \bm{X} \|_{\nu}^{2}  \leq  \| \bm{E}(\bm{I}-\bm{P}_{S})\|_{\nu}^{2}, \quad \nu \in \{2,\Fr\},
+\end{equation}
+where   $\bm{E} = \bm{X} - \Pi_{k}\bm{X}$ and $\bm{P}_{S} = \bm{S}(\bm{V}_{k}^{\Tran}\bm{S})^{-1}\bm{V}_{k}^{\Tran}$.
+%In particular, we have for the Frobenius norm:
+%\begin{equation}
+%\| \bm{X} - \Pi_{S}\bm{X} \|_{\Fr}^{2}  \leq  \| \bm{E}\|_{\Fr}^{2} + \Tr(\bm{E}\bm{E}^{\Tran}\bm{P}\bm{P}^{\Tran})
+%\end{equation}
+Furthermore,
+\begin{equation}
+\| \bm{X} - \Pi_{S,k}^{\nu} \bm{X} \|_{\nu}^{2} \leq  \frac{1}{\sigma_{k}^{2}(\bm{V}_{S,[k]})} \| \bm{X} - \Pi_{k}\bm{X}\|_{\nu}^{2} , \quad \nu \in \{2,\Fr\}.
+\end{equation}
+\end{lemma}
+The following lemma was first proven by \citealp{DRVW06}, and later rephrased in \cite{DeRa10}.
+\begin{lemma}[Lemma 11, \citealp{DeRa10}]\label{minors_symmetric_polynomials_lemma}
+Let $\bm{V} \in \mathbb{R}^{k \times d}$, $r = \rank(\bm{V})$ and $\ell \in [1:r]$. Then
+\begin{equation}
+\sum\limits_{S \subset [d], |S| = \ell} e_{\ell}(\Sigma(\bm{V}_{:,S})^{2}) = e_{\ell}(\Sigma(\bm{V})^{2})
+\end{equation}
+where $e_{\ell}$ is the $\ell$-th elementary symmetric polynomial on $r$ variables, see Section~\ref{s:notation}.
+\end{lemma}
+%\begin{example}
+%Let $\bm{V} \in \bm{R}^{r \times n}$ a rectangular matrix with orthonormal rows. The singular values of $\bm{V}$ are $\bm{\Sigma} = (1,...,1,0,...,0 )$ ($\bm{\Sigma}$ contains $r$ ones and $n-r$ zero). Using the Lemma~\ref{minors_symmetric_polynomials_lemma} we get the following identities:
+%\begin{itemize}
+%    \item $\sum\limits_{S \subset [n], |S| = r} \Det(\bm{V}_{.,S})^{2} = 1$
+%    \item $\sum\limits_{S \subset [n], |S| = r-1} \Det(\bm{V}_{.,S})^{2} = r$
+%\end{itemize}
+%\end{example}
+Elementary symmetric polynomials play an important role in the proof of Proposition~\ref{prop:p_eff_proposition}, in particular their interplay with the Schur order; see Appendix \ref{app:majorization} for definitions.
+
+\begin{lemma}\label{symmetric_schur_convex_lemma}
+Let $\phi, \psi:\mathbb{R}_{+}^{*^{k}} \rightarrow \mathbb{R}_{+}^{*}$ be defined by
+\begin{equation}
+\phi :  \bm{\sigma} \mapsto \frac{\displaystyle e_{k-1}(\bm{\sigma})}{\displaystyle e_{k}(\bm{\sigma})}
+\end{equation}
+and
+\begin{equation}
+\psi :  \bm{\sigma} \mapsto \displaystyle e_{k}(\bm{\sigma}).
+\end{equation}
+% $\psi : \bm{\sigma} \mapsto e_{k}(\bm{\sigma})$
+Then both functions are symmetric, $\phi$ is Schur-convex, and $\psi$ is Schur-concave.
+\end{lemma}
+\begin{proof}[of Lemma~\ref{symmetric_schur_convex_lemma}]
+Let $i,j \in [k], i \neq j$. Let $\sigma_{i},\sigma_{j} \in \mathbb{R}_{+}^{*}$, it holds
+\begin{align*}
+    (\sigma_{i} - \sigma_{j})(\partial_{i}\phi(\bm{\sigma})-\partial_{j}\phi(\bm{\sigma})) & =  (\sigma_{i} - \sigma_{j})(-\frac{1}{\sigma_{i}^{2}} +\frac{1}{\sigma_{j}^{2}}) \\
+    & = \frac{(\sigma_{i}-\sigma_{j})^{2}(\sigma_{i} +\sigma_{j})}{\sigma_{i}^{2}\sigma_{j}^{2}} \geq 0,%\\
+%    & \geq 0,
+\end{align*}
+so that $\phi$ is Schur-convex by Proposition~\ref{schur_order_partial_property}. Similarly,
+\begin{align*}
+    (\sigma_{i} - \sigma_{j})(\partial_{i}\psi(\bm{\sigma})-\partial_{j}\psi(\bm{\sigma})) & =  (\sigma_{i} - \sigma_{j})(\prod_{\ell \neq i}\sigma_{\ell} - \prod_{\ell \neq j}\sigma_{\ell}) \\
+    & = -(\sigma_{i}-\sigma_{j})^{2}\prod_{\ell \neq i,j}\sigma_{\ell} \geq 0, %\\
+%    & \leq 0.
+\end{align*}
+so that $\psi$ is Schur-concave by Proposition~\ref{schur_order_partial_property}.
+\end{proof}
+
+Elementary symmetric polynomials also interact nicely with ``marginalizing" sums.
+%%%% LEMMA 32
+\begin{lemma}\label{sum_k_1_symmetric_poly_det_lemma}
+Let $\bm{V}$ be a real $k \times d$ matrix and let $ r = \rank(\bm{V})$. Denote by $p$ the number of non zero columns of $\bm{V}$. Then for all $k\leq r+1$,
+\begin{equation}
+    \sum\limits_{\substack{S \subset [d], |S| = k\\\Vol_{k}(\bm{V}_{:,S})^{2} >0}} \quad \sum\limits_{\substack{T \subset S \\ |T| = k-1}} e_{k-1}(\Sigma(\bm{V}_{:,T})^{2}) \leq (p-k+1)e_{k-1}(\Sigma(\bm{V})^{2}).
+\end{equation}
+A fortiori,
+\begin{equation}
+    \sum\limits_{\substack{S \subset [d], |S| = k\\\Vol_{k}(\bm{V}_{:,S})^{2} >0}} \quad \sum\limits_{\substack{T \subset S \\ |T| = k-1}} e_{k-1}(\Sigma(\bm{V}_{:,T})^{2}) \leq (d-k+1)e_{k-1}(\Sigma(\bm{V})^{2}).
+\end{equation}
+\end{lemma}
+
+%%%%%%%%%%%%%%%%%%%
+\begin{proof}[of Lemma~\ref{sum_k_1_symmetric_poly_det_lemma}]
+%Recall that $\sigma_{1}(\bm{V}), \dots ,\sigma_{r}(\bm{V})$ are the non zeros singular values of $\bm{V}$.
+For $T \subset [d], \: |T| = k-1$,
+\begin{align*}
+    \Omega_{1}(T) &= \left\{ S \subset[d]:\, |S| = k, T \subset S,\ \forall i \in S ,\ \bm{V}_{:,i} \neq \bm{0} \right\}\\
+    \Omega_{2}(T) &= \left\{ S \subset[d] :\, |S| = k, T \subset S, \Vol_{k}(\bm{V}_{:,S})^{2} >0   \right\}.
+\end{align*}
+Note that $\Omega_{2}(T) \subset \Omega_{1}(T)$ so that
+\begin{align*}
+        \sum\limits_{\substack{S \subset [d], |S| = k\\\Vol_{k}(\bm{V}_{:,S})^{2} >0}} \quad \sum\limits_{\substack{T \subset S\\ |T| = k-1}} e_{k-1}(\Sigma(\bm{V}_{:,T})^{2})
+        & = \sum\limits_{\substack{T \subset [d]\\ |T| = k-1}} \quad \sum\limits_{S \in \Omega_{2}(T)} e_{k-1}(\Sigma(\bm{V}_{:,T})^{2}) \\
+        & \leq \sum\limits_{\substack{T \subset [d]\\ |T| = k-1}} \quad \sum\limits_{S \in \Omega_{1}(T)} e_{k-1}(\Sigma(\bm{V}_{:,T})^{2}).
+\end{align*}
+The set $\Omega_{1}(T)$ has at most $(p-k+1)$ elements so that
+\begin{equation}
+\sum\limits_{\substack{T \subset [d]\\ |T| = k-1}} \quad \sum\limits_{S \in \Omega_{1}(T)} e_{k-1}(\Sigma(\bm{V}_{:,T})^{2}) \leq (p-k+1)\sum\limits_{\substack{T \subset [d]\\ |T| = k-1}}  e_{k-1}(\Sigma(\bm{V}_{:,T})^{2}).
+\end{equation}
+Lemma~\ref{minors_symmetric_polynomials_lemma} for $\ell=k-1$ further yields
+\begin{equation}
+(p-k+1)\sum\limits_{\substack{T \subset [d]\\ |T| = k-1}}  e_{k-1}(\Sigma(\bm{V}_{:,T})^{2}) \leq (p-k+1)\,e_{k-1}(\Sigma(\bm{V})^{2}).
+\end{equation}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%
+\subsection{Proof of Proposition~\ref{projection_dpp_theorem}}
+%\begin{proof}[of Theorem~\ref{projection_dpp_theorem}]
+First, Lemma~\ref{refined_analysis_of_approximation_bound} yields
+	\begin{align}
+	\sum\limits_{S \subset [d], |S| = k} \Det(\bm{V}_{S,[k]})^{2}\| \bm{X} - \Pi_{S}^{\nu}\bm{X} \|_{\nu}^{2} & \leq  \sum\limits_{S 	\subset [d], |S| = k} \frac{1}{\sigma_{k}^{2}(\bm{V}_{S,[k]})}\Det(\bm{V}_{S,[k]})^{2} \: \|\bm{X} - \Pi_{k}\bm{X}\|_{\nu}^{2}  \nonumber\\
+ 	& =  \|\bm{X} - \Pi_{k}\bm{X}\|_{\nu}^{2} \sum\limits_{S \subset [d], |S| = k} \prod_{\ell =1}^{k-1}\sigma_{\ell}^{2}(\bm{V}_{S,[k]}),
+ % & \leq \sum\limits_{S \subset [d], |S| = k} e_{k-1}((\sigma_{\ell}^{2}(\bm{V}_{S,[k]})_{1\leq \ell \leq k})) \: \|\bm{X} - \Pi_{k}\bm{X}\|_{\nu}^{2} \\
+ % & \leq \sum\limits_{S \subset [d], |S| = k} \sum\limits_{T \subset S, |T| = k-1} \Vol_{k-1}(\bm{V}_{T,[k]})^{2} \: \|\bm{X} - \Pi_{k}\bm{X}\|_{\nu}^{2}.
+ \label{eq:begin_proof_theo16}
+\end{align}
+where the last equality follows from
+\begin{equation}
+	\Det(\bm{V}_{S,[k]})^{2} = \prod_{\ell =1}^{k}\sigma_{\ell}^{2}(\bm{V}_{S,[k]}).
+\end{equation}
+%%
+By definition of the polynomial $e_{k-1}$, it further holds
+\begin{equation}
+	\prod_{\ell =1}^{k-1}\sigma_{\ell}^{2}(\bm{V}_{S,[k]}) \leq e_{k-1}(\Sigma(\bm{V}_{S,[k]})^{2}),
+\end{equation}
+so that \eqref{eq:begin_proof_theo16} leads to
+\begin{align}
+\sum\limits_{S \subset [d], |S| = k} \Det(\bm{V}_{S,[k]})^{2}\| \bm{X} - \Pi_{S}^{\nu}\bm{X} \|_{\nu}^{2} & \leq  \|\bm{X} - \Pi_{k}\bm{X}\|_{\nu}^{2} \sum\limits_{S \subset [d], |S| = k} e_{k-1}(\Sigma(\bm{V}_{S,[k]})^{2}).
+% & \leq \sum\limits_{S \subset [d], |S| = k} e_{k-1}((\sigma_{\ell}^{2}(\bm{V}_{S,[k]})_{1\leq \ell \leq k})) \: \|\bm{X} - \Pi_{k}\bm{X}\|_{\nu}^{2} \\
+% & \leq \sum\limits_{S \subset [d], |S| = k} \sum\limits_{T \subset S, |T| = k-1} \Vol_{k-1}(\bm{V}_{T,[k]})^{2} \: \|\bm{X} - \Pi_{k}\bm{X}\|_{\nu}^{2}.
+\label{eq:middle_proof_theo16}
+\end{align}
+
+Now, Lemma~\ref{minors_symmetric_polynomials_lemma} applied to the matrix $\bm{V}^{\Tran}_{S,[k]}$ gives
+\begin{equation}
+	e_{k-1}(\Sigma(\bm{V}_{S,[k]})^{2}) = \sum\limits_{T \subset S, |T| = k-1} e_{k-1}(\Sigma(\bm{V}_{T,[k]})^{2}),
+\end{equation}
+Therefore, Lemma~\ref{sum_k_1_symmetric_poly_det_lemma} yields
+\begin{equation}
+\label{eq:const_dpluskmoins1}
+\begin{split}
+%% \sum\limits_{S \subset [d], |S| = k} \Det(\bm{V}_{S,[k]})^{2}\| \bm{X} - \Pi_{S}\bm{X} \|_{\nu}^{2} & \leq  \sum\limits_{S \subset [d], |S| = k} \frac{1}{\sigma_{k}^{2}(\bm{V}_{S,[k]})}\Det(\bm{V}_{S,[k]})^{2} \: \|\bm{X} - \Pi_{k}\bm{X}\|_{\nu}^{2}  \\
+%%  & \leq
+\sum\limits_{S \subset [d], |S| = k} e_{k-1}(\Sigma(\bm{V}_{S,[k]})^{2})
+  & \leq (d-k+1)\sum\limits_{T \subset [d], |T| = k-1} e_{k-1}(\Sigma(\bm{V}_{T,[k]})^{2}).\\
+%\sum\limits_{S \subset [d], |S| = k} \prod_{\ell =1}^{k-1}\sigma_{\ell}^{2}(\bm{V}_{S,[k]}) \: \|\bm{X} - \Pi_{k}\bm{X}\|_{\nu}^{2}
+%  & \leq \sum\limits_{S \subset [d], |S| = k} e_{k-1}(\Sigma(\bm{V}_{S,[k]})^{2}) \: \|\bm{X} - \Pi_{k}\bm{X}\|_{\nu}^{2} \\
+%  & \leq \sum\limits_{S \subset [d], |S| = k} \sum\limits_{T \subset S, |T| = k-1} e_{k-1}(\Sigma(\bm{V}_{T,[k]})^{2}) \: \|\bm{X} - \Pi_{k}\bm{X}\|_{\nu}^{2}\\
+%  & \leq (d-k+1)\sum\limits_{T \subset [d], |T| = k-1} e_{k-1}(\Sigma(\bm{V}_{T,[k]})^{2}) \: \|\bm{X} - \Pi_{k}\bm{X}\|_{\nu}^{2}.\\
+\end{split}
+\end{equation}
+Using Lemma~\ref{minors_symmetric_polynomials_lemma} and the fact that $\bm{V}_{k}$ is orthogonal, we finally write
+\begin{equation}
+\label{eq:const_k}
+\sum\limits_{T \subset [d], |T| = k-1} e_{k-1}(\Sigma(\bm{V}_{T,[k]})^{2}) = e_{k-1}(\Sigma(\bm{V}_{k})^{2}) = k.
+\end{equation}
+Plugging \eqref{eq:const_k} into \eqref{eq:const_dpluskmoins1}, and then into (\ref{eq:middle_proof_theo16}) concludes the proof of Proposition~\ref{projection_dpp_theorem}.
+%\end{proof}
+
+%%%%%%%%%%%%%%%%%%   Proof of proposition 17    %%%%%%%%
+\subsection{Proof of Proposition \ref{hypo_one_two_proposition}}
+\label{s:proofOfExactSparsitySetting}
+%\begin{proof}[]
+We first prove the Frobenius norm bound, which requires more work. The spectral bound is easier and uses a subset of the arguments for the Frobenius norm.
+
+\subsubsection{Frobenius norm bound}
+\label{s:frobNormThm19}
+%\paragraph{}
+Recall that $\bm{E} = \bm{X} - \Pi_{k}\bm{X}$.
+We start with Lemma~\ref{refined_analysis_of_approximation_bound}:
+\begin{equation}
+\label{eq:begin_proof_prop17}
+	\begin{split}
+		\| \bm{X} - \Pi_{S}^{\Fr}\bm{X} \|_{\Fr}^{2}  & \leq  \| \bm{E}(\bm{I}-\bm{P}_{S})\|_{\Fr}^{2}\\
+		& = \| \bm{E}\|_{\Fr}^{2} + \Tr(\bm{E}^{\Tran}\bm{E}\bm{P}_{S}\bm{P}_{S}^{\Tran}) - 2\Tr(\bm{P}_{S}^{\Tran}		\bm{E}^{\Tran}\bm{E}).
+	\end{split}
+\end{equation}
+Since $\bm{E}^{\Tran}\bm{E} = \bm{V}_{k^{\perp}}^{\phantom{\Tran}}\bm{\Sigma}_{k^{\perp}}^{2}\bm{V}_{k^{\perp}}^{\Tran}$ and $\bm{P}_{S} = \bm{S}(\bm{V}_{k}^{\Tran}\bm{S})^{-1}\bm{V}_{k}^{\Tran}$,
+\begin{equation}
+        \begin{split}
+        		\Tr(\bm{P}_{S}^{\Tran}\bm{E}^{\Tran}\bm{E})  & =  \Tr \bigg(\bm{V}_{k}^{\phantom{\Tran}}((\bm{V}_{k}^{\Tran}		\bm{S})^{\Tran})^{-1}\bm{S}^{\Tran}\bm{V}_{k^{\perp}}^{\phantom{\Tran}}\bm{\Sigma}_{k^{\perp}}^{\phantom{\Tran}}\bm{V}		_{k^{\perp}}^{\Tran} \bigg)  \\
+        		& = \Tr \bigg( \bm{V}_{k^{\perp}}^{\Tran}\bm{V}_{k}^{\phantom{\Tran}}((\bm{V}_{k}^{\Tran}\bm{S})^{\Tran})^{-1}\bm{S}		^{\Tran}\bm{V}_{k^{\perp}}^{\phantom{\Tran}}\bm{\Sigma}_{k^{\perp}}^{\phantom{\Tran}} \bigg)  \\
+      		  & = 0,
+        \end{split}
+\end{equation}
+where the last equality follows from $\bm{V}_{k^{\perp}}^{\Tran}\bm{V}_{k} = \bm{0}$.
+Therefore, (\ref{eq:begin_proof_prop17}) becomes
+\begin{equation}
+	\| \bm{X} - \Pi_{S}^{\Fr}\bm{X} \|_{\Fr}^{2}  \leq \| \bm{E}\|_{\Fr}^{2} + \Tr(\bm{E}^{\Tran}\bm{E}\bm{P}^{\phantom{\Tran}}	_{S}\bm{P}^{\Tran}_{S}).
+\end{equation}
+% \begin{equation}
+% \| \bm{X} - \Pi_{S}\bm{X} \|_{\Fr}^{2}  \leq  \| \bm{E}\|_{\Fr}^{2} + \Tr(\bm{E}\bm{E}^{\Tran}\bm{P}\bm{P}^{\Tran})
+% \end{equation}
+Taking expectations,
+\begin{equation}
+  \label{eq:inequality_approximation_error_by_EEPP}
+		\EX_{\DPP} \| \bm{X} - \Pi_{S}^{\Fr}\bm{X} \|_{\Fr}^{2} \leq \|\bm{E}\|_{\Fr}^{2} + \sum_{S \subset [d], |S| = k}	\Det(\bm{V}_{S,[k]})^{2} \Tr(\bm{E}^{\Tran}\bm{E}\bm{P}^{\phantom{\Tran}}_{S}\bm{P}^{\Tran}_{S}).
+\end{equation}
+Proposition~\ref{principal_angles_theorem_1} expresses $\Det(\bm{V}_{S,[k]})^{2}$ as a function of the principal angles $(\theta_i(S))$ between $\Span(\bm{V}_k)$ and $\Span(\bm{S})$, namely
+\begin{equation}\label{eq:det_cos_identity}
+	\Det(\bm{V}_{S,[k]})^{2} = \prod\limits_{i \in [k]} \cos^{2}(\theta_{i}(S)).
+\end{equation}
+ The remainder of the proof is in two steps. First, we bound the second factor in the sum in the right-hand side of \eqref{eq:inequality_approximation_error_by_EEPP} with a similar geometric expression. This allows trigonometric manipulations. Second, we work our way back to elementary symmetric polynomials of spectra, and we conclude after some simple algebra.
+
+First, for $S \subset [d], |S| =k$, let
+$$
+\bm{Z}_{S} = \bm{V}_{k^{\perp}}^{\Tran} \bm{S}(\bm{V}_{k}^{\Tran}\bm{S})^{-1} = \bm{V}_{k^{\perp}}^{\Tran} \bm{P}_{S}^{\phantom{\Tran}} \bm{V}_{k}.
+$$
+It allows us to write
+\begin{equation}
+	\Tr(\bm{E}^{\Tran}\bm{E}\bm{P}^{\phantom{\Tran}}_{S}\bm{P}^{\Tran}_{S})= \Tr(\bm{V}_{k^{\perp}}\bm{\Sigma}_{k^{\perp}}		^{2}\bm{V}_{k^{\perp}}^{\Tran}\bm{P}^{\phantom{\Tran}}_{S}\bm{P}^{\Tran}_{S}) = \Tr(\bm{\Sigma}_{k^{\perp}}^{2}\bm{Z}_{S}^{\phantom{\Tran}}\bm{V}_{k}^{\phantom{\Tran}}\bm{V}_{k}^{\Tran}\bm{Z}_{S}^{\Tran}).
+\end{equation}
+However, for real symmetric matrices $\bm{A}$ and $\bm{B}$ with the same size, a simple diagonalization argument yields
+\begin{equation}
+	\Tr(\bm{A}\bm{B}) \leq \|\bm{A}\|_{2}\Tr(\bm{B}),
+\end{equation}
+so that
+% \begin{equation}\label{eq:majoration_by_sigma_k_1}
+% 	\Tr(\bm{E}^{\Tran}\bm{E}\bm{P}^{\phantom{\Tran}}_{S}\bm{P}^{\Tran}_{S}) = \Tr(\bm{\Sigma}_{d-k}^{2}\bm{Z}_{S}^{\phantom{\Tran}}\bm{V}_{k}^{\phantom{\Tran}}\bm{V}_{k}^{\Tran}\bm{Z}_{S}^{\Tran}) = \Tr(\bm{Z}_{S}^{\Tran}\bm{\Sigma}_{d-k}^{2}\bm{Z}_{S}^{\phantom{\Tran}}\bm{V}_{k}^{\phantom{\Tran}}\bm{V}_{k}^{\Tran}) \leq \Tr(\bm{Z}_{S}^{\Tran}\bm{\Sigma}_{d-k}^{2}\bm{Z}_{S}^{\phantom{\Tran}}) \|\bm{V}_{k}^{\phantom{\Tran}}\bm{V}_{k}^{\Tran}\|_{2} \leq \bm{\sigma}_{k+1}^{2} \Tr(\bm{Z}_{S}^{\phantom{\Tran}}\bm{Z}_{S}^{\Tran}).
+% \end{equation}
+\begin{align}\label{eq:majoration_by_sigma_k_1}
+\Tr(\bm{E}^{\Tran}\bm{E}\bm{P}^{\phantom{\Tran}}_{S}\bm{P}^{\Tran}_{S}) & = \Tr(\bm{\Sigma}_{k^{\perp}}^{2}\bm{Z}_{S}^{\phantom{\Tran}}\bm{V}_{k}^{\phantom{\Tran}}\bm{V}_{k}^{\Tran}\bm{Z}_{S}^{\Tran}) \nonumber\\
+& = \Tr(\bm{Z}_{S}^{\Tran}\bm{\Sigma}_{k^{\perp}}^{2}\bm{Z}_{S}^{\phantom{\Tran}}\bm{V}_{k}^{\phantom{\Tran}}\bm{V}_{k}^{\Tran}) \nonumber\\
+& \leq \Tr(\bm{Z}_{S}^{\Tran}\bm{\Sigma}_{k^{\perp}}^{2}\bm{Z}_{S}^{\phantom{\Tran}}) \|\bm{V}_{k}^{\phantom{\Tran}}\bm{V}_{k}^{\Tran}\|_{2} \nonumber\\
+& \leq \Tr(\bm{Z}_{S}^{\Tran}\bm{\Sigma}_{k^{\perp}}^{2}\bm{Z}_{S}^{\phantom{\Tran}}) \nonumber \\
+& \leq \|\bm{\Sigma}_{k^{\perp}}^{2}\|_{2}\Tr(\bm{Z}_{S}^{\phantom{\Tran}}\bm{Z}_{S}^{\Tran}) \nonumber \\
+& \leq \bm{\sigma}_{k+1}^{2} \Tr(\bm{Z}_{S}^{\phantom{\Tran}}\bm{Z}_{S}^{\Tran}).
+\end{align}
+
+In Appendix~\ref{app:principal_angles}, we characterize $\Tr(\bm{Z}_{S}^{\phantom{\Tran}}\bm{Z}_{S}^{\Tran})$ using principal angles, see \eqref{eq:trace_tan_relationship}. This reads
+\begin{equation}\label{eq:trace_tan_identity}
+ 	\Tr( \bm{Z}_{S}^{\phantom{\Tran}}\bm{Z}_{S}^{\Tran}) = \sum_{j \in [k]}\tan^{2}(\theta_{j}(S)).
+\end{equation}
+Combining \eqref{eq:inequality_approximation_error_by_EEPP}, \eqref{eq:majoration_by_sigma_k_1}, \eqref{eq:det_cos_identity}, and \eqref{eq:trace_tan_identity}, we obtain the following intermediate bound
+\begin{equation}\label{eq:sum_product_cos_tan}
+ 	\EX_{\DPP} \| \bm{X} - \Pi_{S}^{\Fr}\bm{X} \|_{\Fr}^{2} \leq \| \bm{E}\|_{\Fr}^{2} + \bm{\sigma}_{k+1}^{2} \sum_{S \subset 	[d], |S| = k} \,\left[\prod\limits_{i \in [k]} \cos^{2}(\theta_{i}(S))\right] \left[\sum_{j \in [k]}\tan^{2}(\theta_{j}(S))\right].
+\end{equation}
+Distributing the sum and using trigonometric identities, the general term of the sum in \eqref{eq:sum_product_cos_tan} becomes
+\begin{align}
+    	\left[\prod\limits_{i \in [k]} \cos^{2}(\theta_{i}(S))\right] \left[\sum_{j \in [k]}\tan^{2}(\theta_{j}(S))\right] & =  \sum_{i \in [k]}(1-\cos^{2}(\theta_{i}(S)))\prod_{j \in [k], j 	\neq i} \cos^{2}(\theta_{j}(S)) \nonumber \\
+    	& = \sum_{i \in [k]}\prod_{j \in [k], j \neq i} \cos^{2}(\theta_{j}(S)) - \sum_{i \in [k]}\prod_{j \in [k]}\cos^{2}(\theta_{j}(S)).
+	\label{eq:prod_cos_tan_ineq}
+\end{align}
+The $(\cos(\theta_{j}(S)))_{j \in [k]}$ are the singular values of the matrix $\bm{V}_{S,[k]}$ so that
+\begin{equation}\label{eq:cos_k_1_symmetric_polynomial_identity}
+	\sum_{i \in [k]}\prod_{j \in [k], j \neq i} \cos^{2}(\theta_{j}(S)) = e_{k-1}(\Sigma(\bm{V}_{S,[k]})^{2}),
+\end{equation}
+and
+\begin{equation}\label{eq:cos_k_symmetric_polynomial_identity}
+	\prod_{j \in [k]}\cos^{2}(\theta_{j}(S)) = e_{k}(\Sigma(\bm{V}_{S,[k]})^{2}).
+\end{equation}
+Back to \eqref{eq:prod_cos_tan_ineq}, one gets
+\begin{align}
+    \left[\prod\limits_{i \in [k]} \cos^{2}(\theta_{i}(S))\right] \left[\sum_{j \in [k]}\tan^{2}(\theta_{j}(S))\right]
+    & = e_{k-1}(\Sigma(\bm{V}_{S,[k]})^{2}) - \sum_{i \in [k]} e_{k}(\Sigma(\bm{V}_{S,[k]})^{2}) \nonumber\\
+    & = e_{k-1}(\Sigma(\bm{V}_{S,[k]})^{2}) -  k e_{k}(\Sigma(\bm{V}_{S,[k]})^{2}). \label{eq:sumcostan} %%% LABEL UTILE
+\end{align}
+Thus, plugging \eqref{eq:sumcostan} back into the intermediate bound \eqref{eq:sum_product_cos_tan}, it comes
+\begin{align}\label{eq:bound_tan_in_expectation_under_sparsity}
+    \EX_{\DPP} \| \bm{X} &- \Pi_{S}^{\Fr}\bm{X} \|_{\Fr}^{2}\nonumber\\
+     % &\leq \| \bm{E}\|_{\Fr}^{2} + \bm{\sigma}_{k+1}^{2} \sum\limits_{S \subset [d], |S| = k} \left[\prod\limits_{i \in [k]} \cos^{2}(\theta_{i}(S))\right]\left[\sum_{j \in [k]}\tan^{2}(\theta_{j}(S))\right]\nonumber\\
+      &\leq \| \bm{E}\|_{\Fr}^{2} + \bm{\sigma}_{k+1}^{2} \left[\sum\limits_{\substack{S \subset [d]\\ |S| = k}} e_{k-1}(\Sigma(\bm{V}_{S,[k]})^{2}) -  k \sum_{\substack{S \subset [d]\\ |S| = k}}e_{k}(\Sigma(\bm{V}_{S,[k]})^{2})\right]\nonumber.\\
+\end{align}
+Using Lemma~\ref{minors_symmetric_polynomials_lemma} twice, it comes
+\begin{align}
+  \EX_{\DPP} \| \bm{X} &- \Pi_{S}^{\Fr}\bm{X} \|_{\Fr}^{2} \nonumber\\
+  &\leq \| \bm{E}\|_{\Fr}^{2} + \bm{\sigma}_{k+1}^{2} \left[\sum_{\substack{S \subset [d]\\ |S| = k}} \,\sum_{\substack{T \subset S\\ |T| = k-1}} e_{k-1}(\Sigma(\bm{V}_{T,[k]})^{2}) -  ke_{k}(\Sigma(\bm{V}_{:,[k]})^{2})\right]
+  \label{e:doubleSumTrick}.
+\end{align}
+
+Lemmas~\ref{sum_k_1_symmetric_poly_det_lemma} and the identities $e_{k-1}(\Sigma(\bm{V}_{:,[k]})^{2}) = k$ and $e_{k}(\Sigma(\bm{V}_{:,[k]})^{2}) = 1$ allow us to conclude
+\begin{align}
+  \EX_{\DPP} \| \bm{X} - \Pi_{S}^{\Fr}\bm{X} \|_{\Fr}^{2} &\leq \| \bm{E}\|_{\Fr}^{2} + \bm{\sigma}_{k+1}^{2} \left[ (p-k+1)e_{k-1}(\Sigma(\bm{V}_{:,[k]})^{2}) -  k \right]\\
+  &=\| \bm{E}\|_{\Fr}^{2} + \bm{\sigma}_{k+1}^{2} (p-k)k.
+\end{align}
+By definition of $\beta$ \eqref{e:defbeta}, we have proven \eqref{eq:frobenius_bound_dpp}, i.e.,
+\begin{align*}
+    \EX_{\DPP} \| \bm{X} - \Pi_{S}^{\Fr}\bm{X} \|_{\Fr}^{2}
+  & \leq \| \bm{E}\|_{\Fr}^{2} \left(1 + \beta \frac{p-k}{d-k}k \right).
+\end{align*}
+%\end{subsubsection}
+%\paragraph{Spectral norm bound}
+
+
+
+%%%%%%%%%%%% Spectral norm bound
+\subsubsection{Spectral norm bound}
+The bound in spectral norm is easier to derive.
+We start with Lemma~\ref{refined_analysis_of_approximation_bound}:
+\begin{equation}
+\label{eq:begin_proof_prop17_spectral}
+    \begin{split}
+        \| \bm{X} - \Pi_{S}^{2}\bm{X} \|_{2}^{2}  & \leq  \| \bm{E}(\bm{I}-\bm{P}_{S})\|_{2}^{2}\\
+        & \leq \| \bm{E}\|_{2}^{2} +  \| \bm{E}\bm{P}_{S}\|_{2}^{2}\\
+        & \leq \| \bm{E}\|_{2}^{2} + \|\bm{E}\|_{2}^{2}\|\bm{V}_{k^{\perp}}^{\Tran}\bm{S}(\bm{V}_{k}^{\Tran}\bm{S})^{-1}\bm{V}_{k}^{\Tran}\|_{2}^{2}\\
+        & \leq \| \bm{E}\|_{2}^{2}(1 + \|\bm{Z}_{S}\|_{2}^{2}),
+    \end{split}
+\end{equation}
+where the notation is the same as in Section~\ref{s:frobNormThm19}.
+Now
+\begin{equation}\label{eq:bound_spectral_frob_proof_prop17_spectral}
+                \|\bm{Z}_{S}\|_{2}^{2}  \leq  \|\bm{Z}_{S}\|_{\Fr}^{2}
+                = \sum\limits_{i \in [k]} \tan^{2}(\theta_{i}(S)),
+\end{equation}
+thus by \eqref{eq:begin_proof_prop17_spectral}, \eqref{eq:bound_spectral_frob_proof_prop17_spectral} and \eqref{eq:det_cos_identity}
+\begin{align}
+    \EX_{\DPP} \| \bm{X} - \Pi_{S}^{2}\bm{X} \|_{2}^{2} &= \sum_{S \subset [d], |S| = k}\Det(\bm{V}_{S,[k]})^{2}\| \bm{X} - \Pi_{S}\bm{X} \|_{2}^{2}\\
+    & \leq \| \bm{E}\|_{2}^{2} \left(1 + \sum_{\substack{S \subset [d], |S| = k\\   \Det(\bm{V}_{S,[k]})^{2}>0}} \prod\limits_{i =1}^{k} \cos^{2}(\theta_{i}(S)) \sum\limits_{i \in [k]} \tan^{2}(\theta_{i}(S)) \right).
+\end{align}
+By \eqref{eq:prod_cos_tan_ineq}, it comes
+% \begin{equation}
+%   \sum_{S \subset [d], |S| = k}\Det(\bm{V}_{S,[k]})^{2}\| \bm{X} - \Pi_{S}\bm{X} \|_{2}^{2} \leq \sum_{S \subset [d], |S| = k} \prod\limits_{l \in [k], l < k} \sigma_{l}^{2}(\bm{V}_{S,[k]})  \| \bm{E}\|_{2}^{2} \leq \sum_{S \subset [d], |S| = k} e_{k-1}(\Sigma(\bm{V}_{S,[k]})^{2})  \| \bm{E}\|_{2}^{2}
+% \end{equation}
+% and we finally get
+\begin{align*}
+    \EX_{\DPP} \| \bm{X} - \Pi_{S}^{2}\bm{X} \|_{2}^{2} & \leq  \| \bm{E}\|_{2}^{2} \left(1+\sum_{\substack{S \subset [d], |S| = k\\ \Det(\bm{V}_{S,[k]})^{2}>0}} e_{k-1}(\Sigma(\bm{V}_{S,[k]})^{2}) - k e_{k}(\Sigma(\bm{V}_{S,[k]})^{2}) \right)\\
+    & \leq \| \bm{E}\|_{2}^{2} \left( 1+ (p-k+1)\,e_{k-1}(\Sigma(\bm{V}_{:,[k]})^{2}) - k e_{k}(\Sigma(\bm{V}_{:,[k]})^{2}) \right)\,\\
+    &= (1+(p-k)\,k\,)\| \bm{E}\|_{2}^{2}.
+\end{align*}
+where we again used the double sum trick of \eqref{e:doubleSumTrick} and Lemma~\ref{sum_k_1_symmetric_poly_det_lemma}.%\end{proof}
+
+
+
+%%%%%%%%%% 			Proof of Proposition 20 			%%%%%%%%%%%%%%%%%%%%
+\subsection{Proof of Theorem~\ref{prop:p_eff_proposition}}
+\label{s:proofOfEffectiveSparsitySetting}
+We start with a lemma on evaluations of elementary symmetric polynomials on specific sequences.
+%%% LEMMA
+\begin{lemma}\label{lemma_k_minus_half}
+Let $\bm{\lambda}\in ]0,1]^{k}$ such that
+\begin{equation}
+	\left\{
+	\begin{array}{l}
+	    \lambda_{1} \geq \dots \geq \lambda_{k},\\
+		\label{eq:lambda_schur_hypo}
+   		\Lambda = \sum\limits_{i=1}^{k} \lambda_{i} \geq k-1 + \frac{1}{\theta}.
+	\end{array}
+	\right.
+\end{equation}
+Then, with the functions $\phi,\psi$ introduced in Lemma~\ref{symmetric_schur_convex_lemma}, %Lemma~\ref{symmetric_schur_convex_lemma} implies that
+\begin{equation}
+    \left\{
+    \begin{array}{ll}
+    	\psi(\bm{\lambda})  & \displaystyle{\geq \frac{1}{\theta},}\\
+	\phi(\bm{\lambda})  & \leq k-1 +\theta.
+    \end{array}
+    \right.
+\end{equation}
+
+%\begin{equation}
+%    \phi(\hat{\bm{\lambda}}) \leq k-1+\theta,
+%\end{equation}
+%and
+%\begin{equation}
+%    \psi(\hat{\bm{\lambda}}) \geq \frac{1}{\theta}.
+%\end{equation}
+
+\end{lemma}
+
+%%%%%%%%% PROOF OF LEMMA
+\begin{proof}
+Let $\hat{\bm{\lambda}} = (1,...,1,\Lambda -k +1) \in \mathbb{R}_{+}^{*^{k}}$. Then
+\begin{equation}
+\left\{
+    \begin{array}{ll}
+        \lambda_{1} \leq \hat{\lambda}_{1} \\
+        \lambda_{1} + \lambda_{2} \leq \hat{\lambda}_{1} + \hat{\lambda}_{2} \\
+        ... \\
+        \sum\limits_{i=1}^{k-1} \lambda_{i} \leq \sum\limits_{i=1}^{k-1} \hat{\lambda}_{i}\\
+        \sum\limits_{i=1}^{k} \lambda_{i} = \sum\limits_{i=1}^{k} \hat{\lambda}_{i}
+    \end{array}
+\right.
+\end{equation}
+so that, according to Definition~\ref{def:majorization},
+\begin{equation}
+    \bm{\lambda} \prec_{S} \hat{\bm{\lambda}}.
+\end{equation}
+Lemma~\ref{symmetric_schur_convex_lemma} ensures the Schur-convexity of $\phi$ and the Schur-concavity of $\psi$, so that
+$$\phi(\bm{\lambda})  \leq \phi(\hat{\bm{\lambda}}) = k-1 + \frac{1}{\Lambda - k +1} \leq k-1+\theta,$$
+and
+$$\psi(\bm{\lambda}) \geq \psi(\hat{\bm{\lambda}}) = \Lambda - k +1\geq \frac{1}{\theta}.$$
+\end{proof}
+
+
+%%%%%%%%%%%  	Frobenius norm bounds	%%%%%%%%%%%%%%%
+
+%\begin{proof}[Proposition~\ref{prop:p_eff_proposition}]
+\subsubsection{Frobenius norm bound}
+% This section proves a bound for $\EX_{\DPP} \bigg[ \| \bm{X} - \Pi_{S}\bm{X} \|_{\Fr}^{2}| S \cap T_{p_{\eff}} = \emptyset \bigg]$ where $p_{\eff}=p_{\eff}(\theta)$ is the smallest integer obeying \eqref{eq:leverage_score_decreasing_hypo}.
+% Recall about T_{p_\eff}
+Let $\bm{K} = \bm{V}_{k}^{}\bm{V}_{k}^{\Tran}$, and $\pi$ be a permutation of $[d]$ that reorders the leverage scores decreasingly,
+\begin{equation}
+   \ell_{\pi_{1}}^{k}\geq \ell_{\pi_{2}}^{k} \geq ... \geq \ell_{\pi_{d}}^{k}.
+\end{equation}
+By construction, $T_{p_{\eff}}=[\pi_{p_{\eff}},...,\pi_d]$ thus collects the indices of the smallest leverage scores. Finally, denoting by $\bm{\Pi} = (\delta_{i,\pi_{j}})_{(i,j) \in [d] \times [d]}$ the matricial representation of permutation $\pi$, we let
+$$ \bm{K}^{\pi} = \bm{\Pi}\bm{K}\bm{\Pi}^{\Tran} = ((\bm{K}_{\pi_i,\pi_j}))_{1\leq i,j\leq d}.$$
+%% Begin arguments
+The goal of the proof is to bound
+\begin{equation}
+	\EX_{\DPP} \bigg[ \| \bm{X} - \Pi_{S}^{\Fr}\bm{X} \|_{\Fr}^{2}| S \cap T_{p_{\eff}} = \emptyset \bigg]
+	= \frac{{\sum} \Det(\bm{V}	_{S,[k]})^{2}\| \bm{X} - \Pi_{S}^{\Fr}\bm{X} \|_{\Fr}^{2}}{{\sum}\Det(\bm{V}_{S,[k]})^{2}},
+\end{equation}
+where both sums run over subsets $S\subset[d]$ such that $|S| = k$ and $S \cap T_{p_{\eff}(\theta)}=\emptyset$. For simplicity, let us write
+\begin{eqnarray}
+    	Z_{k,p_{\eff}(\theta)} & = & \mathlarger{\sum}\limits_{\substack{S \subset [d],|S| = k\\  S \cap T_{p_{\eff}(\theta)} = 		\emptyset}} \Det(\bm{V}_{S,[k]})^{2},\\
+	Y_{k,p_{\eff}(\theta)} & = & \mathlarger{\sum}\limits_{\substack{S \subset 	[d],|S| = k\\  S \cap T_{p_{\eff}(\theta)} = \emptyset}} \Det(\bm{V}_{S,[k]})^{2} \Tr(\bm{Z}_{S}^{}\bm{Z}_{S}^{\Tran}).
+\end{eqnarray}
+%%% Sketching the proof :
+Following steps \eqref{eq:inequality_approximation_error_by_EEPP} to \eqref{eq:majoration_by_sigma_k_1} of the previous proof, one obtains
+\begin{align}
+	\EX_{\DPP} \bigg[ \| \bm{X} - \Pi_{S}^{\Fr}\bm{X} \|_{\Fr}^{2} \: | \: S \cap T_{p_{\eff}} = \emptyset \bigg]
+  %& =
+	%    \frac{1}{Z_{k,p_{\eff}(\theta)}}\sum_{\substack{S \subset [d],|S| = k\\  S \cap T_{p_{\eff}(\theta)} = \emptyset}}		\Det(\bm{V}_{S,[k]})^{2}\| \bm{X} - \Pi_{S}\bm{X} \|_{\Fr}^{2}  \nonumber\\
+ 	  & \leq \| \bm{X}-\Pi_k\bm{X}\|_{\Fr}^{2} + \bm{\sigma}_{k+1}^{2} \frac{Y_{k,p_{\eff}(\theta)}}{Z_{k,p_{\eff}(\theta)}} \label{eq:firstineq_EDDP_proj}.
+\end{align}
+By definition \eqref{e:defbeta} of the flatness parameter $\beta$,
+\begin{equation}
+	\label{eq:upperbound_sigmakplus1}
+	\bm{\sigma}_{k+1}^{2}
+	= \beta \frac{1}{d-k} \sum\limits_{j \geq k+1} \bm{\sigma}_{j}^{2}
+	= \beta \frac{1}{d-k}\| \bm{X}-\Pi_k\bm{X}\|_{\Fr}^{2}.
+\end{equation}
+Then, it remains to upper bound the ratio $Y_{k,p_{\eff}(\theta)}/Z_{k,p_{\eff}(\theta)}$ in \eqref{eq:firstineq_EDDP_proj}, which is the important part of the proof. We first evaluate $Z_{k,p_{\eff}(\theta)}$ and then bound $Y_{k,p_{\eff}(\theta)}$.
+%
+
+%%%%%%% Properties of K^\pi_{p_{\eff}}
+The matrix $\bm{\Pi}\bm{V}_{k}\in\mathbb{R}^{d\times k}$ has its rows ordered by decreasing leverage scores. Let $\tilde{\bm{V}}^\pi_{p_{\eff}(\theta)} \in \mathbb{R}^{p_{\eff}(\theta)\times k} $ be the submatrix corresponding to the first $p_{\eff}(\theta)$ rows of $\bm{\Pi}\bm{V}_{k}$. Let also
+$$\hat{\bm{V}}_{p_{\eff}(\theta)}^\pi = \begin{pmatrix}\tilde{\bm{V}}_{\pi,p_{\eff}(\theta)}\\ \bm{0}_{d-p_{\eff}(\theta),k}\end{pmatrix}$$
+be padded with zeros. Then
+%Let $\hat{\bm{V}}_{\pi,p_{\eff}(\theta)} \in \mathbb{R}^{k \times p_{\eff}(\theta)} $ the matrix containing the first $p_{\eff}(\theta)$ columns of the matrix $\bm{V}_{k}^{\Tran}\bm{\Pi}^{\Tran}$ which contains the k first lines indexed by $[\pi_1,...,\pi_k]$ of $V_k^{\Tran}$. Let $\bm{K}^{\pi}_{p_{\eff}(\theta)} \in \mathbb{R}^{d \times d}$ defined as follows
+%\begin{equation}
+%	| i \in [d], \lambda_{i} \neq 0| \leq k.
+%\end{equation}
+%In the following, we denote $\bm{\lambda} \in \mathbb{R}^{k}$ the vector containing the non vanishing $\lambda_{i}$.\\
+\begin{equation}
+	\bm{K}^{\pi}_{p_{\eff}(\theta)} = \left[
+	\begin{array}{c|c}
+		\tilde{\bm{V}}_{\pi,p_{\eff}(\theta)} \tilde{\bm{V}}_{\pi,p_{\eff}(\theta)}^{\Tran}& \bm{0} \\
+		\hline
+		\bm{0} & \bm{0}
+	\end{array}
+	\right] = \hat{\bm{V}}_{p_{\eff}(\theta)}^\pi (\hat{\bm{V}}^\pi_{p_{\eff}(\theta)})^{\Tran} \in\mathbb{R}^{d\times d}.
+\end{equation}
+%\begin{equation}   % OLD Ayoub
+%	\bm{K}^{\pi}_{p_{\eff}(\theta)} = \left[
+%	\begin{array}{c|c}
+%		\hat{\bm{V}}^{\Tran}_{\pi,p_{\eff}(\theta)} \hat{\bm{V}}_{\pi,p_{\eff}(\theta)}& \bm{0} \\
+%		\hline
+%		\bm{0} & \bm{0}
+%	\end{array}
+%	\right].
+%\end{equation}
+%
+The nonzero block of $\bm{K}^{\pi}_{p_{\eff}(\theta)}$ is a submatrix of $\bm{K}^\pi$, and $\rank \bm{K}^\pi = \rank \bm{K} = k$. Hence $\bm{K}^{\pi}_{p_{\eff}(\theta)}$ has at most $k$ nonzero eigenvalues
+\begin{equation}
+\lambda_{1} \geq \lambda_{2} \geq \dots \geq \lambda_{k}\geq 0 = \lambda_{k+1} = \dots =\lambda_d.
+\end{equation}
+Therefore,
+\begin{equation}
+	e_{k}(\Lambda(\bm{K}^{\pi}_{p_{\eff}(\theta)})) = \sum_{\substack{T \subset [d]\\ |T| = k}} ~\prod\limits_{j \in T} \lambda_{j} = \prod\limits_{i \in [k]} \lambda_{i}.
+\end{equation}
+Note moreover that
+\begin{equation}
+	\forall \ell \in [k], \:\: e_{\ell}(\Sigma(\hat{\bm{V}}_{\pi,p_{\eff}(\theta)})^{2}) = e_{\ell}(\Lambda(\bm{K}^{\pi}_{p_{\eff}(\theta)})).
+\end{equation}
+By construction,
+\begin{align}
+	\label{eq:equal_Zkpeff}
+	Z_{k,p_{\eff}(\theta)} &= \mathlarger{\sum}\limits_{\substack{S \subset [d],|S| = k\\  S \cap T_{p_{\eff}(\theta)}	= \emptyset}} \Det(\bm{V}_{S,[k]})^{2}
+   = \mathlarger{\sum}\limits_{S \subset [d],|S| = k} \Det\left[\left(\hat{\bm{V}}^\pi_{p_{\eff}(\theta)}\right)_{S,:}\right]^{2}
+\end{align}
+Then, Lemma~\ref{minors_symmetric_polynomials_lemma} yields
+\begin{align}
+  Z_{k,p_{\eff}(\theta)} &= e_{k}(\Sigma(\hat{\bm{V}}_{\pi,p_{\eff}(\theta)})^{2}) = e_{k}(\Lambda(\bm{K}	^{\pi}_{p_{\eff}(\theta)})) = \prod_{i \in [k]}\lambda_{i}.
+\end{align}
+%%% SPECTRUM
+%%%%%%%%%%%%
+Now we bound $Y_{k,p_{\eff}(\theta)}$. We use again principal angles and trigonometric identities. Using \eqref{eq:trace_tan_identity} and \eqref{eq:sumcostan} above, it holds %\eqref{eq:cos_k_1_symmetric_polynomial_identity}, \eqref{eq:cos_k_symmetric_polynomial_identity}
+\begin{align}
+    	Y_{k,p_{\eff}(\theta)} & = \mathlarger{\sum}\limits_{\substack{S \subset [d],|S| = k\\  S \cap T_{p_{\eff}(\theta)} = 		\emptyset}} \Det(\bm{V}_{S,[k]})^{2} \Tr(\bm{Z}_{S}^{}\bm{Z}_{S}^{\Tran}) \nonumber\\
+  	  & = \sum_{\substack{S \subset [d],|S| = k\\  S \cap T_{p_{\eff}(\theta)} = \emptyset}} \prod\limits_{i \in [k]} \cos^{2}	(\theta_{i}(S)) \sum_{j \in [k]}\tan^{2}(\theta_{j}(S))\nonumber\\
+  	  & =\sum_{\substack{S \subset [d],|S| = k\\  S \cap T_{p_{\eff}(\theta)} = \emptyset}}  e_{k-1}\left(\Sigma(\bm{V}_{S,[k]})^{2}\right) -  k\, e_{k}\left(\Sigma(\bm{V}_{S,[k]}\right)^{2}\label{e:myTool}\\
+      & = \sum_{S \subset [d],|S| = k} e_{k-1}\left(\Sigma\left(\left[\hat{\bm{V}}^\pi_{p_{\eff}(\theta)}\right]_{S,:}\right)^{2}\right) -  k\, e_{k}\left(\Sigma\left(\left[\hat{\bm{V}}^\pi_{p_{\eff}(\theta)}\right]_{S,:}\right)^{2}\right)
+    % & \leq (p_{\eff}(\theta)-k+1) (k-1+\theta) -  k\\
+    % & \leq (p_{\eff}(\theta)-k+1) (k-1+\theta)
+\end{align}
+By Lemma~\ref{sum_k_1_symmetric_poly_det_lemma} applied to the matrix $\hat{\bm{V}}_{\pi,p_{\eff}(\theta)}$ combined to \eqref{eq:equal_Zkpeff}, we get
+\begin{align}
+   	%\sum_{\substack{S \subset [d],|S| = k\\  S \cap T_{p_{\eff}(\theta)} = \emptyset}}  e_{k-1}(\Sigma(\bm{V}_{S,[k]})^{2}) -  k e_{k}(\Sigma(\bm{V}_{S,[k]})^{2}
+	Y_{k,p_{\eff}(\theta)} & \leq (p_{\eff}(\theta)-k+1)e_{k-1}(\Sigma(\hat{\bm{V}}^\pi_{p_{\eff}(\theta)})^{2}) -  	k\, e_{k}(\Sigma(\hat{\bm{V}}^\pi_{p_{\eff}(\theta)})^{2}) \nonumber\\
+    	& \leq (p_{\eff}(\theta)-k+1)e_{k-1}(\Lambda(\bm{K}^{\pi}_{p_{\eff}(\theta)})) -  k\, e_{k}(\Lambda(\bm{K}^{\pi}_{p_{\eff}	(\theta)})) \nonumber\\
+    	& \leq \bigg( (p_{\eff}(\theta)-k+1)\phi(\tilde{\bm{\lambda}}) -  k \bigg) Z_{k,p_{\eff}(\theta)}. \label{eq:majore_Y}
+    % & \leq (p_{\eff}(\theta)-k+1) (k-1+\theta) -  k\\
+    % & \leq (p_{\eff}(\theta)-k+1) (k-1+\theta)
+\end{align}
+where $\tilde{\bm{\lambda}} = (1,\dots,1,\Tr(\bm{K}^\pi_{p_{\eff}(\theta)})-k+1)\in\mathbb{R}^{k}$, see Lemma~\ref{lemma_k_minus_half}. Now, as in the proof of Lemma~\ref{lemma_k_minus_half},
+$$ \phi(\tilde{\bm{\lambda}}) = k-1+\frac{1}{\Tr(\bm{K}^\pi_{p_{\eff}(\theta)})-k+1} \leq k-1+\theta$$
+by \eqref{eq:leverage_score_decreasing_hypo}. Thus \eqref{eq:majore_Y} yields
+\begin{equation}\label{eq:bound_tan_in_expectation_eff}
+ 	\frac{Y_{k,p_{\eff}(\theta)}}{Z_{k,p_{\eff}(\theta)}} \leq (p_{\eff}(\theta)-k+1) (k-1+\theta) -  k \leq (p_{\eff}(\theta)-k+1) (k-1+\theta).
+\end{equation}
+Finally, plugging \eqref{eq:bound_tan_in_expectation_eff} and  \eqref{eq:upperbound_sigmakplus1} in \eqref{eq:firstineq_EDDP_proj} concludes the proof of \eqref{eq:boundFrobenius_assumpt2}.
+
+%%%%%%%%%%%%%%%%%%%%%%%  Spectral norm bound   %%%%%%%%%%%%%
+\subsubsection{Spectral norm bound}
+We proceed as for the Frobenius norm, using the notation of Section~\ref{s:frobNormThm19}. Lemma~\ref{refined_analysis_of_approximation_bound}, Equations~\eqref{e:myTool} and \eqref{eq:bound_tan_in_expectation_eff} yield
+\begin{align*}
+	\EX_{\DPP} \bigg[ \| \bm{X} - \Pi_{S}^{2}\bm{X} \|_{2}^{2}\: &| \: S \cap T_{p_{\eff}} = \emptyset \bigg] \\
+   &= Z_{k,p_{\eff}(\theta)}^{-1} \mathlarger{\sum}\limits_{\substack{S \subset [d],|S| = k\\  S \cap T_{p_{\eff}(\theta)} = \emptyset}}\Det(\bm{V}	_{S,[k]})^{2}\| \bm{X} - \Pi_{S}^{2}\bm{X} \|_{2}^{2},\\
+     &  \leq Z_{k,p_{\eff}(\theta)}^{-1}  \| \bm{X}-\Pi_k\bm{X}\|_{2}^{2} \left(1 + \mathlarger{\sum}_{\substack{S \subset [d], |S| = k\\ S \cap T_{p_{\eff}(\theta)} = \emptyset,\\ \Det(\bm{V}_{S,[k]})^{2}>0}} 	\prod\limits_{\ell = 1}^{k-1} \sigma_{\ell}^{2}(\bm{V}_{S,[k]}) - k e_{k}(\Sigma(\bm{V}_{S,[k]})^{2}) \right)\\
+     	& \leq Z_{k,p_{\eff}(\theta)}^{-1} \| \bm{X}-\Pi_k\bm{X}\|_{2}^{2}\left( 1+ \mathlarger{\sum}_{\substack{S \subset [d], |S| = k\\ S \cap T_{p_{\eff}(\theta)} = \emptyset\\ \Det(\bm{V}_{S,[k]})^{2}>0}} 	e_{k-1}(\Sigma(\bm{V}_{S,[k]})^{2}) - k e_{k}(\Sigma(\bm{V}_{S,[k]})^{2}) \right)\\
+     & \leq \left(\frac{Y_{k,p_{\eff}(\theta)}}{Z_{k,p_{\eff}(\theta)}} +1\right) \| \bm{X}-\Pi_k\bm{X}\|_{2}^{2} \\
+   	 & \leq \left( 1 + (p_{\eff}(\theta)-k+1)(k-1+\theta) \right)\| \bm{X}-\Pi_k\bm{X}\|_{2}^{2},
+\end{align*}
+which is the claimed spectral bound.
+
+%%%%%%%%%%%  	Rejection probability bound 	%%%%%%%%%%%%%%%
+\subsubsection{Bounding the probability of rejection}
+Recall from Lemma~\ref{lemma_k_minus_half} that
+$$
+\hat{\bm{\lambda}} = \begin{pmatrix} 1 &\dots &1&\sum_{i=1}^k {\lambda_i}-k+1\end{pmatrix}\in\mathbb{R}_{+}^{*^{k}}.$$
+Still with the notation of Section~\ref{s:frobNormThm19}, \eqref{eq:equal_Zkpeff} yields
+\begin{align}
+    \mathbb{P}(S \cap T_{p_{\eff}(\theta)} = \emptyset) &= \sum\limits_{\substack{S \subset [d], |S| = k\\ S \cap T_{p_{\eff}(\theta)} = \emptyset}} \Det(\bm{V}_{S,[k]})^{2} \nonumber\\
+    &= e_k(\bm{K}^\pi_{p_{\eff}(\theta)})\\
+    &= \prod_{i \in [k]}\lambda_{i} \nonumber\\
+    &\geq \psi(\hat{\bm{\lambda}}),
+\end{align}
+because the normalization constant $\displaystyle \sum\limits_{S \subset [d], |S| = k} \Det(\bm{V}_{S,[k]})^{2}$ is equal to $1$.
+Lemma~\ref{lemma_k_minus_half} concludes the proof since
+\begin{equation}
+	\psi(\hat{\bm{\lambda}}) \geq \frac{1}{\theta}.
+\end{equation}
+
+
+%%%%%%%%%%%%%%   Proof of Proposition  23  %%%%%%%%%%%%%%%%%%%%%%
+\subsection{Proof of Proposition~\ref{prop:relaxed_sparsity_prediction_under_dpp}}
+First, Proposition~\ref{prop:sparse_regression_bound} gives
+\begin{equation}
+    	\mathcal{E}(\bm{w}_{S})  \leq \frac{(1+\max\limits_{i \in [k]} \tan^{2}\theta_{i}(S))	\|\bm{w}^{*}\|^{2}\sigma_{k+1}^{2}}{N} + \frac{k}{N}\nu.
+\end{equation}
+Now \eqref{eq:trace_tan_relationship} further gives
+\begin{equation}
+	\max\limits_{i \in [k]} \tan^{2}\theta_{i}(S) \leq \sum\limits_{i \in [k]} \tan^{2}\theta_{i}(S) = \Tr(\bm{Z}_{S}^{}\bm{Z}_{S}	^{\Tran}).
+\end{equation}
+The proof now follows the same lines as for the approximation bounds. First, following the lines of Section~\ref{s:proofOfExactSparsitySetting}, we straightforwardly bound
+\begin{equation}
+	\EX_{\DPP} \sum\limits_{i \in [k]} \tan^{2}(\theta_{i}(S)) = \sum\limits_{S \subset [d], |S| = k} \quad \prod\limits_{i \in 	[k]} 	\cos^{2}(\theta_{i}(S)) \sum_{j \in [k]}\tan^{2}(\theta_{j}(S))
+\end{equation}
+and obtain \eqref{eq:prediction_bound_dpp}. In a similar vein, the same lines as in  Section~\ref{s:proofOfEffectiveSparsitySetting} allow bounding
+\begin{equation}
+	\EX_{\DPP} \bigg[ \sum\limits_{i \in [k]}  \tan^{2}(\theta_{i}(S)) \: | \: S \cap T_{p_{\eff}} = \emptyset \bigg] = 			\sum\limits_{\substack{S \subset [d],|S| = k\\  S \cap T_{p_{\eff}(\theta)} = \emptyset}} \quad \prod\limits_{i \in [k]} 	\cos^{2}	(\theta_{i}(S)) \sum_{j \in [k]}\tan^{2}(\theta_{j}(S).
+\end{equation}
+and yield \eqref{eq:prediction_bound_dpp2}.
+
+% \section{Probabilistic bounds}
+% \subsection{Proof of Corollary~\ref{cor:proba_bound_effective_sparse_dpp}}
+% <<<<<<< HEAD
+
+% =======
+% We give the proof for the spectral norm. The proof is similar for the Frobenius norm.\\
+% Let $\mathcal{A}_\theta$ be the event $\{S \cap T_{p_{\eff}(\theta)} = \emptyset\}$. Recall that by Theorem~\ref{prop:p_eff_proposition},
+% \begin{equation}\label{eq:recall_spectral_bound}
+% \EX_{\DPP} \left[ \| \bm{X} - \Pi_{S}^{2}\bm{X} \|_{2}^{2} \, \big| \, \mathcal{A}_\theta \right] \leq \left(p_{\eff}(\theta)-k+1)(k-1+\theta \right)\| \bm{X} - \Pi_{k}\bm{X} \|_{2}^{2},
+% \end{equation}
+% and
+% \begin{equation}\label{eq:recall_rejection_bound}
+% \Prb_{\DPP}\left( \mathcal{A}_\theta\right) \geq \frac{1}{\theta}.
+% \end{equation}
+% Now, by Markov inequality,
+% %for $\lambda \geq \left(p_{\eff}(\theta)-k+1)(k-1+\theta \right)$,
+%     \begin{equation}
+%     \Prb_{\DPP} \bigg( \| \bm{X} - \Pi_{S}^{2}\bm{X} \|_{2}^{2} \,   \geq  \lambda \| \bm{X} - \Pi_{k}\bm{X} \|_{2}^{2} \, \big| \mathcal{A}_\theta \bigg) \leq \frac{\left(p_{\eff}(\theta)-k+1)(k-1+\theta \right)}{\lambda}.
+%     \end{equation}
+% Thus,
+%     \begin{equation}\label{eq:prob_spectral_bound_after_markov}
+%     \Prb_{\DPP} \bigg( \| \bm{X} - \Pi_{S}^{2}\bm{X} \|_{2}^{2} \,   \leq  \lambda \| \bm{X} - \Pi_{k}\bm{X} \|_{2}^{2} \, \big| \mathcal{A}_\theta \bigg) \geq 1-\frac{\left(p_{\eff}(\theta)-k+1)(k-1+\theta \right)}{\lambda}.
+%     \end{equation}
+% Combining \eqref{eq:recall_rejection_bound} and \eqref{eq:prob_spectral_bound_after_markov} yield
+% \begin{align}
+% \Prb_{\DPP} \bigg( \{\| \bm{X} - \Pi_{S}^{2}\bm{X} \|_{2}^{2}  \leq  \lambda \| \bm{X} - \Pi_{k}\bm{X} \|_{2}^{2}\} \cap \mathcal{A}_\theta \bigg) & = \Prb_{\DPP} \bigg( \| \bm{X} - \Pi_{S}^{2}\bm{X} \|_{2}^{2} \leq  \lambda \| \bm{X} - \Pi_{k}\bm{X} \|_{2}^{2} \, \big| \mathcal{A}_\theta \bigg) \Prb_{\DPP} \mathcal{A}_\theta\\ \nonumber
+% & \geq \frac{1}{\theta}(1-\frac{\left(p_{\eff}(\theta)-k+1)(k-1+\theta \right)}{\lambda}).
+% \end{align}
+% Thus,
+% \begin{align}
+% \Prb_{\DPP} \bigg( \| \bm{X} - \Pi_{S}^{2}\bm{X} \|_{2}^{2}  \leq  \lambda \| \bm{X} - \Pi_{k}\bm{X} \|_{2}^{2} \bigg) & \geq  \Prb_{\DPP} \bigg( \{\| \bm{X} - \Pi_{S}^{2}\bm{X} \|_{2}^{2}  \leq  \lambda \| \bm{X} - \Pi_{k}\bm{X} \|_{2}^{2}\} \cap \mathcal{A}_\theta \bigg)\\ \nonumber
+% & \geq \frac{1}{\theta}(1-\frac{\left(p_{\eff}(\theta)-k+1)(k-1+\theta \right)}{\lambda}).
+% \end{align}
+% >>>>>>> 7bf744093c23b043d25e992fbdcd3368fc74f1e0
+% %%%%%%%%%%%%%%   Proof of Proposition  ??  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%Second order terms%%%%%%%%%%%%%
+
+% \subsection{Proof of Proposition ??}
+% Recall the inequality~\eqref{eq:inequality_approximation_error_by_EEPP}
+% \begin{equation}
+%   \label{eq:inequality_approximation_error_by_EEPP_2}
+%         \EX_{\DPP} \| \bm{X} - \Pi_{S}^{\Fr}\bm{X} \|_{\Fr}^{2} \leq \|\bm{E}\|_{\Fr}^{2} + \sum_{S \subset [d], |S| = k}   \Det(\bm{V}_{S,[k]})^{2} \Tr(\bm{E}^{\Tran}\bm{E}\bm{P}^{\phantom{\Tran}}_{S}\bm{P}^{\Tran}_{S}).
+% \end{equation}
+% We have
+% \begin{align}
+% \sum_{S \subset [d], |S| = k}   \Det(\bm{V}_{S,[k]})^{2} \Tr(\bm{E}^{\Tran}\bm{E}\bm{P}^{\phantom{\Tran}}_{S}\bm{P}^{\Tran}_{S})  & = \Tr  \left( \bm{E}^{\Tran}\bm{E} \sum_{S \subset [d], |S| = k}   \Det(\bm{V}_{S,[k]})^{2} \bm{P}^{\phantom{\Tran}}_{S}\bm{P}^{\Tran}_{S} \right)\\
+%  & \leq \Tr(\bm{E}^{\Tran}\bm{E}) \|\sum_{S \subset [d], |S| = k}   \Det(\bm{V}_{S,[k]})^{2} \bm{P}^{\phantom{\Tran}}_{S}\bm{P}^{\Tran}_{S}\|_{2}\\
+%  & \leq \|\bm{E}\|_{\Fr}^{2} \|\bm{H}\|_{2},
+% \end{align}
+% where, we note $\bm{H} = \sum\limits_{S \subset [d], |S| = k}   \Det(\bm{V}_{S,[k]})^{2} \bm{P}^{\phantom{\Tran}}_{S}\bm{P}^{\Tran}_{S}$.\\
+% Now, Proposition ?? yields
+% \begin{equation}
+% \| \bm{H}\|_{2} \leq \frac{1}{d-k}\Tr \bm{H} + \frac{1}{\sqrt{d-k}} \sqrt{\Tr \bm{H}^{2}}
+% \end{equation}
+% By ?? we have
+% \begin{equation}
+% \Tr \bm{H} \leq (p-k)k.
+% \end{equation}
+% Now we need to bound the second order term $\Tr \bm{H}^{2}$.\\
+% We have
+% \begin{equation}
+% \Tr \bm{H}^{2} \leq \|\bm{H}\|_{2} \Tr \bm{H}.
+% \end{equation}
+% Then
+% \begin{equation}
+% \| \bm{H}\|_{2} \leq \frac{1}{d-k}\Tr \bm{H} + \frac{1}{\sqrt{d-k}} \sqrt{\|\bm{H}\|_{2}\Tr \bm{H}}.
+% \end{equation}
+% Denote $\displaystyle h = \sqrt{\| \bm{H}\|_{2}}$ and $\displaystyle t = \frac{1}{\sqrt{d-k}} \sqrt{\Tr \bm{H}}$, then $h$ satisfies the quadratic inequality
+% \begin{equation}
+% h^{2} - t h - t^{2} \leq 0,
+% \end{equation}
+% that is equivalent to 
+% \begin{equation}
+% (h-\phi t)(h- \phi^{'}t) \leq 0,
+% \end{equation}
+% where $\displaystyle \phi = \frac{1+\sqrt{5}}{2}$ and $\displaystyle \phi^{'} = \frac{1-\sqrt{5}}{2}$.
+% Therefore, 
+% \begin{equation}
+% h \leq \max (\phi,\phi^{'})t =  \phi t.
+% \end{equation}
+% In other words,
+% \begin{equation}
+% \|\bm{H}\|_{2} \leq \phi^{2}t^{2} = \frac{\phi^{2}}{d-k} \Tr \bm{H}.
+% \end{equation}
+% Thus
+% \begin{equation}
+% \sqrt{\Tr \bm{H}^{2}} \leq \sqrt{\|\bm{H}\|_{2} \Tr \bm{H}} \leq \frac{\phi}{\sqrt{d-k}} \Tr \bm{H} \leq \frac{\phi}{\sqrt{d-k}} (p-k)k.
+% \end{equation}
+% Back to ..., we get
+% \begin{equation}
+% \| \bm{H}\|_{2} \leq \frac{1}{d-k}(p-k)k + \frac{1}{d-k} \phi (p-k)k = (1+\phi)k\frac{p-k}{d-k}.
+% \end{equation}
+% Finally
+% \begin{equation}
+%   \label{eq:inequality_approximation_error_by_EEPP_3}
+%         \EX_{\DPP} \| \bm{X} - \Pi_{S}^{\nu}\bm{X} \|_{\nu}^{2} \leq (1+(1+\phi)k \frac{p-k}{d-k}) \|\bm{E}\|_{\nu}^{2}.
+% \end{equation}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+% \begin{align}
+% \Tr \bm{H}^{2} & =  \sum\limits_{S_{1} \subset [d], |S_{1}| = k}\sum\limits_{S_{2} \subset [d], |S_{2}| = k}   \Det(\bm{V}_{S_{1},[k]})^{2} \Det(\bm{V}_{S_{2},[k]})^{2} \Tr \bm{P}^{\phantom{\Tran}}_{S_{1}}\bm{P}^{\Tran}_{S_{1}}  \bm{P}^{\phantom{\Tran}}_{S_{2}}\bm{P}^{\Tran}_{S_{2}}
+% \end{align}
+
+%\subsection{Lower bounds}
+
+%\ab{}
+%\end{proof}
+
+
+% \paragraph{Derandomization}
+
+% We describe in the following the derandomization of our algorithm that enable the construction of such subsets. This is achieved by applying the method of conditional expectations.\\
+% Let $\Omega$ be a finite set and let $S$ be a random subset of $\Omega$ such that $\Prb(|S| = k) = 1$. Let $f,g: \Omega \longrightarrow \mathbb{R}$ be real valued functions. We suppose there exist a real constant $M$ such that we have
+% \begin{equation}
+%     \EX_{Y \sim S}{g(Y)} \leq M
+% \end{equation}
+% and
+% \begin{equation}
+%  \forall T \subset \Omega \, ,   f(T) \leq g(T)
+% \end{equation}
+% If we can express the conditional expectation
+% \begin{equation}
+%     \EX_{Y \sim S}[g(Y)| i_{1},\dots,i_{t} \in Y]
+% \end{equation}
+% analytically, we construct a subset $\Hat{S}$ as following:
+% \begin{itemize}
+%     \item We pick $\Hat{i}_{1} \in \argmin\limits_{i_{1}} \EX_{Y \sim S}[g(Y)| i_{1} \in Y] $
+%     \item For $t = 2 \dots k$, we pick $\Hat{i}_{t} \in \argmin\limits_{\Hat{i}_{t}}\EX_{Y \sim S}[g(Y)| \Hat{i}_{1} \dots \Hat{i}_{t-1}, \Hat{i}_{t}\in Y]$
+% \end{itemize}
+% We put $\Hat{S} = \{\Hat{i}_{1},...,\Hat{i}_{k} \}$, and for $t \in [k]$ we denote $\Hat{S}_{t} = \{\Hat{i}_{1},...,\Hat{i}_{t} \}$. By the fact that
+% \begin{equation}
+%     \EX_{Y \sim S}[g(Y)| \Hat{S}_{t-1} \subset Y ] = \sum_{i_{t}} \mathbb{P}(i_{t}\in Y| \Hat{S}_{t-1} \subset Y) \EX_{Y \sim S}[{g(Y)| \Hat{S}_{t-1}\cup \{i_{t}\} \subset Y}] \geq \EX_{Y \sim S}[g(Y)| \Hat{S}_{t} \subset Y ]
+% \end{equation}
+% We have
+% \begin{align*}
+%         f(\Hat{S}) = f(\Hat{S}_{k}) &\leq g(\Hat{S}_{k})\\
+%         &= \EX_{Y \sim S}[g(Y)| \Hat{S}_{k} \subset Y]\\
+%         & \leq \EX_{Y \sim S}[g(Y)| \Hat{S}_{k-1} \subset Y]\\
+%         & \leq \EX_{Y \sim S}[g(Y)| \Hat{S}_{k-2} \subset Y]\\
+%         & \leq \dots\\
+%         & \leq \EX_{Y \sim S}[g(Y)]\\
+%         & \leq M
+% \end{align*}
+% In the case of our algorithm we use the following functions:
+
+% \begin{equation}
+% f(S) = \|\bm{X} - \bm{\Pi}_{\bm{C}}\bm{X} \|_{\Fr}^{2}
+% \end{equation}
+
+% \begin{equation}
+% g(S) = \Tr(\Sigma(\bm{V}_{[k],:}^{\Tran}S)^{-2})
+% \end{equation}
+% Thus, to achieve the derandomization of our algorithm we need to evaluate a quantity of the form
+% \begin{equation}
+% \EX_{\DPP}\left[ g(S) | I_{t} \subset S \right] = \frac{1}{\Det(\bm{K}_{S,S})} \sum_{\substack{S \subset [d],|S| = k\\  I_{t} \subset S }}e_{k-1}(\Sigma(\bm{V}_{[k],:}^{\Tran}S)^{2})
+% \end{equation}
+% for a given $I_{t} = \{i_{1},i_{2},\dots,i_{t}\}$.
+% % \begin{lemma}\label{projection_dpp_derandomization_lemma}
+% % %We note $\bm{V}_{:,[k]}$ the first $k$ columns of $\bm{V}$.
+% % Let $S$ be a DPP with marginal kernel $\bm{K} = \bm{V}_{:,[k]}^{}\bm{V}_{:,[k]}^{\Tran}$. We put $I_{t} = \{i_{1},i_{2},\dots,i_{t}\}$ where $i_{1},i_{2},\dots,i_{t} \in [d]$.
+% % We have
+% % \begin{equation}
+% % \EX_{S \sim DPP(\bm{K})}( \Tr(\bm{E}\bm{E}^{\Tran}\bm{P}_{S}\bm{P}_{S}^{\Tran})| I_{t} \subset S ) = \frac{1}{\Det(\bm{K}_{S,S})} \sum_{\substack{S \subset [d],|S| = k\\  I_{t} \subset S }}e_{k-1}(\Sigma(\bm{V}_{S,[k]})^{2}) \| \bm{X}-\Pi_{k}\bm{X}\|_{\Fr}^{2}
+% % \end{equation}
+% % Where $\Sigma(\bm{V}_{S,[k]})$ is the spectrum of the matrix  $\bm{V}_{S,[k]}$
+% % \end{lemma}
+% For convenience we denote $\bm{W} = \bm{V}^{\Tran}_{[k],:} \in \mathbb{R}^{k \times d}$
+
+% \begin{proposition}\label{marginal_symmetric_polynomials}
+% We have
+% \begin{equation}
+%  \sum_{\substack{S \subset [d],|S| = k\\  I_{t} \subset S}} e_{k-1}(\Lambda(\bm{W}_{:,S})^{2}) = \left\{
+%     \begin{array}{ll}
+%         (d-k+1)e_{|I_{t}|}(\Lambda(\bm{W}_{:,I_{t}})^{2})e_{k-|I_{t}|-1}(\Lambda(\bm{Y}_{:,I_{t}})^{2})\\ + \sum\limits_{i \in I_{t}} e_{|I_{t}|-1}(\Lambda(\bm{W}_{:,I_{t}\setminus \{i\}})^{2})e_{k-|I_{t}|}(\Lambda(\bm{Y}^{i}_{I_{t}})^{2}) & \mbox{if } |I_{t}| < k-1 \\
+%         e_{k-1}(\Lambda(\bm{W}_{:,I_{t}})^{2}) & \mbox{otherwise}
+%     \end{array}
+% \right.
+% \end{equation}
+
+% where $\bm{Y}_{I_{t}} = \bm{W}-\bm{\Pi}_{\bm{W}_{:,I_{t}}}(\bm{W})$ and $\bm{Y}^{i}_{I_{t}}$ is the matrix obtained by vanishing the $i$-th column of $\bm{Y}_{I_{t}}$.
+
+% \end{proposition}
+% In practice, the derandomization of our algorithm requires the calculation of eigenvalues of the matrices $\bm{W}_{:,I_{t}}\bm{W}_{:,I_{t}}^{\Tran}$, $\bm{Y}_{I_{t}}\bm{Y}_{I_{t}}^{\Tran}$ and $\bm{Y}^{i}_{I_{t}}\bm{Y}^{i \Tran}_{I_{t}}$ at every iteration. This can be done in $\mathcal{O}(dk)$ to calculate the projections $\bm{Y}_{I_{t}}$ and $\bm{Y}^{i}_{I_{t}}$, $\mathcal{O}(dk)$ to calculate $\bm{W}_{:,I_{t}}\bm{W}_{:,I_{t}}^{\Tran}$, $\bm{Y}_{I_{t}}\bm{Y}_{I_{t}}^{\Tran}$ and $\bm{Y}^{i}_{I_{t}}\bm{Y}^{i \Tran}_{I_{t}}$ and $\mathcal{O}(k^{3})$ operations for the diagonalization.
+
+
+
+% \begin{proof}[Lemma \ref{marginal_symmetric_polynomials}]
+
+% We note
+% \begin{equation}
+% \Psi(A) = \sum_{\substack{S \subset [d],|S| = k\\  A \subset S}} e_{k-1}(\Lambda(\bm{X}_{.,S})^{2})
+% \end{equation}
+
+% If $|A| = k$, the only $S \subset [d]$ such that $|S| = k$ and $A \subset S$ is $A$. Then $\Psi(A) = e_{k-1}(\Lambda(\bm{X}_{.,A})^{2})$\\
+
+% Now, if $|A| < k$, we have:
+
+% \begin{align*}
+%  \sum_{\substack{S \subset [d],|S| = k\\  A \subset S}} e_{k-1}(\Lambda(\bm{X}_{.,S})^{2}) & = \sum_{\substack{S \subset [d],|S| = k\\  A \subset S}} \sum_{T \subset S, |T| = k-1} \Det(\bm{X}_{.,T})^{2}\\
+%  & = \sum_{\substack{S \subset [d],|S| = k\\  A \subset S}}( \sum_{\substack{T \subset S, |T| = k-1\\ A \subset T}} \Det(\bm{X}_{.,T})^{2} + \sum_{\substack{T \subset S, |T| = k-1\\ A \not\subset T}} \Det(\bm{X}_{.,T})^{2})
+% \end{align*}
+% Now we have:
+% \begin{align*}
+% \sum_{\substack{S \subset [d],|S| = k\\  A \subset S}} \sum_{\substack{T \subset S, |T| = k-1\\ A \subset T}} \Det(\bm{X}_{.,T})^{2}
+%  &= (d-k+1) \sum_{\substack{T \subset [d],|T| = k-1\\  A \subset T}}   \Det(\bm{X}_{.,T})^{2}\\
+%  &=  (d-k+1) \Det(\bm{X}_{.,T})^{2}) \sum_{\substack{T \subset [d],|T| = k-1\\  A \subset T}}   \Det(\bm{X}_{.,T})^{2}
+% \end{align*}
+% We denote for $k \in A$, $A_{k} = A \setminus k$. For a fixed $S \subset [d]$, such that $|S| = k$ and $A \subset S$, we have
+% \begin{equation}
+%  \sum_{k \in A}\sum_{\substack{T \subset S \cap \bar{k}\\ |T| = k-1 \\ A_{k} \subset T}} \Det(\bm{X}_{.,T})^{2}
+%  = (k-|A|) \sum_{\substack{T \subset S,|T| = k-1\\  A \not\subset T}}   \Det(\bm{X}_{.,T})^{2}
+% \end{equation}
+% Therefore
+
+% \begin{align*}
+% \sum_{\substack{S \subset [d],|S| = k\\  A \subset S}} \sum_{\substack{T \subset S, |T| = k-1\\ A \not\subset T}} \Det(\bm{X}_{.,T})^{2}
+%  &=  \frac{1}{k-|A|} \sum_{\substack{S \subset [d],|S| = k\\  A \subset S}} \sum_{k \in A}\sum_{\substack{T \subset S,\\ |T| = k-1, T \subset \bar{k}\\ A_{k} \subset T}} \Det(\bm{X}_{.,T})^{2}\\
+%  &=  \frac{1}{k-|A|} \sum_{k \in A} \sum_{\substack{S \subset [d],|S| = k\\  A \subset S}} \sum_{\substack{T \subset S,\\ |T| = k-1, T \subset \bar{k}\\ A_{k} \subset T}} \Det(\bm{X}_{.,T})^{2}\\
+%  &=  \frac{1}{k-|A|} \sum_{k \in A} \sum_{\substack{T \subset \bar{k},|T| = k-1\\  A_{k} \subset T}}  \Det(\bm{X}_{.,T})^{2}\\
+% \end{align*}
+
+% \begin{align*}
+%  \sum_{\substack{S \subset [d],|S| = k\\  A \subset S}} \sum_{\substack{T \subset S, |T| = k-1\\ A \not\subset T}} \Det(\bm{X}_{.,T})^{2}
+%  &= (d-k+1) \sum_{\substack{T \subset [d],|T| = k-1\\  A \subset T}}   \Det(\bm{X}_{.,T})^{2}\\
+%  &=  (d-k+1) \Det(\bm{X}_{.,T})^{2}) \sum_{\substack{T \subset [d],|T| = k-1\\  A \subset T}}   \Det(\bm{X}_{.,T})^{2}
+% \end{align*}
+% \end{proof}
+
+
 \section{Generating orthogonal matrices with prescribed leverage scores}
 \label{app:framebuilding}
 
@@ -5628,7 +6503,38 @@ The term $2 \sigma_{N+1}$ converges to $0$ when $N$ goes to $+\infty$ and we sha
 
 
 To upper bound the right-hand side of \eqref{eq:interpolation_at_eigenfunctions_equivalent_expression}, we note that $\sigma_{n} \|e_{n}^{\F} - \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{n}^{\F}\|_{\mathcal{F}}^{2}$ is the product of two terms: $\sigma_{n}$ is a decreasing function of $n$ while $\|e_{n}^{\F} - \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{n}^{\F}\|_{\mathcal{F}}^{2}$ is the interpolation error of the eigenfunction $e_{n}^{\mathcal{F}}$, measured in the $\|.\|_{\mathcal{F}}$ norm.
-We can bound the latter interpolation error uniformly in $n\in [N]$ using the largest principal angle between $\mathcal{T}(\bm{x})$ and $\mathcal{E}^{\mathcal{F}}_{N} = \Span(e_{n}^{\mathcal{F}})_{ n \in [N]}$; see Section?? in Chapter~\ref{chapter:cssp} for details on principal angles between subspaces. In particular, remember that the maximal principal angle is defined through its cosine
+We can bound the latter interpolation error uniformly in $n\in [N]$ using the largest principal angle between $\mathcal{T}(\bm{x})$ and $\mathcal{E}^{\mathcal{F}}_{N} = \Span(e_{n}^{\mathcal{F}})_{ n \in [N]}$; see Section?? in Chapter~\ref{chapter:cssp} for details on principal angles between subspaces. 
+
+\begin{theorem}\label{prop:cos_between_subspaces}
+Let $\mathcal{H}$ be a Hilbert space. Let $\mathcal{P}_{1}$ and $\mathcal{P}_{2}$ be two finite-dimensional subspaces of $\mathcal{H}$ with $N = \dim \mathcal{P}_{1} = \dim \mathcal{P}_{2}$. Denote $\bm{\Pi}_{\mathcal{P}_{1}}$ and $\bm{\Pi}_{\mathcal{P}_{2}}$ the orthogonal projections of $\mathcal{H}$ onto these two subspaces. There exist two orthonormal bases for $\mathcal{P}_{1}$ and $\mathcal{P}_{2}$ denoted $(\bm{v}_{i}^{1})_{i \in [N]}$ and $(\bm{v}_{i}^{2})_{i \in [N]}$, and a set of angles $\theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2}) \in [0,\frac{\pi}{2}]$ such that
+\begin{equation}
+\cos \theta_{N}(\mathcal{P}_{1},\mathcal{P}_{2}) \leq \dots \leq \cos \theta_{1}(\mathcal{P}_{1},\mathcal{P}_{2}) ,
+\end{equation}
+
+%%%%%%%%%%%
+and for $i \in [1,...,N]$
+\begin{equation}
+\langle \bm{v}_{i}^{1}, \bm{v}_{i}^{2} \rangle_{\mathcal{H}} = \cos \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2}),
+\end{equation}
+and
+\begin{equation}\label{eq:principal_vectors_projection_relationship}
+ \bm{\Pi}_{\mathcal{P}_{1}}\bm{v}_{i}^{2} = \cos \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2}) \bm{v}_{i}^{1},
+\end{equation}
+and
+\begin{equation}
+ \bm{\Pi}_{\mathcal{P}_{2}}\bm{v}_{i}^{1} = \cos \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2}) \bm{v}_{i}^{2}.
+\end{equation}
+In particular
+\begin{equation}\label{eq:costhetaN}
+\cos \theta_{N}(\mathcal{P}_{1},\mathcal{P}_{2}) = \inf\limits_{\bm{v} \in \mathcal{P}_{1},\|\bm{v}\|_{\mathcal{H}} = 1} \|\bm{\Pi}_{\mathcal{P}_{2}}\bm{v}\|_{\mathcal{H}}.
+\end{equation}
+\end{theorem}
+
+
+
+
+
+In particular, remember that the maximal principal angle is defined through its cosine
 \begin{equation}
 	\cos^{2} \theta_{N}(\mathcal{T}(\bm{x}),\mathcal{E}^{\mathcal{F}}_{N}) = \inf\limits_{\substack{\bm{u} \in \mathcal{T}(\bm{x}), \bm{v} \in \mathcal{E}^{\mathcal{F}}_{N}\\ \|u\|_{\mathcal{F}} = 1, \|v\|_{\mathcal{F}} = 1}} \langle \bm{u}, \bm{v} \rangle_{\mathcal{F}}.
 \end{equation}
@@ -6324,7 +7230,7 @@ Combining \eqref{eq:prod_cos_det_E}, \eqref{eq:AN_times_EN} and \eqref{eq:det_AN
 \subsection{A borrowed result: leverage score changes under rank 1 updates} \label{subsec:lv_score_updates}
 
 
-\subsubsection{}
+%\subsubsection{}
 In this section we prove a lemma inspired from Lemma 5 in \cite{Coh15}. This lemma concerns the changes of leverage scores under rank 1 updates.
 
 We start by recalling the definition of leverage scores, which play an important role in randomized linear algebra \citep{DrMaMu06}. Let $N,M \in \mathbb{N}^{*}$, $M \geq N$. Let $\bm{A} \in \mathbb{R}^{N \times M}$ be a matrix of full rank.
@@ -8462,6 +9368,8 @@ Second, while the eigen-decomposition of the integration operator plays an impor
 In the context of interpolation, \citep{KaSaTa19} propose to use approximate Fekete points. In comparison, our analysis yields a sharper upper bound while circumventing the analysis of the Lebesgue constant, a central quantity in interpolation theory. Yet, it would be interesting to analyze the distribution of the Lebesgue constant under continuous volume sampling, to provide an assessment of the numerical stability of our approach. A related extension of our work would be the analysis of interpolation under regularization as in \citep{Bac17}.
 Finally, while optimal kernel quadrature may be the main application of our results, Section~\ref{CVS_sec:main_theorems_2} hints that more generic elements than embeddings can also be well approximated using VS. This connects to kernel quadrature in misspecified settings \citep{KaSrFu16}, or experimental design problems for Gaussian process approximations \citep{WyBrGi20}.
 }
+
+
 
 
 \clearpage
