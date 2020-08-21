@@ -657,7 +657,14 @@ topology induced by $d$ is equal to $\mathcal{T}$ and $(\mathcal{D},d)$ is a \em
 metric space; see Theorem 5.3 in \citep{Kec95}.
 % First, we assume that $(\mathcal{D},d)$ is a metric space for some metric $d$. 
 \begin{example}
-discrete sets endowed by the discrete metric, subsets of $\mathbb{R}^{d}$ with the Euclidean distance, manifolds ...????
+We recall some examples of a Polish space.
+\begin{itemize}
+\item A countable set with the discrete topology is a Polish space, 
+\item The sets $\mathbb{R}^{d}, \mathbb{C}^{d}$ with $d \in \mathbb{N}^{*}$ with the respective usual topologies are Polish spaces,
+\item A closed subspace of a Polish space is a Polish space; see Proposition 3.3 in \citep{Kec95}.
+\item Manifolds ???
+\end{itemize}
+% discrete sets endowed by the discrete metric, subsets of $\mathbb{R}^{d}$ with the Euclidean distance, manifolds ...????
 \end{example}
 
 Define $\mathcal{B}$ to be the Borel $\sigma$-algebra: the smallest $\sigma$-algebra in $\mathcal{D}$ that contains all open subsets of $\mathcal{D}$. Its elements are called Borel sets. A measure $\mu$ is a function from $\mathcal{B}$ to $\mathbb{R}_{+} \cup \{\infty \}$ that is \emph{non-negative}, $\sigma$-\emph{additive} and vanishes at the empty set. A locally finite measure is a measure $\mu$ on $(\mathcal{D},\mathcal{B})$ such that for every compact set $C$ of $\mathcal{D}$
@@ -732,7 +739,28 @@ $$
 \right.
 $$
 
-In this case, $\mu \in \mathbf{N}_s(\mathcal{D})$ if and only if the $x_{n}$ are pairwise distinct; and $\mu$ can be identified to a the subset $\{x_{1}, \dots, x_{N}\}$. In particular, we use the notation $x \in \mu$ to express that $\mu (\{x\}) =1$. Otherwise, $\mu$ can be seen as as a discrete subset of $\mathcal{D}$ with multiplicities.
+In this case, $\mu \in \mathbf{N}_s(\mathcal{D})$ if and only if the $x_{n}$ are pairwise distinct; and $\mu$ can be identified to a the subset $\{x_{1}, \dots, x_{N}\}$. In particular, we will several notations that express this identification as summarized in Table~\ref{table:set_counting_measure_dictionary}.
+\begin{table}
+\centering
+ \begin{tabular}{| c| c|}
+ \hline
+  $\gamma$ as a subset & $\gamma$ as a counting measure\\
+ \hline
+ $x \in \gamma$ & $\gamma(\{x\}) = 1$\\
+ \hline
+ $\{ x_1, \dots, x_{N} \} \subset \gamma$ & $\gamma(\{ x_1, \dots, x_{N} \}) = N$\\
+ \hline
+  $|\gamma| = M$ & $\gamma(\mathcal{D}) = M$\\
+\hline
+  $\gamma \cap C = \emptyset$ & $\gamma(C) = 0$\\
+ \hline
+  $|\gamma \cap C| = M$ & $\gamma(C) = M$\\
+ \hline
+\end{tabular}
+\caption{A dictionary of notations.\label{table:set_counting_measure_dictionary}}
+\end{table}
+% use the notation $x \in \mu$ to express that $\mu (\{x\}) =1$. 
+Otherwise, $\mu$ can be seen as as a discrete subset of $\mathcal{D}$ with multiplicities.
 % Discrete subsets of $\Omega$ can be identified to simple counting measures by considering the corresponding atomic measures. Thereby, general counting measures can be seen as discrete subsets with multiplicities. 
 % In this manuscript, we will be mostly interested in simple counting measures; even tough we give ...
 
@@ -752,16 +780,16 @@ A random measure $\gamma$ on $\mathcal{D}$ is a measurable map from some probabi
 % on $\Omega$ that takes values on $\mathbb{N}$ a.s.
 \end{definition}
 
-Any random measure $\gamma$ on $\Omega$ defines a stochastic process with values in $\mathbb{R}_{+}$ indexed by $\mathcal{B}$: $\{\gamma(B)\}_{B \in \mathcal{B}}$; see Proposition  1.1.7. in \citep*{BaBlKa20}.
+Any random measure $\gamma$ on $\mathcal{D}$ defines a stochastic process with values in $\mathbb{R}_{+}$ indexed by $\mathcal{B}$: $\{\gamma(B)\}_{B \in \mathcal{B}}$; see Proposition  1.1.7. in \citep*{BaBlKa20}.
 
 \begin{definition}
-A point process $\gamma$ on $\Omega$ is a random measure on $\Omega$ such that
+A point process $\gamma$ on $\mathcal{D}$ is a random measure on $\mathcal{D}$ such that
 \begin{equation}
-\mathbb{P}_{\gamma} \big(\mathbf{N} (\Omega ) \big) = 1.
+\mathbb{P}_{\gamma} \big(\mathbf{N} (\mathcal{D}) \big) = 1.
 \end{equation}
 The point process $\gamma$ is said to be a simple if 
 \begin{equation}
-\mathbb{P}_{\gamma}\big(\mathbf{N}_{s}(\Omega)\big) = 1.
+\mathbb{P}_{\gamma}\big(\mathbf{N}_{s}(\mathcal{D})\big) = 1.
 \end{equation}
 % that is $\gamma$ takes values in $\{0,1\}$.
 % positive Radon measure
@@ -770,12 +798,12 @@ The point process $\gamma$ is said to be a simple if
 \end{definition}
 
 %\begin{example}
-We give in the following an example of a point process defined on $\Omega$. Let $\mu$ be a probability measure on $\Omega$ and let $\nu$ be a probability measure on $\mathbb{N}$. Let $x_{0}, x_{1} \dots, $ be independent random variables that follow the distribution $\mu$ and $N$ a random variable that follows the distribution $\nu$.
+We give in the following an example of a point process defined on $\mathcal{D}$. Let $\mu$ be a probability measure on $\mathcal{D}$ and let $\nu$ be a probability measure on $\mathbb{N}$. Let $x_{0}, x_{1} \dots, $ be independent random variables that follow the distribution $\mu$ and $N$ a random variable that follows the distribution $\nu$.
 Then the random measure $\gamma$ defined by
 \begin{equation}
 \gamma = \sum\limits_{n \in [N]} \delta_{x_{n}},
 \end{equation}
-is a point process on $\Omega$. This process is called the \emph{mixed binomial process} with mixing distribution $\nu$ and sampling distribution $\mu$.
+is a point process on $\mathcal{D}$. This point process is called the \emph{mixed binomial process} with mixing distribution $\nu$ and sampling distribution $\mu$.
 
 Now, if  $\nu = \delta_{N_0}$ for some $N_0 \in \mathbb{N}^{*}$, we recover the binomial process defined by
 \begin{equation}\label{eq:binomial_cylinder_prb}
@@ -1091,11 +1119,11 @@ The identity~\eqref{eq:ppp_orthogonality} reflects the independence of the rando
 
 \section{Determinantal point processes}\label{sec:dpp_defs}
 
-We give now the definition of a DPP. First, consider a measurable function $\kappa: \Omega \times \Omega \rightarrow \mathbb{C}$.
+We give now the definition of a DPP. First, consider a measurable function $\kappa: \mathcal{D} \times \mathcal{D} \rightarrow \mathbb{C}$.
 \begin{definition}
-Let $\gamma$ be a simple point process on $\Omega$. $\gamma$ is said to be a determinantal point process with kernel $\kappa$ and reference measure $\mathrm{d}\omega$ if the joint intensities $\rho_L$ with respect to the measure $\mathrm{d}\omega$ are well defined for $L \in \mathbb{N}^{*}$ and satisfy
+Let $\gamma$ be a simple point process on $\mathcal{D}$. $\gamma$ is said to be a determinantal point process with kernel $\kappa$ and reference measure $\mathrm{d}\omega$ if the joint intensities $\rho_L$ with respect to the measure $\mathrm{d}\omega$ are well defined for $L \in \mathbb{N}^{*}$ and satisfy
 \begin{equation}\label{eq:correlation_functions_dpp_def}
-\forall x_{1}, \dots, x_{L} \in \Omega, \:\: \rho_{L}(x_{1}, \dots, x_{L}) = \Det \bm{\kappa}\big( x_{1}, \dots, x_{L} \big),
+\forall x_{1}, \dots, x_{L} \in \mathcal{D}, \:\: \rho_{L}(x_{1}, \dots, x_{L}) = \Det \bm{\kappa}\big( x_{1}, \dots, x_{L} \big),
 \end{equation}
 where $\bm{\kappa}\big( x_{1}, \dots, x_{L} \big) = (\kappa(x_{\ell},x_{\ell^{'}}))_{\ell,\ell^{'} \in [L]} \in \mathbb{C}^{N \times N}$.
 
@@ -1111,15 +1139,15 @@ The constraint \eqref{eq:positivitiy_of_dets_condition} is satisfied whenever $\
 \end{equation}
 and positive
 \begin{equation}\label{eq:positivity_condition_kappa}
-\forall a_{1}, \dots, a_{L} \in \mathbb{C}, \:\: \sum\limits_{\ell,\ell^{'} \in [L]} a_{\ell}\overline{a_{\ell'}} \kappa(x_{\ell},x_{\ell^{'}}) \geq 0.
+\forall L \in \mathbb{N}^{*}, \:\:\forall a_{1}, \dots, a_{L} \in \mathbb{C}, \:\:\forall x_{1}, \dots, x_{L} \in \mathcal{D}, \:\: \sum\limits_{\ell,\ell^{'} \in [L]} a_{\ell}\overline{a_{\ell'}} \kappa(x_{\ell},x_{\ell^{'}}) \geq 0.
 \end{equation} 
 
 
 
 The conditions \eqref{eq:hermitian_condition_kappa} and \eqref{eq:positivity_condition_kappa} are still not enough to guarantee the existence of a simple point process that satisfies~\eqref{eq:correlation_functions_dpp_def}. 
- We make a further assumption: $\kappa$ is square integrable on $\Omega^{2}$, that is 
+ We make a further assumption: $\kappa$ is square integrable on $\mathcal{D}^{2}$, that is 
 \begin{equation}\label{eq:integrability_condition_kappa}
-\int_{\Omega^{2}} |\kappa(x,y)|^{2} \mathrm{d}\omega(x) \mathrm{d}\omega(y) < +\infty,
+\int_{\mathcal{D}^{2}} |\kappa(x,y)|^{2} \mathrm{d}\omega(x) \mathrm{d}\omega(y) < +\infty,
 \end{equation}
 so that we can define the corresponding integration operator with respect to $\mathrm{d}\omega$
 
@@ -1131,10 +1159,10 @@ so that we can define the corresponding integration operator with respect to $\m
 
 \begin{align}
   \bm{\Sigma}_{\kappa} : \mathbb{L}_{2}(\mathrm{d}\omega) & \rightarrow \mathbb{L}_{2}(\mathrm{d}\omega) \nonumber \\
-  g & \mapsto \int_{\Omega}g(.) k(.,y) \mathrm{d}\omega(y). \nonumber
+  g & \mapsto \int_{\mathcal{D}}g(.) \kappa(.,y) \mathrm{d}\omega(y). \nonumber
 \end{align}
 
-Now the condition \eqref{eq:hermitian_condition_kappa} implies that $\bm{\Sigma}_{\kappa}$ is a self-adjoint operator on $\mathbb{L}_{2}(\mathrm{d}\omega)$; the condition \eqref{eq:positivity_condition_kappa} implies that $\bm{\Sigma}_{\kappa}$ is non-negative definite; and \eqref{eq:integrability_condition_kappa} implies that $\bm{\Sigma}_{\kappa}$ is a compact operator [??]. Therefore, by the the spectral theorem for compact self-adjoint operators [??], $\mathbb{L}(\mathrm{d}\omega)$ has an orthonormal basis $(v_{n})_{n \in \mathbb{N}^{*}}$ of eigenfunctions of $\bm{\Sigma}_{\kappa}$, the corresponding eigenvalues $\sigma_n$ are non-negative, have finite multiplicities and $0$ is the only possible accumulation point of the spectrum. Furthermore, $\bm{\Sigma}_{\kappa}$ is said to be of \emph{trace class} if
+Now the condition \eqref{eq:hermitian_condition_kappa} implies that $\bm{\Sigma}_{\kappa}$ is a self-adjoint operator on $\mathbb{L}_{2}(\mathrm{d}\omega)$; the condition \eqref{eq:positivity_condition_kappa} implies that $\bm{\Sigma}_{\kappa}$ is non-negative definite; and \eqref{eq:integrability_condition_kappa} implies that $\bm{\Sigma}_{\kappa}$ is a compact operator [??]. Therefore, by the the spectral theorem for compact self-adjoint operators [??], $\mathbb{L}_{2}(\mathrm{d}\omega)$ have an orthonormal basis $(v_{n})_{n \in \mathbb{N}^{*}}$ of eigenfunctions of $\bm{\Sigma}_{\kappa}$, the corresponding eigenvalues $\sigma_n$ are non-negative, have finite multiplicities and $0$ is the only possible accumulation point of the spectrum. Furthermore, $\bm{\Sigma}_{\kappa}$ is said to be of \emph{trace class} if
 
 \begin{equation}\label{eq:traceclass_condition_kappa}
 \sum\limits_{n \in \mathbb{N}^{*}} \sigma_n <+\infty.
@@ -1162,7 +1190,7 @@ Let $v_{1}, \dots, v_{M} \in \mathbb{L}_{2}(\mathrm{d}\omega)$, such that $(v_{m
 \end{equation} 
 Let $\gamma$ be the DPP associated to the kernel $\kappa$ and reference measure $\mathrm{d}\omega$, then 
 \begin{equation}
-\gamma(\Omega) = M \:\: \text{a.s.}
+\gamma(\mathcal{D}) = M \:\: \text{a.s.}
 \end{equation}
 
 
@@ -1173,27 +1201,33 @@ These DPPs are important in the characterization of DPPs that satisfy the condit
 
 
 \begin{theorem}\label{thm:mixture_of_projection_DPPs}
-Let $\kappa$ be a kernel satisfying the usual conditions \eqref{eq:hermitian_condition_kappa}, \eqref{eq:positivity_condition_kappa}, \eqref{eq:integrability_condition_kappa} and \eqref{eq:traceclass_condition_kappa}; and assume that the spectrum of $\bm{\Sigma}_{\kappa}$ is included in $[0,1]$, and denote $(\sigma_{m},v_{m})$ its eigenpairs.
+Let $\kappa$ be a kernel satisfying the conditions \eqref{eq:hermitian_condition_kappa}, \eqref{eq:positivity_condition_kappa}, \eqref{eq:integrability_condition_kappa} and \eqref{eq:traceclass_condition_kappa}; and assume that the spectrum of $\bm{\Sigma}_{\kappa}$ is included in $[0,1]$, and denote $(\sigma_{m},v_{m})$ its eigenpairs.
 
  % $\kappa$ is  the usual assumptions ??, ??, and ??. Define $(\sigma_{m},v_{m})$ the eigenpairs of the integration operator  with $\sigma_{m} \in [0,1]$.
 
-Let $\gamma$ be the point process defined as follows. Consider the random variables $I_{1},I_{2}, \dots $ to be independent random variables such that for every $m \in \mathbb{N}^{*}$, $I_{m}$ is a Bernoulli variable of parameter $\sigma_m$; and let $\gamma_{I}$ be the projection DPP associated to the kernel
+Let $\gamma$ be the random measure defined as follows. Let $I_{1},I_{2}, \dots $ be independent random variables such that for every $m \in \mathbb{N}^{*}$, $I_{m}$ is a Bernoulli variable of parameter $\sigma_m$; and let $\gamma$ be a random counting measure that follows the distribution of the projection DPP associated to the kernel and the reference measure $\mathrm{d}\omega$
 \begin{equation}
 \kappa_{I}(x,y) = \sum\limits_{m \in \mathbb{N}^{*}} I_{m} v_{m}(x)\overline{v_{m}(y)}.
 \end{equation}
 
-Then $\gamma_{I}$ follows the distribution of the determinantal point process associated to the kernel $\kappa$ and the reference measure $\mathrm{d}\omega$.
+Then $\gamma$ follows the distribution of the determinantal point process associated to the kernel $\kappa$ and the reference measure $\mathrm{d}\omega$.
 \end{theorem}
-Theorem~\ref{thm:mixture_of_projection_DPPs} implies that any DPP defined trough a kernel $\kappa$ that satisfies the usual conditions is a mixture of projection DPPs.
+Theorem~\ref{thm:mixture_of_projection_DPPs} implies that any DPP defined trough a kernel $\kappa$ that satisfies the usual conditions \eqref{eq:hermitian_condition_kappa}, \eqref{eq:positivity_condition_kappa}, \eqref{eq:integrability_condition_kappa} and \eqref{eq:traceclass_condition_kappa} is a mixture of projection DPPs.
 Observe that the intermediate projection kernel $\kappa_{I}$ is of finite rank a.s. This is a consequence of the trace class condition that guarantees that 
 \begin{equation}
 \sum\limits_{m \in \mathbb{N}^{*}} I_{m} <+\infty \:\: \text{a.s.}
 \end{equation}
-An immediate consequence of Theorem~\ref{thm:mixture_of_projection_DPPs} is the characterization of the cardinality of this class of DPPs.
+The distribution of the cardinality of this class of DPPs follows immediately from Theorem~\ref{thm:mixture_of_projection_DPPs} and Proposition~\ref{prop:projection_DPP_cardinality}.
+
+% we deduce the 
+% arises immediately as a consequence of 
+% is the characterization of the  this class of DPPs.
 \begin{corollary}
-Let $\kappa$ be a kernel satisfying the usual conditions \eqref{eq:hermitian_condition_kappa}, \eqref{eq:positivity_condition_kappa}, \eqref{eq:integrability_condition_kappa} and \eqref{eq:traceclass_condition_kappa}; and assume that the spectrum of $\bm{\Sigma}_{\kappa}$ is included in $[0,1]$, and denote by $(\sigma_{m})$ its eigenvalues. Let $\gamma$ be the DPP associated to the kernel $\kappa$ and reference measure $\mathrm{d}\omega$, then $\gamma(\Omega)$ follows the distribution of 
+Let $\kappa$ be a kernel satisfying the usual conditions \eqref{eq:hermitian_condition_kappa}, \eqref{eq:positivity_condition_kappa}, \eqref{eq:integrability_condition_kappa} and \eqref{eq:traceclass_condition_kappa}; and assume that the spectrum of $\bm{\Sigma}_{\kappa}$ is included in $[0,1]$, and denote by $(\sigma_{m})$ its eigenvalues. Let $\gamma$ be the DPP associated to the kernel $\kappa$ and reference measure $\mathrm{d}\omega$,
+then 
+%$$ follows the distribution of 
 \begin{equation}
-\sum\limits_{m \in \mathbb{N}^{*}} I_{m},
+\gamma(\mathcal{D}) \sim \sum\limits_{m \in \mathbb{N}^{*}} I_{m},
 \end{equation}
 where the $(I_m)$ are independent random variables, and every $I_m$ is a Bernoulli random variable of parameter $\sigma_m$.
 \end{corollary}
@@ -1209,32 +1243,78 @@ where the $(I_m)$ are independent random variables, and every $I_m$ is a Bernoul
 
 The assumptions made previously can be relaxed in many ways. We review two relaxations that are common in the literature.
 
-First, the assumption~\eqref{eq:integrability_condition_kappa} is usually relaxed so that $\kappa$ is only assumed to be locally square integrable: for any compact set $C$ of $\Omega$
+First, the assumption~\eqref{eq:integrability_condition_kappa} is usually relaxed so that $\kappa$ is only assumed to be locally square integrable: for any compact set $C$ of $\mathcal{D}$
 \begin{equation}
 \int_{C^{2}} |\kappa(x,y)|^{2} \mathrm{d}\omega(x) \mathrm{d}\omega(y) < +\infty.
 \end{equation}
 
-Under this relaxed assumption, the domain of definition of the integration operator $\bm{\Sigma}_{\kappa}$ should be restrained to elements of $\mathbb{L}(\mathrm{d}\omega)$ that vanish $a.e.$ outside a compact subset of $\Omega$. More importantly, Theorem~\ref{thm:mac_sos} and Theorem~\ref{thm:mixture_of_projection_DPPs} and their consequences are still valid but for localized integration operators: for a compact set $C \subset \Omega$, define the localized integration operator
-\begin{align}
-  \bm{\Sigma}_{C,\kappa} : \mathbb{L}_{2}(\mathrm{d}\omega) & \rightarrow \mathbb{L}_{2}(\mathrm{d}\omega) \nonumber \\
-  g & \mapsto \int_{\Omega}g(.) k(.,y) \mathrm{d}\omega(y). \nonumber
+Under this relaxed assumption, the domain of definition of the integration operator $\bm{\Sigma}_{\kappa}$ should be restrained to elements of $\mathbb{L}_{2}(\mathrm{d}\omega)$ that vanish $a.e.$ outside a compact subset of $\Omega$. Moreover, Theorem~\ref{thm:mac_sos} remains valid and Theorem~\ref{thm:mixture_of_projection_DPPs} and its consequences are still valid for the restricted integration operators: if $\gamma$ follows the distribution of a DPP of kernel $\kappa$ and reference measure $\mathrm{d}\omega$ then for every compact set $C \subset \mathcal{D}$, $\gamma \cap C$ follows the distribution of a DPP of the kernel $\kappa$ and the reference measure $\mathrm{d}\omega_{C}$ defined by
+\begin{equation}
+\forall B \in \mathcal{B}, \:\: \mathrm{d}\omega_{C}(B) = \mathrm{d}\omega(B \cap C).
+\end{equation}
+
+% : for a compact set $C \subset \mathcal{D}$, the restricted integration operator is defined
+% \begin{align}
+%   \bm{\Sigma}_{C,\kappa} : \mathbb{L}_{2}(\mathrm{d}\omega) & \rightarrow \mathbb{L}_{2}(\mathrm{d}\omega) \nonumber \\
+%   g & \mapsto \int_{\Omega}g(.) k(.,y) \mathrm{d}\omega(y). \nonumber
+% \end{align}
+
+
+ % We make a further assumption: $\kappa$ is is  on $\Omega^{2}$
+
+The second recurrent relaxation is the Hermitianity of $\kappa$: there are examples of DPPs associated to non-Hermitian kernels [??], \citep{Bru18}. Yet, many interesting aspects of DPPs require this condition: negative correlations, tractable numerical simulation, $\dots$
+
+
+\subsubsection{The negative correlation property}
+We illustrate  the \emph{negative correlation} property of DPPs by a comparison with Poisson point processes. Consider $\gamma$ be a DPP of kernel $\kappa$ and reference measure $\mathrm{d}\omega$. We assume that $\kappa$ satisfies the usual conditions \eqref{eq:hermitian_condition_kappa}, \eqref{eq:positivity_condition_kappa}, \eqref{eq:integrability_condition_kappa} and \eqref{eq:traceclass_condition_kappa}; and denote by $\gamma_1$ its mean measure. Consider $\tilde{\gamma}$ a Poisson point process of intensity $\gamma_{1}$. 
+Let $B_{1}, B_{2}$ two disjoint Borel sets. 
+
+By~\eqref{eq:poisson_cylinder_prb}, we have
+\begin{equation}
+\EX \tilde{\gamma}(B_{1}) \tilde{\gamma}(B_{2}) = \gamma_{1}(B_{1}) \gamma_{1}(B_{2}),
+\end{equation}
+therefore 
+\begin{equation}\label{eq:cov_Poisson_gamma_B_1_B_2}
+\mathrm{Cov} \Big(\tilde{\gamma}(B_{1}), \tilde{\gamma}(B_{2}) \Big) = \EX \tilde{\gamma}(B_{1}) \tilde{\gamma}(B_{2}) -\EX \tilde{\gamma}(B_{1}) \EX \tilde{\gamma}(B_{2}) = 0,
+\end{equation}
+where $\mathrm{Cov} \Big(\tilde{\gamma}(B_{1}), \tilde{\gamma}(B_{2}) \Big)$ is the covariance of the two random variables $\tilde{\gamma}(B_{1})$ and $\tilde{\gamma}(B_{2})$. 
+
+On the other hand, using the definition of a DPP, we have
+\begin{align}\label{eq:cov_DPP_gamma_B_1_B_2_dev}
+\EX \gamma(B_{1}) \gamma(B_{2}) & = \int_{B_{1} \times B_{2}} \Det \kappa(x_{1},x_{2}) \mathrm{d}\omega(x_1) \mathrm{d}\omega(x_2) \nonumber\\
+& = \int_{B_{1} \times B_{2}} \Big( \kappa(x_{1},x_{1}) \kappa(x_{2},x_{2}) - \kappa(x_{1},x_{2}) \kappa(x_{2},x_{1}) \Big) \mathrm{d}\omega(x_1) \mathrm{d}\omega(x_2)  \nonumber\\
+& = \int_{B_{1}} \kappa(x_{1},x_{1}) \mathrm{d}\omega(x_1) \int_{B_{2}} \kappa(x_{2},x_{2}) \mathrm{d}\omega(x_2) - \int_{B_{1} \times B_{2}} |\kappa(x_{1},x_{2})|^{2} \mathrm{d}\omega(x_1) \mathrm{d}\omega(x_2)  \nonumber\\
+& = \gamma_{1}(B_{1}) \gamma_{1}(B_{2}) - \int_{B_{1} \times B_{2}} |\kappa(x_{1},x_{2})|^{2} \mathrm{d}\omega(x_1) \mathrm{d}\omega(x_2). 
 \end{align}
+Therefore
+\begin{equation} \label{eq:cov_DPP_gamma_B_1_B_2}
+\mathrm{Cov} \Big(\gamma(B_{1}), \gamma(B_{2}) \Big)  =  - \int_{B_{1} \times B_{2}} |\kappa(x_{1},x_{2})|^{2} \mathrm{d}\omega(x_1) \mathrm{d}\omega(x_2) \leq 0.
+\end{equation}
+
+In other words, the random variables $\gamma(B_1)$ and $\gamma(B_1)$ are negatively correlated, while the random variables $\tilde{\gamma}(B_1)$ and $\tilde{\gamma}(B_1)$ are uncorrelated even though they have the same mean measure $\gamma_1$: the probability of co-occurrence is always smaller than that of a Poisson point process with the same intensity. We can say, informally, that the Poisson point process is a DPP with a degenerate kernel without any interaction: $\kappa(x,y) = \delta_{x}(y)$.
+
+Observe the importance of the condition~\ref{eq:hermitian_condition_kappa} from the second line to the third line in the development of \eqref{eq:cov_DPP_gamma_B_1_B_2_dev} where we have used
+\begin{equation}
+\int_{B_{1} \times B_{2}} \kappa(x_{1},x_{2}) \kappa(x_{2},x_{1}) \mathrm{d}\omega(x_{1}) \mathrm{d}\omega(x_{2}) = \int_{B_{1} \times B_{2}} \kappa(x_{1},x_{2}) \overline{\kappa(x_{1},x_{2})} \mathrm{d}\omega(x_{1}) \mathrm{d}\omega(x_{2}).
+\end{equation}
+Without the condition~\ref{eq:hermitian_condition_kappa}, the negative correlation property does not hold.
+
+% In this sense, a DPP with Hermitian kernel is a repulsive distribution, and K
+% encodes its repulsiveness.
 
 
- We make a further assumption: $\kappa$ is is  on $\Omega^{2}$
 
+% The two point processes have different second order correlationsà 
 
-Note that the Hermitian assumption on $\kappa$ can be relaxed: there are examples of DPPs with non-Hermitian kernels [??], [??]. Yet, many interesting aspects of DPPs require this condition: negative correlations, tractable numerical simulation, $\dots$ For this reason, we keep this assumption.
-
-
-
+%  Moreover, the only 
+% The difference between a DPP and Poisson point process with the same mean measure is 
 
 
 \subsection{Examples}\label{sec:DPP_examples}
 We review in this section some examples of DPPs.
 \paragraph{Discret DPPs}
 
-This class of DPPs is the simplest to define and it was investigated recently for machine learning applications; we refer the reader to \citep{KuTa12} for details. In this setting, the domain is taken to be a finite subset of $\mathbb{N}$ and usually; the reference measure is the counting measure $\mathrm{d}\omega = \sum\limits_{n \in \Omega} \delta_{n}$; and the definition~\eqref{eq:def_dpp} is equivalent to the following.
+This class of DPPs was the topic of intense research recently for machine learning applications; we refer the reader to \citep{KuTa12} for details. In this setting, the domain is taken to be a finite subset of $\mathbb{N}$ and usually; the reference measure is the counting measure $\mathrm{d}\omega = \sum\limits_{n \in \Omega} \delta_{n}$; and the definition~\eqref{eq:def_dpp} is equivalent to the following.
 
 
 % For all the definitions in this section, Recall that $[d] = \{1,\dots,d\}$.% A point process on $[d]$ is a probability measure over subsets of $[d]$.
@@ -1249,8 +1329,20 @@ where $\bm{K}_{S} = [\bm{K}_{i,j}]_{i,j \in S}$. We take as a convention $\Det(\
 
 According to Theorem~\ref{thm:mac_sos}, a sufficient condition, for a given matrix $\bm{K}$ to consistently define a DPP, is that $\bm{K}$ is symmetric and its spectrum is in $[0,1]$.
 
-\begin{example}
-...
+\begin{example}[\cite{BuPe93}]
+Let $G$ be a finite graph and denote $\mathcal{D}$ the set of edges of $G$ and $\mathrm{d}\omega = \sum\limits_{e \in \mathcal{D}} \delta_{e}$ be the counting measure on $\mathcal{D}$. Now, let $\bm{K} \in \mathbb{R}^{|\mathcal{D}| \times |\mathcal{D}|}$ be the transfer-impedance matrix: for $e,e^{'} \in \mathcal{D}$, $\bm{K}_{e,e^{'}}$ is  ..... Let $T$ be a random spanning tree chosen uniformly from the
+set of all the spanning trees of $G$; then by Theorem 1.1 in \cite{BuPe93}
+\begin{equation}
+\Prb \Big( \{e_{1}, \dots , e_{m} \} \subset T \Big) = \Det \bm{K}_{\{e_{1}, \dots , e_{m}\}}.
+\end{equation}
+
+In other words, the edges of $T$ follows the distribution of DPP defined by the kernel $\bm{K}$ and reference measure $\mathrm{d}\omega$. Observe that the cardinality of $T$ is equal to $|G|-1$ (the number of nodes minus $1$) this fact is in coherence with Proposition~\ref{prop:projection_DPP_cardinality} and the fact that the matrix $\bm{K}$ is a projection matrix that have $|G|-1$ eigenvalues equal to $1$ [???]. 
+
+
+
+ % [??] and its spectrum is included in $[0,1]$ [??] so that we can define the associated DPP.
+
+
 \end{example}
 
 %In this paper, we use a definition of DPPs through their ...
@@ -1259,23 +1351,23 @@ According to Theorem~\ref{thm:mac_sos}, a sufficient condition, for a given matr
 
   % In particular, when the spectrum of $\bm{K}$ is included in $\{0,1\}$, we call $\bm{K}$ a projection kernel and the corresponding DPP a \emph{projection} DPP\footnote{All projection DPPs in this paper have symmetric kernels}. Letting $r$ be the number of unit eigenvalues of its kernel, samples from a projection DPP have fixed cardinality $r$ with probability 1 \cite*[Lemma 17]{HoKrPeVi06}.
 
-For symmetric kernels $\bm{K}$, a DPP can be seen as a \emph{repulsive} distribution, in the sense that for all $i,j\in [d]$,
-\begin{align}
-  \Prb(\{i,j\} \subseteq Y) &= \bm{K}_{i,i} \bm{K}_{j,j} - \bm{K}^2_{i,j}\\
-  &= \Prb(\{i\} \subseteq Y)\Prb(\{j\} \subseteq Y) - \bm{K}^2_{i,j}\\
-  &\leq \Prb(\{i\} \subseteq Y)\Prb(\{j\} \subseteq Y).
-\end{align}
+% For symmetric kernels $\bm{K}$, a DPP can be seen as a \emph{repulsive} distribution, in the sense that for all $i,j\in [d]$,
+% \begin{align}
+%   \Prb(\{i,j\} \subseteq Y) &= \bm{K}_{i,i} \bm{K}_{j,j} - \bm{K}^2_{i,j}\\
+%   &= \Prb(\{i\} \subseteq Y)\Prb(\{j\} \subseteq Y) - \bm{K}^2_{i,j}\\
+%   &\leq \Prb(\{i\} \subseteq Y)\Prb(\{j\} \subseteq Y).
+% \end{align}
 
-Besides projection DPPs, there is another natural way of using a kernel matrix to define a random subset of $[d]$ with prespecified cardinality $k$.
-\begin{definition}[$k$-DPP]\label{def:kDPP}
-Let $\bm{L} \in \mathbb{R}^{d\times d}$ be a positive semidefinite matrix.
-A random subset $Y \subseteq [d]$ is drawn from a $k$-DPP of kernel $\bm{L}$ if and only if
-\begin{equation}\label{eq:def_kdpp}
-\forall S \subseteq [d],\quad \Prb(Y = S) \propto \mathbb{1}_{\{\vert S\vert = k\}}\Det(\bm{L}_{S})
-\end{equation}
-where $\bm{L}_{S} = [\bm{L}_{i,j}]_{i,j \in S}$.
-\end{definition}
-DPPs and $k$-DPPs are closely related but different objects. For starters, $k$-DPPs are always well-defined provided $\bm{L}$ has a nonzero minor of size $k$.
+% Besides projection DPPs, there is another natural way of using a kernel matrix to define a random subset of $[d]$ with prespecified cardinality $k$.
+% \begin{definition}[$k$-DPP]\label{def:kDPP}
+% Let $\bm{L} \in \mathbb{R}^{d\times d}$ be a positive semidefinite matrix.
+% A random subset $Y \subseteq [d]$ is drawn from a $k$-DPP of kernel $\bm{L}$ if and only if
+% \begin{equation}\label{eq:def_kdpp}
+% \forall S \subseteq [d],\quad \Prb(Y = S) \propto \mathbb{1}_{\{\vert S\vert = k\}}\Det(\bm{L}_{S})
+% \end{equation}
+% where $\bm{L}_{S} = [\bm{L}_{i,j}]_{i,j \in S}$.
+% \end{definition}
+% DPPs and $k$-DPPs are closely related but different objects. For starters, $k$-DPPs are always well-defined provided $\bm{L}$ has a nonzero minor of size $k$.
 
 
 
@@ -1321,7 +1413,7 @@ The counting measure of the CUE is a determinantal point process on the unit com
 
 Observe that the kernel $\kappa$ defines a projection operator into the $N$ dimensional subspace spanned by the functions $z \mapsto z^{n}$; n $\in \{0, \dots, N-1 \}$. This is an illustration of Proposition~\ref{prop:projection_DPP_cardinality}. 
 
-Figure~\ref{fig:cue_vs_iid_particles} shows three realizations of the CUE ($N = 15$) compared to three realizations from the binomial process ($N = 15$) corresponding to the the Lebesgue measure on $\mathbb{U}$. We observe that the CUE tends to be cover the unit circle with more regularity than the binomial process.
+Figure~\ref{fig:cue_vs_iid_particles} shows three realizations of the CUE ($N = 15$) compared to three realizations from the binomial process ($N = 15$) corresponding to the the Lebesgue measure on $\mathbb{U}$. We observe that the CUE tends to cover the unit circle with more regularity than the binomial process.
 
 % coherence with the fact that the cardina thus 
 % In other words, the Weyl integration formula gives a very explicit
@@ -1455,43 +1547,64 @@ with respect to the uniform measure on $\mathbb{S}^{2}$.
 
 
 \subsection{Numerical simulation}\label{sec:num_algos_dpps}
+As we have seen in Theorem~\ref{minors_symmetric_polynomials_lemma}, DPPs that satisfies the usual  conditions \eqref{eq:hermitian_condition_kappa}, \eqref{eq:positivity_condition_kappa}, \eqref{eq:integrability_condition_kappa} and \eqref{eq:traceclass_condition_kappa} are mixtures of projection DPPs. This decomposability motivates the interest in simulating projection DPPs. We review in this section the literature on the numerical simulation of projection DPPs.
+
+\subsubsection{Algorithms based on random matrix models}
+% As we have seen in the introduction, the eigenvalues of a random unitary matrix ... 
+As we have seen in Section~\ref{sec:DPP_examples}, the eigenvalues of some random matrix models corresponds to some specific projection DPPs. This is the case of the Circular Unitary Ensemble, the Ginibre Ensemble and the Spherical Ensemble. 
+
+Orthogonal Polynomial Ensembles (OPE) on the real line form another class of projection DPPs that can be represented as the eigenvalues of some random matrix models. For this class of DPPs, the kernel $\kappa$ writes
+\begin{equation}
+\kappa(x,y) = \sum\limits_{n =0}^{N-1} P_{n}(x)P_{n}(y),
+\end{equation}
+where $(P_{n})$ is a family of orthonormal polynomials with respect to some measure $\mathrm{d}\omega$.
+
+% are  Projection DPPs corresponding to 
+In particular, when $\mathrm{d}\omega$ is a Gaussian, gamma \cite{DuEd02}, or beta \cite{KiNe04}, the corresponding DPP can be sampled by tridiagonalizing a matrix with independent entries with a cost that scales as $\mathcal{O}(N^2)$.
+We illustrate this technique in Section~\ref{sec:Gaussian_quadrature} in Chapter~\ref{chap:dppkq}. We refer to \citep{GaBaVa20} for more details on this topic.
+
+Now, in general, there exists an algorithm for the numerical simulation of a projection DPP. This algorithm will be recalled in the following section.
+% and bypasses the need for rejection sampling. 
+
+
+
+
+
 \subsubsection{The numerical simulation of a projection DPP}
-We review in this section the literature on the numerical simulation of projection Determinantal point processes. Recall that a random set that follows the distribution of a projection DPP of marginal kernel $\KDPP$ have a deterministic cardinal equals to $N$, where $N$ is the rank of the integral operator associated to the kernel $\KDPP$. For this reason, we can identify such a random set with a sample from a random variable defined on $\mathcal{X}^{N}$.
+ Recall that by Proposition~\ref{prop:projection_DPP_cardinality},  a projection DPP, of kernel $\kappa$ and reference measure $\mathrm{d}\omega$,  defines a random counting measure $\gamma$ with deterministic cardinality 
+ \begin{equation}
+\Prb \big( |\gamma| = N \big) = 1,
+ \end{equation}
+ % random set that follows the distribution of a projection DPP of marginal kernel $\KDPP$ have a deterministic cardinal equals to $N$, 
+ where $N$ is the rank of the integral operator associated to the kernel $\KDPP$. For this reason, we can identify such a random set with a sample from a random variable defined on $\mathcal{X}^{N}$.
 
 Let $\bm{x} = \{x_{1}, \dots, x_{N}\}$ a random set that follows the distribution of a projection DPP of marginal kernel $\KDPP_{N}$. The joint distribution of the random variable $(x_{1}, \dots, x_{N}) \in \X^{N}$ have a density with respect to the measure $\mathrm{d}\bm{\omega}(\bm{x}) = \otimes_{n\in [N]}\mathrm{d}\omega(x_{n})$:
 \begin{equation}\label{eq:det_density}
 f_{\KDPP}(\bm{x}) = \frac{1}{N!}\Det \bm{\KDPP}(\bm{x}).
 \end{equation}
 
-As we shall see, the landscape on this topic is 
-
-\paragraph{Algorithms based on random matrix models}
-% As we have seen in the introduction, the eigenvalues of a random unitary matrix ... 
-The eigenvalues of some random matrix models corresponds to some specific projection DPPs. This includes the case of the Circular Unitary Ensemble defined in the introduction.
-In particular, when $d=1$, and $\omega$ is a Gaussian, gamma \cite{DuEd02}, or beta \cite{KiNe04} pdf, and $(\psi_n)$ are the orthonormal polynomials with respect to $\omega$, the corresponding DPP can be sampled by tridiagonalizing a matrix with independent entries, which takes the cost to $\mathcal{O}(N^2)$ and bypasses the need for rejection sampling. 
+% As we shall see, the landscape on this topic is 
 
 
-
-
-\begin{figure}[!ht]
- \centerline{
- \scalebox{0.9}{
-\begin{algorithm}{$\Algo{RME}\big(N)$}
-\Aitem $n \longleftarrow  N$
-\Aitem $\mu_{N}(x) \longleftarrow  \frac{1}{N} \KDPP(x,x)\mathrm{d}\omega(x)$
-\Aitem $\bm{x} \longleftarrow  \emptyset$
-\Aitem \While $n > 0 $
-\Aitem \mt $\mu_{n}(x) = \frac{1}{n} \left( \KDPP(x,x) - \KDPP(x,\bm{x})^{\Tran}\bm{\KDPP}(\bm{x})^{-1} \KDPP(x,\bm{x}) \right) \mathrm{d}\omega(x)$ \ar{Chain rule}
-\Aitem \mt  Pick $x_{n}$ from $\mathcal{X}$ from $\mu_{n}$ \ar{Sample from the conditional}
-\Aitem \mt  $\bm{x} \longleftarrow  \bm{x} \cup \{x_{n}\}$
-\Aitem \mt $n \longleftarrow  n-1$
-\Aitem \Return $\bm{x}$
-\end{algorithm}
- }
- }
-\caption{Pseudocode a sampler of projection DPP based on a random matrix model.}
-\label{alg:RME_SAMPLER}
-\end{figure}
+% \begin{figure}[!ht]
+%  \centerline{
+%  \scalebox{0.9}{
+% \begin{algorithm}{$\Algo{RME}\big(N)$}
+% \Aitem $n \longleftarrow  N$
+% \Aitem $\mu_{N}(x) \longleftarrow  \frac{1}{N} \KDPP(x,x)\mathrm{d}\omega(x)$
+% \Aitem $\bm{x} \longleftarrow  \emptyset$
+% \Aitem \While $n > 0 $
+% \Aitem \mt $\mu_{n}(x) = \frac{1}{n} \left( \KDPP(x,x) - \KDPP(x,\bm{x})^{\Tran}\bm{\KDPP}(\bm{x})^{-1} \KDPP(x,\bm{x}) \right) \mathrm{d}\omega(x)$ \ar{Chain rule}
+% \Aitem \mt  Pick $x_{n}$ from $\mathcal{X}$ from $\mu_{n}$ \ar{Sample from the conditional}
+% \Aitem \mt  $\bm{x} \longleftarrow  \bm{x} \cup \{x_{n}\}$
+% \Aitem \mt $n \longleftarrow  n-1$
+% \Aitem \Return $\bm{x}$
+% \end{algorithm}
+%  }
+%  }
+% \caption{Pseudocode a sampler of projection DPP based on a random matrix model.}
+% \label{alg:RME_SAMPLER}
+% \end{figure}
 
 
 \paragraph{The sequential algorithm HKPV}
@@ -4789,7 +4902,7 @@ Figure~\ref{f:gt_generator_outputs} displays a few samples from our algorithm, w
 \end{figure}
 %\clearpage
 
-\chapter{Kernel quadrature using DPPs}
+\chapter{Kernel quadrature using DPPs}\label{chap:dppkq}
 \section{Introduction}
 Numerical integration is at the heart of many tasks in applied mathematics and statistics, like Bayesian inference \citep{RoCa04}, option pricing \citep{Gla13} or solving integral equations \citep{KrMaKo89}. Indeed, all these tasks involve, at some level, the evaluation of an integral
 \begin{equation}\label{eq:general_integral_formula}
@@ -4857,7 +4970,7 @@ Thus, it is the purpose of this section to highlight these connections.
 % For this purpose, we review existing results on quadratures 
 
 
-\subsection{Gaussian quadrature}
+\subsection{Gaussian quadrature}\label{sec:Gaussian_quadrature}
 As we have seen in the introduction, the Newton-Cotes formula is based on equi-distanced nodes on $[a,b]$ and it is exact for polynomials of order smaller than $N-1$ when $N$ nodes are used. Gauss \citep{Gau1815} observed that equi-distance nodes are not optimal, in a sense that will be defined later, and shed the light on the question of designing the quadrature nodes. This observation gave birth to Gaussian quadrature.
 % We start by a brief review on quadratures on the real line.
 % \subsubsection{Newton-Cotes quadrature}
