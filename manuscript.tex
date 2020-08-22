@@ -175,12 +175,56 @@
 \chapter{Introduction}\label{chap:introduction}
 %\subsection{Sensing on budget} 
 %data analysis, signal processing or machine learning
+From .... to the evaluation of a financial product, approximations occupied the minds for centuries and shaped the development of mathematics...
 
 
-Many tasks in applied mathematics can be reformulated as problems of sensing under budget constraints, that is the estimation of some function of the data based on a partial knowledge of the available data; this function can be a scalar, a vector, a matrix or even an function. Examples of these sensing problems include subset selection, numerical integration or interpolation. 
 
-The aim of a subset selection algorithm is to approximate a finite dimensional object (scalar, vector or matrix) that is defined on a large set using only a small subset. This class of approximations are conducted, mainly, for three purposes: improving the numerical complexity of an existing algorithm, reducing the cost of labeling for a supervised learning algorithm or making an algorithm more interpretable.
-A large class of subset selection algorithms deal with linear algebra operations; and for this class of algorithms the object to be approximated have an additive structure and the task usually boils down to approximating a large sum of scalars, vectors or matrices using a smaller sum. This additive structure can be also found in numerical integration problems and interpolation problems of elements of a Hilbert space. These tasks aim to approximate a function defined on some domain using few evaluations of this function that is usually an infinite dimensional object, and boils down to the approximation of an infinite sum using a finite sum.
+
+Many approximation tasks in applied mathematics can be reformulated as problems of estimations under \emph{size constraints}, that is the estimation of some object based on a partial knowledge of the available data; this object can be a scalar, a vector, a matrix or even a function. These approximations are conducted, mainly, for three purposes: improving the numerical complexity of an existing algorithm (\emph{numerical issue}), reducing the cost of labeling for a supervised learning algorithm (\emph{sensing issue}) or making an algorithm more interpretable (\emph{interpretation issue}). Examples of these approximation problems include subset selection, quadrature or interpolation. 
+
+
+These three problems, seemingly unrelated, can be tackled using the same strategy: looking for the most representative elements in a set. Indeed,
+the aim of subset selection is to select the most representative elements of a large set (or even a countable infinite set) to approximate an object that can be scalar, a vector, a matrix ... On the other hand, quadrature and interpolation aim to select the most representative elements of a continuous domain to approximate a function or an integral.
+
+
+One way to set up this strategy is to look for a linear representation of the set and to make use of the abundant tools of linear algebra and functional analysis. For example, every element of a discrete set can be represented by a vector living in finite dimensional vector space, while every element of a continuous set can be represented by a function living in a Hilbert space. In these linear spaces, the task of looking for representatives boils down to approximating a sum of matrices or operators using a smaller sum; and randomized averaging was extensively used for its versatility and its strong theoretical guarantees. 
+
+
+Until now, these randomized sub-sampling techniques were based on independent random variables that may coincide making the sampling non optimal. One may expect to improve the sub-sampling efficiency by using a randomized averaging that avoids redundancy and allows to capture the essential of the information.
+
+
+Determinantal point processes are probabilistic models of repulsion and seem to furnish the plausible framework for the study of this question. Indeed, these probabilistic models are expressed using the language of linear algebra and functional analysis.
+
+% manifest negative correlation property and they 
+
+% The negative correlation property manifested by this probabilistic models seems appealing to use in design problems.
+
+This thesis is devoted to investigate the suitability of using determinantal point processes as models for randomized sub-sampling.
+ % reduce the sensing budget if the design  
+
+% These guarantees are based on probabilistic inequalities that were the object of relentless research. In particular, operator concentration inequalities are the culmination of this line of research.
+% A major question when working with randomized sums is to control the variance of this sum.
+
+% This additive structure can be also found in numerical integration problems and interpolation problems of elements of a Hilbert space. These tasks aim to approximate a function defined on some domain using few evaluations of this function that is usually an infinite dimensional object, and boils down to the approximation of an infinite sum using a finite sum.
+
+
+% It turns out that looking for representatives can be expressed using a common algebraic language: 
+
+% In many situations, the approximation task manifest a linear structure that makes the use of tools of linear algebra possible.
+
+
+
+% %  approximate an object that 
+% % depends on a  using only a finite and small subset. This object can be a 
+
+
+
+% A large class of subset selection algorithms is devoted for the approximation of objects that depend linearly on the set: 
+
+
+% deal with linear algebra operations; and for this class of algorithms , and the task usually boils down to approximating a large sum of scalars, vectors or matrices using a smaller sum. This additive structure can be also found in numerical integration problems and interpolation problems of elements of a Hilbert space. These tasks aim to approximate a function defined on some domain using few evaluations of this function that is usually an infinite dimensional object, and boils down to the approximation of an infinite sum using a finite sum.
+
+
 %tool used offer a strong
 % the object to approximate 
 % have, usually,  related to the ....
@@ -189,9 +233,6 @@ A large class of subset selection algorithms deal with linear algebra operations
 
 % On the other hand, numerical integration and interpolation aim to approximate a function defined on some domain using few evaluations of this function that is usually an infinite dimensional object. Now, when the function is assumed to belong to some Hilbert space, we recover again an object with an additive structure. 
 
-
-Randomization is usually used for sub sampling for its versatility and its strong theoretical guarantees. These guarantees are based on probabilistic inequalities that were the object of intense research since .... In particular, operator concentration inequalities are the culmination of this line of research.
-A major question when working with randomized sums is to control the variance of this sum.
 
 
  % The approximation 
@@ -204,10 +245,6 @@ A major question when working with randomized sums is to control the variance of
 
 % Interpolation problems are closely tied to numerical integration problems. These connections, between the two fields, did not prevent the first one to develop in its own way especially for questions emerging in numerical communication. The case of Whittaker–Shannon–Kotelnikov sampling theory is an example of such independent development.
 
-Indeed, one may expect to reduce the sensing budget if the design avoids redundancy and allows to capture the essential of the information. 
-
-The negative correlation property manifested by this probabilistic models seems appealing to use in design problems.
-This thesis is devoted to investigate the suitability of using determinantal point processes as models for randomized sensing.
 
 
 % Recently, a new class of probabilistic models were studied mnew class of sensing algorithms emerged for the study of these problems.
@@ -228,18 +265,20 @@ This thesis is devoted to investigate the suitability of using determinantal poi
 % This thesis studies determinantal point processes as a universal tool for subsampling. 
 
 
- Determinantal Point Processes (DPPs) were introduced by \cite{Mac75} as probabilistic models for beams of fermions in quantum optics. Since then, DPPs have been thoroughly studied in random matrix theory \citep{Joh05}, and have more recently been adopted in machine learning \citep*{KuTa12}, spatial statistics \citep*{LaMoRu15}, and Monte Carlo methods \citep{BaHa16}.
+ % Determinantal Point Processes (DPPs) were introduced by \cite{Mac75} as probabilistic models for beams of fermions in quantum optics. Since then, DPPs have been thoroughly studied in random matrix theory \citep{Joh05}, and have more recently been adopted in machine learning \citep*{KuTa12}, spatial statistics \citep*{LaMoRu15}, and Monte Carlo methods \citep{BaHa16}.
 % a large class of DPPs 
-The negative correlation property manifested by this probabilistic models seems appealing to use in design problems. Indeed, one may expect to reduce the sensing budget if the design avoids redundancy and allows to capture the essential of the information. 
-Another appealing aspect about DPPs is numerical: the numerical simulation of these probabilistic models is tractable and witnessed many promising developments recently.
+% The negative correlation property manifested by this probabilistic models seems appealing to use in design problems. Indeed, one may expect to reduce the sensing budget if the design avoids redundancy and allows to capture the essential of the information. 
+% Another appealing aspect about DPPs is numerical: the numerical simulation of these probabilistic models is tractable and witnessed many promising developments recently.
+
+
 % several simulation algorithms were proposed recently the possibility of numerically simulate these probabilistic models as several numerical simulation algorithms were proposed and analyzed recently. 
-This make DPP-based algorithms amenable to empirical testing.
+% This make DPP-based algorithms amenable to empirical testing.
  
 
 
-A brief introduction to the theory of DPPs is given in the following. As a probabilistic model, DPPs appear in two forms: discrete DPPs and continuous DPPs. This does not prevent us from giving a unified definition of the two forms. We shall see in the end of this section that these two forms deal with two different approximation problems. Moreover, the two forms diverges regarding the efficiency of the numerical simulations.
+% A brief introduction to the theory of DPPs is given in the following. As a probabilistic model, DPPs appear in two forms: discrete DPPs and continuous DPPs. This does not prevent us from giving a unified definition of the two forms. We shall see in the end of this section that these two forms deal with two different approximation problems. Moreover, the two forms diverges regarding the efficiency of the numerical simulations.
 
-In order to situate the contributions of this thesis, a brief review on matrix sparsification and operator discretization is given in the following.
+In order to situate the contributions of this thesis, a brief review on randomized subsampling techniques based on linear algebra and functional analysis is given in the following.
 
 
  % we give a very brief review on  matrix sparsification techniques and ......
