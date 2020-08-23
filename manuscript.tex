@@ -669,10 +669,28 @@ These closed formulas allow us to prove sharp upper bounds ... In particular, we
 
 \clearpage
 \chapter{Determinantal point processes}\label{chapter:dpp}
+%As it was mentioned in the Introduction, t
 
-This chapter is dedicated to give a formal introduction on determinantal point processes. As it was mentioned in the Introduction, these probabilistic models appear mainly in two forms: discrete DPPs and continuous DPPs. We shall give an abstract definition that includes the two settings, thereafter we instantiate this definition to highlight the differences between them. For this reason, we adopted a different notation in this chapter that will change in the next chapters. The rationale behind this choice is to keep the notation as close as possible to the usual ones in the corresponding literatures.
+Determinantal point processes (DPPs) were introduced by \cite{Mac75} as probabilistic models for beams of fermions in quantum optics and their use widely spread after the 2000s in random matrix theory \citep{Joh05}, machine learning \citep{KuTa12}, spatial statistics \citep{LaMoRu15}, and Monte Carlo methods \citep{BaHa16}, among others.
 
-We start by recalling some elements of the theory of point processes, that is the natural framework where DPPs are defined, in Section~\ref{sec:pointprocesses}; then we give the definition of a DPP and some basic notions and results on the theory in Section~\ref{sec:dpp_defs}. In particular, we give several examples of DPPs in Section~\ref{sec:DPP_examples} and we recall the HKPV algorithm, for the numerical simulation of a DPP, in Section~\ref{sec:num_algos_dpps}.
+
+
+
+% Since then, DPPs have been thoroughly studied in random matrix theory \citep{Joh05}, and have more recently been adopted in machine learning \citep*{KuTa12}, spatial statistics \citep*{LaMoRu15}, and Monte Carlo methods \citep{BaHa16}.
+
+% DPPs can be viewed as the kernel machine of point processes; they were introduced by \cite{Mac75} in quantum optics, 
+
+
+This chapter is dedicated to give a formal introduction on determinantal point processes. These probabilistic models appear mainly in two forms: discrete DPPs and continuous DPPs. We shall give an abstract definition that includes the two settings to emphasize on the universality of this mathematical tool.
+
+
+% Thereafter we instantiate this definition to highlight the differences between them. For this reason, 
+
+%, that is the natural framework where DPPs are defined,
+
+We start by recalling some elements of the theory of point processes in Section~\ref{sec:pointprocesses}. The definition of a DPP along with existence results and some basic properties of DPPs are given in Section~\ref{sec:dpp_defs}. In particular, we give several examples of DPPs in Section~\ref{sec:DPP_examples} and we recall some elements on the numerical simulation of a DPP in Section~\ref{sec:num_algos_dpps}.
+
+We adopted a different notation in this chapter that will change in the next chapters. The rationale behind this choice is to keep the notation as close as possible to the usual ones in the corresponding literatures.
 
 
 % The definition of a DPP, given in  goes through the theory of point processes that we shall recall, briefly, the basics in Section~\ref{sec:pointprocesses}. Finally, Section~\ref{sec:num_algos_dpps} is dedicated for a review on numerical simulation algorithms of DPPs and their variations.
@@ -683,9 +701,9 @@ We start by recalling some elements of the theory of point processes, that is th
 
 \section{Point processes}\label{sec:pointprocesses}
 
-Intuitively, a point process is a random collection of isolated points in some set $\mathcal{D}$. In order to define such a concept within the usual framework of probability theory, it is more convenient to see a discrete subset of $\mathcal{D}$ as an atomic measure defined on $\mathcal{D}$. Indeed, the set of measures on $\mathcal{D}$ have properties that are compatible with the standard setting of probability theory. 
+Intuitively, a point process is a random discrete subset of points in some  measurable space $(\mathcal{D}, \mathcal{B})$. In order to define such an object rigorously, it is more convenient to see a discrete subset of $\mathcal{D}$ as an atomic measure defined on $\mathcal{D}$. Indeed, as we shall see, under some conditions on the domain $\mathcal{D}$, the set of measures on $\mathcal{D}$ have some nice properties that are compatible with the standard setting of probability theory. 
 
-
+% within the usual framework of probability theory,
 % the set of discrete subsets of $\mathcal{D}$ have to 
 
 
@@ -696,23 +714,29 @@ Let $(\mathcal{D},\mathcal{T})$ be a topological space that is \emph{locally com
  These three conditions guarantee that $(\mathcal{D},\mathcal{T})$ is a Polish space, that is there exists some metric $d$ on $\mathcal{D}$ such that the
 topology induced by $d$ is equal to $\mathcal{T}$ and $(\mathcal{D},d)$ is a \emph{complete} and \emph{separable} (there is a countable set $\{x_{n}; n \in \mathbb{N}\}$ that is dense in $\mathcal{D}$)
 metric space; see Theorem 5.3 in \citep{Kec95}.
+
+Polish spaces are recurrently used in probability theory. We give some examples of these abstract spaces.
 % First, we assume that $(\mathcal{D},d)$ is a metric space for some metric $d$. 
-\begin{example}
-We recall some examples of a Polish space.
+\begin{example}\leavevmode\newline
+%\phantom{a}\\
 \begin{itemize}
 \item A countable set with the discrete topology is a Polish space, 
-\item The sets $\mathbb{R}^{d}, \mathbb{C}^{d}$ with $d \in \mathbb{N}^{*}$ with the respective usual topologies are Polish spaces,
+\item The sets $\mathbb{R}^{d}, \mathbb{C}^{d}$ with $d \in \mathbb{N}^{*}$ endowed with the usual topology induced by Euclidean norm are Polish spaces,
 \item A closed subspace of a Polish space is a Polish space; see Proposition 3.3 in \citep{Kec95}.
 \item Manifolds [??]
 \end{itemize}
 % discrete sets endowed by the discrete metric, subsets of $\mathbb{R}^{d}$ with the Euclidean distance, manifolds ...????
 \end{example}
 
-Define $\mathcal{B}$ to be the Borel $\sigma$-algebra: the smallest $\sigma$-algebra in $\mathcal{D}$ that contains all open subsets of $\mathcal{D}$. Its elements are called Borel sets. A measure $\mu$ is a function from $\mathcal{B}$ to $\mathbb{R}_{+} \cup \{\infty \}$ that is \emph{non-negative}, $\sigma$-\emph{additive} and vanishes at the empty set. A locally finite measure is a measure $\mu$ on $(\mathcal{D},\mathcal{B})$ such that for every compact set $C$ of $\mathcal{D}$
+Define $\mathcal{B}$ to be the Borel $\sigma$-algebra: the smallest $\sigma$-algebra in $\mathcal{D}$ that contains all open subsets of $\mathcal{D}$. Its elements are called Borel sets. A measure $\mu$ is a function from $\mathcal{B}$ to $\mathbb{R}_{+} \cup \{\infty \}$ that is \emph{non-negative}, $\sigma$-\emph{additive} and vanishes at the empty set. A locally finite measure is a measure $\mu$ on $(\mathcal{D},\mathcal{B})$ such that for every  $B \in \mathcal{B}$ that is \emph{relatively compact} (its closure is compact) we have
 \begin{equation}
-\mu(C) <+\infty.
+\mu(B) <+\infty.
 \end{equation}
-Denote by $\mathbf{M}(\mathcal{D})$ the set of locally finite measures.
+In a Polish space $\mathcal{D}$, a locally finite measure is $\sigma$-finite, that is there exists 
+countable family of measurable sets of finite measure according to $\mu$ that covers $\mathcal{D}$; see Lemma 1.1.4 in ??
+
+
+Denote by $\mathbf{M}(\mathcal{D})$ the set of locally finite measures on $\mathcal{D}$. 
 % This assumption is not restrictive, as it includes a wide class of sets:  
 % Moreover, we assume that $(\Omega,d)$ is complete, and separable: . This condition insures that 
 %  make this definition rigorous, some conditions on $\Omega$ will be assumed. 
@@ -722,16 +746,15 @@ Denote by $\mathbf{M}(\mathcal{D})$ the set of locally finite measures.
 %A measure $\mathcal{D}$ is 
 We supply $\mathbf{M}(\mathcal{D})$ with the $\sigma$-algebra $\mathcal{M}(\mathcal{D})$ generated by the evaluation maps defined for every Borel set $B \in \mathcal{B}$
 \begin{align}
-\Phi_{B}: M(\mathcal{D}) &\rightarrow \mathbb{R}_{+}\cup \{\infty \}. \nonumber\\
-\mu & \mapsto \mu(B) \nonumber
+\Phi_{B}: \mathcal{M}(\mathcal{D}) &\longrightarrow \mathbb{R}_{+}\cup \{\infty \}. \nonumber\\
+\mu & \longmapsto \mu(B) \nonumber
 \end{align}
 
-In other words, $\mathcal{M}(\mathcal{D})$ is the smallest $\sigma$-algebra for which all the evaluations maps $\Phi_{B}$ are measurables. This $\sigma$-algebra is generated by the cylinder sets (Lemma 3.1.1 in \citep{ScWe08})
-
+In other words, $\mathcal{M}(\mathcal{D})$ is the smallest $\sigma$-algebra for which all the evaluations maps $\Phi_{B}$ are measurables. This $\sigma$-algebra is generated by the cylinder sets 
 \begin{equation}
 \Big\{ \mu \in \mathbf{M}(\mathcal{D}), \:\: \mu(B_{1}) \in [0,r_1], \dots, \mu(B_{m}) \in [0,r_m] \Big\},
 \end{equation}
-where $m \in \mathbb{N}^{*}$, $B_{1}, \dots, B_{m}$ are open relatively compact subsets of $\mathcal{D}$ and $r_{1}, \dots, r_{m} \in \mathbb{R}_{+}$.
+where $m \in \mathbb{N}^{*}$, $B_{1}, \dots, B_{m}$ are relatively compact open subsets of $\mathcal{D}$ and $r_{1}, \dots, r_{m} \in \mathbb{R}_{+}$; see Lemma 3.1.1 in \citep{ScWe08}.
 
 
 
@@ -780,12 +803,12 @@ $$
 \right.
 $$
 
-In this case, $\mu \in \mathbf{N}_s(\mathcal{D})$ if and only if the $x_{n}$ are pairwise distinct; and $\mu$ can be identified to a the subset $\{x_{1}, \dots, x_{N}\}$. In particular, we will several notations that express this identification as summarized in Table~\ref{table:set_counting_measure_dictionary}.
+In this case, $\mu \in \mathbf{N}_s(\mathcal{D})$ if and only if the $x_{n}$ are pairwise distinct; and $\mu$ can be identified to the subset $\{x_{1}, \dots, x_{N}\}$. In particular, many operations on discrete subsets can be expressed using operations on simple counting measures. Table~\ref{table:set_counting_measure_dictionary} contains some of these operations expressed using both notations. These two notations will be used interchangeably in this manuscript.
 \begin{table}
 \centering
  \begin{tabular}{| c| c|}
  \hline
-  $\gamma$ as a subset & $\gamma$ as a counting measure\\
+  $\gamma$ as a discrete subset & $\gamma$ as a simple counting measure\\
  \hline
  $x \in \gamma$ & $\gamma(\{x\}) = 1$\\
  \hline
@@ -798,10 +821,14 @@ In this case, $\mu \in \mathbf{N}_s(\mathcal{D})$ if and only if the $x_{n}$ are
   $|\gamma \cap C| = M$ & $\gamma(C) = M$\\
  \hline
 \end{tabular}
-\caption{A dictionary of notations.\label{table:set_counting_measure_dictionary}}
+\caption{A dictionary of notations between discrete subsets and simple counting measures.\label{table:set_counting_measure_dictionary}}
 \end{table}
 % use the notation $x \in \mu$ to express that $\mu (\{x\}) =1$. 
-Otherwise, $\mu$ can be seen as as a discrete subset of $\mathcal{D}$ with multiplicities.
+Now, if an element $x_{n}$ is repeated more than once in the collection, $\mu$ is no longer simple and it can be seen as a discrete subset of $\mathcal{D}$ with multiplicities. Yet, we are mostly interested in simple counting measures in this manuscript.
+
+Now, we can define properly a point process in $\mathcal{D}$. It is a special case of a random measure that we recall the definition in the following. 
+
+%In this manuscript, we will work with simple counting measures. 
 % Discrete subsets of $\Omega$ can be identified to simple counting measures by considering the corresponding atomic measures. Thereby, general counting measures can be seen as discrete subsets with multiplicities. 
 % In this manuscript, we will be mostly interested in simple counting measures; even tough we give ...
 
@@ -826,11 +853,11 @@ Any random measure $\gamma$ on $\mathcal{D}$ defines a stochastic process with v
 \begin{definition}
 A point process $\gamma$ on $\mathcal{D}$ is a random measure on $\mathcal{D}$ such that
 \begin{equation}
-\mathbb{P}_{\gamma} \big(\mathbf{N} (\mathcal{D}) \big) = 1.
+\mathbb{P} \big(\gamma \in \mathbf{N} (\mathcal{D}) \big) = 1.
 \end{equation}
 The point process $\gamma$ is said to be a simple if 
 \begin{equation}
-\mathbb{P}_{\gamma}\big(\mathbf{N}_{s}(\mathcal{D})\big) = 1.
+\mathbb{P}\big( \gamma \in \mathbf{N}_{s}(\mathcal{D})\big) = 1.
 \end{equation}
 % that is $\gamma$ takes values in $\{0,1\}$.
 % positive Radon measure
@@ -868,11 +895,11 @@ In other words, under a Poisson point process of intensity $\mu$, for every $B_{
 \end{equation}
 
 % The following variation of Binomial process generate a rich family of point processes called \emph{Poisson point processes.}
-The description of a point process through cylinder sets $\{ \gamma(B) = n \}$ is convenient in some cases such as the binomial process and the Poisson point process. However, in general,
+The description of a point process through the cylinder sets $\big\{ \gamma(B_{1}) = n_1, \dots, \gamma(B_{m}) = n_m \big\}$ is convenient in some cases such as the binomial process and the Poisson point process. However, in general the probability
 \begin{equation}
 \mathbb{P} \Big(\gamma(B_{1}) = n_{1}, \dots, \gamma(B_{m}) = n_{m} \Big)
 \end{equation}
-have no tractable formula and it is more convenient to work with an alternative description offered by the moment measures that we will define in the following.
+have no tractable formula and it is more convenient to work with an alternative description offered by the moment measures that are defined in the following.
 % Observe that in these two cases of mixed binomial process, the description of the point process through the cylinder sets  is tractable. This is not always the case and 
 % The discription of a point process using cylinder sets 
 %This alternative description is .
@@ -890,36 +917,35 @@ Let $\gamma$ be a Poisson point process associated to an intensity $\mu$, where 
 \forall B \in \mathcal{B}, \:\: \mathbb{E}\gamma(B) = \mu(B).
 \end{equation}
 Therefore, the mean measure of $\gamma$ is simply equal to $\mu$.
-
 \end{example}
 
 
 
-Now, if $\gamma_{1}$ is absolutely continuous with respect to $\mathrm{d}\omega$, then the Radon Nikodym derivative $\rho_{1}$ is called the \emph{first intensity function} and it satisfies
+Now, consider $\mathrm{d}\omega$ to be a measure on $(\mathcal{D},\mathcal{B})$ that we call the \emph{reference measure}. If $\gamma_{1}$ is absolutely continuous with respect to $\mathrm{d}\omega$, then the Radon Nikodym derivative $\rho_{1}$ is called the \emph{first intensity function} and it satisfies
 \begin{equation}\label{eq:first_intensity_function}
 \forall B \in \mathcal{B}, \:\:\mathbb{E} \gamma(B) = \gamma_1(B) = \int_{B} \rho_{1}(x) \mathrm{d}\omega(x). 
 \end{equation}
 % The intuition behind~\eqref{eq:first_intensity_function} depend on $\Omega$. We give two examples.
 
 \begin{example}\label{ex:rho_1_inclustion_probability_discret_set}
-Let $\mathcal{D}$ be a finite set and define the counting measure $\mathrm{d}\omega = \sum\limits_{x \in \mathcal{D}} \delta_x$. Then, for a simple point process $\gamma$
+Let $\mathcal{D}$ be a finite set and define the counting measure $\mathrm{d}\omega = \sum\limits_{x \in \mathcal{D}} \delta_x$. Let $\gamma$ be a simple point process defined on $\mathcal{D}$. Then, by definition of $\gamma_{1}$
 \begin{align}
-\gamma_1(B) & = \sum\limits_{n \in \mathbb{N}} \Prb(\gamma(B) = n) n\\
-& = \sum\limits_{n \in \mathbb{N}} \Prb(\gamma(B) = n) \sum\limits_{b \in B} \Prb \big( \gamma(\{b\}) = 1| \gamma(B) = n \big) \nonumber\\
-& = \sum\limits_{b \in B} \sum\limits_{n \in \mathbb{N}} \Prb(\gamma(B) = n)  \Prb \big( \gamma(\{b\}) = 1| \gamma(B) = n \big) \nonumber\\
+\gamma_1(B) & = \sum\limits_{n \in \mathbb{N}^{*}} \Prb(\gamma(B) = n) n\\
+& = \sum\limits_{n \in \mathbb{N}^{*}} \Prb(\gamma(B) = n) \sum\limits_{b \in B} \Prb \big( \gamma(\{b\}) = 1| \gamma(B) = n \big) \nonumber\\
+& = \sum\limits_{b \in B} \sum\limits_{n \in \mathbb{N}^{*}} \Prb(\gamma(B) = n)  \Prb \big( \gamma(\{b\}) = 1| \gamma(B) = n \big) \nonumber\\
 & = \sum\limits_{b \in B}  \Prb \big( \gamma(\{b\}) = 1\big) \nonumber\\
+& = \sum\limits_{b \in B}  \Prb \big( \gamma(\{b\}) = 1\big) \mathrm{d}\omega(\{b\}) \nonumber\\
 & = \int_{B} \rho_{1}(x) \mathrm{d}\omega(x), \nonumber
 \end{align}
 where 
 \begin{equation}
-\rho_{1}(x) = \mathbb{P} \big(\gamma(\{x\}) = 1 \big).
+\rho_{1}(x) = \mathbb{P} \big(\gamma(\{x\}) = 1 \big) = \mathbb{P} \big( x \in \gamma \big) .
 \end{equation}
 In other words, the intensity function of a simple point process is the inclusion probability $\mathbb{P} \big(x \in \gamma \big)$.
-
 \end{example}
+We shall see later a similar characterization of the intensity function of simple point processes in the case of a continuous domain.
 
-
-Now, given a simple point process $\gamma$, the identity~\eqref{eq:first_intensity_measure} can be rewritten 
+Now, given a simple point process $\gamma$, the identity~\eqref{eq:first_intensity_measure} can be rewritten (explain why: a simple counting measure is atomic in polish space????)
 \begin{equation}\label{eq:primitif_Campbell_identity}
 \forall B \in \mathcal{B}, \:\:\int_{\mathcal{D}} \mathbb{1}_{B} \gamma_1 = \mathbb{E}\sum\limits_{x \in \gamma} \mathbb{1}_{B}(x).
 \end{equation}
@@ -939,7 +965,7 @@ In particular, if $\gamma_1$ is absolutely continuous with respect to $\mathrm{d
 
 \end{theorem}
 
-Observe that the Campbell theorem can be applied for general point processes: the term $\sum_{x \in \gamma} f(x)$ should be replaced by $\int_{\mathcal{D}} f \gamma$. Moreover, it can be extended to functions $f: \mathcal{D} \rightarrow \mathbb{R}$ that are integrable with respect to $\gamma_1$. See Theorem 1.2.5 in \citep{BaBlKa20} for a general statement and its proof.
+Note that the Campbell theorem can be applied for general point processes: the term $\sum_{x \in \gamma} f(x)$ should be replaced by $\int_{\mathcal{D}} f \gamma$. Moreover, it can be extended to functions $f: \mathcal{D} \rightarrow \mathbb{R}$ that are integrable with respect to $\gamma_1$. See Theorem 1.2.5 in \citep{BaBlKa20} for a general statement and its proof.
 
 % simpler di
 %  can be described by
@@ -1206,8 +1232,8 @@ so that we can define the corresponding integration operator with respect to $\m
 % \end{equation}
 
 \begin{align}
-  \bm{\Sigma}_{\kappa} : \mathbb{L}_{2}(\mathrm{d}\omega) & \rightarrow \mathbb{L}_{2}(\mathrm{d}\omega) \nonumber \\
-  g & \mapsto \int_{\mathcal{D}}g(.) \kappa(.,y) \mathrm{d}\omega(y). \nonumber
+  \bm{\Sigma}_{\kappa} : \mathbb{L}_{2}(\mathrm{d}\omega) & \longrightarrow \mathbb{L}_{2}(\mathrm{d}\omega) \nonumber \\
+  g & \longmapsto \int_{\mathcal{D}}g(.) \kappa(.,y) \mathrm{d}\omega(y). \nonumber
 \end{align}
 
 Now the condition \eqref{eq:hermitian_condition_kappa} implies that $\bm{\Sigma}_{\kappa}$ is a self-adjoint operator on $\mathbb{L}_{2}(\mathrm{d}\omega)$; the condition \eqref{eq:positivity_condition_kappa} implies that $\bm{\Sigma}_{\kappa}$ is non-negative definite; and \eqref{eq:integrability_condition_kappa} implies that $\bm{\Sigma}_{\kappa}$ is a compact operator. Therefore, by the the spectral theorem for compact self-adjoint operators (Chapter 6 in \citep{Bre10}), $\mathbb{L}_{2}(\mathrm{d}\omega)$ have an orthonormal basis $(v_{n})_{n \in \mathbb{N}^{*}}$ of eigenfunctions of $\bm{\Sigma}_{\kappa}$, the corresponding eigenvalues $\sigma_n$ are non-negative, have finite multiplicities and $0$ is the only possible accumulation point of the spectrum. Furthermore, $\bm{\Sigma}_{\kappa}$ is said to be of \emph{trace class} if
@@ -1215,6 +1241,8 @@ Now the condition \eqref{eq:hermitian_condition_kappa} implies that $\bm{\Sigma}
 \begin{equation}\label{eq:traceclass_condition_kappa}
 \sum\limits_{n \in \mathbb{N}^{*}} \sigma_n <+\infty.
 \end{equation}
+In the following we call the conditions \eqref{eq:hermitian_condition_kappa}, \eqref{eq:positivity_condition_kappa}, \eqref{eq:integrability_condition_kappa} and \eqref{eq:traceclass_condition_kappa} the \emph{usual conditions}.
+
 Now, we are ready to recall a fundamental characterization of kernels that define DPPs.
 
 % By  and ,  is a self-adjoint integral operator on $\mathbb{L}_{2}(\mathrm{d}\omega)$.
@@ -1224,7 +1252,8 @@ Now, we are ready to recall a fundamental characterization of kernels that defin
 %a kernel 
 %the integral operator
 \begin{theorem} [\cite{Mac75,Sos00}] \label{thm:mac_sos}
-Let $\kappa$ such that $\bm{\Sigma}_{\kappa}$ is self-adjoint and of trace class. 
+Let $\kappa$ such that $\bm{\Sigma}_{\kappa}$ satisfies the usual conditions.
+%is self-adjoint and of trace class. 
 Then $\kappa$ defines a DPP if and only if the spectrum of $\bm{\Sigma}_{\kappa}$ is contained in $[0,1]$.
 \end{theorem}
 %The most basic example of a kernel that satisfies
@@ -1238,7 +1267,7 @@ Let $v_{1}, \dots, v_{M} \in \mathbb{L}_{2}(\mathrm{d}\omega)$, such that $(v_{m
 \end{equation} 
 Let $\gamma$ be the DPP associated to the kernel $\kappa$ and reference measure $\mathrm{d}\omega$, then 
 \begin{equation}
-\gamma(\mathcal{D}) = M \:\: \text{a.s.}
+\Prb \big( \gamma(\mathcal{D}) = M \big) = 1.
 \end{equation}
 
 
@@ -1249,18 +1278,18 @@ These DPPs are important in the characterization of DPPs that satisfy the condit
 
 
 \begin{theorem}\label{thm:mixture_of_projection_DPPs}
-Let $\kappa$ be a kernel satisfying the conditions \eqref{eq:hermitian_condition_kappa}, \eqref{eq:positivity_condition_kappa}, \eqref{eq:integrability_condition_kappa} and \eqref{eq:traceclass_condition_kappa}; and assume that the spectrum of $\bm{\Sigma}_{\kappa}$ is included in $[0,1]$, and denote $(\sigma_{m},v_{m})$ its eigenpairs.
+Let $\kappa$ be a kernel such that $\bm{\Sigma}_{\kappa}$ satisfies the casual conditions and denote $(\sigma_{m},v_{m})$ its eigenpairs. Assume that the spectrum of $\bm{\Sigma}_{\kappa}$ is included in $[0,1]$.
 
  % $\kappa$ is  the usual assumptions ??, ??, and ??. Define $(\sigma_{m},v_{m})$ the eigenpairs of the integration operator  with $\sigma_{m} \in [0,1]$.
 
-Let $\gamma$ be the random measure defined as follows. Let $I_{1},I_{2}, \dots $ be independent random variables such that for every $m \in \mathbb{N}^{*}$, $I_{m}$ is a Bernoulli variable of parameter $\sigma_m$; and let $\gamma$ be a random counting measure that follows the distribution of the projection DPP associated to the kernel and the reference measure $\mathrm{d}\omega$
+Let $\gamma$ be the random measure defined as follows. Let $I_{1},I_{2}, \dots $ be independent Bernoulli random variables such that for every $m \in \mathbb{N}^{*}$, the parameter of $I_{m}$ is equal to $\sigma_m$; and let $\gamma$ be a random counting measure that follows the distribution of the projection DPP associated to the reference measure $\mathrm{d}\omega$ and the kernel 
 \begin{equation}
 \kappa_{I}(x,y) = \sum\limits_{m \in \mathbb{N}^{*}} I_{m} v_{m}(x)\overline{v_{m}(y)}.
 \end{equation}
 
 Then $\gamma$ follows the distribution of the determinantal point process associated to the kernel $\kappa$ and the reference measure $\mathrm{d}\omega$.
 \end{theorem}
-Theorem~\ref{thm:mixture_of_projection_DPPs} implies that any DPP defined trough a kernel $\kappa$ that satisfies the usual conditions \eqref{eq:hermitian_condition_kappa}, \eqref{eq:positivity_condition_kappa}, \eqref{eq:integrability_condition_kappa} and \eqref{eq:traceclass_condition_kappa} is a mixture of projection DPPs.
+Theorem~\ref{thm:mixture_of_projection_DPPs} implies that any DPP defined trough a kernel $\kappa$ that satisfies the usual conditions is a mixture of projection DPPs.
 Observe that the intermediate projection kernel $\kappa_{I}$ is of finite rank a.s. This is a consequence of the trace class condition that guarantees that 
 \begin{equation}
 \sum\limits_{m \in \mathbb{N}^{*}} I_{m} <+\infty \:\: \text{a.s.}
@@ -1271,13 +1300,15 @@ The distribution of the cardinality of this class of DPPs follows immediately fr
 % arises immediately as a consequence of 
 % is the characterization of the  this class of DPPs.
 \begin{corollary}
-Let $\kappa$ be a kernel satisfying the usual conditions \eqref{eq:hermitian_condition_kappa}, \eqref{eq:positivity_condition_kappa}, \eqref{eq:integrability_condition_kappa} and \eqref{eq:traceclass_condition_kappa}; and assume that the spectrum of $\bm{\Sigma}_{\kappa}$ is included in $[0,1]$, and denote by $(\sigma_{m})$ its eigenvalues. Let $\gamma$ be the DPP associated to the kernel $\kappa$ and reference measure $\mathrm{d}\omega$,
+
+% Let $\kappa$ be a kernel such that $\bm{\Sigma}_{\kappa}$ satisfies the usual conditions, and denote by $(\sigma_{m})$ its eigenvalues. Assume that the spectrum of $\bm{\Sigma}_{\kappa}$ is included in $[0,1]$.
+Let $\gamma$ be the DPP associated to the kernel $\kappa$ and reference measure $\mathrm{d}\omega$,
 then 
 %$$ follows the distribution of 
 \begin{equation}
-\gamma(\mathcal{D}) \sim \sum\limits_{m \in \mathbb{N}^{*}} I_{m},
+\gamma(\mathcal{D}) \sim \sum\limits_{m \in \mathbb{N}^{*}} I_{m}.
 \end{equation}
-where the $(I_m)$ are independent random variables, and every $I_m$ is a Bernoulli random variable of parameter $\sigma_m$.
+% where the $I_m$ are independent Bernoulli random variables, such that and every $I_m$ is a Bernoulli random variable of parameter $\sigma_m$.
 \end{corollary}
 
 % \begin{example}\label{ex:projection_dpp}
@@ -1296,7 +1327,7 @@ First, the assumption~\eqref{eq:integrability_condition_kappa} is usually relaxe
 \int_{C^{2}} |\kappa(x,y)|^{2} \mathrm{d}\omega(x) \mathrm{d}\omega(y) < +\infty.
 \end{equation}
 
-Under this relaxed assumption, the domain of definition of the integration operator $\bm{\Sigma}_{\kappa}$ should be restrained to elements of $\mathbb{L}_{2}(\mathrm{d}\omega)$ that vanish $a.e.$ outside a compact subset of $\Omega$. Moreover, Theorem~\ref{thm:mac_sos} remains valid and Theorem~\ref{thm:mixture_of_projection_DPPs} and its consequences are still valid for the restricted integration operators: if $\gamma$ follows the distribution of a DPP of kernel $\kappa$ and reference measure $\mathrm{d}\omega$ then for every compact set $C \subset \mathcal{D}$, $\gamma \cap C$ follows the distribution of a DPP of the kernel $\kappa$ and the reference measure $\mathrm{d}\omega_{C}$ defined by
+Under this relaxed assumption, the domain of definition of the integration operator $\bm{\Sigma}_{\kappa}$ should be restrained to elements of $\mathbb{L}_{2}(\mathrm{d}\omega)$ that vanish $a.e.$ outside a compact subset of $\mathcal{D}$. Moreover, Theorem~\ref{thm:mac_sos} remains valid and Theorem~\ref{thm:mixture_of_projection_DPPs} and its consequences are still valid for the restricted integration operators: if $\gamma$ follows the distribution of a DPP of kernel $\kappa$ and reference measure $\mathrm{d}\omega$ then for every compact set $C \subset \mathcal{D}$, $\gamma \cap C$ follows the distribution of a DPP of the kernel $\kappa$ and the reference measure $\mathrm{d}\omega_{C}$ defined by
 \begin{equation}
 \forall B \in \mathcal{B}, \:\: \mathrm{d}\omega_{C}(B) = \mathrm{d}\omega(B \cap C).
 \end{equation}
@@ -1314,7 +1345,7 @@ The second recurrent relaxation is the Hermitianity of $\kappa$: there are examp
 
 
 \subsubsection{The negative correlation property}
-We illustrate  the \emph{negative correlation} property of DPPs by a comparison with Poisson point processes. Consider $\gamma$ be a DPP of kernel $\kappa$ and reference measure $\mathrm{d}\omega$. We assume that $\kappa$ satisfies the usual conditions \eqref{eq:hermitian_condition_kappa}, \eqref{eq:positivity_condition_kappa}, \eqref{eq:integrability_condition_kappa} and \eqref{eq:traceclass_condition_kappa}; and denote by $\gamma_1$ its mean measure. Consider $\tilde{\gamma}$ a Poisson point process of intensity $\gamma_{1}$. 
+We illustrate  the \emph{negative correlation} property of DPPs by a comparison with Poisson point processes. Consider $\gamma$ be a DPP of kernel $\kappa$ and reference measure $\mathrm{d}\omega$. We assume that $\kappa$ satisfies the usual conditions, and denote by $\gamma_1$ its mean measure. Consider $\tilde{\gamma}$ a Poisson point process of intensity $\gamma_{1}$. 
 Let $B_{1}, B_{2}$ two disjoint Borel sets. 
 
 By~\eqref{eq:poisson_cylinder_prb}, we have
@@ -5038,7 +5069,7 @@ Monte Carlo methods offer another approach to numerical integration. This class 
 and by the Strong Law of Large Numbers, $ \sum_{n \in [N]} f(x_{n})/N$ converges ($N \rightarrow +\infty$) a.s. to $\displaystyle \int_{\mathcal{X}} f(x)g(x) \mathrm{d}\omega(x)$. Moreover, if $\displaystyle \int_{\mathcal{X}} f(x)^{2} \mathrm{d}\omega(x) < +\infty$, the variance of $\sum_{n \in [N]} f(x_{n})/N$ scales as $\mathcal{O}(1/N^{2})$, and the estimator satisfies a central limit theorem \citep{RoCa04}. 
 Remarkably, this rate of convergence does not depend on the dimension of $\mathcal{X}$ (if $\mathcal{X}$ is a $d$-dimensional manifold). This property gives an advantage of Monte Carlo methods over deterministic quadrature rules, that scales poorly for high dimension integration problems. 
 
-It would be fair to claim that deterministic quadratures are very efficient for smooth low dimensional functions, while this smoothness does not improve the Monte Carlo rate. This observation have fueled a multitude of investigations with a common purpose: improving upon the Monte Carlo rate for smooth functions on high dimensional integration problems. Many approaches were proposed in this rich line of research: Quasi-Monte Carlo methods \citep*{DiPi10}, kernel quadrature methods \citep*{Hic98} \citep{SmGrSoSc07} \citep{ChWeSm10}, control functional techniques \citep*{OaGi16} or  determinantal point processes \citep{BaHa16}.
+It would be fair to claim that deterministic quadratures are very efficient for smooth low dimensional functions, while this smoothness does not improve the Monte Carlo rate. This observation have fueled a multitude of investigations with a common purpose: improving upon the Monte Carlo rate for smooth functions on high dimensional integration problems. Many approaches were proposed in this rich line of research: Quasi-Monte Carlo methods \citep*{DiPi10}, kernel quadrature methods \citep*{Hic98} \citep{SmGrSoSc07} \citep{ChWeSm10} \citep{Bac17}, control functional techniques \citep*{OaGi16} or  determinantal point processes \citep{BaHa16}.
 
 In this chapter a brief review of existing numerical integration methods is given with an emphasis on the connections between these methods. In particular, the contribution of this chapter is the introduction of a new class of quadratures that is at the intersection between determinantal point process and kernel quadrature methods.
 
@@ -5958,7 +5989,7 @@ We assume that the kernel , and we assume that ??????
 We discuss later a case where the continuity of the kernel is not verified. ???
 
 
-\subsubsection{A first example: periodic Sobolev spaces and Korobov spaces}
+\subsubsection{An example: periodic Sobolev spaces}
 
 
 
@@ -5967,38 +5998,31 @@ Let $\mathcal{X} = [0,1]$ and $\mathrm{d}\omega$ be the uniform measure on $\X$,
 \begin{equation}
 k_{s}(x,y) = 1+ 2\sum\limits_{m \in \mathbb{N}^{*}} \frac{1}{m^{2s}} \cos(2\pi m(x-y)).
 \end{equation}
-The kernel $k_{s}$ can be expressed in closed form using Bernoulli polynomials \cite{Wah90}
+The kernel $k_{s}$ can be expressed in closed form using Bernoulli polynomials \citep{Wah90}
 \begin{equation}
 k_{s}(x,y) = 1 + \frac{(-1)^{s-1}(2 \pi)^{2s}}{(2s)!} B_{2s}(\{x-y\}).
 \end{equation}
-Figure~\ref{fig:periodic_sobolev_kernel} illustrates the graphs of the kernel translates $x \mapsto k_{s}(0.3,x)$ for $s \in \{1, \dots, 5\}$. The elements of $\mathcal{F}_{s}$ are periodic and are characterized by their Fourier series coefficients
+Figure~\ref{fig:periodic_sobolev_kernel} illustrates the graphs of the kernel translates $x \mapsto k_{s}(0.3,x)$ for $s \in \{1, 2,3\}$. The elements of $\mathcal{F}_{s}$ are periodic and are characterized by their Fourier series coefficients (see Example 19, Chapter 7 in \citep{BeTh11})
 \begin{equation}
 f \in \mathcal{F}_{s} \iff \sum\limits_{m \in \mathbb{N}^{*}} m^{2s} \bigg[\big( \int_{0}^{2\pi} f(x)\cos (2 \pi m x) \mathrm{d}x \big)^{2} + \big( \int_{0}^{2\pi} f(x)\sin (2 \pi m x) \mathrm{d}x \big)^{2} \bigg] <+\infty .
 \end{equation}
-The corresponding RKHS $\mathcal{F}=\mathcal{F}_{s}$ is the periodic Sobolev space of order $s$ of periodic functions defined on $[0,1]$ \citep{BeTh11}
+The corresponding RKHS $\mathcal{F}=\mathcal{F}_{s}$ is the periodic Sobolev space of order $s$: an element of $\mathcal{F}_{s}$ is a function $f$ defined on $[0,1]$, that have the derivative of order $s$ defined in the sense of distributions such that
+$f^{(s)} \in \mathbb{L}_{2}([0,1])$, and
 \begin{equation}
-\mathcal{F}_{s} = \{f \in \mathbb{L}_{2}([0,1]); f,f^{'}, \dots, f^{(s)} \in \mathbb{L}_{2}([0,1]) \}????
+\forall i \in \{0, \dots, s-1\}, \:\: f^{(i)}(0) = f^{(i)}(1).
 \end{equation}
+
+
+% \begin{equation}
+% \mathcal{F}_{s} = \{f \in \mathbb{L}_{2}([0,1]); f,f^{'}, \dots, f^{(s)} \in \mathbb{L}_{2}([0,1]) \}????
+% \end{equation}
 % Figure~\ref{periodic_sobolev_kernel} illustrates the mean-element for three different weights $g$ in the RKHS corresponding to $k_{1}$.
 \begin{figure}[]
     \centering
-\includegraphics[width= 0.6\textwidth]{img/Sobolev/Bernoulli_kernels_same_node_s_1_5.pdf}
-\caption{The evaluation of the kernel $k_{s}$ for $s \in \{1,2,3,4,5\}$.
+\includegraphics[width= 0.6\textwidth]{img/Sobolev/Bernoulli_kernels_same_node_s_1_3.pdf}
+\caption{The evaluation of the kernel translate $x \mapsto k_{s}(0.3,x)$ for $s \in \{1,2,3\}$.
 \label{fig:periodic_sobolev_kernel}}
 \end{figure}
-For a given $d \in \mathbb{N}^{*}$, the Korobov space in dimension $d$ of order $s$  is the tensor product of $d$ copies of the Sobolev space $\mathcal{F}_{s}$
-\begin{equation}
-\mathcal{K}_{d,s} = \{ f \in \mathbb{L}_{2}([0,1]^{d}); \: f = \prod\limits_{\delta \in [d]} f_{\delta}, \: f_{\delta} \in \mathcal{F}_{s} \},
-\end{equation}
-and the corresponding kernel $k_{d,s}$ writes
-% Now for $d \in \mathbb{N}^{*}$ and $\mathcal{X} = [0,1]^{d}$ and $\mathrm{d}\omega$ is the uniform measure on $\mathcal{X}$. 
-%  is the tensor :
-% $\mathcal{K}_{d,s}$ is the RKHS corresponding to 
-\begin{equation}
-\forall x,y \in [0,1]^{d}, \:\: k_{d,s}(x,y) = \prod\limits_{\delta \in [d]}k_{s}(x_{\delta},y_{\delta}).
-\end{equation}
-An element $f$ of $\mathcal{K}_{d,s}$ have square-integrable partial derivatives $\displaystyle \frac{\partial^{u_{1}+ \dots + u_{d}}f}{\partial x_{1}^{u_{1}} \dots \partial x_{d}^{u_{d}}} $ for all the $(u_{1}, \dots,u_{d})$ such that $u_{\delta} \in \{0, \dots, s\}$.
-
 
 
 
@@ -6014,7 +6038,7 @@ An element $f$ of $\mathcal{K}_{d,s}$ have square-integrable partial derivatives
 
 \subsection{The Mercer decomposition}
 \label{subsec:mercer}
-As we have seen in the previous section, periodic Sobolev spaces are characterized by the Fourier coefficients of their elements. This property is not specific to Sobolev spaces and it is satisfied by other RKHSs. Indeed, recall that under the Assumption~\ref{hyp:the_diagonal_k_is_integrable}, the RKHS $\mathcal{F}$ is a subspace of $\mathbb{L}_{2}(\mathrm{d}\omega)$. The Mercer theorem gives a finer description of $\mathcal{F}$ as a subspace of $\mathbb{L}_{2}(\mathrm{d}\omega)$.
+As we have seen in the example given in the previous section, periodic Sobolev spaces are characterized by the Fourier coefficients of their elements. This property is not specific to periodic Sobolev spaces and it is satisfied by other RKHSs. Indeed, recall that under the Assumption~\ref{hyp:the_diagonal_k_is_integrable}, the RKHS $\mathcal{F}$ is a subspace of $\mathbb{L}_{2}(\mathrm{d}\omega)$, and the Mercer's theorem gives a finer description of $\mathcal{F}$ as a subspace of $\mathbb{L}_{2}(\mathrm{d}\omega)$.
 
  % This property can be proven by an application of the Mercer theorem. Indeed, 
 
@@ -6072,22 +6096,20 @@ In other words, the RKHS $\mathcal{F}$ is equal to the set \footnote{If there ex
 \begin{equation}
 \bigg \{ f \in \mathbb{L}_{2}(\mathrm{d}\omega), \: \sum\limits_{m \in \mathbb{N}^{*}} \frac{\langle f,e_m \rangle_{\mathrm{d}\omega}^{2}}{\sigma_m} < +\infty \bigg\}.
 \end{equation}
-
 The identity~\eqref{eq:rkhs_norm_ltwo_norm} proves that the operator
 \begin{align*}
 \bm{\Sigma}^{1/2}: \mathbb{L}_{2}(\mathrm{d}\omega) & \longrightarrow \mathbb{L}_{2}(\mathrm{d}\omega) \\
  \sum\limits_{m \in \mathbb{N}^{*}} a_{m} e_m & \longmapsto \sum\limits_{m \in \mathbb{N}^{*}} a_m\sqrt{\sigma_{m}} e_{m}
 \end{align*}
-
-
- % $\bm{\Sigma}^{1/2}: \mathbb{L}_{2}(\mathrm{d}\omega) \rightarrow \F$
-
-  is an isomorphism of Hilbert spaces between the closed span of $\{ e_{m}; \sigma_m>0\}$ in $\mathbb{L}_{2}(\mathrm{d}\omega)$ and $\mathcal{F} \subset \mathbb{L}_{2}(\mathrm{d}\omega)$. Moreover, it is ????
-
-
-Since $\mathrm{d}\omega$ is supposed to be non-degenerate, $\mathcal{F}$ is dense in $\mathbb{L}_{2}(\mathrm{d}\omega)$ if and only if all the eigenvalues $\sigma_{m}$ are positive. Under this condition, $\bm{\Sigma}^{1/2}$ is an isomorphism between  $\F$ and $\mathbb{L}_{2}(\mathrm{d}\omega)$.
-
-
+  is an isomorphism of Hilbert spaces between the closed span of $\{ e_{m}; \sigma_m>0\}$ in $\mathbb{L}_{2}(\mathrm{d}\omega)$ and $\mathcal{F} \subset \mathbb{L}_{2}(\mathrm{d}\omega)$. In particular, for every $f \in \F$, there exists $g \in \mathbb{L}_{2}(\mathrm{d}\omega)$ such that
+  \begin{equation}
+  f = \bm{\Sigma}^{1/2}g,
+  \end{equation}
+  with $\|f\|_{\mathcal{F}} = \|g\|_{\mathrm{d}\omega}$. Since $\mathrm{d}\omega$ is supposed to be non-degenerate, $\mathcal{F}$ is dense in $\mathbb{L}_{2}(\mathrm{d}\omega)$ if and only if all the eigenvalues $\sigma_{m}$ are positive. Under this condition, $\bm{\Sigma}^{1/2}$ is an isomorphism between $\mathbb{L}_{2}(\mathrm{d}\omega)$ and $\F$. Finally, note that 
+  \begin{equation}
+  \bm{\Sigma}^{1/2} \bm{\Sigma}^{1/2} = \bm{\Sigma}.
+  \end{equation}
+  In other words, $\bm{\Sigma}^{1/2}$ is the positive self-adjoint square root of $\bm{\Sigma}$.
 
 
   The RKHS $\F$ can be seen as an ellipsoid in $\mathbb{L}_{2}(\mathrm{d}\omega)$ as it is illustrated in Figure~\ref{fig:rkhs_is_ellipsoid}: the principal axis correspond to the directions spanned by the eigenfunctions $e_{m}$.
@@ -6099,20 +6121,23 @@ Since $\mathrm{d}\omega$ is supposed to be non-degenerate, $\mathcal{F}$ is dens
 \end{figure}
 
 
-The compactness assumption in Theorem~\ref{thm:Mercer_for_compact} excludes some classic RKHSs: the RKHSs corresponding to the Gaussian kernel or the Laplace kernels on $\mathbb{R}^{d}$...
+The compactness assumption in Theorem~\ref{thm:Mercer_for_compact} excludes some classic RKHSs defined on non-compact domains such as the RKHS corresponding to the Gaussian kernel on $\mathbb{R}^{d}$ equipped with the Gaussian measure.
+%or the Laplace kernels
 Hence the need to an extension of this result to non-compact spaces.
 
-In \cite{Sun05}, the author extended Theorem~\ref{thm:Mercer_for_compact} to $\mathcal{X} = \cup_{i \in \mathbb{N}} \mathcal{X}_{i}$, with the $\mathcal{X}_{i}$s compact and $\mathrm{d}\omega(\mathcal{X}_{i})<\infty$. One can also extend Mercer's theorem under a \textit{compact embedding} assumption \citep{StSc12}: the RKHS $\mathcal{F}$ associated to $k$ is said to be compactly embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$ if the application
+In \cite{Sun05}, the author extended Theorem~\ref{thm:Mercer_for_compact} to $\mathcal{X} = \cup_{i \in \mathbb{N}} \mathcal{X}_{i}$, with the $\mathcal{X}_{i}$s are compacts and $\mathrm{d}\omega(\mathcal{X}_{i})<\infty$. One can also extend Mercer's theorem under a \textit{compact embedding} assumption \citep{StSc12}: the RKHS $\mathcal{F}$ associated to $k$ is said to be compactly embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$ if the operator
 \begin{align*}
   I_{\mathcal{F}}: \mathcal{F}&\longrightarrow \mathbb{L}_{2}(\mathrm{d}\omega) \\
   f &\longmapsto f
 \end{align*}
 is compact.
 A sufficient condition for this assumption is the integrability of the diagonal (Lemma 2.3, \citep{StSc12}), that is,
-\begin{equation}
+\begin{equation}\label{eq:condition_integrability_diagonal}
 \int_{\mathcal{X}} k(x,x) \mathrm{d}\omega(x) < \infty.
 \end{equation}
-Note that this condition is not necessary (Example 2.9, \citep{StSc12}). Now, under the compact embedding assumption, the pointwise convergence of the Mercer decomposition to the kernel $k$ is equivalent to the injectivity of the embedding $I_{\mathcal{F}}$ (Theorem 3.1, \citep{StSc12}).
+Note that this condition is not necessary (Example 2.9, \citep{StSc12}). Now, under the compact embedding assumption, the pointwise convergence of the Mercer decomposition to the kernel $k$ is equivalent to the injectivity of the embedding $I_{\mathcal{F}}$ (Theorem 3.1, \citep{StSc12}). The injectivity of $I_{\mathcal{F}}$ is guaranteed whenever $\mathrm{d}\omega$ is non-degenerate (Chapter 4 in \citep{StCh08}). 
+
+The condition~\eqref{eq:condition_integrability_diagonal} is satisfied by the Gaussian kernel on $\mathbb{R}^{d}$ equipped with the Gaussian measure.
 % This condition is satisfied whenever $k$ is bounded and $\mathrm{d}\omega(\mathcal{X}) < \infty$.
 % \begin{theorem}[Theorem 3.1, \cite{StSc12}]
 % Let $\mathcal{X}$ be a measurable space and $\mathrm{d}\omega$ a measure on $\mathcal{X}$. Let $k$ be a measurable positive kernel on $\mathcal{X}$ with an RKHS $\mathcal{F}$. Assume that $\mathcal{F}$ is compactly embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$. Define the integral operator $\bm{\Sigma}$:
@@ -6127,8 +6152,21 @@ Note that this condition is not necessary (Example 2.9, \citep{StSc12}). Now, un
 % \end{theorem}
 % % \subsection{The results}
 
-\subsection{Further examples of kernels}
+\subsection{Examples}
 \label{subsec:kernel_examples}
+\subsubsection{The Korobov spaces}
+For a given $d \in \mathbb{N}^{*}$, the Korobov space in dimension $d$ of order $s$  is the tensor product of $d$ copies of the Sobolev space $\mathcal{F}_{s}$
+\begin{equation}
+\mathcal{K}_{d,s} = \{ f \in \mathbb{L}_{2}([0,1]^{d}); \: f = \prod\limits_{\delta \in [d]} f_{\delta}, \: f_{\delta} \in \mathcal{F}_{s} \},
+\end{equation}
+and the corresponding kernel $k_{d,s}$ writes
+% Now for $d \in \mathbb{N}^{*}$ and $\mathcal{X} = [0,1]^{d}$ and $\mathrm{d}\omega$ is the uniform measure on $\mathcal{X}$. 
+%  is the tensor :
+% $\mathcal{K}_{d,s}$ is the RKHS corresponding to 
+\begin{equation}
+\forall x,y \in [0,1]^{d}, \:\: k_{d,s}(x,y) = \prod\limits_{\delta \in [d]}k_{s}(x_{\delta},y_{\delta}).
+\end{equation}
+An element $f$ of $\mathcal{K}_{d,s}$ have square-integrable partial derivatives $\displaystyle \frac{\partial^{u_{1}+ \dots + u_{d}}f}{\partial x_{1}^{u_{1}} \dots \partial x_{d}^{u_{d}}} $ for all the $(u_{1}, \dots,u_{d})$ such that $u_{\delta} \in \{0, \dots, s\}$.
 
 
 \subsubsection{Dot product kernels on hypersphers}
@@ -7325,49 +7363,77 @@ In particular
 \end{theorem}
 
 \begin{proof}
-Consider the operator $\bm{\pi} = \bm{\Pi}_{\mathcal{P}_2} \bm{\Pi}_{\mathcal{P}_1}$. Since $\mathcal{P}_1$ and $\mathcal{P}_2$ are finite-dimensional subspaces of $\mathcal{H}$, $\bm{\pi}$ is a finite-rank operator. Therefore, there exists two orthonormal families $(e_{n})_{n \in [N]}$ and $(f_{n})_{n \in [N]}$ such that
-\begin{equation}
-\forall x \in \mathcal{H}, \:\: \bm{\pi} x = \sum\limits_{n \in [N]} \sigma_{n}(\bm{\pi}) \langle x,e_{n} \rangle_{\mathcal{H}} f_{n}.
+Consider the operator $\bm{\pi} = \bm{\Pi}_{\mathcal{P}_2} \bm{\Pi}_{\mathcal{P}_1}$. Since $\mathcal{P}_1$ and $\mathcal{P}_2$ are finite-dimensional subspaces of $\mathcal{H}$, $\bm{\pi}$ is a finite-rank operator. Therefore, using the singular value decomposition, there exists two orthonormal families $(\bm{v}^{1}_{n})_{n \in [R]}$ and $(\bm{v}^{2}_{n})_{n \in [R]}$ such that
+\begin{equation}\label{eq:SVD_bmpi}
+\forall x \in \mathcal{H}, \:\: \bm{\pi} x = \sum\limits_{n \in [R]} \sigma_{n}(\bm{\pi}) \langle x,\bm{v}^{1}_{n} \rangle_{\mathcal{H}} \bm{v}^{2}_{n},
 \end{equation} 
-
-
-Assume for a moment that the $\sigma_n$ are positive. 
-
-We have 
+where $R$ is the rank of $\bm{\pi}$, and the $(\sigma_n(\bm{\pi}))_{n \in [R]}$ is the non-increasing sequence of positive singular values of $\bm{\pi}$.
+% In particular, the $\sigma_{n}(\bm{\pi})$ are non-negatives.
+% Assume for a moment that the $\sigma_n$ are positive. 
+% Denote $L = |\{ n \in [N], \:\: \sigma_{n}(\bm{\pi})>0 \}|$.
+Let $m \in [R]$ then
 \begin{equation}
-\forall n \in [N], \:\: f_{n} = \bm{\pi} e_{n} = \bm{\Pi}_{\mathcal{P}_1} \bm{\Pi}_{\mathcal{P}_2} e_{n} \in \mathcal{P}_2.
+ \bm{v}^{2}_{m} = \frac{1}{\sigma_{m}(\bm{\pi})} \bm{\pi} \bm{v}^{1}_{m} = \frac{1}{\sigma_{m}(\bm{\pi})} \bm{\Pi}_{\mathcal{P}_2} \bm{\Pi}_{\mathcal{P}_1} \bm{v}^{1}_{m} \in \mathcal{P}_2.
 \end{equation}
 Moreover, 
 \begin{equation}
-\forall x \in \mathcal{P}_1^{\perp}, \:\: \sum\limits_{n \in [N]} \langle x,e_{n} \rangle_{\mathcal{H}}f_{n} = \bm{\Pi}_{\mathcal{P}_2} \bm{\Pi}_{\mathcal{P}_1} x =0,
+\forall x \in \mathcal{P}_1^{\perp}, \:\: \sum\limits_{n \in [N]} \sigma_{n}(\bm{\pi})\langle x,\bm{v}^{1}_{n} \rangle_{\mathcal{H}}\bm{v}^{2}_{n} = \bm{\Pi}_{\mathcal{P}_2} \bm{\Pi}_{\mathcal{P}_1} x =0,
 \end{equation}
 therefore
+% \begin{equation}
+% \forall x \in \mathcal{P}_1^{\perp}, \forall n \in [N],  \:\: \langle x,e_{n} \rangle_{\mathcal{H}},
+% \end{equation}
+and for every $m \in [R]$, $\bm{v}_{m}^{1} \in (\mathcal{P}_1^{\perp})^{\perp} = \mathcal{P}_1$. 
+
+% Now, for $m \in \{R+1, \dots, N \}$, 
+
+We can complete the family $(\bm{v}^{1}_n)_{n \in [R]}$ in $\mathcal{P}_{1}$ to an o.n.b. $(\bm{v}_{n}^{1})_{n \in [N]}$, and similarly we complete the family $(\bm{v}^{2}_n)_{n \in [R]}$ in $\mathcal{P}_{2}$ to an o.n.b. $(\bm{v}_{n}^{2})_{n \in [N]}$. 
+
+We have for $m >R$, 
 \begin{equation}
-\forall x \in \mathcal{P}_1^{\perp}, \forall n \in [N],  \:\: \langle x,e_{n} \rangle_{\mathcal{H}},
+\bm{\Pi}_{2} \bm{v}^{1}_{m} = \bm{\pi} \bm{v}^{1}_{m} = \sum\limits_{n \in [R]} \sigma_{n}(\bm{\pi}) \langle \bm{v}^{1}_{m}, \bm{v}^{1}_{n} \rangle_{\mathcal{H}} \bm{v}^{2}_{n} = 0,
 \end{equation}
-and for every $n \in [N]$, $e_{n} \in (\mathcal{P}_1^{\perp})^{\perp} = \mathcal{P}_1$. 
+therefore, $\bm{v}^{1}_{m} \in \mathcal{P}_{2}^{\perp}$. In particular,
+\begin{equation}
+\forall m \in \{R+1, \dots, N \}, \:\: \langle \bm{v}^{1}_{m} ,\bm{v}^{2}_{m} \rangle_{\mathcal{H}} = 0 = \cos \theta_{m}(\mathcal{P}_{1}, \mathcal{P}_2),
+\end{equation}
+where we take $\theta_{m}(\mathcal{P}_{1}, \mathcal{P}_2) = \pi/2$ for $m \in \{R+1, \dots, N \}$.
 
-The families $(e_{n})_{n \in [N]}$ and $(f_{n})_{n \in [N]}$ are orthonormal in $\mathcal{H}$, and $\dim \mathcal{P}_{1} = \dim \mathcal{P}_{2} = N$, then $(e_{n})_{n \in [N]}$ is an orthonormal basis of $\mathcal{P}_{1}$ and $(f_{n})_{n \in [N]}$ is an orthonormal basis of $\mathcal{P}_{2}$.
+% The families $(e_{n})_{n \in [N]}$ and $(f_{n})_{n \in [N]}$ are orthonormal in $\mathcal{H}$, and $\dim \mathcal{P}_{1} = \dim \mathcal{P}_{2} = N$, then $(e_{n})_{n \in [N]}$ is an orthonormal basis of $\mathcal{P}_{1}$ and $(f_{n})_{n \in [N]}$ is an orthonormal basis of $\mathcal{P}_{2}$.
 
-Since $\bm{\pi}$ is the product of two orthogonal projections, the $\sigma_{n}(\bm{\pi})$ are included in $[0,1]$. We denote for $n \in [N]$ $\theta_{n}(\mathcal{P}_1,\mathcal{P}_2) \in [0,\pi/2]$ such that
+Now, $\bm{\pi}$ is the product of two orthogonal projections, then $\sigma_{n}(\bm{\pi})$ are included in $]0,1]$. We denote for $n \in [R]$ $\theta_{n}(\mathcal{P}_1,\mathcal{P}_2) \in [0,\pi/2[$ such that
 \begin{equation}
 \cos \theta_n(\mathcal{P}_1,\mathcal{P}_2) = \sigma_{n}(\bm{\pi}).
 \end{equation}
-By definition, $(\sigma_{n}(\bm{\pi}))_{n \in [N]}$ is a decreasing sequence, then $(\theta_{n}(\mathcal{P}_1,\mathcal{P}_2))_{n \in [N]}$ is an increasing sequence. 
+By definition, $(\sigma_{n}(\bm{\pi}))_{n \in [R]}$ is a decreasing sequence, then $(\theta_{n}(\mathcal{P}_1,\mathcal{P}_2))_{n \in [R]}$ is an increasing sequence. Therefore, $(\theta_{n}(\mathcal{P}_1,\mathcal{P}_2))_{n \in [N]}$
+is an increasing sequence.
 
-Now, by ??
+Now, by~\eqref{eq:SVD_bmpi}
 \begin{equation}
-\cos \theta_n(\mathcal{P}_1,\mathcal{P}_2) f_{n} = \bm{\pi} e_{n} = \bm{\Pi}_{\mathcal{P}_{2}} \bm{\Pi}_{\mathcal{P}_{1}} e_{n} = \bm{\Pi}_{\mathcal{P}_{2}} e_{n},
+\cos \theta_n(\mathcal{P}_1,\mathcal{P}_2) \bm{v}^{2}_{n} = \bm{\pi} \bm{v}^{2}_{n} = \bm{\Pi}_{\mathcal{P}_{2}} \bm{\Pi}_{\mathcal{P}_{1}} \bm{v}^{1}_{n} = \bm{\Pi}_{\mathcal{P}_{2}} \bm{v}^{1}_{n},
 \end{equation}
 and
 \begin{align}
-\cos \theta_n(\mathcal{P}_1,\mathcal{P}_2) & = \sigma_n(\bm{\pi}) \langle f_{n}, f_{n} \rangle_{\mathcal{H}} \nonumber \\
-& = \langle f_{n},\bm{\Pi}_{\mathcal{P}_2} \bm{\Pi}_{\mathcal{P}_1} e_{n}\rangle_{\mathcal{H}} \nonumber \\
-& = \langle f_{n}, \bm{\Pi}_{\mathcal{P}_2} e_{n} \rangle_{\mathcal{H}} \nonumber \\
-& = \langle \bm{\Pi}_{\mathcal{P}_2} f_{n},  e_{n} \rangle_{\mathcal{H}} \nonumber \\
-& = \langle f_{n},  e_{n} \rangle_{\mathcal{H}}
+\cos \theta_n(\mathcal{P}_1,\mathcal{P}_2) & = \sigma_n(\bm{\pi}) \langle \bm{v}^{2}_{n}, \bm{v}^{2}_{n} \rangle_{\mathcal{H}} \nonumber \\
+& = \langle \bm{v}^{2}_{n},\bm{\Pi}_{\mathcal{P}_2} \bm{\Pi}_{\mathcal{P}_1} \bm{v}^{1}_{n}\rangle_{\mathcal{H}} \nonumber \\
+& = \langle \bm{v}^{2}_{n}, \bm{\Pi}_{\mathcal{P}_2} \bm{v}^{1}_{n} \rangle_{\mathcal{H}} \nonumber \\
+& = \langle \bm{\Pi}_{\mathcal{P}_2} \bm{v}^{2}_{n},  \bm{v}^{1}_{n} \rangle_{\mathcal{H}} \nonumber \\
+& = \langle \bm{v}^{2}_{n},  \bm{v}^{1}_{n} \rangle_{\mathcal{H}}.
 \end{align}
-....
+
+By taking the adjoint in~\eqref{eq:SVD_bmpi}, 
+\begin{equation}
+\forall x \in \mathcal{H}, \:\: \bm{\pi}^{*} x = \sum\limits_{n \in [R]} \sigma_{n}(\bm{\pi}) \langle x,\bm{v}^{2}_{n} \rangle_{\mathcal{H}} \bm{v}^{1}_{n},
+\end{equation}
+and we can prove similarly that
+\begin{equation}
+\forall n \in [R], \:\:\cos \theta_n(\mathcal{P}_1,\mathcal{P}_2) \bm{v}^{1}_{n} = \bm{\pi}^{*} \bm{v}^{1}_{n} = \bm{\Pi}_{\mathcal{P}_{1}} \bm{\Pi}_{\mathcal{P}_{2}} \bm{v}^{2}_{n} = \bm{\Pi}_{\mathcal{P}_{1}} \bm{v}^{2}_{n},
+\end{equation}
+and
+\begin{equation}
+\forall n >R, \:\:\bm{\Pi}_{\mathcal{P}_{1}} \bm{v}^{2}_{n} = 0 = \cos \theta_{n}(\mathcal{P}_1,\mathcal{P}_2) \bm{v}^{1}_{n}.
+\end{equation}
+
 %  the operator defined $$
 % Define the operator $\pi : \mathcal{H} $
 % \begin{align*}
@@ -9562,7 +9628,7 @@ $\sigma_{1} = 1$, $e_{1}=1$ is constant and, for $n \geq 1$, $\sigma_{2n} = \sig
     \end{array}
 \right.
 \end{equation}
- Note that $k_{s}$ can be expressed in closed form using Bernoulli polynomials \cite{Wah90}. In Theorem~\ref{CVS_thm:main_result_1}, \eqref{CVS_eq:main_result_EX_VS_err_mu} decomposes the expected interpolation error of any $\mu_{g}$ in terms of the interpolation error $\epsilon_{m}(N)$ of the $\mu_{e_{m}}$.
+ Note that $k_{s}$ can be expressed in closed form using Bernoulli polynomials \citep{Wah90}. In Theorem~\ref{CVS_thm:main_result_1}, \eqref{CVS_eq:main_result_EX_VS_err_mu} decomposes the expected interpolation error of any $\mu_{g}$ in terms of the interpolation error $\epsilon_{m}(N)$ of the $\mu_{e_{m}}$.
  Therefore, it is sufficient to numerically check the values of the $\epsilon_{m}(N)$. As an illustration we consider $g \in \{e_{1}, e_{5}, e_{7}\}$ in \eqref{CVS_eq:main_result_EX_VS_err_mu}, so that $\mu_{e_m} = \bm{\Sigma}e_m = \sigma_{m} e_{m}$, with $m \in \{1,5,7\}$.
  We use the Gibbs sampler proposed by \citep{ReGh19} to approximate continuous volume sampling.
 
