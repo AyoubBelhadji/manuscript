@@ -701,21 +701,31 @@ We adopted a different notation in this chapter that will change in the next cha
 
 \section{Point processes}\label{sec:pointprocesses}
 
-Intuitively, a point process is a random discrete subset of points in some  measurable space $(\mathcal{D}, \mathcal{B})$. In order to define such an object rigorously, it is more convenient to see a discrete subset of $\mathcal{D}$ as an atomic measure defined on $\mathcal{D}$. Indeed, as we shall see, under some conditions on the domain $\mathcal{D}$, the set of measures on $\mathcal{D}$ have some nice properties that are compatible with the standard setting of probability theory. 
+Intuitively, a point process is a random discrete subset of points in some  measurable space $(\mathcal{D}, \mathcal{B})$. In order to define such an object rigorously, it is more convenient to see a discrete subset of $\mathcal{D}$ as an atomic measure defined on $\mathcal{D}$ as illustrated in Figure~\ref{fig:pointprocess}. Indeed, as we shall see, under some conditions on the domain $\mathcal{D}$, the set of measures on $\mathcal{D}$ have some nice properties that are compatible with the standard setting of probability theory. 
+
+%As we shall see, we will define a point process on $\mathcal{D}$ as a random variable in the space of measures defined on $\mathcal{D}$.
 
 % within the usual framework of probability theory,
 % the set of discrete subsets of $\mathcal{D}$ have to 
+\begin{figure}[]
+\centering
+\input{img/pointprocess/pointprocess.tex}
+ \caption{ A set $\{x_1, x_{2}, x_{3}, x_{4}\}$ can be identified with the atomic measure $\sum\limits_{n =1}^{4}\delta_{x_n}$. \label{fig:pointprocess}}
+\end{figure}
+
+
 
 
 
 % In order to define such a concept within the usual framework of probability theory, $\mathcal{D}$ have to satisfy some conditions. 
 
-Let $(\mathcal{D},\mathcal{T})$ be a topological space that is \emph{locally compact} (every point has a compact neighborhood), \emph{second countable} ($\mathcal{T}$ has a countable base) and \emph{Hausdorff} (for any two distinct points there exist neighborhoods of each point that are disjoint).
- These three conditions guarantee that $(\mathcal{D},\mathcal{T})$ is a Polish space, that is there exists some metric $d$ on $\mathcal{D}$ such that the
-topology induced by $d$ is equal to $\mathcal{T}$ and $(\mathcal{D},d)$ is a \emph{complete} and \emph{separable} (there is a countable set $\{x_{n}; n \in \mathbb{N}\}$ that is dense in $\mathcal{D}$)
+Polish spaces are recurrently used in probability theory as they define a large class of topological spaces without containing pathological ones. 
+This class of spaces contains among others, discrete sets and many continuous domains, and they seem to be the convenient setting to give a unified definition of DPPs. We will give the definition of a Polish space in the following. Let $(\mathcal{D},\mathcal{T})$ be a topological space that is \emph{locally compact} (every point has a compact neighborhood), \emph{second countable} ($\mathcal{T}$ has a countable base) and \emph{Hausdorff} (for any two distinct points there exist neighborhoods of each point that are disjoint).
+ These three conditions guarantee that $(\mathcal{D},\mathcal{T})$ is a Polish space, that is there exists some metric $\delta$ on $\mathcal{D}$ such that the
+topology induced by $\delta$ is equal to $\mathcal{T}$ and $(\mathcal{D},\delta)$ is a \emph{complete} and \emph{separable} (there is a dense countable set $\{x_{n}; n \in \mathbb{N}\}$ in $\mathcal{D}$)
 metric space; see Theorem 5.3 in \citep{Kec95}.
 
-Polish spaces are recurrently used in probability theory. We give some examples of these abstract spaces.
+We give some examples of Polish spaces. 
 % First, we assume that $(\mathcal{D},d)$ is a metric space for some metric $d$. 
 \begin{example}\leavevmode\newline
 %\phantom{a}\\
@@ -723,7 +733,8 @@ Polish spaces are recurrently used in probability theory. We give some examples 
 \item A countable set with the discrete topology is a Polish space, 
 \item The sets $\mathbb{R}^{d}, \mathbb{C}^{d}$ with $d \in \mathbb{N}^{*}$ endowed with the usual topology induced by Euclidean norm are Polish spaces,
 \item A closed subspace of a Polish space is a Polish space; see Proposition 3.3 in \citep{Kec95}.
-\item Manifolds [??]
+\item Riemannian manifolds .
+
 \end{itemize}
 % discrete sets endowed by the discrete metric, subsets of $\mathbb{R}^{d}$ with the Euclidean distance, manifolds ...????
 \end{example}
@@ -732,8 +743,8 @@ Define $\mathcal{B}$ to be the Borel $\sigma$-algebra: the smallest $\sigma$-alg
 \begin{equation}
 \mu(B) <+\infty.
 \end{equation}
-In a Polish space $\mathcal{D}$, a locally finite measure is $\sigma$-finite, that is there exists 
-countable family of measurable sets of finite measure according to $\mu$ that covers $\mathcal{D}$; see Lemma 1.1.4 in ??
+% In a Polish space $\mathcal{D}$, a locally finite measure is $\sigma$-finite, that is there exists 
+% countable family of measurable sets of finite measure according to $\mu$ that covers $\mathcal{D}$; see Lemma 1.1.4 in ??
 
 
 Denote by $\mathbf{M}(\mathcal{D})$ the set of locally finite measures on $\mathcal{D}$. 
@@ -760,7 +771,7 @@ where $m \in \mathbb{N}^{*}$, $B_{1}, \dots, B_{m}$ are relatively compact open 
 
 The set of counting measures defined by
 \begin{equation}
-\mathbf{N}(\mathcal{D}) = \Big\{ \mu \in \mathbf{M}(\mathcal{D}); \:\: \forall B \in \mathcal{B}, \mu(B) \in \mathbb{N}\cup \{+\infty\} \Big\}
+\mathbf{N}(\mathcal{D}) = \Big\{ \gamma \in \mathbf{M}(\mathcal{D}); \:\: \forall B \in \mathcal{B}, \gamma(B) \in \mathbb{N}\cup \{+\infty\} \Big\}
 \end{equation}
 is an example  of an element of $\mathcal{M}(\mathcal{D})$; see Lemma 3.1.2 in \citep{ScWe08}.
 %  an element $\mu$ of $\mathbf{N}(\Omega)$ takes values on $\mathbb{N}$
@@ -785,13 +796,14 @@ is an example  of an element of $\mathcal{M}(\mathcal{D})$; see Lemma 3.1.2 in \
 % \end{equation}
 Another example is given by the set of simple counting measures Lemma 3.1.4 in \citep{ScWe08}
 \begin{equation}
-\mathbf{N}_{s}(\mathcal{D}) = \Big\{ \mu \in \mathbf{M}(\mathcal{D}); \:\: \forall x \in \mathcal{D}, \mu(\{x\}) \in \{0,1\} \Big\}.
+\mathbf{N}_{s}(\mathcal{D}) = \Big\{ \gamma \in \mathbf{M}(\mathcal{D}); \:\: \forall x \in \mathcal{D}, \gamma(\{x\}) \in \{0,1\} \Big\}.
 \end{equation}
 % We refer to Lemma 3.1.2 and  for the proofs that $\mathbf{N}(\mathcal{D})$ and $\mathbf{N}_{s}(\mathcal{D})$ (are you sure????) belong to $\mathcal{M}(\mathcal{D})$.
 
+
 Starting from a collection of points $x_{1}, \dots, x_{N}$ in $\mathcal{D}$, one can define a counting measure
 \begin{equation}
-\mu = \sum\limits_{n \in [N]}\delta_{x_n},
+\gamma = \sum\limits_{n \in [N]}\delta_{x_n},
 \end{equation}
 where
 $$
@@ -803,7 +815,7 @@ $$
 \right.
 $$
 
-In this case, $\mu \in \mathbf{N}_s(\mathcal{D})$ if and only if the $x_{n}$ are pairwise distinct; and $\mu$ can be identified to the subset $\{x_{1}, \dots, x_{N}\}$. In particular, many operations on discrete subsets can be expressed using operations on simple counting measures. Table~\ref{table:set_counting_measure_dictionary} contains some of these operations expressed using both notations. These two notations will be used interchangeably in this manuscript.
+In this case, $\gamma \in \mathbf{N}_s(\mathcal{D})$ if and only if the $x_{n}$ are pairwise distinct; and $\gamma$ can be identified to the subset $\{x_{1}, \dots, x_{N}\}$. In particular, many operations on discrete subsets can be expressed using operations on simple counting measures. Table~\ref{table:set_counting_measure_dictionary} contains some of these operations expressed using both notations. These two notations will be used interchangeably in this manuscript.
 \begin{table}
 \centering
  \begin{tabular}{| c| c|}
@@ -824,9 +836,24 @@ In this case, $\mu \in \mathbf{N}_s(\mathcal{D})$ if and only if the $x_{n}$ are
 \caption{A dictionary of notations between discrete subsets and simple counting measures.\label{table:set_counting_measure_dictionary}}
 \end{table}
 % use the notation $x \in \mu$ to express that $\mu (\{x\}) =1$. 
-Now, if an element $x_{n}$ is repeated more than once in the collection, $\mu$ is no longer simple and it can be seen as a discrete subset of $\mathcal{D}$ with multiplicities. Yet, we are mostly interested in simple counting measures in this manuscript.
+Now, if an element $x_{n}$ is repeated more than once in the collection, $\gamma$ is no longer simple and it can be seen as a discrete subset of $\mathcal{D}$ with multiplicities. This intuition is based on this result; see Proposition 9.1.III in \citep{DaVe07II}.
 
-Now, we can define properly a point process in $\mathcal{D}$. It is a special case of a random measure that we recall the definition in the following. 
+\begin{theorem}\label{thm:counting_measure_is_atomic}
+%Let $\mathcal{D}$ be a Polish space.
+Let $\gamma$ be a counting measure on $\mathcal{D}$. Then $\gamma$ can be written as
+\begin{equation}
+\gamma = \sum\limits_{i \in I} m_{i} \delta_{x_{i}},
+\end{equation}
+where $I \in \mathbb{N} \cup \{ \infty \}$, $(x_{i})_{i \in I}$ is a sequence of points in $\mathcal{D}$ without accumulation point and $(b_{i})_{i \in I}$ is a sequence of positive integers. Moreover, this decomposition is unique up
+to a permutation. 
+\end{theorem}
+
+In the case of simple counting measure, the integers $b_{i}$ belong to $\{0,1\}$.
+
+
+% Yet, we are mostly interested in simple counting measures in this manuscript.
+
+Now, we can give the definition of a point process in $\mathcal{D}$. It is a special case of a random measure that we recall the definition in the following. 
 
 %In this manuscript, we will work with simple counting measures. 
 % Discrete subsets of $\Omega$ can be identified to simple counting measures by considering the corresponding atomic measures. Thereby, general counting measures can be seen as discrete subsets with multiplicities. 
@@ -866,32 +893,40 @@ The point process $\gamma$ is said to be a simple if
 \end{definition}
 
 %\begin{example}
-Consider the following example. Let $\mu$ be a probability measure on $\mathcal{D}$ and let $\nu$ be a probability measure on $\mathbb{N}$. Let $x_{0}, x_{1} \dots, $ be independent random variables that follow the distribution $\mu$ and $N$ a random variable that follows the distribution $\nu$.
+Consider the following example. Let $\mathrm{d}\omega$ be a probability measure on $\mathcal{D}$ and let $\nu$ be a probability measure on $\mathbb{N}$. Let $x_{0}, x_{1} \dots, $ be independent random variables that follow the distribution $\mathrm{d}\omega$ and $N$ a random variable that follows the distribution $\nu$.
 Then the random measure $\gamma$ defined by
 \begin{equation}
 \gamma = \sum\limits_{n \in [N]} \delta_{x_{n}},
 \end{equation}
-is a point process on $\mathcal{D}$. This point process is called the \emph{mixed binomial process} with mixing distribution $\nu$ and sampling distribution $\mu$.
+is a point process on $\mathcal{D}$. This point process is called the \emph{mixed binomial process} with mixing distribution $\nu$ and sampling distribution $\mathrm{d}\omega$.
 Now, if  $\nu = \delta_{N_0}$ for some $N_0 \in \mathbb{N}^{*}$, we recover the binomial process defined by
 \begin{equation}\label{eq:binomial_cylinder_prb}
-\forall B \in \mathcal{B}, \:\:\forall n \in \{0, \dots, N_0\}, \:\: \mathbb{P}(\gamma(B) = n) = \binom{N_0}{n}\mu(B)^{n}(1-\mu(B))^{N_0-n}.
+\forall B \in \mathcal{B}, \:\:\forall n \in \{0, \dots, N_0\}, \:\: \mathbb{P}(\gamma(B) = n) = \binom{N_0}{n}\mathrm{d}\omega(B)^{n}(1-\mathrm{d}\omega(B))^{N_0-n}.
 \end{equation}
-On the other hand, if $\nu$ follows the distribution of a Poisson random variable of parameter $1$, then we recover a Poisson point process of intensity $\mu$ that we define in the following.
+On the other hand, if $\nu$ follows the distribution of a Poisson random variable of parameter $1$, then we recover a Poisson point process of intensity $\mathrm{d}\omega$ that we define in the following.
 % \begin{equation}
 % \forall n \in \mathbb{N}, \:\: \mathbb{P}(\gamma(B) = n) = e^{-\lambda \mu(B)}\frac{(\lambda \mu(B))^{n}}{n!}.
 % \end{equation}
 %\end{example}
 \begin{definition}
-Let $\mu$ be a measure on $\mathcal{D}$. A Poisson process with intensity measure $\mu$ is a point process $\gamma$  that satisfies the following properties
-\begin{itemize}
-\item for every $B \in \mathcal{B}$, $\gamma(B)$ follows the distribution of a Poisson random variable of parameter $\mu(B)$,
-\item for every $B_{1}, \dots, B_{m} \in \mathcal{B}$ pairwise disjoint Borel sets, the random variables $\gamma(B_{1}), \dots, \gamma(B_{m})$ are independent. 
-\end{itemize}
+Let $\mu$ be a locally finite measure on $\mathcal{D}$. A Poisson process with intensity measure $\mathrm{d}\omega$ is a point process $\gamma$ such that for all pairwise disjoint Borel sets $B_{1}, \dots, B_{m} \in \mathcal{B}$, the random variables $\gamma(B_{1}), \dots, \gamma(B_{m})$ are independent Poisson random variables with respective parameters $\mathrm{d}\omega(B_{1}), \dots, \mathrm{d}\omega(B_{m})$.
+
+%  that satisfies the following properties
+% \begin{itemize}
+% \item for every $B \in \mathcal{B}$, $\gamma(B)$ follows the distribution of a Poisson random variable of parameter $\mu(B)$,
+% \item  
+% \end{itemize}
 \end{definition}
 
-In other words, under a Poisson point process of intensity $\mu$, for every $B_{1}, \dots, B_{m} \in \mathcal{B}$ pairwise disjoint Borel sets, and $n_{1}, \dots, n_{m} \in \mathbb{N}$
+In other words, under a Poisson point process of intensity $\mathrm{d}\omega$, for every $B_{1}, \dots, B_{m} \in \mathcal{B}$ pairwise disjoint Borel sets, and $n_{1}, \dots, n_{m} \in \mathbb{N}$
 \begin{equation}\label{eq:poisson_cylinder_prb}
-\mathbb{P} \Big(\gamma(B_{1}) = n_{1}, \dots, \gamma(B_{m}) = n_{m} \Big) = e^{- \mu(B_{1})}\frac{ \mu(B_{1})^{n_1}}{n_{1}!} \times \dots \times e^{- \mu(B_{m})}\frac{ \mu(B_{m})^{n_m}}{n_{m}!} .
+\mathbb{P} \Big(\gamma(B_{1}) = n_{1}, \dots, \gamma(B_{m}) = n_{m} \Big) = e^{- \mathrm{d}\omega(B_{1})}\frac{ \mathrm{d}\omega(B_{1})^{n_1}}{n_{1}!} \times \dots \times e^{- \mathrm{d}\omega(B_{m})}\frac{ \mathrm{d}\omega(B_{m})^{n_m}}{n_{m}!} .
+\end{equation}
+
+
+A Poisson point process is simple if and only if its intensity measure is \emph{diffuse}, i.e. it has no atoms (Lemma 3.2.1 in \citep{ScWe08})
+\begin{equation}
+\forall x \in \mathcal{D}, \:\: \mathrm{d}\omega(\{x\}) = 0.
 \end{equation}
 
 % The following variation of Binomial process generate a rich family of point processes called \emph{Poisson point processes.}
@@ -912,11 +947,11 @@ Let $\gamma$ be a point process. The mean measure of $\gamma$ is the measure $\g
 \end{definition}
 The mean measure is well defined but may take infinite values. 
 \begin{example}
-Let $\gamma$ be a Poisson point process associated to an intensity $\mu$, where $\mu$ is a measure on $\mathcal{D}$. It is immediate from~\eqref{eq:poisson_cylinder_prb} that 
+Let $\gamma$ be a Poisson point process associated to an intensity $\mu$, where $\mathrm{d}\omega$ is a measure on $\mathcal{D}$. It is immediate from~\eqref{eq:poisson_cylinder_prb} that 
 \begin{equation}
-\forall B \in \mathcal{B}, \:\: \mathbb{E}\gamma(B) = \mu(B).
+\forall B \in \mathcal{B}, \:\: \mathbb{E}\gamma(B) = \mathrm{d}\omega(B).
 \end{equation}
-Therefore, the mean measure of $\gamma$ is simply equal to $\mu$.
+Therefore, the mean measure of $\gamma$ is equal to $\mathrm{d}\omega$.
 \end{example}
 
 
@@ -941,11 +976,11 @@ where
 \begin{equation}
 \rho_{1}(x) = \mathbb{P} \big(\gamma(\{x\}) = 1 \big) = \mathbb{P} \big( x \in \gamma \big) .
 \end{equation}
-In other words, the intensity function of a simple point process is the inclusion probability $\mathbb{P} \big(x \in \gamma \big)$.
+In other words, the first intensity function of a simple point process is the inclusion probability $\mathbb{P} \big(x \in \gamma \big)$.
 \end{example}
-We shall see later a similar characterization of the intensity function of simple point processes in the case of a continuous domain.
+We shall see later a similar characterization of the first intensity function of simple point processes in the case of a continuous domain.
 
-Now, given a simple point process $\gamma$, the identity~\eqref{eq:first_intensity_measure} can be rewritten (explain why: a simple counting measure is atomic in polish space????)
+Now, given a simple point process $\gamma$, and by Theorem~\ref{thm:counting_measure_is_atomic}, the identity~\eqref{eq:first_intensity_measure} can be rewritten
 \begin{equation}\label{eq:primitif_Campbell_identity}
 \forall B \in \mathcal{B}, \:\:\int_{\mathcal{D}} \mathbb{1}_{B} \gamma_1 = \mathbb{E}\sum\limits_{x \in \gamma} \mathbb{1}_{B}(x).
 \end{equation}
@@ -1162,15 +1197,21 @@ In particular, if the joint intensity $\rho_L$ is defined
 
 
 \begin{example}
-Let $\gamma$ be a Poisson point process associated to an intensity $\mu$, where $\mu$ is a measure on $\Omega$. Let $B_{1}, \dots, B_{L} \in \mathcal{B}$ be pairwise disjoint Borel sets. \eqref{eq:poisson_cylinder_prb} yields
+Let $\gamma$ be a Poisson point process associated to an intensity $\mathrm{d}\omega$, where $\mathrm{d}\omega$ is a locally finite measure on $\mathcal{D}$. Let $B_{1}, \dots, B_{L} \in \mathcal{B}$ be pairwise disjoint Borel sets. \eqref{eq:poisson_cylinder_prb} yields
 \begin{equation}\label{eq:ppp_orthogonality}
-\gamma_{L}(\prod\limits_{\ell \in [L]} B_\ell) =  \mathbb{E} \prod\limits_{\ell \in [L]} \gamma(B_\ell) = \prod\limits_{\ell \in [L]}\mu(B_\ell).
+\gamma_{L}(\prod\limits_{\ell \in [L]} B_\ell) =  \mathbb{E} \prod\limits_{\ell \in [L]} \gamma(B_\ell) = \prod\limits_{\ell \in [L]}\mathrm{d}\omega(B_\ell).
 \end{equation}
+Moreover,
+\begin{equation}\label{eq:ppp_orthogonality_strong}
+\gamma_L = \mathrm{d}\omega^{\otimes L}.
+\end{equation}
+See Proposition 2.3.25 in \citep{BaBlKa20}.
 % We can even prove that 
 % \begin{equation}
 % \gamma_{L}(...) = \gamma_{1}()
 % \end{equation}
 \end{example}
+
 The identity~\eqref{eq:ppp_orthogonality} reflects the independence of the random variables $\gamma(B_{1}), \dots, \gamma(B_L)$ when $\gamma$ follows the distribution of a Poisson point process. In other words, under the law of Poisson point process, there is no interaction between pairwise disjoint Borel sets.  This is to be compared to the correlations that appear under the distribution of a determinantal point process. This class of point processes will be introduced in the following section.
 % A process that satisfies the property \eqref{eq:ppp_orthogonality} is sometimes called \emph{completely orthogonal} point process and its characterize the Poisson point process if the first intensity measure is not .... ???? 
 
@@ -1194,23 +1235,110 @@ The identity~\eqref{eq:ppp_orthogonality} reflects the independence of the rando
 \section{Determinantal point processes}\label{sec:dpp_defs}
 
 We give now the definition of a DPP. First, consider a measurable function $\kappa: \mathcal{D} \times \mathcal{D} \rightarrow \mathbb{C}$.
-\begin{definition}
+\begin{definition}\label{def:def_dpp_chapter_2}
 Let $\gamma$ be a simple point process on $\mathcal{D}$. $\gamma$ is said to be a determinantal point process with kernel $\kappa$ and reference measure $\mathrm{d}\omega$ if the joint intensities $\rho_L$ with respect to the measure $\mathrm{d}\omega$ are well defined for $L \in \mathbb{N}^{*}$ and satisfy
 \begin{equation}\label{eq:correlation_functions_dpp_def}
-\forall x_{1}, \dots, x_{L} \in \mathcal{D}, \:\: \rho_{L}(x_{1}, \dots, x_{L}) = \Det \bm{\kappa}\big( x_{1}, \dots, x_{L} \big),
+ \rho_{L}(x_{1}, \dots, x_{L}) = \Det \bm{\kappa}\big( x_{1}, \dots, x_{L} \big), \:\: \text{a.s. (} \mathrm{d}\omega^{\otimes L} \text{)},
 \end{equation}
 where $\bm{\kappa}\big( x_{1}, \dots, x_{L} \big) = (\kappa(x_{\ell},x_{\ell^{'}}))_{\ell,\ell^{'} \in [L]} \in \mathbb{C}^{N \times N}$.
 
 \end{definition}
+An example of a DPP is a Poisson point process with a diffuse intensity.
+\begin{example}
+Let $\gamma$ be a Poisson point process on $\mathcal{D}$ with diffuse locally finite intensity measure $\mathrm{d}\omega$. Then, remember that \eqref{eq:ppp_orthogonality}: for every $L \in \mathbb{N}^{*}$ the $L$-factorial moment measure is 
+\begin{equation}\label{eq:poisson_gamma_L_is_a_DPP}
+\gamma_{L} = \mathrm{d}\omega^{\otimes L}.
+\end{equation}
+Then $\gamma_{L}$ have a density $\rho_{L}$ with respect to $\mathrm{d}\omega^{\otimes L}$ and
+\begin{equation}
+\rho_L(x_{1}, \dots, x_{L}) = 1, \:\: \text{a.s. (} \mathrm{d}\omega^{\otimes L} \text{)} .
+\end{equation}
+This proves that $\gamma$ is a DPP associated to the reference measure $\mathrm{d}\omega$ and the kernel
+\begin{equation}\label{eq:the_degenerate_poisson_kernel}
+\kappa_{\mathrm{P}}(x,y) = \mathbb{1}_{\{(a,b) \in \mathcal{D}^{2}, a=b \}}(x,y).
+\end{equation}
+Indeed, for any $(x_{1}, \dots, x_{L}) \in \mathcal{D}^{L}_{\neq} $, $\bm{\kappa}_{\mathrm{P}}(x_{1}, \dots, x_{L})$ is the identity matrix of dimension $L \times L$, so that
+\begin{equation}
+\Det \bm{\kappa}_{\mathrm{P}}(x_{1}, \dots, x_{L}) = 1.
+\end{equation}
+Moreover, since $\mathrm{d}\omega$ is diffuse, $\mathrm{d}\omega ^{\otimes L} \Big( \mathcal{D}^{L} \smallsetminus \mathcal{D}^{L}_{\neq} \Big) = 0$. 
+% \begin{equation}
 
-The existence of a simple point process that satisfies~\eqref{eq:correlation_functions_dpp_def} enforces some constraints on $\kappa$. First, since the joint intensities functions are positive functions a.s., $\kappa$ should satisfy 
-\begin{equation}\label{eq:positivitiy_of_dets_condition}
-\Det \bm{\kappa}\big(x_{1}, \dots, x_{L} \big) \geq 0 \:\: \text{a.s.} 
-\end{equation}
-The constraint \eqref{eq:positivitiy_of_dets_condition} is satisfied whenever $\kappa$ is Hermitian
+% \end{equation}
+\end{example}
+
+% In other words, the Poisson point process corresponds to the DPP with the kernel~\eqref{eq:the_degenerate_poisson_kernel}. 
+The kernel $\kappa_{\mathrm{P}}$ is "degenerate" and does not capture interactions between disjoint Borel sets.
+We illustrate the \emph{negative correlation} property that "proper" DPPs can have in the following.
+
+Consider $\gamma$ be a DPP of kernel $\kappa$ and reference measure $\mathrm{d}\omega$. Assume that $\kappa$ is Hermitian
 \begin{equation} \label{eq:hermitian_condition_kappa}
-\kappa(x,y) = \overline{\kappa(y,x)} \:\: \text{a.s.}  
+\kappa(x,y) = \overline{\kappa(y,x)} \:\: \text{a.s. (} \mathrm{d}\omega^{\otimes 2} \text{)}.  
 \end{equation}
+%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
+% \subsubsection{The negative correlation property}
+% by a comparison with Poisson point processes. 
+% We assume that $\kappa$ satisfies the usual conditions, .
+%  Consider $\tilde{\gamma}$ a Poisson point process of intensity $\gamma_{1}$. 
+% Let $B_{1}, B_{2}$ two disjoint Borel sets. 
+% By~\eqref{eq:poisson_cylinder_prb}, we have
+% \begin{equation}
+% \EX \tilde{\gamma}(B_{1}) \tilde{\gamma}(B_{2}) = \gamma_{1}(B_{1}) \gamma_{1}(B_{2}),
+% \end{equation}
+% therefore 
+% \begin{equation}\label{eq:cov_Poisson_gamma_B_1_B_2}
+% \mathrm{Cov} \Big(\tilde{\gamma}(B_{1}), \tilde{\gamma}(B_{2}) \Big) = \EX \tilde{\gamma}(B_{1}) \tilde{\gamma}(B_{2}) -\EX \tilde{\gamma}(B_{1}) \EX \tilde{\gamma}(B_{2}) = 0,
+% \end{equation}
+% where $\mathrm{Cov} \Big(\tilde{\gamma}(B_{1}), \tilde{\gamma}(B_{2}) \Big)$ is the covariance of the two random variables $\tilde{\gamma}(B_{1})$ and $\tilde{\gamma}(B_{2})$. 
+%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
+Let $B_{1}, B_{2}$ two disjoint Borel sets. By~\ref{eq:correlation_functions_dpp_def}, we have
+\begin{align}\label{eq:cov_DPP_gamma_B_1_B_2_dev}
+\EX \gamma(B_{1}) \gamma(B_{2}) & = \int_{B_{1} \times B_{2}} \Det \bm{\kappa}(x_{1},x_{2}) \mathrm{d}\omega(x_1) \mathrm{d}\omega(x_2) \nonumber\\
+& = \int_{B_{1} \times B_{2}} \Big( \kappa(x_{1},x_{1}) \kappa(x_{2},x_{2}) - \kappa(x_{1},x_{2}) \kappa(x_{2},x_{1}) \Big) \mathrm{d}\omega(x_1) \mathrm{d}\omega(x_2)  \nonumber\\
+& = \int_{B_{1}} \kappa(x_{1},x_{1}) \mathrm{d}\omega(x_1) \int_{B_{2}} \kappa(x_{2},x_{2}) \mathrm{d}\omega(x_2) - \int_{B_{1} \times B_{2}} |\kappa(x_{1},x_{2})|^{2} \mathrm{d}\omega(x_1) \mathrm{d}\omega(x_2)  \nonumber\\
+& = \EX \gamma(B_{1}) \EX \gamma(B_{2}) - \int_{B_{1} \times B_{2}} |\kappa(x_{1},x_{2})|^{2} \mathrm{d}\omega(x_1) \mathrm{d}\omega(x_2). 
+\end{align}
+Therefore
+\begin{equation} \label{eq:cov_DPP_gamma_B_1_B_2}
+\mathrm{Cov} \Big(\gamma(B_{1}), \gamma(B_{2}) \Big)  =  - \int_{B_{1} \times B_{2}} |\kappa(x_{1},x_{2})|^{2} \mathrm{d}\omega(x_1) \mathrm{d}\omega(x_2) \leq 0.
+\end{equation}
+
+In other words, the covariance of the random variables $\gamma(B_1)$ and $\gamma(B_1)$ is non-positive. It is negative, when $\int_{B_{1} \times B_{2}} |\kappa(x_{1},x_{2})|^{2} \mathrm{d}\omega(x_1) \mathrm{d}\omega(x_2) >0$, and the two variables are negatively correlated and it vanishes in the case of Poisson point process with intensity $\mathrm{d}\omega$: $\int_{B_{1} \times B_{2}} |\kappa_{\mathrm{P}}(x_{1},x_{2})|^{2} \mathrm{d}\omega(x_1) \mathrm{d}\omega(x_2) = 0$.
+
+% , while the random variables $\tilde{\gamma}(B_1)$ and $\tilde{\gamma}(B_1)$ are uncorrelated even though they have the same mean measure $\gamma_1$
+
+% : the probability of co-occurrence is always smaller than that of a Poisson point process with the same intensity. We can say, informally, that the Poisson point process is a DPP with a degenerate kernel without any interaction: $\kappa(x,y) = \delta_{x}(y)$.
+
+Observe the importance of the condition~\ref{eq:hermitian_condition_kappa} from the second line to the third line in the development of \eqref{eq:cov_DPP_gamma_B_1_B_2_dev} where we have used
+\begin{equation}
+\int_{B_{1} \times B_{2}} \kappa(x_{1},x_{2}) \kappa(x_{2},x_{1}) \mathrm{d}\omega(x_{1}) \mathrm{d}\omega(x_{2}) = \int_{B_{1} \times B_{2}} \kappa(x_{1},x_{2}) \overline{\kappa(x_{1},x_{2})} \mathrm{d}\omega(x_{1}) \mathrm{d}\omega(x_{2}).
+\end{equation}
+Without the condition~\ref{eq:hermitian_condition_kappa}, the negative correlation property does not hold. We present in the next section a class of kernels that satisfy this condition and define "proper" DPPs with interesting properties. 
+
+
+% regular
+
+
+% Interesting kernels that define "proper" DPPs are regular in some sense. 
+\subsubsection{DPPs associated to trace class kernels}
+%This kernel  that does not encode 
+
+%  without interactions: that 
+
+
+
+% We can say, informally, that  is a DPP with a degenerate kernel without any interaction: $\kappa(x,y) = \delta_{x}(y)$.
+
+The existence of a simple point process that satisfies~\eqref{eq:correlation_functions_dpp_def} enforces some constraints on $\kappa$. First, since the joint intensities functions are non-negative functions $\kappa$ should satisfy 
+\begin{equation}\label{eq:positivitiy_of_dets_condition}
+\Det \bm{\kappa}\big(x_{1}, \dots, x_{L} \big) \geq 0 %\:\: \text{a.s.} 
+\end{equation}
+The constraint \eqref{eq:positivitiy_of_dets_condition} is satisfied whenever $\kappa$ is Hermitian \eqref{eq:hermitian_condition_kappa}
+% \begin{equation} \label{eq:hermitian_condition_kappa}
+% \kappa(x,y) = \overline{\kappa(y,x)} \:\: \text{a.s.}  
+% \end{equation}
 and positive
 \begin{equation}\label{eq:positivity_condition_kappa}
 \forall L \in \mathbb{N}^{*}, \:\:\forall a_{1}, \dots, a_{L} \in \mathbb{C}, \:\:\forall x_{1}, \dots, x_{L} \in \mathcal{D}, \:\: \sum\limits_{\ell,\ell^{'} \in [L]} a_{\ell}\overline{a_{\ell'}} \kappa(x_{\ell},x_{\ell^{'}}) \geq 0.
@@ -1218,8 +1346,10 @@ and positive
 
 
 
-The conditions \eqref{eq:hermitian_condition_kappa} and \eqref{eq:positivity_condition_kappa} are still not enough to guarantee the existence of a simple point process that satisfies~\eqref{eq:correlation_functions_dpp_def}. 
- We make a further assumption: $\kappa$ is square integrable on $\mathcal{D}^{2}$, that is 
+% The conditions \eqref{eq:hermitian_condition_kappa} and \eqref{eq:positivity_condition_kappa} are still not enough to guarantee the existence of a simple point process that satisfies~\eqref{eq:correlation_functions_dpp_def}.
+
+
+In order to define DPPs with interesting properties, we make a further assumption: $\kappa$ is square integrable on $\mathcal{D}^{2}$, that is 
 \begin{equation}\label{eq:integrability_condition_kappa}
 \int_{\mathcal{D}^{2}} |\kappa(x,y)|^{2} \mathrm{d}\omega(x) \mathrm{d}\omega(y) < +\infty,
 \end{equation}
@@ -1260,7 +1390,7 @@ Then $\kappa$ defines a DPP if and only if the spectrum of $\bm{\Sigma}_{\kappa}
 Projection kernels form a large class of kernels that satisfy the conditions of Theorem~\ref{thm:mac_sos} and they define what is commonly known as \emph{projection DPPs}. They define DPPs with deterministic cardinalities as it is stated in the following result.
 
 
-\begin{proposition}\label{prop:projection_DPP_cardinality}
+\begin{proposition}[Lemma 17 in \citep{HoKrPeVi06}]\label{prop:projection_DPP_cardinality}
 Let $v_{1}, \dots, v_{M} \in \mathbb{L}_{2}(\mathrm{d}\omega)$, such that $(v_{m})_{m \in [M]}$ is an orthonormal family of $\mathbb{L}_{2}(\mathrm{d}\omega)$, and define the kernel
 \begin{equation}
 \kappa(x,y) = \sum\limits_{m \in [M]}v_{m}(x)\overline{v_{m}(y)}. 
@@ -1277,7 +1407,7 @@ Let $\gamma$ be the DPP associated to the kernel $\kappa$ and reference measure 
 These DPPs are important in the characterization of DPPs that satisfy the conditions of Theorem~\ref{thm:mac_sos}. Indeed, we have the following result. 
 
 
-\begin{theorem}\label{thm:mixture_of_projection_DPPs}
+\begin{theorem}[Theorem 7 in \citep{HoKrPeVi06}]\label{thm:mixture_of_projection_DPPs}
 Let $\kappa$ be a kernel such that $\bm{\Sigma}_{\kappa}$ satisfies the casual conditions and denote $(\sigma_{m},v_{m})$ its eigenpairs. Assume that the spectrum of $\bm{\Sigma}_{\kappa}$ is included in $[0,1]$.
 
  % $\kappa$ is  the usual assumptions ??, ??, and ??. Define $(\sigma_{m},v_{m})$ the eigenpairs of the integration operator  with $\sigma_{m} \in [0,1]$.
@@ -1296,6 +1426,10 @@ Observe that the intermediate projection kernel $\kappa_{I}$ is of finite rank a
 \end{equation}
 The distribution of the cardinality of this class of DPPs follows immediately from Theorem~\ref{thm:mixture_of_projection_DPPs} and Proposition~\ref{prop:projection_DPP_cardinality}.
 
+
+
+
+
 % we deduce the 
 % arises immediately as a consequence of 
 % is the characterization of the  this class of DPPs.
@@ -1310,7 +1444,7 @@ then
 \end{equation}
 % where the $I_m$ are independent Bernoulli random variables, such that and every $I_m$ is a Bernoulli random variable of parameter $\sigma_m$.
 \end{corollary}
-
+We shall see in Section~\ref{sec:DPP_examples} another class of mixtures of projection DPPs that define point processes with determinsitic cardinality.
 % \begin{example}\label{ex:projection_dpp}
 % Let $v_{1}, \dots, v_{M} \in \mathbb{L}_{2}(\mathrm{d}\omega)$, such that $(v_{m})_{m \in [M]}$ is an orthonormal family of $\mathbb{L}_{2}(\mathrm{d}\omega)$, and define the kernel
 % \begin{equation}
@@ -1319,6 +1453,16 @@ then
 % Then there exists a DPP with kernel $\kappa$. 
 % \end{example}
 % A DPP defined using a projection kernel, like in Example~\ref{ex:projection_dpp}, is called a 
+
+
+
+
+%\subsubsection{The $N$-DPPs}
+
+
+\subsubsection{Relaxing the assumptions}
+
+
 
 The assumptions made previously can be relaxed in many ways. We review two relaxations that are common in the literature.
 
@@ -1341,42 +1485,9 @@ Under this relaxed assumption, the domain of definition of the integration opera
 
  % We make a further assumption: $\kappa$ is is  on $\Omega^{2}$
 
-The second recurrent relaxation is the Hermitianity of $\kappa$: there are examples of DPPs associated to non-Hermitian kernels [??], \citep{Bru18}. Yet, many interesting aspects of DPPs require this condition: negative correlations, tractable numerical simulation, $\dots$
+The second recurrent relaxation is the Hermitianity of $\kappa$: there are examples of DPPs associated to non-Hermitian kernels ; see Section 2.5 in \citep{Sos00} and \citep{Bru18}. Yet, many interesting aspects of DPPs require this condition: negative correlations, tractable numerical simulation $\dots$
 
 
-\subsubsection{The negative correlation property}
-We illustrate  the \emph{negative correlation} property of DPPs by a comparison with Poisson point processes. Consider $\gamma$ be a DPP of kernel $\kappa$ and reference measure $\mathrm{d}\omega$. We assume that $\kappa$ satisfies the usual conditions, and denote by $\gamma_1$ its mean measure. Consider $\tilde{\gamma}$ a Poisson point process of intensity $\gamma_{1}$. 
-Let $B_{1}, B_{2}$ two disjoint Borel sets. 
-
-By~\eqref{eq:poisson_cylinder_prb}, we have
-\begin{equation}
-\EX \tilde{\gamma}(B_{1}) \tilde{\gamma}(B_{2}) = \gamma_{1}(B_{1}) \gamma_{1}(B_{2}),
-\end{equation}
-therefore 
-\begin{equation}\label{eq:cov_Poisson_gamma_B_1_B_2}
-\mathrm{Cov} \Big(\tilde{\gamma}(B_{1}), \tilde{\gamma}(B_{2}) \Big) = \EX \tilde{\gamma}(B_{1}) \tilde{\gamma}(B_{2}) -\EX \tilde{\gamma}(B_{1}) \EX \tilde{\gamma}(B_{2}) = 0,
-\end{equation}
-where $\mathrm{Cov} \Big(\tilde{\gamma}(B_{1}), \tilde{\gamma}(B_{2}) \Big)$ is the covariance of the two random variables $\tilde{\gamma}(B_{1})$ and $\tilde{\gamma}(B_{2})$. 
-
-On the other hand, using the definition of a DPP, we have
-\begin{align}\label{eq:cov_DPP_gamma_B_1_B_2_dev}
-\EX \gamma(B_{1}) \gamma(B_{2}) & = \int_{B_{1} \times B_{2}} \Det \kappa(x_{1},x_{2}) \mathrm{d}\omega(x_1) \mathrm{d}\omega(x_2) \nonumber\\
-& = \int_{B_{1} \times B_{2}} \Big( \kappa(x_{1},x_{1}) \kappa(x_{2},x_{2}) - \kappa(x_{1},x_{2}) \kappa(x_{2},x_{1}) \Big) \mathrm{d}\omega(x_1) \mathrm{d}\omega(x_2)  \nonumber\\
-& = \int_{B_{1}} \kappa(x_{1},x_{1}) \mathrm{d}\omega(x_1) \int_{B_{2}} \kappa(x_{2},x_{2}) \mathrm{d}\omega(x_2) - \int_{B_{1} \times B_{2}} |\kappa(x_{1},x_{2})|^{2} \mathrm{d}\omega(x_1) \mathrm{d}\omega(x_2)  \nonumber\\
-& = \gamma_{1}(B_{1}) \gamma_{1}(B_{2}) - \int_{B_{1} \times B_{2}} |\kappa(x_{1},x_{2})|^{2} \mathrm{d}\omega(x_1) \mathrm{d}\omega(x_2). 
-\end{align}
-Therefore
-\begin{equation} \label{eq:cov_DPP_gamma_B_1_B_2}
-\mathrm{Cov} \Big(\gamma(B_{1}), \gamma(B_{2}) \Big)  =  - \int_{B_{1} \times B_{2}} |\kappa(x_{1},x_{2})|^{2} \mathrm{d}\omega(x_1) \mathrm{d}\omega(x_2) \leq 0.
-\end{equation}
-
-In other words, the random variables $\gamma(B_1)$ and $\gamma(B_1)$ are negatively correlated, while the random variables $\tilde{\gamma}(B_1)$ and $\tilde{\gamma}(B_1)$ are uncorrelated even though they have the same mean measure $\gamma_1$: the probability of co-occurrence is always smaller than that of a Poisson point process with the same intensity. We can say, informally, that the Poisson point process is a DPP with a degenerate kernel without any interaction: $\kappa(x,y) = \delta_{x}(y)$.
-
-Observe the importance of the condition~\ref{eq:hermitian_condition_kappa} from the second line to the third line in the development of \eqref{eq:cov_DPP_gamma_B_1_B_2_dev} where we have used
-\begin{equation}
-\int_{B_{1} \times B_{2}} \kappa(x_{1},x_{2}) \kappa(x_{2},x_{1}) \mathrm{d}\omega(x_{1}) \mathrm{d}\omega(x_{2}) = \int_{B_{1} \times B_{2}} \kappa(x_{1},x_{2}) \overline{\kappa(x_{1},x_{2})} \mathrm{d}\omega(x_{1}) \mathrm{d}\omega(x_{2}).
-\end{equation}
-Without the condition~\ref{eq:hermitian_condition_kappa}, the negative correlation property does not hold.
 
 % In this sense, a DPP with Hermitian kernel is a repulsive distribution, and K
 % encodes its repulsiveness.
@@ -1391,22 +1502,61 @@ Without the condition~\ref{eq:hermitian_condition_kappa}, the negative correlati
 
 \subsection{Examples}\label{sec:DPP_examples}
 We review in this section some examples of DPPs.
-\paragraph{Discret DPPs}
+\paragraph{Discrete DPPs}
 
-This class of DPPs was the topic of intense research recently for machine learning applications; we refer the reader to \citep{KuTa12} for details. In this setting, the domain is taken to be a finite subset of $\mathbb{N}$ and usually; the reference measure is the counting measure $\mathrm{d}\omega = \sum\limits_{n \in \Omega} \delta_{n}$; and the definition~\eqref{eq:def_dpp} is equivalent to the following.
+This class of DPPs was the topic of intense research recently for machine learning applications; we refer the reader to \citep{KuTa12} for details. In this setting, the domain is taken to be  $\mathcal{D} = [d]$ and usually; the reference measure is the counting measure $\mathrm{d}\omega = \sum\limits_{i \in [d]} \delta_{i}$; and the definition~\ref{def:def_dpp_chapter_2} is equivalent to the following.
 
 
 % For all the definitions in this section, Recall that $[d] = \{1,\dots,d\}$.% A point process on $[d]$ is a probability measure over subsets of $[d]$.
-\begin{definition}[Discret DPP]
-Let $\bm{K} \in \mathbb{R}^{N\times N}$ be a positive semi-definite matrix.
+\begin{definition}[Discrete DPP]
+Let $\bm{K} \in \mathbb{R}^{d\times d}$ be a positive semi-definite matrix.
 A random subset $Y \subseteq [d]$ is drawn from a DPP of marginal kernel $\bm{K}$ if and only if
 \begin{equation}\label{eq:def_dpp}
 \forall S \subseteq [N],\quad \Prb(S \subseteq Y) = \Det(\bm{K}_{S}),
 \end{equation}
 where $\bm{K}_{S} = [\bm{K}_{i,j}]_{i,j \in S}$. We take as a convention $\Det(\bm{K}_{\emptyset}) = 1$.
 \end{definition}
+In this setting, $\kappa(i,j) = \bm{K}_{i,j} $ for every pair $(i,j) \in \mathcal{D}^{2}$, and $\mathbb{L}_{2}(\mathrm{d}\omega)$ coincides with $\mathbb{R}^{d}$ and the integration operator $\bm{\Sigma}_{\kappa}$ is given by
+\begin{equation}
+\bm{\Sigma}_{\kappa} g(i) = \int_{\mathcal{D}}g(j) \kappa(i,j) \mathrm{d}\omega(j) = \sum\limits_{j \in [d]} g_{j} \bm{K}_{i,j} = (\bm{K}g)_{i},
+\end{equation}
+therefore
+\begin{equation}
+\forall g \in \mathbb{R}^{d}, \:\: \bm{\Sigma}_{\kappa} g = \bm{K}g.
+\end{equation}
 
-According to Theorem~\ref{thm:mac_sos}, a sufficient condition, for a given matrix $\bm{K}$ to consistently define a DPP, is that $\bm{K}$ is symmetric and its spectrum is in $[0,1]$.
+According to Theorem~\ref{thm:mac_sos}, a sufficient condition, for a given matrix $\bm{K}$ to consistently define a DPP, is that $\bm{K}$ is symmetric and its spectrum is in $[0,1]$. Moreover, for a symmetric matrix $\bm{K}$, a DPP can be seen as a \emph{repulsive} distribution, in the sense that for all $i,j\in [d]$
+\begin{align}
+  \Prb(\{i,j\} \subseteq Y) &= \bm{K}_{i,i} \bm{K}_{j,j} - \bm{K}^2_{i,j}\\
+  &= \Prb(\{i\} \subseteq Y)\Prb(\{j\} \subseteq Y) - \bm{K}^2_{i,j}\\
+  &\leq \Prb(\{i\} \subseteq Y)\Prb(\{j\} \subseteq Y).
+\end{align}
+
+Besides projection DPPs, there is another natural way of using a kernel matrix to define a random subset of $[d]$ with prespecified cardinality $k$.
+\begin{definition}[$k$-DPP]\label{def:kDPP}
+Let $\bm{L} \in \mathbb{R}^{d\times d}$ be a positive semidefinite matrix.
+A random subset $Y \subseteq [d]$ is drawn from a $k$-DPP of kernel $\bm{L}$ if and only if
+\begin{equation}\label{eq:def_kdpp}
+\forall S \subseteq [d],\quad \Prb(Y = S) \propto \mathbb{1}_{\{\vert S\vert = k\}}\Det(\bm{L}_{S})
+\end{equation}
+where $\bm{L}_{S} = [\bm{L}_{i,j}]_{i,j \in S}$.
+\end{definition}
+DPPs and $k$-DPPs are closely related but different objects. For starters, $k$-DPPs are always well-defined provided $\bm{L}$ has a nonzero minor of size $k$. The next proposition establishes that $k$-DPPs also are mixtures of projection DPPs.
+\begin{proposition}(\citet[Section 5.2.2]{KuTa12})
+\label{prop:kdpp_mixture_proposition}
+Let $Y$ be a random subset of $[d]$ sampled from a $k$-DPP with kernel $\bm{L}$. We further assume that $\bm L$ is symmetric, we denote its rank by $r$ and its diagonalization by $\bm L = \bm{V}\bm{\Lambda}\bm{V}^{\Tran}$. Finally, let $k\leq r$. It holds
+\begin{equation}
+\label{eq:volume_sampling_as_mixture_equation_chapter_2}
+\Prb(Y = S) = \sum\limits_{\substack{T \subseteq [r]\\|T| = k}} \mu_{T} \left[\frac{1}{k!} \Det\left(\bm{V}_{T,S}\bm{V}^{\Tran}_{T,S}\right)\right]
+\end{equation}
+where
+\begin{equation}
+\mu_{T} = \frac{\prod_{i \in T}\lambda_{i}}{\sum\limits_{\substack{U \subseteq[r]\\ |U| = k}}\prod_{i \in U}\lambda_{i}}.
+\label{e:kDPPWeights}
+\end{equation}
+\end{proposition}
+Each mixture component in square brackets in \eqref{eq:volume_sampling_as_mixture_equation_chapter_2} is a projection DPP with cardinality $k$. The main difference between $k$-DPPs and DPPs is that all mixture components in \eqref{eq:volume_sampling_as_mixture_equation_chapter_2} have the same cardinality $k$. In particular, projection DPPs are the only DPPs that are also $k$-DPPs.
+
 
 \begin{example}[\cite{BuPe93}]
 Let $G$ be a finite regular graph, and denote $\mathcal{D}$ the set of edges of $G$ and $\mathrm{d}\omega = \sum_{e \in \mathcal{D}} \delta_{e}$ be the counting measure on $\mathcal{D}$. Now, let $\bm{K} \in \mathbb{R}^{|\mathcal{D}| \times |\mathcal{D}|}$ be the transfer-impedance matrix. Let $T$ be a random spanning tree chosen uniformly from the
@@ -1453,8 +1603,10 @@ In other words, the edges of $T$ follows the distribution of DPP defined by the 
 
 \paragraph{The Circular Unitary Ensemble}
 
+The set of the eigenvalues of a random matrix chosen uniformly (from Haar measure) on the unitary group $\mathbb{U}_{N}$, also called the Circular Unitary Ensemble (CUE), was introduced by \cite{Dys62}. It is an example of a DPP on a continuous domain: $\mathcal{D}$ is the unit circle in the complex plan and $\mathrm{d}\omega$ is the Lebesgue measure on $\mathcal{D}$. The construction of this DPP goes as follows.
 
-For $N \in \mathbb{N}^{*}$, denote by $\mathbb{U}_{N}$ the group of $N \times N$ unitary matrices. $\mathbb{U}_{N}$ endowed with the induced topology, as a subset of the set of $N\times N$ complex-valued matrices, is compact; therefore, there exists a unique Borel probability measure $\mathrm{d}M$ on $\mathbb{U}_{N}$, called \emph{Haar measure}, that is invariant under left multiplication by unitary matrices; see Theorem 5.14 in \citep{Rud91}. The set of the eigenvalues of a random matrix chosen from Haar measure on the unitary group $\mathbb{U}_{N}$, also called the Circular Unitary Ensemble (CUE), was introduced by \cite{Dys62}. The following result is fundamental in the statistical description of the CUE.
+
+For $N \in \mathbb{N}^{*}$, denote by $\mathbb{U}_{N}$ the group of $N \times N$ unitary matrices. $\mathbb{U}_{N}$ endowed with the induced topology, as a subset of the set of $N\times N$ complex-valued matrices, is compact; therefore, there exists a unique Borel probability measure $\mathrm{d}M$ on $\mathbb{U}_{N}$, called \emph{Haar measure}, that is invariant under left multiplication by unitary matrices; see Theorem 5.14 in \citep{Rud91}.  The following result is fundamental in the statistical description of the CUE.
 
  % implies that the CUE follows the distribution of a projection DPP. 
 
@@ -1475,6 +1627,18 @@ where
 \Delta(\theta) = \prod\limits_{1 \leq n,n' \leq N} | e^{\mathbf{i} \theta_{n}} -e^{\mathbf{i} \theta_{n'}} |.
 \end{equation}
 \end{theorem}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width= 0.32\textwidth]{img/circle/CUE_design_N_15_fig_1.pdf}~\includegraphics[width= 0.32\textwidth]{img/circle/CUE_design_N_15_fig_2.pdf}
+~\includegraphics[width= 0.32\textwidth]{img/circle/CUE_design_N_15_fig_3.pdf}\\
+\includegraphics[width= 0.32\textwidth]{img/circle/iid_design_N_15_fig_1.pdf}~\includegraphics[width= 0.32\textwidth]{img/circle/iid_design_N_15_fig_2.pdf}
+~\includegraphics[width= 0.32\textwidth]{img/circle/iid_design_N_15_fig_3.pdf}\\
+\caption{Three realizations from the CUE with $N = 15$ particles (top) compared to 15 particles sampled i.i.d in the unit circle (bottom). \label{fig:cue_vs_iid_particles}}
+\end{figure}
+ 
+
+
 The identity~\eqref{eq:weyl_integration_formula} is known as the \emph{Weyl integration formula}: it gives an explicit formula to integrate  over $\mathbb{U}_N$ a function that only depends on the eigenvalues. This identity highlights the important term $\Delta(\theta)^{2}$ that has a determinantal representation
 \begin{equation}
 \Delta(\theta)^{2} = \Det (\kappa(e^{\mathbf{i}\theta_{n}},e^{\mathbf{i}\theta_{n^{'}}}))_{n,n^{'} \in [N]},
@@ -1489,11 +1653,9 @@ This representation implies the following result.
 The counting measure of the CUE is a determinantal point process on the unit complex circle $\mathbb{U} = \{ u \in \mathbb{C}, |u| =1 \}$ with kernel $\kappa$ and reference measure is the Lebesgue measure on $\mathbb{U}$.
 
 \end{theorem}
+Observe that the cardinality of this DPP is determinsitic. This is an illustration of Proposition~\ref{prop:projection_DPP_cardinality}: the kernel $\kappa$ defines a projection operator onto the $N$ dimensional subspace spanned by the functions $z \mapsto z^{n}$;  $n \in \{0, \dots, N-1 \}$.  
 
-Observe that the kernel $\kappa$ defines a projection operator into the $N$ dimensional subspace spanned by the functions $z \mapsto z^{n}$; n $\in \{0, \dots, N-1 \}$. This is an illustration of Proposition~\ref{prop:projection_DPP_cardinality}. 
-
-Figure~\ref{fig:cue_vs_iid_particles} shows three realizations of the CUE ($N = 15$) compared to three realizations from the binomial process ($N = 15$) corresponding to the the Lebesgue measure on $\mathbb{U}$. We observe that the CUE tends to cover the unit circle with more regularity than the binomial process.
-
+Figure~\ref{fig:cue_vs_iid_particles} shows three realizations of the CUE ($N = 15$) compared to three realizations from the binomial process ($N = 15$) corresponding to the the Lebesgue measure on $\mathbb{U}$. We observe that the CUE tends to cover the unit circle with more regularity than the binomial process. We discuss this regularity later in Section~\ref{sec:DPPs_for_quadrature}.
 % coherence with the fact that the cardina thus 
 % In other words, the Weyl integration formula gives a very explicit
 % formula for how to integrate 
@@ -1505,16 +1667,6 @@ Figure~\ref{fig:cue_vs_iid_particles} shows three realizations of the CUE ($N = 
 % \begin{equation}\label{eq:haar_eigenvalues_density}
 %  \frac{1}{N!(2\pi)^{N}} \prod\limits_{1 \leq n,n' \leq N} |e^{-\iota \theta_{n}} - e^{-\iota \theta_{n'}}|^{2}.
 % \end{equation}
-
-\begin{figure}
-\centering
-\includegraphics[width= 0.32\textwidth]{img/circle/CUE_design_N_15_fig_1.pdf}~\includegraphics[width= 0.32\textwidth]{img/circle/CUE_design_N_15_fig_2.pdf}
-~\includegraphics[width= 0.32\textwidth]{img/circle/CUE_design_N_15_fig_3.pdf}\\
-\includegraphics[width= 0.32\textwidth]{img/circle/iid_design_N_15_fig_1.pdf}~\includegraphics[width= 0.32\textwidth]{img/circle/iid_design_N_15_fig_2.pdf}
-~\includegraphics[width= 0.32\textwidth]{img/circle/iid_design_N_15_fig_3.pdf}\\
-\caption{Three realizations from the CUE with $N = 15$ particles (top) compared to 15 particles sampled i.i.d in the unit circle (bottom). \label{fig:cue_vs_iid_particles}}
-\end{figure}
- 
 
 
 % In other words, the joint distribution of the eigenvalues of a random unitary matrix with respect to Haar measure have the probability density:
@@ -1530,7 +1682,7 @@ Figure~\ref{fig:cue_vs_iid_particles} shows three realizations of the CUE ($N = 
 
 
 \paragraph{Ginibre ensemble}
-\cite{Gin65} studied the statistical properties of the eigenvalues of matrices with independent Gaussian entries: real valued, complex valued and quaternion valued. These ensembles bear his name and follows the distribution of a DPP.
+\cite{Gin65} studied the statistical properties of the eigenvalues of matrices with independent complex Gaussian entries. This ensemble bear his name and follows the distribution of a DPP defined $\mathcal{D} = \mathbb{C}$.
 \begin{theorem}[\cite{Gin65}]
 Let $M$ be an $N\times N$ matrix with i.i.d. standard complex Gaussian entries.
 Then the eigenvalues of $M$ follows the distribution of the determinantal point
@@ -1561,19 +1713,19 @@ with respect to the reference measure $\mathrm{d}\omega(z) = \frac{1}{\pi}e^{-|z
 % \end{figure}
 
 
-Observe that the kernel $\kappa$ defines a projection operator from $\mathbb{L}_{2}(\mathrm{d}\omega)$ onto the $N$ dimensional subspace spanned by the functions $z \mapsto z^{n}$; $n \in \{0, \dots, N-1 \}$. As $N \rightarrow +\infty$, the kernel $\kappa$ converges to the kernel
+The kernel $\kappa$ defines a projection operator onto the $N$ dimensional subspace spanned by the functions $z \mapsto z^{n}$; $n \in \{0, \dots, N-1 \}$, and converges, as $N \rightarrow +\infty$, to the kernel
 \begin{equation}
 \kappa_{\infty}(z,w) = e^{z \overline{w}},
 \end{equation} 
 that defines the space
 of all entire functions in $\mathbb{L}_{2}(\mathrm{d}\omega)$. 
 
-The top of Figure~\ref{fig:ginibre} shows a  realization of three Ginibre ensembles corresdponding to $N \in \{100,200,500\}$. We observe that for the three values of $N$, the configuration takes a "spherical form" that can be explained by the rotational invariance of the mean measure $\kappa(z,z) \mathrm{d}\omega(z)$. Moreover, the modulus of the elements of the Genibre ensemble form a point process on $\mathbb{R}_{+}$, and the corresdponding mean measure have a density with respect to the Lebesgue measure that writes
+The top of Figure~\ref{fig:ginibre} shows a  realization of three Ginibre ensembles corresponding to $N \in \{100,200,500\}$. We observe that for the three values of $N$, the configuration takes a "spherical form" that can be explained by the rotational invariance of the mean measure $\kappa(z,z) \mathrm{d}\omega(z)$. Moreover, the modulus of the elements of the Genibre ensemble form a point process on $\mathbb{R}_{+}$, and the corresponding mean measure has a density with respect to the Lebesgue measure that writes
 \begin{equation}
 f_{N}(r) = \frac{2}{N}\sum\limits_{\ell =0}^{N-1} \frac{r^{2\ell+1}}{\ell!}e^{-r^{2}} \mathbb{1}_{\mathbb{R}_{+}}(r).
 \end{equation}
 
-The bottom of the Figure~\ref{fig:ginibre} shows histograms of the modulus computed on 1000 samples of the Ginibre ensemble for the three values of $N \in \{100,200,500\}$  compared to the respective densities $f_{100},f_{200}$ and $f_{500}$. Besides the matching between the theoretical density $f_{N}$ and the empirical histogram observed for the three values of $N$; we observe that density $f_{N}$ is unimodal and achieves its maximal value at $r \approx \sqrt{N}$, then manifest a sharp drop to very small values.
+The bottom of the Figure~\ref{fig:ginibre} shows histograms of the modulus computed on 1000 samples of the Ginibre ensemble for the three values of $N \in \{100,200,500\}$  compared to the respective densities $f_{100},f_{200}$ and $f_{500}$. Besides the matching between the theoretical density $f_{N}$ and the empirical histogram; we observe that density $f_{N}$ is unimodal and achieves its maximal value at $r \approx \sqrt{N}$, then manifest a sharp drop to very small values.
 
 % Figure~\ref{fig:ginibre_mean_measure} shows the histograms of the modulus calculated using 1000 realizations of the Ginibre ensemble with $N \in \{ 100,200,500\}$ compared to the corresponding densities $f_{100},f_{200},f_{500}$. 
 
@@ -1631,92 +1783,53 @@ with respect to the uniform measure on $\mathbb{S}^{2}$.
 
 
 \subsection{Numerical simulation}\label{sec:num_algos_dpps}
-As we have seen in Theorem~\ref{minors_symmetric_polynomials_lemma}, DPPs that satisfies the usual  conditions \eqref{eq:hermitian_condition_kappa}, \eqref{eq:positivity_condition_kappa}, \eqref{eq:integrability_condition_kappa} and \eqref{eq:traceclass_condition_kappa} are mixtures of projection DPPs. This decomposability motivates the interest in simulating projection DPPs. We review in this section the literature on the numerical simulation of projection DPPs.
+We recall in this section some algorithms for the numerical simulation of DPPs.
+
 
 \subsubsection{Algorithms based on random matrix models}
 % As we have seen in the introduction, the eigenvalues of a random unitary matrix ... 
-As we have seen in Section~\ref{sec:DPP_examples}, the eigenvalues of some random matrix models corresponds to some specific projection DPPs. This is the case of the Circular Unitary Ensemble, the Ginibre Ensemble and the Spherical Ensemble. 
+As we have seen in Section~\ref{sec:DPP_examples}, the eigenvalues of some random matrix models corresponds to some specific projection DPPs. This is the case, for example, of the Circular Unitary Ensemble, the Ginibre Ensemble and the Spherical Ensemble. 
 
-Orthogonal Polynomial Ensembles (OPE) on the real line form another class of projection DPPs that can be represented as the eigenvalues of some random matrix models. For this class of DPPs, the kernel $\kappa$ writes
+Orthogonal Polynomial Ensembles (OPE) on the real line form another class of projection DPPs that can be represented as the eigenvalues of random matrices. For this class of DPPs, the kernel $\kappa$ writes
 \begin{equation}
 \kappa(x,y) = \sum\limits_{n =0}^{N-1} P_{n}(x)P_{n}(y),
 \end{equation}
 where $(P_{n})$ is a family of orthonormal polynomials with respect to some measure $\mathrm{d}\omega$.
 
 % are  Projection DPPs corresponding to 
-In particular, when $\mathrm{d}\omega$ is a Gaussian, gamma \cite{DuEd02}, or beta \cite{KiNe04}, the corresponding DPP can be sampled by tridiagonalizing a matrix with independent entries with a cost that scales as $\mathcal{O}(N^2)$.
+In particular, when $\mathrm{d}\omega$ is Gaussian, Gamma \cite{DuEd02}, or Beta \cite{KiNe04}, the corresponding DPP can be sampled by tridiagonalizing a matrix with independent entries with a cost that scales as $\mathcal{O}(N^2)$.
 We illustrate this technique in Section~\ref{sec:Gaussian_quadrature} in Chapter~\ref{chap:dppkq}. We refer to \citep{GaBaVa20} for more details on this topic.
 
 Now, in general, there exists an algorithm for the numerical simulation of a projection DPP. This algorithm will be recalled in the following section.
 % and bypasses the need for rejection sampling. 
 
 
+\subsubsection{The HKPV algorithm for projection DPPs}
+ A universal sampling  algorithm of projection DPPs was proposed by \cite*{HoKrPeVi06}. The idea behind the algorithm goes as follow.
 
-
-
-\subsubsection{The HKPV algorithm}
- 
-%  Recall that by Proposition~\ref{prop:projection_DPP_cardinality},  a projection DPP, of kernel $\kappa$ and reference measure $\mathrm{d}\omega$,  defines a random counting measure $\gamma$ with deterministic cardinality 
-%  \begin{equation}
-% \Prb \big( |\gamma| = N \big) = 1,
-%  \end{equation}
-%  % random set that follows the distribution of a projection DPP of marginal kernel $\KDPP$ have a deterministic cardinal equals to $N$, 
-%  where $N$ is the rank of the integral operator associated to the kernel $\kappa$ and the measure $\mathrm{d}\omega
-%  $. For this reason, we can identify such a random set with a sample from a random variable defined on $\mathcal{X}^{N}$.
-
-% Let $\bm{x} = \{x_{1}, \dots, x_{N}\}$ a random set that follows the distribution of a projection DPP of marginal kernel $\KDPP_{N}$. The joint distribution of the random variable $(x_{1}, \dots, x_{N}) \in \X^{N}$ have a density with respect to the measure $\mathrm{d}\bm{\omega}(\bm{x}) = \otimes_{n\in [N]}\mathrm{d}\omega(x_{n})$:
-% \begin{equation}\label{eq:det_density}
-% f_{\KDPP}(\bm{x}) = \frac{1}{N!}\Det \bm{\KDPP}(\bm{x}).
-% \end{equation}
-
-% As we shall see, the landscape on this topic is 
-
-
-% \begin{figure}[!ht]
-%  \centerline{
-%  \scalebox{0.9}{
-% \begin{algorithm}{$\Algo{RME}\big(N)$}
-% \Aitem $n \longleftarrow  N$
-% \Aitem $\mu_{N}(x) \longleftarrow  \frac{1}{N} \KDPP(x,x)\mathrm{d}\omega(x)$
-% \Aitem $\bm{x} \longleftarrow  \emptyset$
-% \Aitem \While $n > 0 $
-% \Aitem \mt $\mu_{n}(x) = \frac{1}{n} \left( \KDPP(x,x) - \KDPP(x,\bm{x})^{\Tran}\bm{\KDPP}(\bm{x})^{-1} \KDPP(x,\bm{x}) \right) \mathrm{d}\omega(x)$ \ar{Chain rule}
-% \Aitem \mt  Pick $x_{n}$ from $\mathcal{X}$ from $\mu_{n}$ \ar{Sample from the conditional}
-% \Aitem \mt  $\bm{x} \longleftarrow  \bm{x} \cup \{x_{n}\}$
-% \Aitem \mt $n \longleftarrow  n-1$
-% \Aitem \Return $\bm{x}$
-% \end{algorithm}
-%  }
-%  }
-% \caption{Pseudocode a sampler of projection DPP based on a random matrix model.}
-% \label{alg:RME_SAMPLER}
-% \end{figure}
-
-
-%\paragraph{The sequential algorithm HKPV}
-Consider $(\psi_{m})_{m \in [N]}$ an orthonormal family with respect to the measure $\mathrm{d}\omega$. In \citep*{HoKrPeVi06}, a sequential algorithm was proposed for the numerical simulation of a random set that follows the distribution of the projection DPP of  kernel
+Define the projection kernel
 \begin{equation}
-\kappa(x,y) = \sum\limits_{m \in [N]} \psi_{m}(x)\psi_{m}(y).
+\kappa(x,y) = \sum\limits_{n \in [N]} \psi_n(x)\psi_n(y),
 \end{equation}
+where $(\psi_n)_{n \in [N]}$ is an orthonormal family with respect to some reference measure $\mathrm{d}\omega$. 
 
-Recall that by Proposition~\ref{prop:projection_DPP_cardinality} the cardinality of this random set is deterministic  
- \begin{equation}
-\Prb \big( |\gamma| = N \big) = 1,
- \end{equation}
-%  % random set that follows the distribution of a projection DPP of marginal kernel $\KDPP$ have a deterministic cardinal equals to $N$, 
-%  where $N$ is the rank of the integral operator associated to the kernel $\kappa$ and the measure $\mathrm{d}\omega
-For this reason, we can identify such a random set with a sample from a random variable defined on $\mathcal{D}^{N}$.
+ Consider the random variable $(x_{1}, \dots, x_N)$ defined on $\mathcal{D}^{N}$ that have the density $f_{\kappa}$ with respect to the measure $\mathrm{d}\bm{\omega}(x_{1}, \dots, x_N) = \otimes_{n \in [N]} \mathrm{d}\omega(x_n)$
+\begin{equation}\label{eq:det_density}
+f_{\kappa}(x_{1}, \dots,x_N) = \frac{1}{N!}\Det \bm{\kappa}(x_1, \dots, x_n).
+\end{equation}
+Then the random counting measure $\gamma = \sum_{n \in [N]} \delta_{x_n}$ follows the distribution of the projection DPP $(\kappa, \mathrm{d}\omega)$.
+
  
-Indeed, the idea behind this algorithm is to see $\bm{\kappa}(\bm{x})$ as the Gram matrix of the family $\big(\kappa(x_{n},.)\big)_{n \in [N]}$, whose $i,j$ entry is given by the scalar product of $\kappa(x_{i},.)$ and $\kappa(x_{j},.)$ with respect to the scalar product defined by $\mathrm{d}\omega$. In fact, by the orthonormality of $(\psi_{m})_{m \in [N]}$
+Indeed, $\bm{\kappa}(x_{1}, \dots, x_{N})$ is the Gram matrix of the family $\big(\kappa(x_{n},.)\big)_{n \in [N]}$, whose $i,j$ entry is given by the scalar product of $\kappa(x_{i},.)$ and $\kappa(x_{j},.)$ with respect to the scalar product defined by $\mathrm{d}\omega$. In fact, by the orthonormality of $(\psi_{n})_{n \in [N]}$
 %\int_{\mathcal{X}} \kappa(x_{i},x) \kappa(x_{j},x) \mathrm{d}\omega(x)
 \begin{equation}
-\Big\langle \kappa(x_{i},.),\kappa(x_{j},.) \Big\rangle_{\mathrm{d}\omega}  = \sum\limits_{m \in [N]}\sum\limits_{m' \in [N]} \int_{\mathcal{X}} \psi_{m}(x_{i}) \psi_{m}(x) \psi_{m'}(x_{j}) \psi_{m'}(x) \mathrm{d}\omega(x)  = \kappa(x_{i},x_{j}).
+\big\langle \kappa(x_{i},.),\kappa(x_{j},.) \big\rangle_{\mathrm{d}\omega}  = \sum\limits_{n \in [N]}\sum\limits_{n' \in [N]} \int_{\mathcal{X}} \psi_{n}(x_{i}) \psi_{n}(x) \psi_{n'}(x_{j}) \psi_{n'}(x) \mathrm{d}\omega(x)  = \kappa(x_{i},x_{j}).
 \end{equation}
 
-Hence, $\Det \bm{\kappa}(\bm{x})$ corresponds to the volume of the parallelepiped defined in $\mathbb{L}_{2}(\mathrm{d}\omega)$ and spanned by the vectors $(\kappa(x_{n},.))_{n \in [N]}$. Using base$\times$height formula, the authors proved that the density, with respect to the measure $\mathrm{d}\bm{\omega}(\bm{x}) = \otimes_{n\in [N]}\mathrm{d}\omega(x_{n})$,
-\begin{equation}\label{eq:det_density}
-f_{\KDPP}(\bm{x}) = \frac{1}{N!}\Det \bm{\kappa}(\bm{x})
-\end{equation}
+Hence, $\Det \bm{\kappa}(x_1,\dots,x_N)$ corresponds to the volume of the parallelepiped defined in $\mathbb{L}_{2}(\mathrm{d}\omega)$ and spanned by the vectors $(\kappa(x_{n},.))_{n \in [N]}$. Using base$\times$height formula, the authors proved that the density, with respect to the measure $\mathrm{d}\bm{\omega}(\bm{x}) = \otimes_{n\in [N]}\mathrm{d}\omega(x_{n})$,
+% \begin{equation}
+% f_{\KDPP}(\bm{x}) = \frac{1}{N!}\Det \bm{\kappa}(\bm{x})
+% \end{equation}
 factorizes as the product of $N$ densities (with respect to $\mathrm{d}\omega$)
 \begin{equation}
 f_{\kappa}(x_{1},\dots,x_{N}) = \prod\limits_{n \in [N]} f_{\kappa,n}(x_{n}),
@@ -1730,14 +1843,84 @@ and for $n>1$
 \begin{equation}
 f_{\kappa,n}(x) = \frac{1}{N-n+1} \left( \kappa(x,x) - \kappa(x,\bm{x}_n)^{\Tran}\bm{\kappa}(\bm{x}_n)^{-1} \kappa(x,\bm{x}_n) \right),
 \end{equation}
-where $\bm{x}_{n} = (x_1,x_2, \dots, x_{n-1} )$ and $\kappa(x,\bm{x}_n) = (\kappa(x,x_{\ell}))_{\ell \in [n]}$. In particular, the Algorithm~\ref{alg:HKPV_SAMPLER} outputs a random set that can be identified with a random counting measure that follows the distribution of the projection DPP of marginal kernel $\kappa$ and reference measure $\mathrm{d}\omega$.
+where $\bm{x}_{n} = (x_1,x_2, \dots, x_{n-1} )$ and $\kappa(x,\bm{x}_n) = (\kappa(x,x_{\ell}))_{\ell \in [n]}$. 
 
+
+% In particular, the Algorithm~\ref{alg:HKPV_SAMPLER} outputs a random set that can be identified with a random counting measure that follows the distribution of the projection DPP of marginal kernel $\kappa$ and reference measure $\mathrm{d}\omega$.
+
+
+
+% \begin{align*}
+% f_{\kappa}: \mathcal{D}^{N} & \longrightarrow  \mathbb{R}_{+}\\
+% (x_1,\dots,x_N) & \longmapsto \Det \bm{\kappa}(x_{1}, \dots, x_{N}).
+% \end{align*}
+\begin{theorem}[Proposition 19 in \citep{HoKrPeVi06}]
+The counting measure associated to the set of points constructed by Algorithm~\ref{alg:HKPV_SAMPLER} follows the distribution of projection DPP of kernel $\kappa$ and reference measure $\mathrm{d}\omega$.
+\end{theorem}
+
+
+
+
+
+
+% Recall that by Proposition~\ref{prop:projection_DPP_cardinality} the cardinality of the corresponding random set is deterministic  
+%  \begin{equation}
+% \Prb \big( |\gamma| = N \big) = 1.
+%  \end{equation}
+% %  Recall that by Proposition~\ref{prop:projection_DPP_cardinality},  a projection DPP, of kernel $\kappa$ and reference measure $\mathrm{d}\omega$,  defines a random counting measure $\gamma$ with deterministic cardinality 
+% %  \begin{equation}
+% % \Prb \big( |\gamma| = N \big) = 1,
+% %  \end{equation}
+% %  % random set that follows the distribution of a projection DPP of marginal kernel $\KDPP$ have a deterministic cardinal equals to $N$, 
+% %  where $N$ is the rank of the integral operator associated to the kernel $\kappa$ and the measure $\mathrm{d}\omega
+% %  $. For this reason, we can identify such a random set with a sample from a random variable defined on $\mathcal{X}^{N}$.
+
+% % Let $\bm{x} = \{x_{1}, \dots, x_{N}\}$ a random set that follows the distribution of a projection DPP of marginal kernel $\KDPP_{N}$. The joint distribution of the random variable $(x_{1}, \dots, x_{N}) \in \X^{N}$ have a density with respect to the measure $\mathrm{d}\bm{\omega}(\bm{x}) = \otimes_{n\in [N]}\mathrm{d}\omega(x_{n})$:
+% % \begin{equation}\label{eq:det_density}
+% % f_{\KDPP}(\bm{x}) = \frac{1}{N!}\Det \bm{\KDPP}(\bm{x}).
+% % \end{equation}
+
+% % As we shall see, the landscape on this topic is 
+
+
+% % \begin{figure}[!ht]
+% %  \centerline{
+% %  \scalebox{0.9}{
+% % \begin{algorithm}{$\Algo{RME}\big(N)$}
+% % \Aitem $n \longleftarrow  N$
+% % \Aitem $\mu_{N}(x) \longleftarrow  \frac{1}{N} \KDPP(x,x)\mathrm{d}\omega(x)$
+% % \Aitem $\bm{x} \longleftarrow  \emptyset$
+% % \Aitem \While $n > 0 $
+% % \Aitem \mt $\mu_{n}(x) = \frac{1}{n} \left( \KDPP(x,x) - \KDPP(x,\bm{x})^{\Tran}\bm{\KDPP}(\bm{x})^{-1} \KDPP(x,\bm{x}) \right) \mathrm{d}\omega(x)$ \ar{Chain rule}
+% % \Aitem \mt  Pick $x_{n}$ from $\mathcal{X}$ from $\mu_{n}$ \ar{Sample from the conditional}
+% % \Aitem \mt  $\bm{x} \longleftarrow  \bm{x} \cup \{x_{n}\}$
+% % \Aitem \mt $n \longleftarrow  n-1$
+% % \Aitem \Return $\bm{x}$
+% % \end{algorithm}
+% %  }
+% %  }
+% % \caption{Pseudocode a sampler of projection DPP based on a random matrix model.}
+% % \label{alg:RME_SAMPLER}
+% % \end{figure}
+
+
+% %\paragraph{The sequential algorithm HKPV}
+%  of  kernel
+
+% \begin{equation}
+% \kappa(x,y) = \sum\limits_{m \in [N]} \psi_{m}(x)\psi_{m}(y),
+% \end{equation}
+% where $(\psi_{m})_{m \in [N]}$ is an orthonormal family with respect to some measure $\mathrm{d}\omega$ defined on $\mathcal{D}$. 
+
+%  % random set that follows the distribution of a projection DPP of marginal kernel $\KDPP$ have a deterministic cardinal equals to $N$, 
+%  where $N$ is the rank of the integral operator associated to the kernel $\kappa$ and the measure $\mathrm{d}\omega
+% For this reason, we can identify such a random set with a sample from a random variable defined on $\mathcal{D}^{N}$.
 
 
 \begin{figure}[!ht]
  \centerline{
  \scalebox{0.9}{
-\begin{algorithm}{$\Algo{HKPV}\big(\kappa(x,y), \mathrm{d}\omega \big)$}
+\begin{algorithm}{$\Algo{HKPV}\big(\kappa, \mathrm{d}\omega \big)$}
 \Aitem $n \longleftarrow  N$
 \Aitem $\mu(x) \longleftarrow  f_{\kappa,1}(x) \mathrm{d}\omega(x)$ \ar{Initialize the distribution}
 \Aitem $\bm{x} \longleftarrow  \emptyset$
@@ -1753,14 +1936,142 @@ where $\bm{x}_{n} = (x_1,x_2, \dots, x_{n-1} )$ and $\kappa(x,\bm{x}_n) = (\kapp
 \caption{Pseudocode of the HKPV algorithm for sampling from a projection DPP of marginal kernel $\kappa$.}
 \label{alg:HKPV_SAMPLER}
 \end{figure}
- In practice, the implementation of this algorithm requires to sample from the conditional distributions $f_{\kappa,n}\mathrm{d}\omega$ (Step 5 in Algorithm~\ref{alg:HKPV_SAMPLER}). An implementation of this step was proposed in \citep{BaHa16} based on the following observation 
+ In practice, the implementation of this algorithm requires to sample from the conditional distributions $f_{\kappa,n}\mathrm{d}\omega$ (Step 5 in Algorithm~\ref{alg:HKPV_SAMPLER}). In some cases, sampling directly from these distributions is possible. We give two examples.
+
+
+
+ \begin{example}[Sampling from a discrete projection DPP]
+Let $\mathcal{D} = [d]$ and $\mathrm{d}\omega = \sum\limits_{x \in \mathcal{D}} \delta_{x}$. Define the matrix
+\begin{equation}
+\bm{K} = \bm{V}\bm{V}^{\Tran},
+\end{equation} 
+where $\bm{V}\in \mathbb{R}^{d \times k}$ such that
+\begin{equation}
+\bm{V}^{\Tran}\bm{V} = \mathbb{I}_{k}.
+\end{equation}
+$\bm{K}$ is a projection matrix and define a projection DPP (with respect to $\mathrm{d}\omega$). The HKPV algorithm can be implemented using a sampler from multinomial distributions. In particular, the first density writes
+\begin{equation}
+f_{\kappa,1}(x) = \frac{1}{k} \sum\limits_{i \in [k]} \bm{V}_{x,i}^{2},
+\end{equation}
+that can be calculated in a $\mathcal{O}(kd)$ operations if the matrix $\bm{V}$ is known. Similarly, the conditionals $f_{\kappa,2}, \dots, f_{\kappa,k}$ can be calculated in a polynomial time in $k$ and $d$. 
+
+The right of Table~\ref{table:HKPV_figures} illustrates the  densities $f_{\kappa,n}$ as a function of $n$ when $d = 12$ and $k = 8$: once a point $x$ is selected at some step $n$, $f_{\kappa,m}(x) = 0$ for every $m>n$; in other words, a point in $\mathcal{D}$ is selected only once.
+ \end{example}
+
+\begin{table}[]
+\centering
+ \begin{tabular}{| c| c| c|}
+ \hline
+  $n $ & The density $f_{\kappa,n}$ (Haar wavelets family) & The density $f_{\kappa,n}$ (Projection matrix)\\
+ \hline
+ 1 & \includegraphics[width= 0.4\textwidth, height = 0.16\textheight]{img/Haar/haar_Ensemble_1D_conditional_N_0.pdf} & \includegraphics[width= 0.4\textwidth, height = 0.16\textheight]{img/discrete/discrete_Ensemble_1D_conditional_N_0.pdf}\\ 
+ \hline
+2 & \includegraphics[width= 0.4\textwidth, height = 0.16\textheight]{img/Haar/haar_Ensemble_1D_conditional_N_1.pdf} & \includegraphics[width= 0.4\textwidth, height = 0.16\textheight]{img/discrete/discrete_Ensemble_1D_conditional_N_1.pdf}\\
+\hline
+3 & \includegraphics[width= 0.4\textwidth, height = 0.16\textheight]{img/Haar/haar_Ensemble_1D_conditional_N_2.pdf} & \includegraphics[width= 0.4\textwidth, height = 0.16\textheight]{img/discrete/discrete_Ensemble_1D_conditional_N_2.pdf}\\
+\hline
+4 & \includegraphics[width= 0.4\textwidth, height = 0.16\textheight]{img/Haar/haar_Ensemble_1D_conditional_N_3.pdf} & \includegraphics[width= 0.4\textwidth, height = 0.16\textheight]{img/discrete/discrete_Ensemble_1D_conditional_N_3.pdf}\\
+\hline
+$\dots$ &$ \dots$ & $\dots$\\
+\hline
+8 & \includegraphics[width= 0.4\textwidth, height = 0.16\textheight]{img/Haar/haar_Ensemble_1D_conditional_N_7.pdf} & \includegraphics[width= 0.4\textwidth, height = 0.16\textheight]{img/discrete/discrete_Ensemble_1D_conditional_N_7.pdf}\\
+\hline
+\end{tabular}
+\caption{The HKPV algorithm in action: the densities $f_{\kappa,n}$ for the projection DPP defined by the Haar wavelets family and the uniform measure on $[0,1]$(left), the densities $f_{\kappa,n}$ for the projection DPP defined by an orthogonal matrix of rank $8$ and the counting measure on the set $\{ 1, \dots, 12 \}$ (right).\label{table:HKPV_figures}}
+\end{table}
+
+
+
+\begin{example}[Sampling from the projection DPP associated to the Haar wavelets family]
+
+Let $\mathcal{D} = [0,1]$ and $\mathrm{d}\omega$ is the uniform measure $\mathcal{D}$. Define the Haar wavelets family $(\psi_{n,m})_{n \in \mathbb{N}, m \in \{0,2^{n}-1\}}$ by
+\begin{equation}
+\psi_{n,m}(x) = 2^{n/2}\psi(2^{n/2}x - m),
+\end{equation}
+where
+\begin{equation}
+\psi(x) = \mathbb{1}_{[0,1/2[}(x) - \mathbb{1}_{[1/2,1[}(x).
+\end{equation}
+
+This is an orthonormal family with respect to $\mathrm{d}\omega$. We consider the kernel
+\begin{equation}
+\kappa(x,y) = \sum\limits_{n = 0}^{\nu}\sum\limits_{m=0}^{2^n-1} \psi_{m,n}(x)\psi_{m,n}(y).
+\end{equation}
+
+In this case the first density 
+\begin{equation}
+\forall x \in [0,1], \:\:f_{\kappa,1}(x) = 1,
+\end{equation}
+is constant, and the conditionals $f_{\kappa,n}$ are step functions that can be sampled from efficiently. Therefore, the HKPV algorithm can be implemented efficiently for this family.
+
+%  using a sampler from multinomial distributions. In particular, 
+% that can be calculated in a $\mathcal{O}(kd)$ operations if the matrix $\bm{V}$ is known. Similarly, 
+
+The left of Table~\ref{table:HKPV_figures} illustrates the  densities $f_{\kappa,n}$ as a function of $n$ when the rank of the projection DPP is equal to $8$ ($\nu = 2$): once a point $x$ is selected at some step $n$, $f_{\kappa,m}(y) = 0$ for every $m>n$ for every $y$ in the interval $[m2^{-\nu},(m+1)2^{-\nu}[$.
+
+ \end{example}
+
+
+In general, sampling directly from $f_{\kappa,n}$ is not possible. In \citep{BaHa16} proposed to use rejection sampling based on the following observation 
  \begin{equation}
 f_{\kappa,n}(x) \leq \frac{N}{n}f_{\kappa,1}(x) = \frac{N}{n} \kappa(x,x).
  \end{equation} 
 
 Therefore, it is enough to sample from the first distribution $f_{\kappa,1} \mathrm{d}\omega$ and use rejection sampling for the other conditionals.
 
-We give an illustration of this algorithm in two cases: i) $\psi_{m}$ are the normalized Legendre polynomials defined on $\mathcal{D}= [-1,1]$, ii) $\psi_m$ are the Haar wavelets defined on $\mathcal{D}= [0,1]^{2}$.
+
+\begin{example}
+Let $(L_{n})_{n \in \mathbb{N}}$ be the family of normalized Legendre polynomials defined by 
+\begin{equation}
+\int_{-1}^{1} L_n(x)L_{n'}(x) \mathrm{d}x = \delta_{n,n'}.
+\end{equation}
+Let $\kappa$ be the projection kernel
+\begin{equation}
+\kappa(x,y) = \sum\limits_{n =0}^{N-1}L_{n}(x)L_{n}(y).
+\end{equation}
+We have
+\begin{equation}\label{eq:bernstein_bound_f_kappa}
+\forall x \in ]-1,1[, \:\:f_{\kappa,1}(x) \leq \frac{2}{\pi} \frac{1}{1-x^{2}}.
+\end{equation}
+Indeed, by Bernstein's inequality~\citep{Lor83}, we have
+\begin{equation}
+L_n(x)^{2} \leq \frac{2}{\pi} \frac{1}{1-x^{2}}.
+\end{equation}
+Figure~\ref{fig:Legendre_bound} illustrates the sharpness of the bound~\eqref{eq:bernstein_bound_f_kappa} for $N = 5$ and $N=10$.
+\end{example}
+% We give an illustration of this algorithm in two cases: i) $\psi_{m}$ are the normalized Legendre polynomials defined on $\mathcal{D}= [-1,1]$, ii) $\psi_m$ are the Haar wavelets defined on $\mathcal{D}= [0,1]^{2}$.
+
+
+
+\begin{figure}
+\centering
+\includegraphics[width= 0.47\textwidth]{img/Legendre/LegendreOP_kernel_diagonal_5.pdf}~\includegraphics[width= 0.47\textwidth]{img/Legendre/LegendreOP_kernel_diagonal_10.pdf}
+\caption{The sharpness of Bernstein inequality for bounding the density $f_{\kappa,1}$. \label{fig:Legendre_bound}}
+\end{figure}
+
+
+
+
+
+
+
+\subsubsection{Approximate sampling}
+
+
+As we have seen in Theorem~\ref{thm:mixture_of_projection_DPPs}, DPPs corresponding to trace class kernels are mixtures of projection DPPs. Therefore, one can use the HKPV algorithm to simulate the intermediate projection DPP $\kappa_{I}$ (in Theorem~\ref{thm:mixture_of_projection_DPPs}). However, in some situations, this approach can be non-efficient or even can not be applied at all. Indeed, in many settings the spectral decomposition
+of $\bm{\Sigma}_{\kappa}$ is not tractable. For this reason, many approximate samplers were proposed for DPPs to circumvent sampling the mixture. 
+
+ MCMC algorithms were proposed in \citep{AnGhRe16} and \citep{GaBaVa17} for DPPs and $k$-DPPs defined in discrete domains. These algorithms do not require the spectral decomposition of the kernel matrix. An extension of the sampler of \citep{AnGhRe16} to continuous domains was proposed in \citep{ReGh19}. We will present and discuss this algorithm in Chapter~\ref{chap:CVS}. Recently, a fast sampler of intractable OPE was proposed in \citep{GaBaVa20}. This algorithm is based on an MCMC in the domain of tri-diagonal matrices; see Section~\ref{sec:Gaussian_quadrature}. 
+
+ Another approximate sampler, suited for translation invariant kernels defined on $\mathbb{R}^{d}$, was proposed in \citep{LaMoRu15}. This sampler is based on the approximation of the function $\phi$ in the Fourier domain where $\phi$ is defined by
+ \begin{equation}
+ \kappa(x,y) = \phi(x-y).
+ \end{equation}
+
+
+% This decomposability motivates the interest in simulating projection DPPs. We review in this section the literature on the numerical simulation of projection DPPs.
+
+
 
 % We consider 
 % In the first case, recall that the normalized Legendre polynomials are defined by 
@@ -5041,7 +5352,7 @@ $$3+\frac{10}{71} < \pi < 3+\frac{1}{7}.$$
  % $p_{N-1}$ of $f$ on the $x_{1}, \dots, x_{N}$ then approximate the value of $\displaystyle \int_{a}^{b}f(t)\mathrm{d}t$ by $\displaystyle \int_{a}^{b}p_{N-1}(t)\mathrm{d}t$. In other words, consider the polynomial
 
   % Newton was interested in approximation   using some evaluations of $f$ can be tracked to the work of Newton. The idea of the eponymous quadrature is to consider a set of nodes, also called \emph{configuration}, $\bm{x} = \{x_{1}, \dots , x_{N} \} \subset \X^{N}$, and the corresponding interpolating polynomial of degree $N-1$:
-\begin{equation}
+\begin{equation}\label{eq:interpolation_step}
 p_{N-1}(t) = \sum\limits_{n \in [N]} f(x_{n}) \ell_{n,\bm{x}}(t) \in \mathbb{R}_{N-1}[t],
 \end{equation}
 where $\ell_{n,\bm{x}}$ are the Lagrange polynomial  \footnote{ At that time, Newton considered divided differences interpolation polynomial \citep{BuFa97}.} basis polynomials defined by \citep{BuFa97}
@@ -5058,18 +5369,21 @@ where the scalars $w_{n}$, also called the \emph{Cotes numbers}, have the expres
 \forall n \in [N], \: w_{n} = \int_{a}^{b} \ell_{n,\bm{x}}(t) \mathrm{d}t.
 \end{equation}
 
-The approximation~\eqref{eq:Newton_Cotes}, called the \emph{Newton-Cotes formula}, is an early form of a \emph{quadrature}: the nodes $x_{n}$ and the weights $w_{n}$ are independent of the function $f$. In the case of the Newton-Cotes formula, the explicit values of the weights, for small values of $N$, were found by Cotes. This formula coincides with other well-known quadratures such as the Trapezoid rule, the Simpson's rule, the Boole's rule... Nevertheless, this formula is not optimal for large values of $N$ and the nodes should be replaced by other configurations. This observation gave birth to the Gaussian quadrature and the field of numerical integration using the zeros of orthogonal polynomials.
+The approximation~\eqref{eq:Newton_Cotes}, called the \emph{Newton-Cotes formula}, is an early form of a \emph{quadrature}: the nodes $x_{n}$ and the weights $w_{n}$ are independent of the function $f$. In the case of the Newton-Cotes formula, the explicit values of the weights, for small values of $N$, were found by Cotes. This formula coincides with some already known quadratures such as Trapezoid rule $(N=2)$, Simpson's $1/3$ rule $(N=3)$, Simpson's $3/8$ rule $(N=4)$... 
+Of course, the use of equidistant nodes is arbitrary, and other configurations can be used in the interpolation step~\eqref{eq:interpolation_step}.
+% Nevertheless, this formula is became unstable optimal for large values of $N$ and the nodes should be replaced by other configurations. 
+This observation gave birth to the Gaussian quadrature and the field of numerical integration using the zeros of orthogonal polynomials.
  % The explicit values of the weights $w_{n}$ wIn the case of the \emph{Newton-Cotes formula}, the explicit values of the weights $w_{n}$ were calculated by Cotes for small values of $N$.
-As we shall see, these techniques are not amenable to be generalized for  high-dimensional domains.
+As we shall see, these techniques are not amenable to be generalized to  high-dimensional domains.
 
 Monte Carlo methods offer another approach to numerical integration. This class of methods, introduced by \cite{MeUl49},  relies on randomized averaging. Given a sequence of random variables $x_{1}, \dots, x_{N}$ generated from a density g with respect to $\mathrm{d}\omega$, it comes
 \begin{equation}
 \EX \frac{1}{N}\sum\limits_{n \in [N]} f(x_{n}) = \int_{\mathcal{X}} f(x)g(x) \mathrm{d}\omega(x),
 \end{equation}
-and by the Strong Law of Large Numbers, $ \sum_{n \in [N]} f(x_{n})/N$ converges ($N \rightarrow +\infty$) a.s. to $\displaystyle \int_{\mathcal{X}} f(x)g(x) \mathrm{d}\omega(x)$. Moreover, if $\displaystyle \int_{\mathcal{X}} f(x)^{2} \mathrm{d}\omega(x) < +\infty$, the variance of $\sum_{n \in [N]} f(x_{n})/N$ scales as $\mathcal{O}(1/N^{2})$, and the estimator satisfies a central limit theorem \citep{RoCa04}. 
-Remarkably, this rate of convergence does not depend on the dimension of $\mathcal{X}$ (if $\mathcal{X}$ is a $d$-dimensional manifold). This property gives an advantage of Monte Carlo methods over deterministic quadrature rules, that scales poorly for high dimension integration problems. 
+and by the Strong Law of Large Numbers, $ \sum_{n \in [N]} f(x_{n})/N$ converges almost surely to $\int_{\mathcal{X}} f(x)g(x) \mathrm{d}\omega(x)$. Moreover, if $ \int_{\mathcal{X}} f(x)^{2} \mathrm{d}\omega(x) < +\infty$, the variance of $\sum_{n \in [N]} f(x_{n})/N$ scales as $\mathcal{O}(1/N^{2})$, and the estimator satisfies a central limit theorem \citep{RoCa04}. 
+Remarkably, this rate of convergence does not depend on the dimension of $\mathcal{X}$ (if $\mathcal{X}$ is a $d$-dimensional manifold). This property gives an advantage, provided that we know how to sample from the density $g$, of Monte Carlo methods over deterministic quadrature rules, that scales poorly for high dimension integration problems. 
 
-It would be fair to claim that deterministic quadratures are very efficient for smooth low dimensional functions, while this smoothness does not improve the Monte Carlo rate. This observation have fueled a multitude of investigations with a common purpose: improving upon the Monte Carlo rate for smooth functions on high dimensional integration problems. Many approaches were proposed in this rich line of research: Quasi-Monte Carlo methods \citep*{DiPi10}, kernel quadrature methods \citep*{Hic98} \citep{SmGrSoSc07} \citep{ChWeSm10} \citep{Bac17}, control functional techniques \citep*{OaGi16} or  determinantal point processes \citep{BaHa16}.
+It would be fair to claim that deterministic quadratures are very efficient for smooth low dimensional functions, while this smoothness does not improve the Monte Carlo rate. This observation have fueled a multitude of investigations with a common purpose: improving upon the Monte Carlo rate for smooth functions on high dimensional integration problems. Many approaches were proposed in this rich line of research: Quasi-Monte Carlo methods \citep*{DiPi10}, kernel quadrature methods \citep*{Hic98} \citep{SmGrSoSc07} \citep{ChWeSm10} \citep{Bac17} \citep{BOGOS2019} or  determinantal point processes \citep{BaHa16}.
 
 In this chapter a brief review of existing numerical integration methods is given with an emphasis on the connections between these methods. In particular, the contribution of this chapter is the introduction of a new class of quadratures that is at the intersection between determinantal point process and kernel quadrature methods.
 
@@ -5206,7 +5520,7 @@ The roots of the $P_{N}$ are the eigenvalues of the tridiagonal matrix $J_{N}$, 
 % \vdots \\
 % P_{N-1}(x) \\
 % \end{pmatrix}$
-\subsubsection{A connection with DPP}
+\subsubsection{DPPs as probabilistic relaxations of Gaussian quadrature}
 
 \begin{figure}[]
     \centering
@@ -5217,17 +5531,17 @@ The roots of the $P_{N}$ are the eigenvalues of the tridiagonal matrix $J_{N}$, 
 %     \centering
 \includegraphics[width= 0.45\textwidth]{img/neurips/Hermite/HermiteOP_kernel_diagonal_N_5_vs_50000_empirical}~
 \includegraphics[width= 0.45\textwidth]{img/neurips/Hermite/HermiteOP_kernel_diagonal_N_10_vs_50000_empirical}
-\caption{The histogram of the eigenvalues of $\tilde{J}_{N}$ based on 50000 realizations compared to the first intensity function of the projection DPP eigenvalues of $J_{N}$ (the red dots)  with $N \in\{5,10\}$.   \label{fig:unidimHermiteEnsembleChristoffel}}
+\caption{The histogram of the eigenvalues of $\tilde{J}_{N}$ based on 50000 realizations compared to the first intensity function $f_{N}$ of the projection DPP and the eigenvalues of $J_{N}$, with $N \in\{5,10\}$.   \label{fig:unidimHermiteEnsembleChristoffel}}
 \end{figure}
 
-We illustrate the construction of Gaussian quadrature based on the spectral decomposition of the matrix $J_N$ using the case of the Gaussian measure on the real line. The aim of this illustration is to highlight a connection between Gaussian quadrature and DPPs.
+We illustrate the construction of Gaussian quadrature based on the spectral decomposition of $J_N$ in the special case of the Gaussian measure on the real line. The aim of this illustration is to highlight a connection between Gaussian quadrature and DPPs.
 
-Now, let $\mathrm{d}\omega(t) = \omega(t) \mathrm{d}t$ be the Gaussian measure on $\mathbb{R}$ 
+Now, let $\mathrm{d}\omega(t) = \omega(t) \mathrm{d}t$ be the Gaussian measure on $\mathbb{R}$ with
 \begin{equation}
 \omega(t) = \frac{1}{\sqrt{2\pi}} e^{-t^{2}/2}.
 \end{equation}
  % through  in the case of  This illustration will and we 
-It is well known, that the corresponding orthonormal polynomials are proportional to the probabilists Hermite polynomials, and the corresponding Jacobi matrix writes
+It is well known, that the corresponding orthonormal polynomials are proportional to the probabilist Hermite polynomials, and the corresponding Jacobi matrix writes
 % \begin{equation}
 % H_{n}(t) = (-1)^{n}e^{t^{2}/2}\frac{\mathrm{d}^{n}}{\mathrm{d}t^{n}} e^{-t^{2}/2}
 % \end{equation}
@@ -5235,18 +5549,18 @@ It is well known, that the corresponding orthonormal polynomials are proportiona
 %  defines a sequence of orthogonal polynomials with respect to $\mathrm{d}\omega$ the corresponding family of orthonormal polynomials, .... In this case
 \begin{equation}
 J_N = \left( \begin{array}{cccc}
-0 & \sqrt{N} & & 0\\
-\sqrt{N} & \ddots & \ddots & \\
-& \ddots & \ddots & \sqrt{N} \\
-0 & & \sqrt{N} & 0 \end{array} \right).
+0 & \sqrt{1} &  & 0\\
+\sqrt{1} & \ddots & \ddots & \\
+& \ddots & \ddots & \sqrt{N-1} \\
+0 & & \sqrt{N-1} & 0 \end{array} \right).
 \end{equation}
 Now consider the following random matrix
 \begin{equation}
 \tilde{J}_N = \left( \begin{array}{cccc}
-\mathcal{N}(0,1) & \chi_{(N-1)} & & 0\\
-\chi_{(N-1)} & \ddots & \ddots & \\
-& \ddots & \ddots & \chi_{1} \\
-0 & & \chi_{1} & \mathcal{N}(0,1) \end{array} \right),
+\mathcal{N}(0,1) & \chi_{1} & & 0\\
+\chi_{1} & \ddots & \ddots & \\
+& \ddots & \ddots & \chi_{(N-1)} \\
+0 & & \chi_{(N-1)} & \mathcal{N}(0,1) \end{array} \right),
 \end{equation}
 
 where $\mathcal{N}(0,1)$ is a random variable that follows the standard normal distribution, and $\chi_{n}$ is a random variable that follows the chi distribution with $n$ degrees of freedom.
@@ -5254,20 +5568,20 @@ where $\mathcal{N}(0,1)$ is a random variable that follows the standard normal d
 % \begin{equation}
 % \EX \tilde{J}_N = J_N.
 % \end{equation}
-It is well known that eigenvalues $\{x_{1}, \dots, x_{N} \}$ of $\tilde{J}_{N}$ have the following density \citep{DuEd05}
-
-\begin{equation}\label{eq:J_tilde_eigenvalue_distribution}
-(x_{1}, \dots, x_{N}) \propto \prod\limits_{n =1}^{N}e^{-x_{n}^{2}/2} \prod\limits_{1 \leq n<n' \leq N}  |x_{n}-x_{n'}|^{2}.
-\end{equation}
 Observe that
 \begin{equation}
 \EX \tilde{J}_N = J_N.
 \end{equation}
-From~\eqref{eq:J_tilde_eigenvalue_distribution}, we can prove that the eigenvalues of $\tilde{J}_{N}$ form a DPP of marginal kernel 
+It is well known that the eigenvalues $x_{1}, \dots, x_{N}$ of $\tilde{J}_{N}$, seen as a vector of $\mathbb{R}^{d}$, have the following density \citep{DuEd05} with respect to the Lebesgue measure of $\mathbb{R}^{d}$
+
+\begin{equation}\label{eq:J_tilde_eigenvalue_distribution}
+f(x_{1}, \dots, x_{N}) \propto \prod\limits_{n =1}^{N}e^{-x_{n}^{2}/2} \prod\limits_{1 \leq n<n' \leq N}  |x_{n}-x_{n'}|^{2}.
+\end{equation}
+In other words, the eigenvalues of $\tilde{J}_{N}$ form a DPP of marginal kernel 
 \begin{equation}
 \kappa(x,y) = \sum\limits_{n=0}^{N-1} P_{n}(x)P_{n}(y),
 \end{equation}
-and the $\mathrm{d}\omega$ as a reference measure.
+and the $\mathrm{d}\omega$ as a reference measure, where the $P_{n}$ are the normalized probabilist Hermite polynomials \footnote{Using row and column operations on the Vandermonde determinant $\prod  |x_{n}-x_{n'}|^{2}$, we prove that it is proportional to $\Det \bm{\kappa}(x_{1}, \dots, x_{N})$.}.
 
 % On the other hand, assume that the $(\psi_{n})$ are the family of orthonormal polynomials with respect to $\mathrm{d}\omega$. Let $x \in \mathcal{X}$ and $\bm{x}$ a random subset of $\mathcal{X}^{N}$ drawn from the Projection DPP $(\KDPP, \mathrm{d}\omega)$, then
 % \begin{equation}
@@ -5276,14 +5590,14 @@ and the $\mathrm{d}\omega$ as a reference measure.
 % In other words, the inclusion probability of the corresponding projection DPP is related to the inverse of the Christoffel function as defined in \eqref{eq:Christoffel_functions_definition}. 
 
 
-Figure \ref{fig:unidimHermiteEnsembleChristoffel} shows the histogram of the eigenvalues of the matrix $\tilde{J}_N$ with $N \in \{5,10 \}$ calculated over 50000 realizations of $\tilde{J}_N$ compared to the first intensity function of the projection DPP defined by the kernel $\kappa$ and the reference measure $\mathrm{d}\omega$. We observe that the histogram matches the first intensity function that have local maxima around the eigenvalues of the matrix $J_{N}$ (the red dots), that are the scaled roots of probabilistic Hermite polynomial of degree $N$.
+Figure \ref{fig:unidimHermiteEnsembleChristoffel} shows the histogram of the eigenvalues of the matrix $\tilde{J}_N$ with $N \in \{5,10 \}$ calculated over 50000 realizations of $\tilde{J}_N$ compared to the first intensity function of the projection DPP defined by the kernel $\kappa$ and the reference measure $\mathrm{d}\omega$. We observe that the histogram matches the first intensity function that have local maxima around the eigenvalues $h_{1}, \dots, h_{N}$ of the matrix $J_{N}$ (the red dots), that are the roots of $P_{N}$.
 % the evaluations of the inclusion probability of the projection DPP in the case of RKHS  Recall that in this case the eigenfunctions are given by
 % \begin{equation}
 % \tilde{e}_{m}(.) = H_{m}(\sqrt{2c}.).
 % \end{equation}
 In other words, in this case, the projection DPP can be seen as a probabilistic relaxation of Gaussian quadrature. 
 
-This case is far from being anecdotal. Indeed, this probabilistic relaxation is possible for Gaussian quadrature of other measures, and the resulting point process coincides with a projection DPP; see ???? for details on this topic.
+This case is far from being anecdotal. Indeed, this probabilistic relaxation is possible for Gaussian quadrature of other measures \citep{DuEd02} \citep{KiNe04}, and the resulting point process coincides with a projection DPP; see \citep{GaBaVa20} for details on this topic.
 % The theoretical analysis of these local maxima was carried out in . More precisely, the authors studied the approximations of those bumps by Gaussians centred on the Hermite polynomials roots, see Figure \ref{fig:unidimHermiteEnsembleChristoffel} (b).
 
  % In other words, the quadratures based on nodes sampled according to a projection DPP are probabilistic relaxations of classical quadratures based on roots of orthogonal polynomials that can be defined even if $N$ is not the square of an integer (the cases $N \in \{17,21\}$ in Figure~\ref{fig:HermiteEnsembleChristoffel}).
@@ -5612,7 +5926,7 @@ As it was mentioned in the introduction of this section, this review is limited 
 
 
 
-\subsection{DPPs for numerical integration}
+\subsection{DPPs for numerical integration}\label{sec:DPPs_for_quadrature}
 % The negative correlation property of Determinantal Point Process was used in the design of several quadrature rules. 
 Several quadratures are based on nodes that follow the distribution of a Determinantal Point Process. The motivation behind this choice is the strong statistical properties of these quadratures. We review in this section the results and the techniques used in this line of research. 
 
@@ -8672,7 +8986,7 @@ we get
 
 \clearpage
 
-\chapter{Kernel interpolation using Volume Sampling}
+\chapter{Kernel interpolation using Volume Sampling}\label{chap:CVS}
 
 
 \section{Introduction}

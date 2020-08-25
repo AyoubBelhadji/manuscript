@@ -1,0 +1,57 @@
+\begin{tikzpicture}
+%[
+%dot/.style = {circle, fill, 
+%              inner sep=0pt} % size of the circle diameter 
+%                    ]  
+    %\draw[smooth cycle,tension=3.0] plot coordinates{(1,0) (1,1) (2,2) (3,3) (6,0)} node [label=right:$M$];
+
+    % Manifold
+    \draw[smooth cycle, tension=0.4] plot coordinates{(2,2) (-0.5,0) (3,-2) (5,1)};
+    %node [label=$M$];
+    \node (A) at (0.5, 0) {$x_{1}$};
+    \node (A1) at (0.5, 1.5) {};
+    
+    \node (B) at (4, 1) {$x_{2}$};
+    \node (B1) at (4, 2.5) {};
+    \node (C) at (2, 1.5) {$x_{3}$};
+    \node (C1) at (2, 3) {};
+    \node (D) at (3, 0) {$x_{4}$};
+    \node (D1) at (3, 1.5) {};
+
+    \node (M) at (4.7, -1) {$\mathcal{D}$};
+
+
+    \draw[->](A) edge (A1);
+    \draw[->](B) edge (B1);
+    \draw[->](C) edge (C1);
+    \draw[->](D) edge (D1);
+    % % Help lines
+    % \draw[help lines] (-3,-6) grid (8,6);
+
+    % % Subsets
+    % \draw[smooth cycle] plot coordinates{(1,0) (1.5, 1.2) (2.5,1.3) (2.6, 0.4)}; %node [label={[label distance=-0.3cm, xshift=-1.8cm]:$U_i$}];
+
+    % \draw[smooth cycle] plot coordinates{(4, 0) (3.7, 0.8) (3.0, 1.2) (2.5, 1.2) (2.2, 0.8) (2.3, 0.5) (2.6, 0.3) (3.5, 0.0)} ;
+    %node [label={[left label distance=0.8cm, xshift=.65cm]:$U_j$}];
+
+    % % First Axis
+    % \draw[thick, ->] (-3,-5) -- (0,-5); %node [label=above:$\phi_i(U_i)$];
+    % \draw[thick, ->] (-3,-5) -- (-3, -2); %node [label=right:$\mathbb{R}^m$];
+
+    % % Second Axis
+    % \draw[thick, ->] (5, -5) -- (8, -5); %node [label=above:$\phi_j(U_j)$];
+    % \draw[thick, ->] (5, -5) -- (5, -2); %node [label=right:$\mathbb{R}^m$];
+
+    % % Functions
+    % \path[->] (0.93, -0.09) edge [bend right] (-1, -3);
+    % \path[->] (-0.5, -3) edge [bend right] (1.093, -0.09);
+
+    % % Sets in R^m
+    % \draw[smooth cycle] plot coordinates{(-2, -4.5) (-2, -3.2) (-0.8, -3.2) (-0.8, -4.5)};
+    % \draw[smooth cycle] plot coordinates{(7, -4.5) (7, -3.2) (5.8, -3.2) (5.8, -4.5)};
+
+    % % Functions
+    % \path[->] (6.0, -3.0) edge [bend left] (3.8, -0.09);
+    % \path[->] (4.2, 0) edge [bend left] (6.5, -3.0);
+
+\end{tikzpicture}
