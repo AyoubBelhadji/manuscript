@@ -1,14 +1,14 @@
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {1.1}{\ignorespaces ....\relax }}{10}{table.caption.6}
+\contentsline {table}{\numberline {1.1}{\ignorespaces A summary of the contributions of this thesis compared to existing of work.\relax }}{12}{table.caption.8}
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {2.1}{\ignorespaces A dictionary of notations between discrete subsets and simple counting measures.\relax }}{13}{table.caption.11}
-\contentsline {table}{\numberline {2.2}{\ignorespaces The HKPV algorithm in action: the densities $f_{\kappa ,n}$ for the projection DPP defined by the Haar wavelets family and the uniform measure on $[0,1]$(left), the densities $f_{\kappa ,n}$ for the projection DPP defined by an orthogonal matrix of rank $8$ and the counting measure on the set $\{ 1, \dots , 12 \}$ (right).\relax }}{31}{table.caption.24}
+\contentsline {table}{\numberline {2.1}{\ignorespaces A dictionary of notations between discrete subsets and simple counting measures.\relax }}{17}{table.caption.14}
+\contentsline {table}{\numberline {2.2}{\ignorespaces The HKPV algorithm in action: the densities $f_{\kappa ,n}$ for the projection DPP defined by the Haar wavelets family and the uniform measure on $[0,1]$(left), the densities $f_{\kappa ,n}$ for the projection DPP defined by an orthogonal matrix of rank $8$ and the counting measure on the set $\{ 1, \dots , 12 \}$ (right).\relax }}{35}{table.caption.27}
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {3.1}{\ignorespaces Examples of some RRQR algorithms and their theoretical performances.\relax }}{38}{table.caption.28}
-\contentsline {table}{\numberline {3.2}{\ignorespaces Complexity of the three CSSP algorithms.\relax }}{53}{table.caption.38}
-\contentsline {table}{\numberline {3.3}{\ignorespaces Datasets used in the experimental section. \relax }}{59}{table.caption.46}
-\contentsline {table}{\numberline {3.4}{\ignorespaces $p$-values for Mann\IeC {\textendash }Whitney $U$-test comparisons. \relax }}{61}{table.caption.49}
-\contentsline {table}{\numberline {3.5}{\ignorespaces $p$-values for Mann\IeC {\textendash }Whitney $U$-test comparisons, for the boosted algorithms. \relax }}{61}{table.caption.50}
+\contentsline {table}{\numberline {3.1}{\ignorespaces Examples of some RRQR algorithms and their theoretical performances.\relax }}{42}{table.caption.31}
+\contentsline {table}{\numberline {3.2}{\ignorespaces Complexity of the three CSSP algorithms.\relax }}{57}{table.caption.41}
+\contentsline {table}{\numberline {3.3}{\ignorespaces Datasets used in the experimental section. \relax }}{63}{table.caption.49}
+\contentsline {table}{\numberline {3.4}{\ignorespaces $p$-values for Mann\IeC {\textendash }Whitney $U$-test comparisons. \relax }}{65}{table.caption.52}
+\contentsline {table}{\numberline {3.5}{\ignorespaces $p$-values for Mann\IeC {\textendash }Whitney $U$-test comparisons, for the boosted algorithms. \relax }}{65}{table.caption.53}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
