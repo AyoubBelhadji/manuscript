@@ -178,12 +178,12 @@
 \chapter{Introduction}\label{chap:introduction}
 %\subsection{Sensing on budget} 
 %data analysis, signal processing or machine learning
-From .... to the evaluation of a financial product, approximations occupied the minds for centuries and shaped the development of mathematics...
+% From .... to the evaluation of a financial product, approximations occupied the minds for centuries and shaped the development of mathematics...
 
 
 
 
-Many approximation tasks in applied mathematics can be reformulated as problems of estimations under \emph{size constraints}, that is the estimation of some object based on a partial knowledge of the available data; this object can be a scalar, a vector, a matrix or even a function. These approximations are conducted, mainly, for three purposes: improving the numerical complexity of an existing algorithm (\emph{numerical issue}), reducing the cost of labeling for a supervised learning algorithm (\emph{sensing issue}) or making an algorithm more interpretable (\emph{interpretation issue}). Examples of these approximation problems include subset selection, quadrature or interpolation. 
+Many approximation tasks in applied mathematics can be reformulated as problems of estimations under \emph{size constraints}, that is the estimation of some object based on a partial knowledge of the available data; this object can be a scalar, a vector, a matrix or even a function. These approximations are conducted, mainly, for three purposes: improving the numerical complexity of an existing algorithm (\emph{numerical issue}), reducing the cost of labelling (\emph{sensing issue}) or making an algorithm more interpretable (\emph{interpretation issue}). Examples of these approximation problems include subset selection, quadrature or interpolation. 
 
 
 These three problems, seemingly unrelated, can be tackled using the same strategy: looking for the most representative elements in a set. Indeed,
@@ -202,7 +202,7 @@ Determinantal point processes are probabilistic models of repulsion and seem to 
 
 % The negative correlation property manifested by this probabilistic models seems appealing to use in design problems.
 
-This thesis is devoted to investigate the suitability of using determinantal point processes as models for randomized sub-sampling.
+This thesis is devoted to investigate the suitability and the pertinence of using determinantal point processes as models for randomized sub-sampling.
  % reduce the sensing budget if the design  
 
 % These guarantees are based on probabilistic inequalities that were the object of relentless research. In particular, operator concentration inequalities are the culmination of this line of research.
@@ -287,7 +287,10 @@ This thesis is devoted to investigate the suitability of using determinantal poi
 %in Design problems in applied mathematics
 \section{Subsampling problems with a linear structure}
 
-In order to situate the contributions of this thesis, a brief review on randomized subsampling techniques for problems with a linear structure is given in the following. We start by the problem of linear regression under constraint on the number of observations.
+In order to situate the contributions of this thesis, a brief review on randomized subsampling techniques for problems with a linear structure is given in the following. 
+\subsection{Independent sampling: from linear regression to kernel interpolation}
+
+We start by the problem of linear regression under constraint on the number of observations.
 
 
 % Let's consider an example of a subsampling problem with a linear structure.
@@ -296,78 +299,341 @@ Consider a matrix $\bm{X}\in \mathbb{R}^{N \times d}$ that contains the $d$ feat
 \begin{equation}
 \|\bm{y} - \bm{X}\bm{w}\|^{2},
 \end{equation}
-for a given vector of labels $\bm{y} \in \mathbb{R}^{N}$. It is well known that this vector is given by
-\begin{equation}\label{eq:intro_pseudo_inverse}
-\bm{w}^{*} = \bm{X}^{+}\bm{y}.
-\end{equation}
-
-In some situations, calculating $\bm{w}^{*}$ using \eqref{eq:intro_pseudo_inverse} is not possible, either because $N$ is very large and the computation resources are not sufficient (the numerical issue), or because every label $y_{i}$ is expensive and one cannot afford to get the $N$ labels (the sensing issue). 
-
-In such a situation, one would look for some repsentatives $S \subset [N]$ of the set of observations and approximate $\bm{w}^{*}$ using only the informations associated to the subset $S$: the subset of the rows $\bm{X}_{S,:}$ and the subset of the labels $\bm{y}_{S}$. For example, in \citep*{DrMaMu06}, the following approximation was proposed
-\begin{equation}
-\bm{w}_{S}^{*} = (\bm{D}\bm{S}^{\Tran}\bm{X})^{+} (\bm{D}\bm{S}^{\Tran}\bm{y}),
-\end{equation}
-where $\bm{S} \in \mathbb{R}^{|S| \times N}$ is the sampling matrix that contains zeros except defined by $\bm{S}_{i,j} = 1$ if $j \in S$ and  $\bm{D}$ is a diagonal matrix that corresponds to rescaling the rows of $\bm{X}_{S,:}$ and $\bm{y}_{S}$. In particular, they proved that, if $S$ is ...., and $\bm{D}_{i,i} = 1/\sqrt{p_{i}}$, then 
-\begin{equation}
-\|\bm{y}- \bm{X}\bm{w}_{S}^{*} \| \leq (1+\epsilon) \|\bm{y}- \bm{X}\bm{w}^{*} \|.
-\end{equation}
-
-This work illustrates the importance of the \emph{leverage scores} distribution defined by
-% In particular, this work highlighted the importance of the 
-\begin{equation}
-\forall n \in [N], \:\: \ell_{n} = \bm{x}_{n}^{\Tran} (\bm{X}^{\Tran} \bm{X})^{-1} \bm{x}_{n},
-\end{equation}
-
-This distribution appears in other subsampling problems such as sparsification for linear systems on graphs \citep*{SpTe04,SpSr11}, signal recovery on graphs \citep*{PuTrGrVa18}, or low rank approximations \citep*{DrMaMu07} that we will study more in detail in Chapter~\ref{chapter:cssp}.
-The construction of this distribution goes as the following. Define an s.d.p matrix by
-\begin{equation}
-\bm{M} = \sum\limits_{n \in [N]} x_{n}x_{n}^{\Tran},
-\end{equation}
-and build up a random matrix 
-% sparse version of $\bm{M}$ i.e. find a vector $\bm{z} \in \mathbb{R}^{N}$ such that the spectral properties of the matrix
-\begin{equation}
-\bm{M}_{\bm{z}} = \sum\limits_{n \in [N]} z_{n} x_{n}x_{n}^{\Tran},
-\end{equation}
-where $\bm{z} \in \mathbb{R}^{N}$ such that the spectral properties of $\bm{M}_{\bm{z}}$ are similar to the spectral properties of $\bm{M}$
-\begin{equation}\label{eq:matrix_similarity_condition_}
-(1-\epsilon) \bm{M} \prec \bm{M}_{\bm{z}} \prec (1+\epsilon) \bm{M}.
-\end{equation}
-% \begin{equation}
-% \bm{M}_{\bm{z}} = \sum\limits_{n \in [N]} z_{n} x_{n}x_{n}^{\Tran},
+for a given vector of labels $\bm{y} \in \mathbb{R}^{N}$. It is well known that this vector is given by $\bm{w}^{*} = \bm{X}^{+}\bm{y}$, where $\bm{X}^{+}$ is the Moore-Penrose pseudo inverse of $\bm{X}$
+% \begin{equation}\label{eq:intro_pseudo_inverse}
+% \bm{w}^{*} = \bm{X}^{+}\bm{y},
 % \end{equation}
-with the constraint that the size of the support of $\bm{z}$ , $|\{ i \in [N]; z_{i} \neq 0 \}|$ is as small as possible. 
-
-
-The vectors $x_{n}$ may have different interpretation depending on the context of the problem. For example, in the context of linear regression on budget, $N$ is the number of initial observations that lives in dimension $d$, the $x_{n}$ are the observations, and $\bm{M}$ is the empirical covariance matrix. Graph sparsification offers another example of this setting; here the $x_{n}$ represents the edges and $d$ is the number of vertices and $\bm{M}$ is the Laplacian matrix.
-
-
-
-Now, the condition~\eqref{eq:matrix_similarity_condition_} can be written as
+and the optimal  residual writes
 \begin{equation}
-(1-\epsilon) \mathbb{I}_{d} \prec \sum\limits_{n \in [N]} z_{n} \tilde{x}_{n} \tilde{x}_{n}^{\Tran} \prec (1+\epsilon) \mathbb{I}_{d},
+\|\bm{y} - \bm{X}\bm{X}^{+}\bm{y}\|^{2} = \|\bm{y} - \bm{U}\bm{U}^{\Tran}\bm{y}\|^{2},
+\end{equation}
+with $\bm{U} \in \mathbb{R}^{N \times d}$ is a matrix containing the left eigenvectors of $\bm{X}$.
+
+In some situations, calculating $\bm{w}^{*}$ using the pseudo-inverse formula is not affordable, either because $N$ is very large and the computation resources are not sufficient (the numerical issue), or because obtaining the $N$ labels $(y_{n})_{n \in [N]}$ is expensive (the sensing issue). In such a situation, looking for repsentatives can be beneficial.
+
+ Formally, a family of representatives of $\bm{X}$ 
+ % corresponds to a family of indices $(n_{i})_{i \in I}$ and a family of weights $(s_{i})_{i \in I}$ $...$
+ corresponds to a diagonal matrix $\bm{S} \in \mathbb{R}^{N \times N}$ defined by $\bm{S}_{n,n}  = s_{n}$ for every $n \in [N]$. Intuitively, the support of $\bm{S}$ i.e. the set $\{ n \in [N], s_{n} \neq 0 \}$ corresponds to the rows of $\bm{X}$ that will be kept; and the values of the $s_{n}$ corresponds to either the multiplicities of these rows, or some rescaling factors necessary for the theoretical analysis. 
+
+ Now, using a sampling matrix $\bm{S}$, one can define an approximation of $\bm{w}^{*}$. For example, in \citep*{DrMaMu06}, the following approximation was proposed
+\begin{equation}
+\bm{w}_{S}^{*} = (\bm{S}^{\Tran}\bm{X})^{+} (\bm{S}^{\Tran}\bm{y}).
+\end{equation}
+% This way, the calculation
+
+A good family of representatives would define a sampling matrix $\bm{S}$ that satisfy
+\begin{equation}
+\forall \bm{y} \in \mathbb{R}^{N}, \:\: \|\bm{y} - \bm{X} \bm{w}_{S}^{*}\|^{2} \leq (1+\epsilon) \|\bm{y} - \bm{X} \bm{w}^{*}\|^{2},
+\end{equation}
+for some tolerable error $\epsilon >0$. This condition can be written as
+\begin{equation}\label{eq:introduction_embedding_condition}
+(1-\epsilon) \mathbb{I}_{d} \prec \sum\limits_{n \in [N]} s_{n} \tilde{x}_{n} \tilde{x}_{n}^{\Tran} \prec (1+\epsilon) \mathbb{I}_{d} \iff \|\mathbb{I}_{d} - \sum\limits_{n \in [N]} s_{n} \tilde{x}_{n} \tilde{x}_{n}^{\Tran}\|_{2} \leq \epsilon,
 \end{equation}
 % with
 % \begin{equation}
 %  \bm{M}^{-1/2}\bm{M}_{\bm{z}} \bm{M}^{-1/2}  = \sum\limits_{n \in [N]} z_{n} \bm{M}^{-1/2} x_{n} (\bm{M}^{-1/2} x_{n})^{\Tran} = \sum\limits_{n \in [N]} z_{n} \tilde{x}_{n} \tilde{x}_{n}^{\Tran},
 % \end{equation}
-where $\mathbb{I}_{d}$ is the identity matrix of dimension $d$ and for every $n \in [N]$, $\tilde{x}_{n} = \bm{M}^{-1/2} x_{n}$.
+where $\mathbb{I}_{d}$ is the identity matrix of dimension $d$, $\tilde{x}_{n} = (\bm{X}^{\Tran}\bm{X})^{-1/2} x_{n}$ and $\|.\|_{2}$ is the spectral norm.
 % \begin{equation}
 % \forall n \in [N], \:\:\tilde{x}_{n} = \bm{M}^{-1/2} x_{n}.
 % \end{equation}
-Therefore, the subsampling problem boils down to the "sparsification" of the identity matrix $\mathbb{I}_{d}$ that writes as the sum of rank one matrices
-\begin{equation}\label{eq:sum_to_identity}
-\mathbb{I}_{d} = \sum\limits_{n \in [N]}\tilde{v}_{n}\tilde{v}_{n}^{\Tran}.
+Therefore, the subsampling problem boils down to looking for the $s_{n}$ that make the reduced matrix $\sum_{n \in [N]} s_{n} \tilde{x}_{n} \tilde{x}_{n}^{\Tran}$ close to the identity matrix $\mathbb{I}_{d}$, which writes as the sum of rank one matrices
+\begin{equation}\label{eq:sum_to_identity_real}
+\mathbb{I}_{d} = \sum\limits_{n \in [N]}\tilde{x}_{n}\tilde{x}_{n}^{\Tran}.
 \end{equation}
 
 % This sparsification ca
 % Intuitively, one would like to keep the $\tilde{v}_{n}$ that form a 
+One way to design a sampling matrix $\bm{S}$ that satisfy the condition~\eqref{eq:introduction_embedding_condition} is to consider a randomized sub-sum of~\eqref{eq:sum_to_identity_real}, and to make use of a matrix concentration inequality to prove that this sub-sum concentrate around $\mathbb{I}_{d}$. For example, consider the following random sum
+\begin{equation}
+I_{c} = \frac{1}{c}\sum\limits_{i \in [c]} \frac{1}{p_{n_{i}}}z_{{n_{i}}}z_{{n_{i}}}^{\Tran},
+\end{equation}
+where the $p_n$ are positive and sum to one, and the $n_{i}$ are sampled independently from the multinomial random variable of parameter $\bm{p} = (p_{n})_{n \in [N]}$. We can prove easily that $\EX I_{c} = \mathbb{I}_{d}$. Moreover, the fluctuations of $I_{c}$ around $\mathbb{I}_{d}$ can be derived using a concentration inequality \citep{Tro15}.
+% An example of such a result is given in the following.
+\begin{theorem}[Matrix Bernstein concentration inequality]\label{thm:matrix_bernstein}
+Consider a finite sequence $(X_{j})_{j}$ of independent, random, self-adjoint $d\times d$ matrices. Assume that each matrix $X_{j}$
+satisfies 
+\begin{align}
+ \EX X_{j} &= \mathbb{0}_{d \times d},\\
+ \|X_{j}\|_{2} &\leq \tau,
+\end{align}
+where $\tau >0$ and define $\sigma^{2} = \|\EX \sum\limits_{j} X_{j}^{2}\|$.
+% and 
+% Let $\rho_{j} = \max(\|\EX X_{j} X_{j}^{\Tran}\|_{2}, \|\EX X_{j}^{\Tran}X_{j}\|_{2})$, and $\max\limits_{j \in [c]} $.
+ Then for $\epsilon >0$, 
 
-In particular, one 
+\begin{equation}
+\Prb \left( \|\sum\limits_{j} X_{j}\|_{2} \geq \epsilon \right) \leq 2 d e^{-\frac{3}{2} \frac{\epsilon^{2}}{3\sigma^{2} + \tau \epsilon}}.
+\end{equation}
+\end{theorem}
+Theorem~\ref{thm:matrix_bernstein} can be applied to the matrix $I_{c}$ by considering the random matrices $X_{i} = (\tilde{x}_{n_{i}}\tilde{x}_{n_{i}}^{\Tran}/p_{n_{i}} - \mathbb{I}_{d})/c$. In particular, when $\bm{p} =(1/N)$, the bounds of Theorem~\ref{thm:matrix_bernstein} are significant if $c \geq C N \log(d)\max_{n \in [N]}\|\tilde{x}_n\|^{2}$, where $C$ is a universal constant that does not depend on $d$ and $N$: if there exists $n$ such that $\|\tilde{x}_{n}\|=1$, then $c \geq C N \log(d)$ and the subsampling does not allow to reduce the complexity of the problem; however, if $\max_{n \in [N]}\|\tilde{x}_n\|^{2}$ is equal to its minimal value $d/N$, then the budget $c = C d \log(d)$ is enough to have good guarantees. In other words, uniform sub-sampling reduce the complexity of the problem if the \emph{coherence} $\max_{n \in [N]}\|\tilde{x}_n\|^{2}$ approach its lowest possible value $d/N$, however it has inferior guarantees otherwise. This observation motivates the introduction of the \emph{leverage scores} $(\ell_{n})_{n \in [N]}$ defined by
+\begin{equation}
+\ell_{n} = \|\tilde{x}_{n}\|^{2}.
+\end{equation}
+Indeed, when $\bm{p} = (\ell_{n}/d)_{n \in [N]}$, the budget $c = C d \log(d)$ is enough to have good guarantees independently of the value of the coherence. Intuitively, the variance of such a randomized sub-sum is governed by the vectors $\tilde{x}_{n}$ that have large norms, and including them in this sum would make this variance low.
 
- using leverage score sampling, the required number of representatives $|S|$ is $ C d \log d/\epsilon^{2}$, where $C\geq 1$ is some constant that does not depend on $d$ or $N$.
+
+% To take into account all these situations, a non uniform sub-sampling have to be used. It corresponds to the vector $\bm{p}$ defined by
+% \begin{equation}
+% \forall n \in [N], \:\: p_{n} =  \ell_{n} = \frac{1}{d}\|\tilde{x}_{n}\|^{2}.
+% \end{equation}
 
 
-This paradigm was applied to other subsampling problems with 
+
+% This result is widely known under the name of \emph{Matrix Bernstein concentration inequality} because it is the natural extension of the Bernstein concentration inequality.
+
+% However, the fluctuations of $I_{c}$ around $\mathbb{I}_{d}$, expressed by the matrix variance of the sum $\|\EX \sum_{i \in [c]} \big( (z_{i}z_{i}^{\Tran}/c - \mathbb{I}_{d})^{2} \big)\|_{2}$, would be large if some $\tilde{x}_{n}$ have large norms compared to the other vectors. 
+
+% We give in the following an example of a matrix concentration inequality. 
+
+% the  matrix variance of the sum defined by $\|\frac{1}{c}\sum_{i \in [c]} z_{i}z_{i}^{\Tran} - \mathbb{I}_{d}\|_{2}$
+
+
+ 
+
+ % would be preferable to include them with a probability that scales as their renorm
+
+% In particular, $\mathbb{I}_{d}$ can be seen as the expected value of a random matrix. 
+
+%  using leverage score sampling, the required number of representatives $|S|$ is $ C d \log d/\epsilon^{2}$, where $C\geq 1$ is some constant that does not depend on $d$ or $N$.
+%  \begin{equation}
+% \bm{S}_{i,j} = \left\{
+%     \begin{array}{ll}
+%      \sqrt{s_{i}} & \text{ if } x\in A\\
+% 0 & \text{ otherwise}.
+% \end{array}
+% \right.
+%  \end{equation}
+
+
+%   repsentatives $S \subset [N]$ of the set of observations and approximate $\bm{w}^{*}$ using only the informations associated to the subset $S$: the subset of the rows $\bm{X}_{S,:}$ and the subset of the labels $\bm{y}_{S}$. For example, in \citep*{DrMaMu06}, the following approximation was proposed
+% \begin{equation}
+% \bm{w}_{S}^{*} = (\bm{S}^{\Tran}\bm{X})^{+} (\bm{S}^{\Tran}\bm{y}),
+% \end{equation}
+% where $\bm{S} \in \mathbb{R}^{|S| \times N}$ is the sampling matrix defined by
+
+% \begin{equation}
+% \bm{S}_{i,j}
+% \end{equation}
+
+%  contains zeros except defined by $\bm{S}_{i,j} = 1$ if $j \in S$ and  $\bm{D}$ is a diagonal matrix that corresponds to rescaling the rows of $\bm{X}_{S,:}$ and $\bm{y}_{S}$. In particular, they proved that, if $S$ is ...., and $\bm{D}_{i,i} = 1/\sqrt{p_{i}}$, then 
+% \begin{equation}
+% \|\bm{y}- \bm{X}\bm{w}_{S}^{*} \| \leq (1+\epsilon) \|\bm{y}- \bm{X}\bm{w}^{*} \|.
+% \end{equation}
+
+% This work illustrates the importance of the \emph{leverage scores} distribution defined by
+% % In particular, this work highlighted the importance of the 
+% \begin{equation}
+% \forall n \in [N], \:\: \ell_{n} = \bm{x}_{n}^{\Tran} (\bm{X}^{\Tran} \bm{X})^{-1} \bm{x}_{n},
+% \end{equation}
+
+The notion of leverage scores appears in other subsampling problems such as sparsification of graphs \citep*{SpTe04,SpSr11}, signal recovery on graphs \citep*{PuTrGrVa18}, or low rank approximations \citep*{DrMaMu07} that we will study more in detail in Chapter~\ref{chapter:cssp}.
+
+
+% The construction of this distribution goes as the following. Define an s.d.p matrix by
+% \begin{equation}
+% \bm{M} = \sum\limits_{n \in [N]} x_{n}x_{n}^{\Tran},
+% \end{equation}
+% and build up a random matrix 
+% % sparse version of $\bm{M}$ i.e. find a vector $\bm{z} \in \mathbb{R}^{N}$ such that the spectral properties of the matrix
+% \begin{equation}
+% \bm{M}_{\bm{z}} = \sum\limits_{n \in [N]} z_{n} x_{n}x_{n}^{\Tran},
+% \end{equation}
+% where $\bm{z} \in \mathbb{R}^{N}$ such that the spectral properties of $\bm{M}_{\bm{z}}$ are similar to the spectral properties of $\bm{M}$
+% \begin{equation}\label{eq:matrix_similarity_condition_}
+% (1-\epsilon) \bm{M} \prec \bm{M}_{\bm{z}} \prec (1+\epsilon) \bm{M}.
+% \end{equation}
+% % \begin{equation}
+% % \bm{M}_{\bm{z}} = \sum\limits_{n \in [N]} z_{n} x_{n}x_{n}^{\Tran},
+% % \end{equation}
+% with the constraint that the size of the support of $\bm{z}$ , $|\{ i \in [N]; z_{i} \neq 0 \}|$ is as small as possible. 
+% The vectors $x_{n}$ may have different interpretation depending on the context of the problem. For example, in the context of Graph sparsification the $x_{n}$ represent the edges and $d$ is the number of vertices and $\bm{M}$ is the Laplacian matrix.
+% Now, the condition~\eqref{eq:matrix_similarity_condition_} can be written as
+% \begin{equation}
+% (1-\epsilon) \mathbb{I}_{d} \prec \sum\limits_{n \in [N]} z_{n} \tilde{x}_{n} \tilde{x}_{n}^{\Tran} \prec (1+\epsilon) \mathbb{I}_{d},
+% \end{equation}
+% % with
+% % \begin{equation}
+% %  \bm{M}^{-1/2}\bm{M}_{\bm{z}} \bm{M}^{-1/2}  = \sum\limits_{n \in [N]} z_{n} \bm{M}^{-1/2} x_{n} (\bm{M}^{-1/2} x_{n})^{\Tran} = \sum\limits_{n \in [N]} z_{n} \tilde{x}_{n} \tilde{x}_{n}^{\Tran},
+% % \end{equation}
+% where $\mathbb{I}_{d}$ is the identity matrix of dimension $d$ and for every $n \in [N]$, $\tilde{x}_{n} = \bm{M}^{-1/2} x_{n}$.
+% % \begin{equation}
+% % \forall n \in [N], \:\:\tilde{x}_{n} = \bm{M}^{-1/2} x_{n}.
+% % \end{equation}
+% Therefore, the subsampling problem boils down to the "sparsification" of the identity matrix $\mathbb{I}_{d}$ that writes as the sum of rank one matrices
+% \begin{equation}\label{eq:sum_to_identity}
+% \mathbb{I}_{d} = \sum\limits_{n \in [N]}\tilde{v}_{n}\tilde{v}_{n}^{\Tran}.
+% \end{equation}
+% % This sparsification ca
+% % Intuitively, one would like to keep the $\tilde{v}_{n}$ that form a 
+% In particular, one 
+%  using leverage score sampling, the required number of representatives $|S|$ is $ C d \log d/\epsilon^{2}$, where $C\geq 1$ is some constant that does not depend on $d$ or $N$.
+% This paradigm was applied to other subsampling problems with 
+% The similarity between $\bm{M}_{\bm{w}}$ and $\bm{M}$ are measured by the similarity of the respective eigenvalues, a condition that can be formalized using the Loewner order: $\bm{M}_{\bm{w}}$ and $\bm{M}$  are similar if there exists $\alpha,\beta>0$ such that
+% \begin{equation}\label{eq:matrix_similarity_condition}
+% \alpha \bm{M} \prec \bm{M}_{\bm{w}} \prec \beta \bm{M}.
+% \end{equation}
+% %and defines a class of "good" matrix sparsifiers.
+% % More interestingly, this condition implies
+% %thus guarantees
+% %respective 
+% This spectral similarity is essential 
+% and guarantees the preservation of many other "spectral quantities" related to the initial matrix $\bm{M}$. For example, the condition~\eqref{eq:matrix_similarity_condition} guarantees that the null-spaces of $\bm{M}$ and $\bm{M}_{\bm{w}}$ are the same, that $\rank(\bm{M}) = \rank(\bm{M}_{\bm{w}})$ and that the pseudo-inverses are similar \citep{MiAk77}
+% \begin{equation}
+% \frac{1}{\beta} \bm{M}^{+} \prec \bm{M}_{\bm{w}}^{+} \prec \frac{1}{\alpha} \bm{M}^{+}.
+% \end{equation}
+% Also, it guarantees that 
+% \begin{equation}
+% \forall \bm{x} \in \mathbb{R}^{d}, \:\:
+% \alpha \bm{x}^{\Tran}\bm{M}\bm{x} \leq \bm{x}^{\Tran}\bm{M}_{\bm{w}}\bm{x} \leq \beta \bm{x}^{\Tran}\bm{M}\bm{x}.
+% \end{equation}
+% the preservation of many other "spectral quantities" related to the initial matrix $\bm{M}$: flows ?? in graph 
+% Now, assume for a moment that $\bm{M}$ is equal to the identity matrix $\mathbb{I}_{d}$. 
+% % Now, the condition~\eqref{eq:matrix_similarity_condition} can be written as
+% % \begin{equation}
+% % \alpha \mathbb{I}_{d} \prec \bm{M}^{-1/2}\bm{M}_{\bm{w}} \bm{M}^{-1/2} \prec \beta \mathbb{I}_{d},
+% % \end{equation}
+% % with
+% % \begin{equation}
+% %  \bm{M}^{-1/2}\bm{M}_{\bm{w}} \bm{M}^{-1/2}  = \sum\limits_{n \in [N]} w_{n} \bm{M}^{-1/2} v_{n} (\bm{M}^{-1/2} v_{n})^{\Tran} = \sum\limits_{n \in [N]} w_{n} \tilde{v}_{n} \tilde{v}_{n}^{\Tran},
+% % \end{equation}
+% % where
+% % \begin{equation}
+% % \forall n \in [N], \:\:\tilde{v}_{n} = \bm{M}^{-1/2} v_{n}.
+% % \end{equation}
+% % Therefore, the problem of sparsfication of $\bm{M}$ boils down to the sparsification of $\mathbb{I}_{d}$
+% % \begin{equation}\label{eq:sum_to_identity}
+% % \mathbb{I}_{d} = \sum\limits_{n \in [N]}\tilde{v}_{n}\tilde{v}_{n}^{\Tran}.
+% % \end{equation}
+% As an example of a randomized sparsification, we recall the following result.
+
+% Moreover, it can be extended to kernel matrix approximations under the name of \emph{ridge-leverage scores} distribution.
+
+Another field of application of matrix sub-sampling is low rank approximation of kernel matrices that are recurrently used in kernel methods \citep{Bac13,AlMa15}. For example, consider some elements $x_{1}, \dots, x_{N}$ of a metric space $\X$ equipped with a p.s.d. kernel $k: \X \times \X \rightarrow \mathbb{R}$, and consider the kernel ridge regression problem
+\begin{equation}\label{eq:kernel_ridge_regression_problem}
+\min\limits_{\bm{\alpha} \in \mathbb{R}^{N}} \|\bm{y} - \bm{K}(\bm{x}) \bm{\alpha}\|^{2} + \lambda \bm{\alpha}^{\Tran} \bm{K}(\bm{x}) \bm{\alpha},
+\end{equation}
+where $\bm{y} \in \mathbb{R}^{N}$ and $\bm{K}(\bm{x}) = (k(x_{n},x_{n'}))_{n,n' \in [N]} \in \mathbb{R}^{N \times N}$.
+Again, the solution of~\eqref{eq:kernel_ridge_regression_problem} have a tractable formula
+\begin{equation}
+\bm{\alpha}^{*} = (\bm{K}(\bm{x}) +N\lambda \mathbb{I}_{N})^{-1} \bm{y},
+\end{equation}
+yet it is not amenable to use for large values of $N$ because the required number of operations to invert $\bm{K}(\bm{x}) +N\lambda \mathbb{I}_{N}$ scales as $\mathcal{O}(N^{3})$. Scaling up kernel methods motivated the interest on low rank approximations of kernel matrices. Indeed, if a low rank approximation of $\bm{K}(\bm{x})$ is known then ..... Nystrom approximation is widely used for its simplicity and because it is amenable to theoretical analysis. This approximation is based on a subset $S \subset [N]$, and writes
+\begin{equation}
+\bm{K}(\bm{x}) \approx \bm{K}(\bm{x})_{:,S} \bm{K}(\bm{x})_{S,S}^{+} \bm{K}(\bm{x})_{S,:}.
+\end{equation}
+
+The theoretical analysis of the Nystrom approximation, for kernel ridge regression, was carried out in \citep{Bac13} under uniform sub-sampling, and in \citep{AlMa15} under the 
+% Hence, the need to  can be used such as
+% \begin{equation}
+% \bm{\alpha}_{S}^{*} = 
+% \end{equation}
+\emph{ridge leverage score} distribution defined by
+\begin{equation}
+\ell^{\lambda}_{n} = k(x_{n},.)^{\Tran} \big( \bm{K}(\bm{x}) + N \lambda \mathbb{I}_{N} \big)^{-1}k(x_{n},.).
+\end{equation}
+The analysis conducted in these works highlighted the importance of a quantity called \emph{the effective dimension} defined by
+\begin{equation}
+d_{\eff}(\lambda) = \Tr \bm{K}(\bm{x})(\bm{K}(\bm{x})+ N\lambda \mathbb{I}_{N})^{-1},
+\end{equation}
+% In particular, the minimal budget to conducted the Nystrom approximation scales as $\mathcal{O}(d_{\eff}(\lambda) \log d_{\eff}(\lambda))$:
+ that plays the same role as the dimension $d$ for linear regression on budget: the minimal budget to conducted the Nystrom approximation scales as $\mathcal{O}(d_{\eff}(\lambda) \log d_{\eff}(\lambda))$.
+
+ % Moreover, tMoreover, i.i.d. sampling requires an $\Omega(d_{\eff}(\lambda) \log d_{\eff}(\lambda)$ samples, where $d_{\eff}$ is the effective dimension 
+
+
+
+
+% and under some conditions on $\bm{y}$ and the condition number of $\bm{X}$, 
+
+
+
+
+%  resolve the smaller problem
+% \begin{equation}
+% \min\limits_{\bm{w}_{S} \in \mathbb{R}^{d}} \| \bm{y}_{S} - \bm{X}_{S,:}\bm{w}_{S} \|^{2}.
+% \end{equation}
+
+% The recourse to this reduction can be justified by either the numerical issue, that is the computation resources are not sufficient to deal with a large linear system; or the sensing issue, because every label $y_{i}$ is expensive to obtain. 
+
+% The set of reprsentatives $S \subset [N]$ have to be selected to preserve  
+
+% the cost of obtaining every l 
+
+ % a dataset of $N$ observations represented on $d$ features.
+ %  that can be decomposed as aggolmeration of 
+
+ % usually  initially were used for the pre-conditioning of linear solvers \citep{Golub1965} [???] that is purely a numerical routine in numerical linear algebra. Yet, the use of the subset selection paradigm expanded and covered different problems in various settings: coresets for a learning task, subset selection in numerical linear algebra especially for regression tasks and for efficient factorization of gram kernel matrices, signal recovery on graphs, low rank factorization of matrices, efficient implementations of Bayesian inference based on MCMC algorithms...
+
+As one would observe, all the problems we reviewed previously are \emph{fixed design} problems, in the sense that it is required to sub-sample from a given set $\{x_{1}, \dots, x_{N}\}$. This setting is typical in numerical linear algebra and machine learning applications where $\{x_{1}, \dots, x_{N}\}$ corresponds to some fixed dataset.
+
+
+Yet, as it was shown by \cite{Bac17}, the analysis of some \emph{random design} problems can be conducted using the same spectral techniques used for fixed design problems. Indeed, the author considered the problem of approximating a function $f$ defined on some metric space $\X$ by a finite mixture of some kernel translates $k(x_{n},.)$ 
+\begin{equation}
+f \approx \sum\limits_{n \in [N]}w_{n}k(x_{n},.).
+\end{equation}
+% where the \emph{nodes} $x_{n}$ are taken to be random in $\X$.
+
+More precisely, $\X$ is assumed to be a measurable space equipped with a measure $\omega$, and $f$ is assumed to writes as
+\begin{equation}
+f = \int_{\X}k(x,.)g(x) \mathrm{d}\omega(x),
+\end{equation}
+with $g \in \mathbb{L}_{2}(\mathrm{d}\omega)$. Moreover, the $x_{n}$ are assumed to be independent random variables that follow a distribution $q \mathrm{d}\omega$ and the weights $(w_{n})_{n \in N}$ are taken to minimize 
+\begin{equation}
+\|f - \sum\limits_{n \in [N]} \frac{w_{n}}{q(x_{n})^{1/2}}k(x_{n},.) \|_{\F}^{2} + N \lambda \|\bm{w}\|^{2}.
+\end{equation}
+This optimization problem admits a unique solution 
+\begin{equation}
+\bm{w}^{*} = (\bm{K}(\bm{x})+N\lambda \mathbb{I}_{N})^{-1}f(\bm{x}),
+\end{equation}
+where $f(\bm{x}) = (f(x_{n}))_{n \in [N]} \in \mathbb{R}^{N}$. 
+
+Moreover, many typical notions of matrix sub-sampling extend to this problem. For example, there exists a distribution $q_{*}$ called the continuous ridge leverage score distribution for which 
+\begin{equation}
+\|f - \sum\limits_{n \in [N]} \frac{w_{n}}{q_{*}(x_{n})^{1/2}}k(x_{n},.) \|_{\F}^{2} \leq \lambda, 
+\end{equation}
+whenever $N \geq C d_{\eff}(\lambda) \log d_{\eff}(\lambda)$, with $d_{\eff}(\lambda)$ is the effective degree of freedom defined by
+\begin{equation}
+d_{\eff}(\lambda) = \Tr \bm{\Sigma}(\bm{\Sigma} + N\lambda \mathbb{I}_{\F})^{-1}.
+\end{equation}
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width= 0.7\textwidth]{img/reconstruction/signal_reconstruction_spread_nodes.pdf}
+\caption{.... \label{fig:introduction_reconstuction}}
+\end{figure}
+
+
+ % For example, in the kernel ridge regression problem, the $x_{n}$ are fixed and it is required to sub-sample from the set $\{ x_{1}, \dots, x_{N} \}$. 
+
+
+
+
+% \subsubsection{Matrix sparsification}
+% The problem of matrix sparsification is at the heart of many applications in data analysis and machine learning: pre-conditioning of linear systems (solvers) \citep{Golub1965}, subsampling for linear regression \citep*{DrMaMu06}, low rank approximations \citep*{DrMaMu07}, low-rank kernel matrix approximations \citep{Bac13,AlMa15}, linear systems on graphs \citep*{SpTe04,SpSr11} and signal recovery on graphs \citep*{PuTrGrVa18}. All these problems start with an s.d.p matrix that writes
+% \begin{equation}
+% \bm{M} = \sum\limits_{n \in [N]} x_{n}x_{n}^{\Tran},
+% \end{equation}
+% and build up a random matrix 
+% % sparse version of $\bm{M}$ i.e. find a vector $\bm{z} \in \mathbb{R}^{N}$ such that the spectral properties of the matrix
+% \begin{equation}
+% \bm{M}_{\bm{z}} = \sum\limits_{n \in [N]} z_{n} x_{n}x_{n}^{\Tran},
+% \end{equation}
+% where $\bm{z} \in \mathbb{R}^{N}$ such that $|\{ i \in [N]; z_{i} \neq 0 \}|$, and the spectral properties of $\bm{M}_{\bm{z}}$ are similar to the spectral properties of $\bm{M}$
+
+% \begin{equation}
+% ...
+% \end{equation}
+
+
+%   are similar to the spectral properties of $\bm{M}$ with the constraint that the size of the support of $\bm{z}$ ,  is as small as possible. 
+
+
+
+% The vectors $v_{n}$ may have different interpretation depending on the context of the problem. For example, in the context of linear regression on budget, $N$ is the number of initial observations that lives in dimension $d$, the $v_{i}$ are the observations, and $\bm{M}$ is the empirical covariance matrix. Graph sparsification offers another example of this setting; here the $v_{i}$ represents the edges and $d$ is the number of vertices and $\bm{M}$ is the Laplacian matrix.
+
+
 
 
 % The similarity between $\bm{M}_{\bm{w}}$ and $\bm{M}$ are measured by the similarity of the respective eigenvalues, a condition that can be formalized using the Loewner order: $\bm{M}_{\bm{w}}$ and $\bm{M}$  are similar if there exists $\alpha,\beta>0$ such that
@@ -392,190 +658,80 @@ This paradigm was applied to other subsampling problems with
 
 % the preservation of many other "spectral quantities" related to the initial matrix $\bm{M}$: flows ?? in graph 
 
-% Now, assume for a moment that $\bm{M}$ is equal to the identity matrix $\mathbb{I}_{d}$. 
+% % Now, assume for a moment that $\bm{M}$ is equal to the identity matrix $\mathbb{I}_{d}$. 
 
 
 
 
-% % Now, the condition~\eqref{eq:matrix_similarity_condition} can be written as
-% % \begin{equation}
-% % \alpha \mathbb{I}_{d} \prec \bm{M}^{-1/2}\bm{M}_{\bm{w}} \bm{M}^{-1/2} \prec \beta \mathbb{I}_{d},
-% % \end{equation}
-% % with
-% % \begin{equation}
-% %  \bm{M}^{-1/2}\bm{M}_{\bm{w}} \bm{M}^{-1/2}  = \sum\limits_{n \in [N]} w_{n} \bm{M}^{-1/2} v_{n} (\bm{M}^{-1/2} v_{n})^{\Tran} = \sum\limits_{n \in [N]} w_{n} \tilde{v}_{n} \tilde{v}_{n}^{\Tran},
-% % \end{equation}
-% % where
-% % \begin{equation}
-% % \forall n \in [N], \:\:\tilde{v}_{n} = \bm{M}^{-1/2} v_{n}.
-% % \end{equation}
-% % Therefore, the problem of sparsfication of $\bm{M}$ boils down to the sparsification of $\mathbb{I}_{d}$
-% % \begin{equation}\label{eq:sum_to_identity}
-% % \mathbb{I}_{d} = \sum\limits_{n \in [N]}\tilde{v}_{n}\tilde{v}_{n}^{\Tran}.
-% % \end{equation}
+% Now, the condition~\eqref{eq:matrix_similarity_condition} can be written as
+% \begin{equation}
+% \alpha \mathbb{I}_{d} \prec \bm{M}^{-1/2}\bm{M}_{\bm{w}} \bm{M}^{-1/2} \prec \beta \mathbb{I}_{d},
+% \end{equation}
+% with
+% \begin{equation}
+%  \bm{M}^{-1/2}\bm{M}_{\bm{w}} \bm{M}^{-1/2}  = \sum\limits_{n \in [N]} w_{n} \bm{M}^{-1/2} v_{n} (\bm{M}^{-1/2} v_{n})^{\Tran} = \sum\limits_{n \in [N]} w_{n} \tilde{v}_{n} \tilde{v}_{n}^{\Tran},
+% \end{equation}
+% where
+% \begin{equation}
+% \forall n \in [N], \:\:\tilde{v}_{n} = \bm{M}^{-1/2} v_{n}.
+% \end{equation}
+% Therefore, the problem of sparsfication of $\bm{M}$ boils down to the sparsification of $\mathbb{I}_{d}$
+% \begin{equation}\label{eq:sum_to_identity}
+% \mathbb{I}_{d} = \sum\limits_{n \in [N]}\tilde{v}_{n}\tilde{v}_{n}^{\Tran}.
+% \end{equation}
 
 % As an example of a randomized sparsification, we recall the following result.
 
 
-Another field of application of this pardigm is low-rank kernel matrix approximations \citep{Bac13,AlMa15}: given some vectors $x_{1}, \dots, x_{N}$ living in some metric space $\X$ and given a kernel $k: \X \times \X \rightarrow \mathbb{R}$, solve
-\begin{equation}
-\min\limits_{\bm{\alpha} \in \mathbb{R}^{N}} \|\bm{y} - \bm{K}(\bm{x}) \bm{\alpha}\|^{2} + \lambda \bm{\alpha}^{\Tran} \bm{K}(\bm{x}) \bm{\alpha},
-\end{equation}
-where $\bm{K}(\bm{x}) = (k(x_{n},x_{n'}))_{n,n' \in [N]} \in \mathbb{R}^{N \times N}$. In particular, the ridge leverage score distribution defined by
-\begin{equation}
-\ell^{\lambda}_{i} = ...
-\end{equation}
-plays the same role as the leverage scores distribution for the ... Moreover, i.i.d. sampling requires an $\Omega(d_{\eff}(\lambda) \log d_{\eff}(\lambda)$ samples, where $d_{\eff}$ is the effective dimension defined by
-\begin{equation}
-d_{\eff}(\lambda) = \Tr \bm{K}(\bm{x})(\bm{K}(\bm{x})+ N\lambda \mathbb{I}_{N})^{-1}.
-\end{equation}
 
 
-
-
-and under some conditions on $\bm{y}$ and the condition number of $\bm{X}$, 
-
-
-
-
- resolve the smaller problem
-\begin{equation}
-\min\limits_{\bm{w}_{S} \in \mathbb{R}^{d}} \| \bm{y}_{S} - \bm{X}_{S,:}\bm{w}_{S} \|^{2}.
-\end{equation}
-
-The recourse to this reduction can be justified by either the numerical issue, that is the computation resources are not sufficient to deal with a large linear system; or the sensing issue, because every label $y_{i}$ is expensive to obtain. 
-
-The set of reprsentatives $S \subset [N]$ have to be selected to preserve  
-
-% the cost of obtaining every l 
-
- % a dataset of $N$ observations represented on $d$ features.
- %  that can be decomposed as aggolmeration of 
-
- % usually  initially were used for the pre-conditioning of linear solvers \citep{Golub1965} [???] that is purely a numerical routine in numerical linear algebra. Yet, the use of the subset selection paradigm expanded and covered different problems in various settings: coresets for a learning task, subset selection in numerical linear algebra especially for regression tasks and for efficient factorization of gram kernel matrices, signal recovery on graphs, low rank factorization of matrices, efficient implementations of Bayesian inference based on MCMC algorithms...
-
-\subsubsection{Matrix sparsification}
-The problem of matrix sparsification is at the heart of many applications in data analysis and machine learning: pre-conditioning of linear systems (solvers) \citep{Golub1965}, subsampling for linear regression \citep*{DrMaMu06}, low rank approximations \citep*{DrMaMu07}, low-rank kernel matrix approximations \citep{Bac13,AlMa15}, linear systems on graphs \citep*{SpTe04,SpSr11} and signal recovery on graphs \citep*{PuTrGrVa18}. All these problems start with an s.d.p matrix that writes
-\begin{equation}
-\bm{M} = \sum\limits_{n \in [N]} x_{n}x_{n}^{\Tran},
-\end{equation}
-and build up a random matrix 
-% sparse version of $\bm{M}$ i.e. find a vector $\bm{z} \in \mathbb{R}^{N}$ such that the spectral properties of the matrix
-\begin{equation}
-\bm{M}_{\bm{z}} = \sum\limits_{n \in [N]} z_{n} x_{n}x_{n}^{\Tran},
-\end{equation}
-where $\bm{z} \in \mathbb{R}^{N}$ such that $|\{ i \in [N]; z_{i} \neq 0 \}|$, and the spectral properties of $\bm{M}_{\bm{z}}$ are similar to the spectral properties of $\bm{M}$
-
-\begin{equation}
-...
-\end{equation}
-
-
-  are similar to the spectral properties of $\bm{M}$ with the constraint that the size of the support of $\bm{z}$ ,  is as small as possible. 
-
-
-
-The vectors $v_{n}$ may have different interpretation depending on the context of the problem. For example, in the context of linear regression on budget, $N$ is the number of initial observations that lives in dimension $d$, the $v_{i}$ are the observations, and $\bm{M}$ is the empirical covariance matrix. Graph sparsification offers another example of this setting; here the $v_{i}$ represents the edges and $d$ is the number of vertices and $\bm{M}$ is the Laplacian matrix.
-
-
-
-
-The similarity between $\bm{M}_{\bm{w}}$ and $\bm{M}$ are measured by the similarity of the respective eigenvalues, a condition that can be formalized using the Loewner order: $\bm{M}_{\bm{w}}$ and $\bm{M}$  are similar if there exists $\alpha,\beta>0$ such that
-
-\begin{equation}\label{eq:matrix_similarity_condition}
-\alpha \bm{M} \prec \bm{M}_{\bm{w}} \prec \beta \bm{M}.
-\end{equation}
-%and defines a class of "good" matrix sparsifiers.
-% More interestingly, this condition implies
-%thus guarantees
-%respective 
-This spectral similarity is essential 
-and guarantees the preservation of many other "spectral quantities" related to the initial matrix $\bm{M}$. For example, the condition~\eqref{eq:matrix_similarity_condition} guarantees that the null-spaces of $\bm{M}$ and $\bm{M}_{\bm{w}}$ are the same, that $\rank(\bm{M}) = \rank(\bm{M}_{\bm{w}})$ and that the pseudo-inverses are similar \citep{MiAk77}
-\begin{equation}
-\frac{1}{\beta} \bm{M}^{+} \prec \bm{M}_{\bm{w}}^{+} \prec \frac{1}{\alpha} \bm{M}^{+}.
-\end{equation}
-Also, it guarantees that 
-\begin{equation}
-\forall \bm{x} \in \mathbb{R}^{d}, \:\:
-\alpha \bm{x}^{\Tran}\bm{M}\bm{x} \leq \bm{x}^{\Tran}\bm{M}_{\bm{w}}\bm{x} \leq \beta \bm{x}^{\Tran}\bm{M}\bm{x}.
-\end{equation}
-
-the preservation of many other "spectral quantities" related to the initial matrix $\bm{M}$: flows ?? in graph 
-
-% Now, assume for a moment that $\bm{M}$ is equal to the identity matrix $\mathbb{I}_{d}$. 
-
-
-
-
-Now, the condition~\eqref{eq:matrix_similarity_condition} can be written as
-\begin{equation}
-\alpha \mathbb{I}_{d} \prec \bm{M}^{-1/2}\bm{M}_{\bm{w}} \bm{M}^{-1/2} \prec \beta \mathbb{I}_{d},
-\end{equation}
-with
-\begin{equation}
- \bm{M}^{-1/2}\bm{M}_{\bm{w}} \bm{M}^{-1/2}  = \sum\limits_{n \in [N]} w_{n} \bm{M}^{-1/2} v_{n} (\bm{M}^{-1/2} v_{n})^{\Tran} = \sum\limits_{n \in [N]} w_{n} \tilde{v}_{n} \tilde{v}_{n}^{\Tran},
-\end{equation}
-where
-\begin{equation}
-\forall n \in [N], \:\:\tilde{v}_{n} = \bm{M}^{-1/2} v_{n}.
-\end{equation}
-Therefore, the problem of sparsfication of $\bm{M}$ boils down to the sparsification of $\mathbb{I}_{d}$
-\begin{equation}\label{eq:sum_to_identity}
-\mathbb{I}_{d} = \sum\limits_{n \in [N]}\tilde{v}_{n}\tilde{v}_{n}^{\Tran}.
-\end{equation}
-
-As an example of a randomized sparsification, we recall the following result.
-
-
-
-
-\begin{theorem}\label{thm:matrix_bernstein_identity_sparsification}
-Let $\tilde{v}_{1}, \dots, \tilde{v}_{N} \in \mathbb{R}^{d}$, that satisfy the condition~\eqref{eq:sum_to_identity}, and
-$\bm{p} \in (\mathbb{R}_{+}^{*})^{N}$ such that
-\begin{equation}
-\sum\limits_{n \in [N]} p_{n} = 1.
-\end{equation}
-Let $c \in \mathbb{N}^{*}$, and define the matrix $\mathbb{I}_{d,c}~\in~\mathbb{R}^{d\times d}$ by
-\begin{equation}
-\mathbb{I}_{d,c} = \sum\limits_{j \in [c]} \frac{1}{p_{i(j)}}\tilde{v}_{i(j)}^{\phantom{\Tran}}\tilde{v}_{i(j)}^{\Tran},
-\end{equation} 
-where
-% \begin{equation}\label{eq:conditions_on_the_vector_p}
-% \sum\limits_{j} p_{j} = 1, \:\: p_{j}>0,
+% \begin{theorem}\label{thm:matrix_bernstein_identity_sparsification}
+% Let $\tilde{v}_{1}, \dots, \tilde{v}_{N} \in \mathbb{R}^{d}$, that satisfy the condition~\eqref{eq:sum_to_identity}, and
+% $\bm{p} \in (\mathbb{R}_{+}^{*})^{N}$ such that
+% \begin{equation}
+% \sum\limits_{n \in [N]} p_{n} = 1.
 % \end{equation}
-%and
-the $(i(j))_{j \in [c]}$ are independent random variables that follows the multinomial distribution of parameter $\bm{p}$. Then
-\begin{equation}
-\EX \mathbb{I}_{d,c} = \mathbb{I}_{d},
-\end{equation}
-and for $\delta >0$
-\begin{equation}
-\Prb \bigg( \|\mathbb{I}_{d,c} - \mathbb{I}_{d}\|_{2} \bigg) \geq 
-\end{equation}
+% Let $c \in \mathbb{N}^{*}$, and define the matrix $\mathbb{I}_{d,c}~\in~\mathbb{R}^{d\times d}$ by
+% \begin{equation}
+% \mathbb{I}_{d,c} = \sum\limits_{j \in [c]} \frac{1}{p_{i(j)}}\tilde{v}_{i(j)}^{\phantom{\Tran}}\tilde{v}_{i(j)}^{\Tran},
+% \end{equation} 
+% where
+% % \begin{equation}\label{eq:conditions_on_the_vector_p}
+% % \sum\limits_{j} p_{j} = 1, \:\: p_{j}>0,
+% % \end{equation}
+% %and
+% the $(i(j))_{j \in [c]}$ are independent random variables that follows the multinomial distribution of parameter $\bm{p}$. Then
+% \begin{equation}
+% \EX \mathbb{I}_{d,c} = \mathbb{I}_{d},
+% \end{equation}
+% and for $\delta >0$
+% \begin{equation}
+% \Prb \bigg( \|\mathbb{I}_{d,c} - \mathbb{I}_{d}\|_{2} \bigg) \geq 
+% \end{equation}
 
 
-% Let , and $c \geq d \log d ...$, then with probability higher than $1-\delta$,
+% % Let , and $c \geq d \log d ...$, then with probability higher than $1-\delta$,
+
+% % \begin{equation}
+% %  (1-\epsilon) \mathbb{I}_{d} \prec \bm{M}_{c} \prec (1+\epsilon) \mathbb{I}_{d}.
+% % \end{equation}
+
+% \end{theorem}
+
+% The matrix $\bm{M}_{c}$ in the theorem can be written as a sum $\displaystyle \sum\limits_{n \in [N]}w_{n}v_{n}v_{n}^{\Tran}$ where $|\mathrm{Supp}(\bm{w})|~=~...$ and it is indeed a sparsification of the identity matrix $\mathbb{I}_{d}$. Moreover, any vector $\bm{p}$ satisfying the two conditions~\eqref{eq:conditions_on_the_vector_p} can be used for sampling. Yet, the bound on the size of the support of $\bm{w}$ is only significant for a class of vectors $\bm{p}$. To see this, assume that $\bm{p} = (1/N)_{j \in [N]}$ that represents uniform sampling. Then, in order to obtain the guarantees of Theorem~\ref{thm:matrix_bernstein_identity_sparsification}, it is required to have  $c \geq ... d \log d $. When the \emph{coherence} $\mu$ is low $(\mu \approx 1)$, the sparsification is guaranteed with $\mathcal{O}(d \log d)$ independently of the initial number $N$. This reduction is significant, especially for large values of $N$. Yet, in the worst case $\mu = N$, and it is required that $c \geq N$. In other words, the sparsification using uniform sampling is only guaranteed if the coherence is low.
+
+% We can see the issue with the uniform distribution 
 
 % \begin{equation}
-%  (1-\epsilon) \mathbb{I}_{d} \prec \bm{M}_{c} \prec (1+\epsilon) \mathbb{I}_{d}.
+% ...
 % \end{equation}
 
-\end{theorem}
+% are interesting. To see this, consider $p$
 
-The matrix $\bm{M}_{c}$ in the theorem can be written as a sum $\displaystyle \sum\limits_{n \in [N]}w_{n}v_{n}v_{n}^{\Tran}$ where $|\mathrm{Supp}(\bm{w})|~=~...$ and it is indeed a sparsification of the identity matrix $\mathbb{I}_{d}$. Moreover, any vector $\bm{p}$ satisfying the two conditions~\eqref{eq:conditions_on_the_vector_p} can be used for sampling. Yet, the bound on the size of the support of $\bm{w}$ is only significant for a class of vectors $\bm{p}$. To see this, assume that $\bm{p} = (1/N)_{j \in [N]}$ that represents uniform sampling. Then, in order to obtain the guarantees of Theorem~\ref{thm:matrix_bernstein_identity_sparsification}, it is required to have  $c \geq ... d \log d $. When the \emph{coherence} $\mu$ is low $(\mu \approx 1)$, the sparsification is guaranteed with $\mathcal{O}(d \log d)$ independently of the initial number $N$. This reduction is significant, especially for large values of $N$. Yet, in the worst case $\mu = N$, and it is required that $c \geq N$. In other words, the sparsification using uniform sampling is only guaranteed if the coherence is low.
+%  and as we have seen, the distribution of the elements of the support of $\bm{w}$ are chosen according to some multinomial distribution of parameter $\bm{p}$.
 
-We can see the issue with the uniform distribution 
-
-\begin{equation}
-...
-\end{equation}
-
-are interesting. To see this, consider $p$
-
- and as we have seen, the distribution of the elements of the support of $\bm{w}$ are chosen according to some multinomial distribution of parameter $\bm{p}$.
-
-To summarize, random sampling allows to obtain almost optimal sparisifiers with a budget that scales as $\mathcal{O}(d \log d)$. The logarithmic term in the matrix concentration inequalities was shown to be almost optimal in [??]. 
-In the following, we review a class of sparsifiers that achieves sparsification budget that scales as $\mathcal{O}(d)$.
+% To summarize, random sampling allows to obtain almost optimal sparisifiers with a budget that scales as $\mathcal{O}(d \log d)$. The logarithmic term in the matrix concentration inequalities was shown to be almost optimal in [??]. 
+% In the following, we review a class of sparsifiers that achieves sparsification budget that scales as $\mathcal{O}(d)$.
 
 
 
@@ -595,160 +751,250 @@ In the following, we review a class of sparsifiers that achieves sparsification 
 % First let's comment the 
 
 
-\paragraph{Random sparsification}
-Random sampling algorithms are widely used in matrix sparsification. The popularity of these algorithms stems from the fact that they are relatively easy to implement and they benefits from strong theoretical guarantees.  Typically, the theoretical guarantees of such an algorithm goes through matrix concentration inequalities [??]. We give in the following an example of a matrix concentration inequality. 
+% \paragraph{Random sparsification}
+% Random sampling algorithms are widely used in matrix sparsification. The popularity of these algorithms stems from the fact that they are relatively easy to implement and they benefits from strong theoretical guarantees.  Typically, the theoretical guarantees of such an algorithm goes through matrix concentration inequalities [??]. We give in the following an example of a matrix concentration inequality. 
 
 
-\begin{theorem}\label{thm:matrix_bernstein}
-Consider a finite sequence $(X_{j})_{j}$ of independent, random, self-adjoint $d\times d$ matrices . Assume that each matrix $X_{j}$
-satisfies 
-\begin{align}
- \EX X_{j} &= \mathbb{0}_{d \times d},\\
- \|X_{j}\|_{2} &\leq \tau,
-\end{align}
-where $\tau >0$ and define $\sigma^{2} = \|\EX \sum\limits_{j} X_{j}^{2}\|$.
-% and 
-% Let $\rho_{j} = \max(\|\EX X_{j} X_{j}^{\Tran}\|_{2}, \|\EX X_{j}^{\Tran}X_{j}\|_{2})$, and $\max\limits_{j \in [c]} $.
- Then for $\epsilon >0$, 
+% \begin{theorem}\label{thm:matrix_bernstein}
+% Consider a finite sequence $(X_{j})_{j}$ of independent, random, self-adjoint $d\times d$ matrices . Assume that each matrix $X_{j}$
+% satisfies 
+% \begin{align}
+%  \EX X_{j} &= \mathbb{0}_{d \times d},\\
+%  \|X_{j}\|_{2} &\leq \tau,
+% \end{align}
+% where $\tau >0$ and define $\sigma^{2} = \|\EX \sum\limits_{j} X_{j}^{2}\|$.
+% % and 
+% % Let $\rho_{j} = \max(\|\EX X_{j} X_{j}^{\Tran}\|_{2}, \|\EX X_{j}^{\Tran}X_{j}\|_{2})$, and $\max\limits_{j \in [c]} $.
+%  Then for $\epsilon >0$, 
 
-\begin{equation}
-\Prb \left( \|\sum\limits_{j} X_{j}\|_{2} \geq \epsilon \right) \leq 2 d e^{-\frac{3}{2} \frac{\epsilon^{2}}{3\sigma^{2} + \tau \epsilon}}.
-\end{equation}
+% \begin{equation}
+% \Prb \left( \|\sum\limits_{j} X_{j}\|_{2} \geq \epsilon \right) \leq 2 d e^{-\frac{3}{2} \frac{\epsilon^{2}}{3\sigma^{2} + \tau \epsilon}}.
+% \end{equation}
 
-\end{theorem}
+% \end{theorem}
 
-This result is widely known under the name of \emph{Matrix Bernstein concentration inequality} because it is the natural extension of the Bernstein concentration inequality. Similarly, other scalar concentration inequalities extend to matrices. For instance, the Chernoff concentration inequality or the Azuma-Hoeffding concentration inequality. We refer the reader to [??] for a review on this topic. 
+% This result is widely known under the name of \emph{Matrix Bernstein concentration inequality} because it is the natural extension of the Bernstein concentration inequality. Similarly, other scalar concentration inequalities extend to matrices. For instance, the Chernoff concentration inequality or the Azuma-Hoeffding concentration inequality. We refer the reader to [??] for a review on this topic. 
 
-% matrix concentration inequalities that extend scalar concentration inequalities such as Matrix Chernoff concentration inequality or Matrix Azuma concentration inequality.
-
-
-An application of Theorem~\ref{thm:matrix_bernstein} is the following sparsification result.
+% % matrix concentration inequalities that extend scalar concentration inequalities such as Matrix Chernoff concentration inequality or Matrix Azuma concentration inequality.
 
 
-\paragraph{Greedy sparsification}
-An alternative approach to sparisification was proposed in \citep*{BaSpSr12}. While the primary motivation of the authors was graph sparsification, they proved a general result for the sparisification of the identity matrix.
-\begin{theorem}\citep*{BaSpSr12}
-Let $v_{1}, \dots, v_{N} \in \mathbb{R}^{d}$ , that satisfies the condition~\eqref{eq:sum_to_identity}, and let $\alpha >1$. Then there exists $\bm{w} \in \mathbb{R}_{+}^{N}$ such that
-\begin{equation}
-\mathbb{I}_{d} \prec \sum\limits_{n \in [N]}w_{n}v_{n}v_{n}^{\Tran} \prec \frac{\alpha +1 +2\sqrt{\alpha}}{\alpha +1 -2\sqrt{\alpha}} \mathbb{I}_{d},
-\end{equation}
-and
-\begin{equation}
-|\{n \in [N], w_{n} \neq 0\}| \leq \alpha d.
-\end{equation}
-\end{theorem}
+% An application of Theorem~\ref{thm:matrix_bernstein} is the following sparsification result.
 
 
-The proof given in \citep{BaSpSr12} provides a deterministic greedy algorithm for computing the vector $\bm{w}$ in $\mathcal{O}(\alpha d^{3} N)$ time. The proof is based on the following observation: let $\bm{A}$ a $d\times d$ p.s.d matrix and $v \in \mathbb{R}^{d}$, and denote $\pi_{\bm{A}}$,$\pi_{\bm{A}+vv^{\Tran}}$ the characteristic polynomials of the matrices $\bm{A}$ and $\bm{A}+vv^{\Tran}$ respectively, then 
-\begin{equation}
-\pi_{\bm{A}+vv^{\Tran}}(\lambda) =  \pi_{\bm{A}}(\lambda) \bigg( 1- \sum\limits_{\delta \in [d]} \frac{\langle v,u_{\delta} \rangle^{2}}{\lambda-\lambda_{\delta}} \bigg), 
-\end{equation}
-where the $\lambda_{\delta}$ are the eigenvalues of $\bm{A}$ and the $u_{\delta}$ are the respective eigenvectors.
+% \paragraph{Greedy sparsification}
+% An alternative approach to sparisification was proposed in \citep*{BaSpSr12}. While the primary motivation of the authors was graph sparsification, they proved a general result for the sparisification of the identity matrix.
+% \begin{theorem}\citep*{BaSpSr12}
+% Let $v_{1}, \dots, v_{N} \in \mathbb{R}^{d}$ , that satisfies the condition~\eqref{eq:sum_to_identity}, and let $\alpha >1$. Then there exists $\bm{w} \in \mathbb{R}_{+}^{N}$ such that
+% \begin{equation}
+% \mathbb{I}_{d} \prec \sum\limits_{n \in [N]}w_{n}v_{n}v_{n}^{\Tran} \prec \frac{\alpha +1 +2\sqrt{\alpha}}{\alpha +1 -2\sqrt{\alpha}} \mathbb{I}_{d},
+% \end{equation}
+% and
+% \begin{equation}
+% |\{n \in [N], w_{n} \neq 0\}| \leq \alpha d.
+% \end{equation}
+% \end{theorem}
+
+
+% The proof given in \citep{BaSpSr12} provides a deterministic greedy algorithm for computing the vector $\bm{w}$ in $\mathcal{O}(\alpha d^{3} N)$ time. The proof is based on the following observation: let $\bm{A}$ a $d\times d$ p.s.d matrix and $v \in \mathbb{R}^{d}$, and denote $\pi_{\bm{A}}$,$\pi_{\bm{A}+vv^{\Tran}}$ the characteristic polynomials of the matrices $\bm{A}$ and $\bm{A}+vv^{\Tran}$ respectively, then 
+% \begin{equation}
+% \pi_{\bm{A}+vv^{\Tran}}(\lambda) =  \pi_{\bm{A}}(\lambda) \bigg( 1- \sum\limits_{\delta \in [d]} \frac{\langle v,u_{\delta} \rangle^{2}}{\lambda-\lambda_{\delta}} \bigg), 
+% \end{equation}
+% where the $\lambda_{\delta}$ are the eigenvalues of $\bm{A}$ and the $u_{\delta}$ are the respective eigenvectors.
 
 
 
-control of the eigenvalues of the matrices ... under rank-one updates.
+% control of the eigenvalues of the matrices ... under rank-one updates.
 
 
-\subsection{Operator discretization}
-(3-6 pages)
-\section{Mathematical framework: Determinantal point processes}
-(7-10 pages)
+% \subsection{Operator discretization}
+% (3-6 pages)
+% \section{Mathematical framework: Determinantal point processes}
+% (7-10 pages)
  
 
-Before giving the definitions of DPPs, we recall some basic properties of determinant that are connected to the geometric notion of volume.
+% Before giving the definitions of DPPs, we recall some basic properties of determinant that are connected to the geometric notion of volume.
 
-\subsection{The determinant and the volume}
-We recall this elementary result:
-\begin{theorem}\label{thm:link_det_vol}
-Let $v_{1}, \dots, v_{d} \in \mathbb{R}^{d}$ a collection of vectors, and denote $\mathcal{P}$ the parallelepiped spanned by the $v_{\delta}$, i.e. the convex hull of $(v_{\delta})_{\delta \in [d]}$ and denote by $\bm{G}$ the gram matrix of the $v_{\delta}$. Then
-\begin{equation}
-\Det \bm{G} = \mathrm{Vol}^{2} \mathcal{P}. \nonumber
-\end{equation}
-\end{theorem}
-Theorem~\ref{thm:link_det_vol} establishes the link between the geometric notion of volume and the determinant of Gram matrices: the higher the determinant of $\bm{G}$ the higher the volume of $\mathcal{P}$ and vice-versa. The volume of the parallelepiped $\mathcal{P}$ is a convenient 
+% \subsection{The determinant and the volume}
+% We recall this elementary result:
+% \begin{theorem}\label{thm:link_det_vol}
+% Let $v_{1}, \dots, v_{d} \in \mathbb{R}^{d}$ a collection of vectors, and denote $\mathcal{P}$ the parallelepiped spanned by the $v_{\delta}$, i.e. the convex hull of $(v_{\delta})_{\delta \in [d]}$ and denote by $\bm{G}$ the gram matrix of the $v_{\delta}$. Then
+% \begin{equation}
+% \Det \bm{G} = \mathrm{Vol}^{2} \mathcal{P}. \nonumber
+% \end{equation}
+% \end{theorem}
+% Theorem~\ref{thm:link_det_vol} establishes the link between the geometric notion of volume and the determinant of Gram matrices: the higher the determinant of $\bm{G}$ the higher the volume of $\mathcal{P}$ and vice-versa. The volume of the parallelepiped $\mathcal{P}$ is a convenient 
 
-One important, yet elementary, consequence of Theorem~\ref{thm:link_det_vol} is the 
-
-
-\begin{theorem}\label{thm:vol_base_times_height}
-Let $v_{1}, \dots, v_{d} \in \mathbb{R}^{d}$ a collection of vectors, and denote $\mathcal{P}$ the parallelepiped spanned by the $v_{\delta}$, i.e. the convex hull of $(v_{\delta})_{\delta \in [d]}$ and denote by $\bm{G}$ the gram matrix of the $v_{\delta}$. Then
-\begin{equation}
-\Det \bm{G} = \mathrm{Vol}^{2} \mathcal{P}. \nonumber
-\end{equation}
-\end{theorem}
-
-% Wh a unified definition can be given for these two forms,  can be defined using the same mathematical framework; the accomplished tasks are fundamentally different.
+% One important, yet elementary, consequence of Theorem~\ref{thm:link_det_vol} is the 
 
 
+% \begin{theorem}\label{thm:vol_base_times_height}
+% Let $v_{1}, \dots, v_{d} \in \mathbb{R}^{d}$ a collection of vectors, and denote $\mathcal{P}$ the parallelepiped spanned by the $v_{\delta}$, i.e. the convex hull of $(v_{\delta})_{\delta \in [d]}$ and denote by $\bm{G}$ the gram matrix of the $v_{\delta}$. Then
+% \begin{equation}
+% \Det \bm{G} = \mathrm{Vol}^{2} \mathcal{P}. \nonumber
+% \end{equation}
+% \end{theorem}
+
+% % Wh a unified definition can be given for these two forms,  can be defined using the same mathematical framework; the accomplished tasks are fundamentally different.
 
 
 
-\subsection{Definitions}
-Before giving the definition of a determinantal point process, we recall briefly the definition of a point process, and we refer to Appendix ?? for further details on this topic.
-
-Intuitively, a point process is a random subset on some set $\X$. Examples of $\X$ include discrete sets (finite or infinite), $\mathbb{R}^{d}$ or some subset of $\mathbb{R}^{d}$ or the hypersphere $\mathbb{S}^{d-1}$. Keeping these examples in mind, we can assume that $\X$ is a separable Hausdorff space.
 
 
-First, we give the definition of a point process. 
+% \subsection{Definitions}
+% Before giving the definition of a determinantal point process, we recall briefly the definition of a point process, and we refer to Appendix ?? for further details on this topic.
 
-\begin{definition}
-A configuration of $\X$ is a subset $\gamma$ of $\X$ that satisfies the following conditions:
-\begin{itemize}
-\item $\gamma$ is discrete 
-\item for every compact subset $\mathcal{K}$ of $\X, \: |\gamma \cap \mathcal{K}| < +\infty $.
-
-\end{itemize}
-We denote by $\Gamma$ the set of configurations on $\X$.
-\end{definition}
-
-Denote by $\mathcal{G}$, the $\sigma$-algebra generated by the sets 
-\begin{equation}
-\{\gamma \in \Gamma, \: |\gamma \cap \mathcal{K}| = m \},
-\end{equation}
-where $\mathcal{K}$ is a compact set of $\X$ and $m \in \mathbb{N}$.
+% Intuitively, a point process is a random subset on some set $\X$. Examples of $\X$ include discrete sets (finite or infinite), $\mathbb{R}^{d}$ or some subset of $\mathbb{R}^{d}$ or the hypersphere $\mathbb{S}^{d-1}$. Keeping these examples in mind, we can assume that $\X$ is a separable Hausdorff space.
 
 
+% First, we give the definition of a point process. 
 
-\begin{definition}
-A point process $\gamma$ is a measurable application from a measure space into $(\Gamma, \mathcal{G})$.
-\end{definition}
+% \begin{definition}
+% A configuration of $\X$ is a subset $\gamma$ of $\X$ that satisfies the following conditions:
+% \begin{itemize}
+% \item $\gamma$ is discrete 
+% \item for every compact subset $\mathcal{K}$ of $\X, \: |\gamma \cap \mathcal{K}| < +\infty $.
 
-In other words, a point process is a random configuration.  
+% \end{itemize}
+% We denote by $\Gamma$ the set of configurations on $\X$.
+% \end{definition}
 
-\begin{definition}
-Let $\gamma$ be a point process on $\X$, and $n \in \mathbb{N}^{*}$. If there exists a non-negative function $\rho_{n}: \X^{n} \rightarrow \mathbb{R} $ satisfying 
-\begin{equation}\label{eq:def_joint_intensity}
-\EX \sum\limits_{(x_{1}, \dots, x_{n}) \in \gamma } f(x_{1}, \dots, x_{n}) = \frac{1}{N!} \int_{\X^{N}} f(x_{1}, \dots, x_{n}) \rho_{n}(x_{1}, \dots, x_{n}) \otimes_{i \in [n]} \mathrm{d}\omega(x_{i}),
-\end{equation}
-for all .... functions $f$, then $\rho_{n}$ is called the $n$-order joint intensity function of $\gamma$.
-\end{definition}
-By considering a test function $f = \mathbb{1}_{\mathcal{B}}$, \eqref{eq:def_joint_intensity} is equivalent to 
-\begin{equation}
-\Prb \bigg(\big(x_{1}, \dots, x_{n} \big) \in \mathcal{B} \bigg) = \int_{\mathcal{B}} \rho_{n}(x_{1}, \dots, x_{n}) \otimes_{i \in [n]}\mathrm{d}\omega(x_{i}).
-\end{equation}
-In other words, $\rho_{n}(x_{1}, \dots, x_{n}) \otimes_{i \in [n]}\mathrm{d}\omega(x_{i})$ is the probability of the event $\big(x_{1}, \dots, x_{n} \big)...$...
-In the case $n = 1$, $\rho$
-
-We refer to [??] for further properties on point processes.
+% Denote by $\mathcal{G}$, the $\sigma$-algebra generated by the sets 
+% \begin{equation}
+% \{\gamma \in \Gamma, \: |\gamma \cap \mathcal{K}| = m \},
+% \end{equation}
+% where $\mathcal{K}$ is a compact set of $\X$ and $m \in \mathbb{N}$.
 
 
-A DPP is a point process such that have $n$-order joint intensities, and those intensities are expressed with respect to some kernel $\kappa$.
-\begin{definition}\label{eq:def_dpp}
-Let $\gamma$ be a point process. $\gamma$ is said to be a determinantal point process on $\X$ with respect to the kernel $\kappa$ and the reference measure $\mathrm{d}\omega$ if its joint densities exist and satisfy
-\begin{equation}
-\rho_{n}(x_{1}, \dots, x_{N}) = \Det \bm{\kappa}(\bm{x}),
-\end{equation}
-where
-\begin{equation}
-\bm{\kappa}(\bm{x}) = (\kappa(x_{n},x_{n'}))_{n,n' \in [N]}.
-\end{equation}
-\end{definition}
 
-In the definition~\eqref{eq:def_dpp}, the kernel $\kappa$ governs the statistical properties of the point process $\gamma$. For instance, if $n =1$, ...
+% \begin{definition}
+% A point process $\gamma$ is a measurable application from a measure space into $(\Gamma, \mathcal{G})$.
+% \end{definition}
+
+% In other words, a point process is a random configuration.  
+
+% \begin{definition}
+% Let $\gamma$ be a point process on $\X$, and $n \in \mathbb{N}^{*}$. If there exists a non-negative function $\rho_{n}: \X^{n} \rightarrow \mathbb{R} $ satisfying 
+% \begin{equation}\label{eq:def_joint_intensity}
+% \EX \sum\limits_{(x_{1}, \dots, x_{n}) \in \gamma } f(x_{1}, \dots, x_{n}) = \frac{1}{N!} \int_{\X^{N}} f(x_{1}, \dots, x_{n}) \rho_{n}(x_{1}, \dots, x_{n}) \otimes_{i \in [n]} \mathrm{d}\omega(x_{i}),
+% \end{equation}
+% for all .... functions $f$, then $\rho_{n}$ is called the $n$-order joint intensity function of $\gamma$.
+% \end{definition}
+% By considering a test function $f = \mathbb{1}_{\mathcal{B}}$, \eqref{eq:def_joint_intensity} is equivalent to 
+% \begin{equation}
+% \Prb \bigg(\big(x_{1}, \dots, x_{n} \big) \in \mathcal{B} \bigg) = \int_{\mathcal{B}} \rho_{n}(x_{1}, \dots, x_{n}) \otimes_{i \in [n]}\mathrm{d}\omega(x_{i}).
+% \end{equation}
+% In other words, $\rho_{n}(x_{1}, \dots, x_{n}) \otimes_{i \in [n]}\mathrm{d}\omega(x_{i})$ is the probability of the event $\big(x_{1}, \dots, x_{n} \big)...$...
+% In the case $n = 1$, $\rho$
+
+% We refer to [??] for further properties on point processes.
+
+
+% A DPP is a point process such that have $n$-order joint intensities, and those intensities are expressed with respect to some kernel $\kappa$.
+% \begin{definition}\label{eq:def_dpp}
+% Let $\gamma$ be a point process. $\gamma$ is said to be a determinantal point process on $\X$ with respect to the kernel $\kappa$ and the reference measure $\mathrm{d}\omega$ if its joint densities exist and satisfy
+% \begin{equation}
+% \rho_{n}(x_{1}, \dots, x_{N}) = \Det \bm{\kappa}(\bm{x}),
+% \end{equation}
+% where
+% \begin{equation}
+% \bm{\kappa}(\bm{x}) = (\kappa(x_{n},x_{n'}))_{n,n' \in [N]}.
+% \end{equation}
+% \end{definition}
+
+% In the definition~\eqref{eq:def_dpp}, the kernel $\kappa$ governs the statistical properties of the point process $\gamma$. For instance, if $n =1$, ...
 
 
 \clearpage
+
+\section{High order sampling: determinantal sampling}
+As we have seen in the previous section, independent sampling was used in a variety of approximation tasks that have a linear structure. These sub-sampling methods relies on first-order information such as the leverage score distribution. 
+
+Now we will review another approach of sampling that relies on high order information. This is achieved by determinantal point processes and their variants. Indeed, this class of distributions defines the most natural extension of leverage score sampling with negative correlation property.
+
+We start again with the problem of linear regression under budget constraint. Remember that, for this problem, it is required to estimate $\bm{X}^{+}\bm{y}$ using a subset of $[N]$. Now, if $\bm{X}$ is of full rank, the Moore-Penrose pseudo inverse have a \emph{determinantal representation} \citep{BeTe90}
+\begin{equation}
+\bm{X}^{+}\bm{y} = \sum\limits_{I \in \mathcal{I}_{N,d}} \frac{\Delta_{I}}{\Delta} \bm{X}_{I,:}^{+}\bm{y}_{I},
+\end{equation}
+where $\mathcal{I}_{N,d} = \{ I \subset [N], \:|I| = d \}$, $\Delta_{I} = \Det^{2} \bm{X}_{I,:}$ and $\Delta = \sum_{I \in \mathcal{I}_{N,d}} \Delta_{I}$. In other words, to solve the solution of problem?? is a mixture of the smaller linear problems defined by the couples $(\bm{X}_{I,:},\bm{y}_{I})$, and the weight is proportional to the $\Det^{2} \bm{X}_{I,:}$ that is the volume spanned by the rows of $\bm{X}_{I,:}$ in the space $\mathbb{R}^{d}$. In particular, singular sub-matrices $\bm{X}_{I,:}$ do not participate in this mixture. Obviously, this determinantal representation can not be used in this raw form. Indeed, an exhaustive enumeration of the $\mathcal{I}_{N,d}$ would cost much more than calculating $\bm{X}^{+}\bm{y}$. Yet, its structure is amenable to a probabilistic interpretation. Indeed, if we consider a random element $Y$ of $\mathcal{I}_{N,d}$ such that
+\begin{equation}\label{eq:first_mention_volume_sampling}
+\forall I \in \mathcal{I}_{N,d}, \:\: \Prb(Y = I) = \Delta_{I}/\Delta,
+\end{equation} 
+then
+\begin{equation}\label{eq:first_mention_unbiasedness}
+\bm{X}^{+}\bm{y} = \EX \bm{X}_{I,:}^{+}\bm{y}_{I}.
+\end{equation}
+In other words, under the distribution~\eqref{eq:first_mention_volume_sampling}, also called \emph{volume sampling}, $\bm{X}_{I,:}^{+}\bm{y}_{I}$ is an unbiased estimator of $\bm{X}^{+}\bm{y}$. 
+%Volume sampling distribution favours subset of rows that complementarity among the rows of the selected subset. 
+This idea was exploited in \citep{DeWa17}, where the authors studied the mean square error of this estimator and proved that
+\begin{equation}\label{eq:first_mention_VS}
+\EX \|\bm{y}-\bm{X}\bm{w}_{I}^{*}\|^{2} \leq (1+d) \|\bm{y} - \bm{X}\bm{w}^{*}\|^{2}.
+\end{equation} 
+This bound holds for a budget of subsampling that is equal to the dimension $d$ that is the smallest budget that we can expect. This "sparsity level" has no equivalent under independent sampling for which the minimal budget scales as $\mathcal{O}(d \log d)$. Moreover, the bound~\eqref{eq:first_mention_VS} does not tell much about the high order moments of $\|\bm{y}-\bm{X}\bm{w}_{I}^{*}\|^{2}$ that can be useful to derive probabilistic bounds with exponential tails as it is the case for leverage score sampling. 
+Therefore, the two distributions are not comparable.
+
+However, volume sampling distribution belongs to a larger class of distributions called \emph{dual volume sampling}. These distributions charge positively subsets $I \subset [N]$ of a fixed cardinality $c \geq d$ as following
+\begin{equation}\label{eq:second_mention_volume_sampling}
+\Prb(Y = I) \propto \Det \bm{X}_{I}^{\Tran} \bm{X}_{I}.
+\end{equation} 
+In particular the case $c = d$ corresponds to the volume sampling distribution. These distributions satisfy the unbiasedness property~\eqref{eq:first_mention_unbiasedness} as it was shown by the authors of \citep{DeWa17}. However, the empirical investigation conducted in~\citep{DeWaHs18} shows that dual volume sampling can lead to an inferior approximation compared to leverage score sampling.
+
+
+Remarkably, the volume sampling distribution can be used to tackle another problem that is the column subset selection problem, which we discuss in detail in Chapter~\ref{chapter:cssp}. In a nutshell, the subset selection, in this setting, is meant to resolve the interpretation issue of the principal component analysis. This later outputs features that does not have, in general, a physical interpretation. Hence, the idea to sub-sample a set of  features $S$ of the matrix $\bm{X}$, that are represented by the matrix $\bm{C} = \bm{X}_{:,S}$, and the challenge is to guarantee that
+\begin{equation}
+\|\bm{X}-\Pi_{\Span \bm{C}}\bm{X}\|_{\Fr}^{2} \leq (1+\alpha) \|\bm{X}-\Pi_{k}\bm{X}\|_{\Fr}^{2},
+\end{equation} 
+or 
+\begin{equation}
+\|\bm{X}-\Pi_{\Span \bm{C}}\bm{X}\|_{2}^{2} \leq (1+\beta) \|\bm{X}-\Pi_{k}\bm{X}\|_{2}^{2},
+\end{equation} 
+or both. In this setting, volume sampling distribution is defined on the set of subset of $[d]$ by
+\begin{equation}
+\Prb_{\VS}(S) \propto \,\Det(\bm{X}_{:,S}^{\Tran}\bm{X}_{:,S}^{})\, \mathbb{1}_{\{|S| = k \}},
+\label{e:introduction_vs}
+\end{equation}
+and it satisfies the following bounds
+ % are represented by its columns 
+ % we are intereswith selecting the columns to t
+% \begin{theorem}[\citealp{DRVW06}]
+%   \label{thrm:volume_sampling_theorem}
+% Let $S$ be a random subset of $[d]$, chosen with probability
+% where $Z = \sum\limits_{|S| = k} \Det(\bm{X}_{:,S}^{\Tran}\bm{X}_{:,S}^{})$.
+\begin{equation}
+\EX_{\VS} \| \bm{X} - \Pi_{S}^{\Fr}\bm{X} \|_{\Fr}^{2} \leq (k+1)\| \bm{X} - \Pi_{k}\bm{X} \|_{\Fr}^{2}
+\label{e:introduction_vsBoundFr}
+\end{equation}
+and
+\begin{equation}
+\EX_{\VS} \| \bm{X} - \Pi_{S}^{2}\bm{X} \|_{2}^{2} \leq (d-k)(k+1)\| \bm{X} - \Pi_{k}\bm{X} \|_{2}^{2} .
+\label{e:introduction_vsBound2}
+\end{equation}
+
+% there is no way to compare  
+
+% comparing volume sampling and leverage scores sampling is 
+% The interesting aspect about this bound is that it does not have an equivalent under independent sampling. Indeed, the number of the sub-sampled rows is equal to $d$ which is lower than the typical $\mathcal{O}(d \log d)$ budget of independent sampling. 
+
+
+% Observe that under volume sampling distribution, the budget of sampling is minimal 
+% The interesting aspect about this distribution is the size of the budege
+
+
+Moreover, they proved the unbiasedness property~\eqref{eq:first_mention_unbiasedness} for a larger class of distributions called \emph{dual volume sampling} distributions. These distributions charge positively subsets $I \subset [N]$ of fixed cardinality $c \geq d$ as following
+\begin{equation}\label{eq:second_mention_volume_sampling}
+\Prb(Y = I) \propto \Det \bm{X}_{I}^{\Tran} \bm{X}_{I}.
+\end{equation} 
+
+
+% , and we start by a result from the nineties.
+
+% \begin{theorem}[\cite{BeTe90}]
+% Let $\bm{X} \in \mathbb{R}^{N \times d}$ of full rank with $N \geq d$. Then
+% \begin{equation}
+% \bm{X}^{+}\bm{y} = \sum\limits_{\substack{I \subset [N]\\|I|=d}} \frac{\Delta_{I}}{\Delta} \bm{X}_{I,:}^{+}\bm{y}_{I},
+% \end{equation}
+% where $\Delta_{I} = \Det^{2} \bm{X}_{I,:}$ and $\Delta = \sum\limits_{\substack{I \subset [N]\\ |I|=d}} \Delta_{I}$.
+% % $w_{I}^{*}$ be the solution of the linear system
+% \end{theorem}
 
 
 
@@ -839,10 +1085,21 @@ are based on the following contribution
 
 \begin{figure}
 \centering
-\includegraphics[width=0.75\textwidth]{img/neurips/Sobolev/multig_interpolation_pSobolev_s_3_fig_1.pdf}\\
+\includegraphics[width=0.75\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_3_randomvectors_2000_fig_1.pdf}\\
 \caption{Squared interpolation error for the embedding of the eigenfunctions vs. number of nodes $N$ in the periodic Sobolev space of order $s=3$.
 \label{fig:introduction_pDPP_results_pSobolev_exp_2}}
 \end{figure}
+
+
+% \begin{figure}
+% \centering
+% \includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_2_randomvectors_200_fig_1.pdf}
+% \includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_3_randomvectors_2000_fig_1.pdf}\\
+% % \includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_1_binarycubeM_128_fig_1.pdf}
+% % \includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_3_binarycubeM_128_fig_1.pdf}\\
+% \caption{Squared worst interpolation error on $\mathcal{G}_{6}$ error vs. number of nodes $N$ for $s = 1$ (left) and $s=3$ (right).
+% \label{fig:pDPP_results_pSobolev_exp_3_G6}}
+% \end{figure}
 
 % In particular, we highlight the importance of the eigenvalues of integration operators on the convergence rates in a similar fashion than the work of ??
 
@@ -7801,7 +8058,7 @@ We compare the following quadratures defined previously: $(i)$ the quadrature ru
 
 \begin{figure}
 \centering
-\includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_1_binarycubeM_64_fig_1.pdf}
+\includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_2_randomvectors_200_fig_1.pdf}
 \includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_3_randomvectors_2000_fig_1.pdf}\\
 % \includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_1_binarycubeM_128_fig_1.pdf}
 % \includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_3_binarycubeM_128_fig_1.pdf}\\
@@ -9764,18 +10021,18 @@ Finally, combining \eqref{eq:I_k_N}, \eqref{eq:phi_derivative_at_zero} and \eqre
 
 \section{Introduction}
 \label{CVS_sec:introduction}
-Kernel approximation is a recurrent task in machine learning  \citep*{HaTiFr09}[Chapter 5], signal processing \citep{Uns00} or numerical quadrature \citep{Lar72}. Expressed in its general form, we are given a reproducing kernel Hilbert space $\mathcal{F}$ (RKHS; \citealp{BeTh11}) of functions over $\mathcal{X}$, with a symmetric kernel $k: \X \times \X \rightarrow \mathbb{R}_{+}$, and an element $\mu : \X \rightarrow \mathbb{R}$ of $\mathcal{F}$. We ask for conditions on a \emph{design} $\bm{x} = (x_{1},\dots,x_N)\in \mathcal{X}^N$, and on the corresponding weights $w_1,\dots,w_N$, such that the RKHS norm
-\begin{equation}
-\left\Vert \mu - \sum_{i=1}^N w_{i}k(x_{i},.)\right\Vert_{\mathcal{F}}
-\label{CVS_e:residual}
-\end{equation}
-%\pc{Je continue de pousser pour utiliser $h$ plutôt que $\mu$ ici.}
-is small. In other words, $\mu$ should be well reconstructed in $\mathcal{F}$ by the weighted design.
+% Kernel approximation is a recurrent task in machine learning  \citep*{HaTiFr09}[Chapter 5], signal processing \citep{Uns00} or numerical quadrature \citep{Lar72}. Expressed in its general form, we are given a reproducing kernel Hilbert space $\mathcal{F}$ (RKHS; \citealp{BeTh11}) of functions over $\mathcal{X}$, with a symmetric kernel $k: \X \times \X \rightarrow \mathbb{R}_{+}$, and an element $\mu : \X \rightarrow \mathbb{R}$ of $\mathcal{F}$. We ask for conditions on a \emph{design} $\bm{x} = (x_{1},\dots,x_N)\in \mathcal{X}^N$, and on the corresponding weights $w_1,\dots,w_N$, such that the RKHS norm
+% \begin{equation}
+% \left\Vert \mu - \sum_{i=1}^N w_{i}k(x_{i},.)\right\Vert_{\mathcal{F}}
+% \label{CVS_e:residual}
+% \end{equation}
+% %\pc{Je continue de pousser pour utiliser $h$ plutôt que $\mu$ ici.}
+% is small. In other words, $\mu$ should be well reconstructed in $\mathcal{F}$ by the weighted design.
 
-Measuring the error in RKHS norm has a computational advantage. Indeed, minimizing \eqref{e:residual} boils down to minimizing a quadratic form; and given a design $\bm{x}$ such that $\Det \bm{K}(\bm{x}) = \Det (k(x_i,x_j)) >0$, Equation~\eqref{e:residual} has a unique set of minimizing weights. The minimizer corresponds to the weights $\hat{\bm{w}} = \bm{K}(\bm{x})^{-1} \mu(\bm{x})$, where $\mu(\bm{x})\in\mathbb{R}^N$ contains the evaluation of $\mu$ at the $N$ design nodes $x_{i}$. Whenever the weights are chosen to be $\hat{\bm{w}}$, the sum in \eqref{e:residual} takes the same values as $\mu$ at the nodes $x_{i}$, and the optimal value of \eqref{e:residual} is thus called \emph{interpolation error}; otherwise we speak of \emph{approximation error}.
-Note that when the kernel $k$ is bounded, guarantees in RKHS norm translate to guarantees in the supremum norm.
+% Measuring the error in RKHS norm has a computational advantage. Indeed, minimizing \eqref{CVS_e:residual} boils down to minimizing a quadratic form; and given a design $\bm{x}$ such that $\Det \bm{K}(\bm{x}) = \Det (k(x_i,x_j)) >0$, Equation~\eqref{CVS_e:residual} has a unique set of minimizing weights. The minimizer corresponds to the weights $\hat{\bm{w}} = \bm{K}(\bm{x})^{-1} \mu(\bm{x})$, where $\mu(\bm{x})\in\mathbb{R}^N$ contains the evaluation of $\mu$ at the $N$ design nodes $x_{i}$. Whenever the weights are chosen to be $\hat{\bm{w}}$, the sum in \eqref{CVS_e:residual} takes the same values as $\mu$ at the nodes $x_{i}$, and the optimal value of \eqref{CVS_e:residual} is thus called \emph{interpolation error}; otherwise we speak of \emph{approximation error}.
+% Note that when the kernel $k$ is bounded, guarantees in RKHS norm translate to guarantees in the supremum norm.
 
-In this work, we propose and analyze the interpolation based on a random design drawn from a distribution called \emph{continuous volume sampling}, which favors designs $\bm{x}$ with a large value of $\Det \bm{K}(\bm{x})$. After introducing this new distribution, we prove non-asymptotic guarantees on the interpolation error which depend on the spectrum of the kernel $k$. Previous kernel-based randomized designs, both i.i.d. \citep{Bac17} and repulsive \citep{BeBaCh19}, can be hard to compute in practice since they require access to the Mercer decomposition of $k$. We show here that continuous volume sampling enjoys similar error bounds as well as some additional interpretable geometric properties, while having a joint density that can be evaluated as soon as one can evaluate the RKHS kernel $k$. In particular, this opens the possibility of Markov chain Monte Carlo samplers \citep{ReGh19}.
+In this chapter, we propose and analyze the interpolation based on a random design drawn from a distribution called \emph{continuous volume sampling}, which favors designs $\bm{x}$ with a large value of $\Det \bm{K}(\bm{x})$. After introducing this new distribution, we prove non-asymptotic guarantees on the interpolation error which depend on the spectrum of the kernel $k$. Previous kernel-based randomized designs, both i.i.d. \citep{Bac17} and repulsive \citep{BeBaCh19}, can be hard to implement in practice since they require access to the Mercer decomposition of $k$. We show here that continuous volume sampling enjoys similar error bounds as well as some additional interpretable geometric properties, while having a joint density that can be evaluated as soon as one can evaluate the RKHS kernel $k$. In particular, this opens the possibility of Markov chain Monte Carlo samplers \citep{ReGh19}.
 
 \rev{
 Volume sampling was originally introduced on a finite domain \citep{DRVW06}, where it has been used in matrix subsampling for linear regression and low-rank approximations \citep{DeWa17,BeBaCh18}. Like \citep{BeBaCh19}, our work connects the discrete problem of subsampling columns from a matrix and the continuous problem of interpolating functions in an RKHS.
@@ -9827,11 +10084,12 @@ Volume sampling was originally introduced on a finite domain \citep{DRVW06}, whe
 % \item Control functionals using volume sampling
 % \end{itemize}
 
-The rest of the article is organized as follows. Section~\ref{s:relatedWork} reviews kernel-based interpolation. In Section~\ref{sec:VS_DPP}, we define continuous volume sampling and relate it to projection determinantal point processes, as used by \cite{BeBaCh19}. Section~\ref{sec:main_results} contains our main results while Section~\ref{sec:steps_proof} contains sketches of all proofs with pointers to the supplementary material for missing details. \rev{Section~\ref{sec:experiment} numerically illustrates our main result.} We conclude in Section~\ref{sec:discussion}, discussing some consequences beyond kernel interpolation.
+The rest of the chapter is organized as follows. Section~\ref{CVS_s:relatedWork} reviews kernel-based interpolation. In Section~\ref{CVS_sec:VS_DPP}, we define continuous volume sampling and relate it to projection determinantal point processes, as used by \cite{BeBaCh19}. Section~\ref{CVS_sec:main_results} contains our main results while Section~\ref{CVS_sec:steps_proof} contains sketches of all proofs with pointers to the supplementary material for missing details. \rev{Section~\ref{CVS_sec:experiment} numerically illustrates our main result.} We conclude in Section~\ref{CVS_sec:discussion}, discussing some consequences beyond kernel interpolation.
 
 \paragraph{Notation and assumptions.}\label{CVS_paragraph:notation}
-We assume that $\mathcal{X}$ is equipped with a Borel measure $\mathrm{d}\omega$, and that the support of $\mathrm{d}\omega$ is $\mathcal{X}$.
- Let $\mathbb{L}_{2}(\mathrm{d}\omega)$ be the Hilbert space of square integrable, real-valued functions on $\mathcal{X}$, with inner product $\langle \cdot, \cdot \rangle_{\mathrm{d}\omega}$, and associated norm $\|.\|_{\mathrm{d}\omega}$.
+We keep the same notation as Chapter~\ref{chap:dppkq}. 
+% assume that $\mathcal{X}$ is equipped with a Borel measure $\mathrm{d}\omega$, and that the support of $\mathrm{d}\omega$ is $\mathcal{X}$.
+%  Let $\mathbb{L}_{2}(\mathrm{d}\omega)$ be the Hilbert space of square integrable, real-valued functions on $\mathcal{X}$, with inner product $\langle \cdot, \cdot \rangle_{\mathrm{d}\omega}$, and associated norm $\|.\|_{\mathrm{d}\omega}$.
 % Denote by $(e_{k})_{k \in \mathbb{N}}$ an orthonormal family of $\mathbb{L}_{2}(\mathrm{d}\omega)$.
 %
 % Let $k : \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}_{+}$ be a symmetric and continuous function such that, for any finite set of points in $\mathcal{X}$, the matrix of pairwise kernel evaluations is positive semi-definite.
@@ -9839,26 +10097,29 @@ We assume that $\mathcal{X}$ is equipped with a Borel measure $\mathrm{d}\omega$
 % Denote by $\mathcal{F}$ the associated reproducing kernel Hilbert space (RKHS) of real-valued functions \citep{BeTh11}.
 
 %$$\mathcal{F} = \overline{\Span \bigg( k(x,.),\: x \in \mathcal{X} \bigg)}$$
-\begin{assumption}\label{CVS_hyp:integrable_diagonal}
-$\displaystyle \int_{\X} k(x,x) \mathrm{d}\omega(x) < +\infty$.
-\end{assumption}
-Under Assumption~\ref{hyp:integrable_diagonal}, define the integral operator
-\begin{equation}
-\bm{\Sigma} f (\cdot) = \int_{\mathcal{X}} k(\cdot,y)f(y) \mathrm{d}\omega(y), \quad f \in \mathbb{L}_{2}(\mathrm{d}\omega).
-\end{equation}
-% This implies that $\mathcal{F} \subset \mathbb{L}_{2}(\mathrm{d}\omega)$.
-By construction, $\bm{\Sigma}$ is self-adjoint, positive semi-definite, and trace-class \citep{Sim05}.
+% \begin{assumption}\label{CVS_hyp:integrable_diagonal}
+% $\displaystyle \int_{\X} k(x,x) \mathrm{d}\omega(x) < +\infty$.
+% \end{assumption}
+% Under Assumption~\ref{hyp:integrable_diagonal}, define the integral operator
+% \begin{equation}
+% \bm{\Sigma} f (\cdot) = \int_{\mathcal{X}} k(\cdot,y)f(y) \mathrm{d}\omega(y), \quad f \in \mathbb{L}_{2}(\mathrm{d}\omega).
+% \end{equation}
+% % This implies that $\mathcal{F} \subset \mathbb{L}_{2}(\mathrm{d}\omega)$.
+% By construction, $\bm{\Sigma}$ is self-adjoint, positive semi-definite, and trace-class \citep{Sim05}.
 % Useful recall
 % Note that $\forall f\in\mathcal{F}, f=\bm{\Sigma} f$. \rb{Not sure about that and where to put it in the narrative, since it may depend on the assumptions that we make in this section. ..., can you check?}
 %
-For $m \in \Ns$, with $\mathbb{N}^{*} = \mathbb{N} \smallsetminus \{0\}$, denote by $e_{m}$ the $m$-th eigenfunction of $\bm{\Sigma}$, normalized so that $\|e_{m}\|_{\mathrm{d}\omega} = 1$, and $\sigma_{m}$ the corresponding eigenvalue. Assumption~\ref{hyp:integrable_diagonal} implies that the embedding operator $I_{\mathcal{F}}: \mathcal{F} \longrightarrow \mathbb{L}_{2}(\mathrm{d}\omega)$ is compact; moreover, since $\mathrm{d}\omega$ is of full support in $\mathcal{X}$, $I_{\mathcal{F}}$ is injective \citep{StCh08}. This implies a Mercer-type decomposition of $k$,
-\begin{equation}
-\label{CVS_eq:Mercer_decomp}
-	k(x,y)= \sum\limits_{m \in \mathbb{N}^{*}}\sigma_{m}e_{m}(x)e_{m}(y),
-\end{equation}
-where the convergence is pointwise \citep{StSc12}. The eigenvalues $(\sigma_m)$ are assumed to be non-increasing. Moreover, for $m \in \mathbb{N}^{*}$, we write $e_{m}^{\mathcal{F}} = \sqrt{\sigma_{m}}e_{m}$. Since $I_{\mathcal{F}}$ is injective, $(e_{m}^{\mathcal{F}})_{m \in \mathbb{N}^{*}}$ is an orthonormal basis of $\mathcal{F}$ \citep{StSc12}. Unless explicitly stated, we assume that $\mathcal{F}$ is dense in $\mathbb{L}_{2}(\mathrm{d}\omega)$, so that $(e_{m})_{m \in \mathbb{N}^{*}}$ is an orthonormal basis of $\mathbb{L}_{2}(\mathrm{d}\omega)$. For more intuition, under these assumptions, $f \in \mathcal{F}$ if and only if $\sum_m \sigma_{m}^{-1} \langle f,e_{m} \rangle_{\mathbb{L}_{2}(\mathrm{d} \omega)}^{2}$ converges; \rev{ and we denote for $r\geq 0$ $\|\bm{\Sigma}^{-r}f\|_{\mathcal{F}}^{2} = \sum_{m} \langle f,e_{m}^{\mathcal{F}} \rangle_{\mathcal{F}}^{2}/\sigma_{m}^{2r}$.}
-For $\bm{x} \in \X^{N}$, we define $\bm{K}(\bm{x}) := k(x_{i},x_{j})_{i,j \in [N]}$. If $\Det \bm{K}(\bm{x})>0$,  the subspace $\mathcal{T}(\bm{x}) = \Span k(x_{i},.)_{i \in [N]}$ is of dimension $N$; we denote by $\Pi_{\mathcal{T}(\bm{x})}$ the $\langle.,. \rangle_{\F}$-orthogonal projection on $\mathcal{T}(\bm{x})$.
-Finally, for $N \in \Ns$, we will often sum over the sets
+% For $m \in \Ns$, with $\mathbb{N}^{*} = \mathbb{N} \smallsetminus \{0\}$, denote by $e_{m}$ the $m$-th eigenfunction of $\bm{\Sigma}$, normalized so that $\|e_{m}\|_{\mathrm{d}\omega} = 1$, and $\sigma_{m}$ the corresponding eigenvalue. Assumption~\ref{hyp:integrable_diagonal} implies that the embedding operator $I_{\mathcal{F}}: \mathcal{F} \longrightarrow \mathbb{L}_{2}(\mathrm{d}\omega)$ is compact; moreover, since $\mathrm{d}\omega$ is of full support in $\mathcal{X}$, $I_{\mathcal{F}}$ is injective \citep{StCh08}. This implies a Mercer-type decomposition of $k$,
+% \begin{equation}
+% \label{CVS_eq:Mercer_decomp}
+% 	k(x,y)= \sum\limits_{m \in \mathbb{N}^{*}}\sigma_{m}e_{m}(x)e_{m}(y),
+% \end{equation}
+% where the convergence is pointwise \citep{StSc12}. The eigenvalues $(\sigma_m)$ are assumed to be non-increasing. Moreover, for $m \in \mathbb{N}^{*}$, we write $e_{m}^{\mathcal{F}} = \sqrt{\sigma_{m}}e_{m}$. Since $I_{\mathcal{F}}$ is injective, $(e_{m}^{\mathcal{F}})_{m \in \mathbb{N}^{*}}$ is an orthonormal basis of $\mathcal{F}$ \citep{StSc12}. Unless explicitly stated, we assume that $\mathcal{F}$ is dense in $\mathbb{L}_{2}(\mathrm{d}\omega)$, so that $(e_{m})_{m \in \mathbb{N}^{*}}$ is an orthonormal basis of $\mathbb{L}_{2}(\mathrm{d}\omega)$. For more intuition, under these assumptions, $f \in \mathcal{F}$ if and only if $\sum_m \sigma_{m}^{-1} \langle f,e_{m} \rangle_{\mathbb{L}_{2}(\mathrm{d} \omega)}^{2}$ converges; 
+
+\rev{ and we denote for $r\geq 0$ $\|\bm{\Sigma}^{-r}f\|_{\mathcal{F}}^{2} = \sum_{m} \langle f,e_{m}^{\mathcal{F}} \rangle_{\mathcal{F}}^{2}/\sigma_{m}^{2r}$.}
+
+% For $\bm{x} \in \X^{N}$, we define $\bm{K}(\bm{x}) := k(x_{i},x_{j})_{i,j \in [N]}$. If $\Det \bm{K}(\bm{x})>0$,  the subspace $\mathcal{T}(\bm{x}) = \Span k(x_{i},.)_{i \in [N]}$ is of dimension $N$; we denote by $\Pi_{\mathcal{T}(\bm{x})}$ the $\langle.,. \rangle_{\F}$-orthogonal projection on $\mathcal{T}(\bm{x})$.
+For $N \in \Ns$, we will often sum over the sets
 \begin{align}
 	\UNm &=  \{ U \subset \Ns, |U| = N,\: m \notin U \},\\
   \UN &=  \{ U \subset \Ns, |U| = N \}.
@@ -9873,50 +10134,64 @@ where $[N]=\{1,\dots,N\}$. If $\Det \bm{K}(\bm{x}) >0$, let $\hat{\bm{w}} = \bm{
   & = \|\mu - \Pi_{\mathcal{T}(\bm{x})} \mu\|_{\F}.
 \end{align}
 
+Finally, we keep the assumptions
+\begin{assumption}\label{CVS_hyp:domega_is_nondegenerate}
+$\mathrm{d}\omega$ is a \emph{non-degenerate} measure, i.e. the support of $\mathrm{d}\omega$ is equal to $\X$.
+\end{assumption}
+
+\begin{assumption}\label{CVS_hyp:k_is_continuous}
+$k$ is continuous with respect to the product topology of $\mathcal{X} \times \mathcal{X}$.
+\end{assumption}
+
+\begin{assumption}\label{CVS_hyp:integrable_diagonal}
+$x \mapsto k(x,x)$ is integrable with respect to $\mathrm{d}\omega$ so that $\mathcal{F} \subset \mathbb{L}_{2}(\mathrm{d}\omega)$.
+\end{assumption}
+
+
 
 \section{Related Work}\label{CVS_s:relatedWork}
 % \rb{Not sure we should call it sampling}
 This section reviews some results on kernel interpolation to better situate our contributions. The literature on this topic is prolific and cannot be covered in details here. In particular, we start by reviewing results on optimal kernel quadrature, a particular case of kernel interpolation.
 
 %%%%
-\subsection{Interpolation for optimal kernel quadrature}\label{CVS_sec:review_optimal_kernel_quadrature}
+% \subsection{Interpolation for optimal kernel quadrature}\label{CVS_sec:review_optimal_kernel_quadrature}
 
-Given $g \in \Ltwo$, kernel quadrature deals with approximating the integrals
-\begin{equation}\label{CVS_eq:quadrature_approx}
-\:\int_{\X} fg \,\mathrm{d}\omega \approx \sum\limits_{i \in [N]} w_{i}f(x_{i}),\quad f\in\F,
-\end{equation}
-where the weights $w_{i}$ do not depend on $f$.
-In principle, it is easy to control the integration error,\rev{i.e., the absolute value of the difference between the l.h.s. and r.h.s. of \eqref{CVS_eq:quadrature_approx}.} Indeed,
-\begin{equation}\label{CVS_eq:upper_bound_integration_error}
-\left| \int_{\X} fg \,\mathrm{d}\omega - \sum_{i \in [N]} w_{i}f(x_{i})\right| \leq \|f\|_{\F} \, \mathcal{E}(\mu_{g};\bm{x},\bm{w}),
-\end{equation}
-where
-$ \displaystyle
-\mu_{g} = \int_{\X}g(x)k(x,.) \mathrm{d}\omega(x){=\bm{\Sigma} g}
-$
-is the so-called \emph{embedding}\footnote{When $g =1$ is constant, $\mu_{g}$ is classically called the mean-element of the measure $\mathrm{d} \omega$ \citep{SmGrSoSc07}.} of $g$ in the RKHS $\F$.
-% In particular, $\mathcal{E}(\mu_{g};\bm{x},\bm{w})$ is \rb{or upper bounds?} the worst case integration error for the unit ball of $\F$, i.e.,
-% \begin{equation}\label{CVS_eq:wce_definition}
-% \sup\limits_{\substack{f \in \F\\ \|f\|_{\F} \leq 1}} \left| \int_{\X} fg \mathrm{d}\omega - \sum\limits_{i \in [N]} w_{i}f(x_{i}) \right| \rb{\leq / =} \mathcal{E}(\mu_{g};\bm{x},\bm{w}).
+% Given $g \in \Ltwo$, kernel quadrature deals with approximating the integrals
+% \begin{equation}\label{CVS_eq:quadrature_approx}
+% \:\int_{\X} fg \,\mathrm{d}\omega \approx \sum\limits_{i \in [N]} w_{i}f(x_{i}),\quad f\in\F,
 % \end{equation}
+% where the weights $w_{i}$ do not depend on $f$.
+% In principle, it is easy to control the integration error,\rev{i.e., the absolute value of the difference between the l.h.s. and r.h.s. of \eqref{CVS_eq:quadrature_approx}.} Indeed,
+% \begin{equation}\label{CVS_eq:upper_bound_integration_error}
+% \left| \int_{\X} fg \,\mathrm{d}\omega - \sum_{i \in [N]} w_{i}f(x_{i})\right| \leq \|f\|_{\F} \, \mathcal{E}(\mu_{g};\bm{x},\bm{w}),
+% \end{equation}
+% where
+% $ \displaystyle
+% \mu_{g} = \int_{\X}g(x)k(x,.) \mathrm{d}\omega(x){=\bm{\Sigma} g}
+% $
+% is the so-called \emph{embedding}\footnote{When $g =1$ is constant, $\mu_{g}$ is classically called the mean-element of the measure $\mathrm{d} \omega$ \citep{SmGrSoSc07}.} of $g$ in the RKHS $\F$.
+% % In particular, $\mathcal{E}(\mu_{g};\bm{x},\bm{w})$ is \rb{or upper bounds?} the worst case integration error for the unit ball of $\F$, i.e.,
+% % \begin{equation}\label{CVS_eq:wce_definition}
+% % \sup\limits_{\substack{f \in \F\\ \|f\|_{\F} \leq 1}} \left| \int_{\X} fg \mathrm{d}\omega - \sum\limits_{i \in [N]} w_{i}f(x_{i}) \right| \rb{\leq / =} \mathcal{E}(\mu_{g};\bm{x},\bm{w}).
+% % \end{equation}
 
-An upper bound on the approximation error of $\mu_{g}$ implies an upper bound on the integration error that is uniform over any bounded subset of $\F$. This observation sparked intense research on the kernel approximation of embeddings $\mu_{g}$. Among kernel approximation results, we pay a particular attention to interpolation, i.e., approximation with optimal weights. In the sequel, we call \emph{optimal kernel quadrature} the quadrature based on optimal weights $\hat{\bm{w}}$ minimizing \eqref{CVS_e:residual} for a given set of nodes.
+% An upper bound on the approximation error of $\mu_{g}$ implies an upper bound on the integration error that is uniform over any bounded subset of $\F$. This observation sparked intense research on the kernel approximation of embeddings $\mu_{g}$. Among kernel approximation results, we pay a particular attention to interpolation, i.e., approximation with optimal weights. In the sequel, we call \emph{optimal kernel quadrature} the quadrature based on optimal weights $\hat{\bm{w}}$ minimizing \eqref{CVS_e:residual} for a given set of nodes.
 
-% A quadrature based on optimal weights $\hat{\bm{w}}$ is said to be optimal.
-% For a given design $\bm{x}$, if the weights $\bm{w}$ are optimized, i.e. $\bm{w} = \hat{\bm{w}}$, the quadrature is said to be optimal.
-\cite{Boj81} proved that, for $g=1$, the interpolation of $\mu_{g}$ using the uniform grid over $\X = [0,1]$ has an error in $\mathcal{O}(N^{-2s})$ if $\F$ is the periodic Sobolev space of order $s$, and that any set of nodes leads to that rate at least. A similar rate was proved for $g$ not constant \citep{NoUlWo15} even though it is only asymptotically optimal in that case.
-% , is optimal\rb{What do you mean by optimal at this stage?} for the  , with a convergence rate in $\mathcal{O}(N^{-2s})$. If $g$ is not constant, the uniform grid is only optimal for large values of $N$  but the convergence rate remains $\mathcal{O}(N^{-2s})$ \citep{NoUlWo15}.
+% % A quadrature based on optimal weights $\hat{\bm{w}}$ is said to be optimal.
+% % For a given design $\bm{x}$, if the weights $\bm{w}$ are optimized, i.e. $\bm{w} = \hat{\bm{w}}$, the quadrature is said to be optimal.
+% \cite{Boj81} proved that, for $g=1$, the interpolation of $\mu_{g}$ using the uniform grid over $\X = [0,1]$ has an error in $\mathcal{O}(N^{-2s})$ if $\F$ is the periodic Sobolev space of order $s$, and that any set of nodes leads to that rate at least. A similar rate was proved for $g$ not constant \citep{NoUlWo15} even though it is only asymptotically optimal in that case.
+% % , is optimal\rb{What do you mean by optimal at this stage?} for the  , with a convergence rate in $\mathcal{O}(N^{-2s})$. If $g$ is not constant, the uniform grid is only optimal for large values of $N$  but the convergence rate remains $\mathcal{O}(N^{-2s})$ \citep{NoUlWo15}.
 
-In the quasi-Monte Carlo (QMC) literature, several designs were investigated for $\X = [0,1]^{d}$, $g = 1$ and $\F$ that may not even be a Hilbert space; see \citep{DiPi10}. In this context, the term \emph{QMC quadrature rule} means a low discrepancy sequence, loosely speaking a ``well-spread" set of nodes, along with uniform weights $w_{i} = 1/N$. If $\F$ is a Korobov space of order $s \geq 1$, the Halton sequence of nodes \citep{Hal64} leads to $\mathcal{E}(\mu_1; \bm{x}, (1/N))^2$ in $\mathcal{O}(\log(N)^{2d} N^{-2})$ and higher-order digital nets converge faster as $\mathcal{O}(\log(N)^{2sd} N^{-2s})$ \citep{DiPi14}[Theorem 5].
+% In the quasi-Monte Carlo (QMC) literature, several designs were investigated for $\X = [0,1]^{d}$, $g = 1$ and $\F$ that may not even be a Hilbert space; see \citep{DiPi10}. In this context, the term \emph{QMC quadrature rule} means a low discrepancy sequence, loosely speaking a ``well-spread" set of nodes, along with uniform weights $w_{i} = 1/N$. If $\F$ is a Korobov space of order $s \geq 1$, the Halton sequence of nodes \citep{Hal64} leads to $\mathcal{E}(\mu_1; \bm{x}, (1/N))^2$ in $\mathcal{O}(\log(N)^{2d} N^{-2})$ and higher-order digital nets converge faster as $\mathcal{O}(\log(N)^{2sd} N^{-2s})$ \citep{DiPi14}[Theorem 5].
 
-These rates are naturally inherited if the uniform weights are replaced by the respective optimal weights $\hat{\bm{w}}$, as observed by \cite{BOGOS2019}. In particular, \cite{BOGOS2019} emphasize that the bound for higher-order digital nets attains the optimal rate in this RKHS.
-For optimal kernel quadrature based on Halton sequences, this inheritance argument does not explain the fast $\mathcal{O}(\log(N)^{2sd} N^{-2s})$ rates observed empirically by \cite{Oett17}.
+% These rates are naturally inherited if the uniform weights are replaced by the respective optimal weights $\hat{\bm{w}}$, as observed by \cite{BOGOS2019}. In particular, \cite{BOGOS2019} emphasize that the bound for higher-order digital nets attains the optimal rate in this RKHS.
+% For optimal kernel quadrature based on Halton sequences, this inheritance argument does not explain the fast $\mathcal{O}(\log(N)^{2sd} N^{-2s})$ rates observed empirically by \cite{Oett17}.
 
-Beside the hypercube, optimal kernel quadrature has been considered on the hypersphere equipped with the uniform measure \citep{EhGrCh19}, or on $\mathbb{R}^{d}$ equipped with the Gaussian measure \citep{KaSa19}. In these works, the design construction is adhoc for the space $\X$ and
-%except for the case of the uniform grid in $\X = [0,1]$,
-$g$ is usually assumed to be constant. Another approach is offered by optimization algorithms that we review in Section~\ref{CVS_sec:sequential_algos}. Before that, we clarify the subtle difference between optimal kernel quadrature and kernel interpolation.
-% Gaussian refs IrLe14,DiIrLePi18,
-%, and also simplices \citep{Bas15,BaOw15}
+% Beside the hypercube, optimal kernel quadrature has been considered on the hypersphere equipped with the uniform measure \citep{EhGrCh19}, or on $\mathbb{R}^{d}$ equipped with the Gaussian measure \citep{KaSa19}. In these works, the design construction is adhoc for the space $\X$ and
+% %except for the case of the uniform grid in $\X = [0,1]$,
+% $g$ is usually assumed to be constant. Another approach is offered by optimization algorithms that we review in Section~\ref{CVS_sec:sequential_algos}. Before that, we clarify the subtle difference between optimal kernel quadrature and kernel interpolation.
+% % Gaussian refs IrLe14,DiIrLePi18,
+% %, and also simplices \citep{Bas15,BaOw15}
 
 \subsection{Kernel interpolation beyond embeddings}\label{CVS_sec:review_kernel_interpolation_beyond_mu}
 
@@ -9964,12 +10239,12 @@ This condition is more restrictive than what is required for a generic $\mu$ to 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-Scattered data approximation \citep{Wend04} is another field where quantitative error bounds for kernel interpolation on $\X\subset\mathbb{R}^d$ are investigated; see \citep{ScWe06} for a modern review. In a few words, these bounds typically depend on quantities such as the \emph{fill-in distance} $\varphi(\bm{x}) = \sup_{y \in \X} \min_{i \in [N]}\|y-x_{i}\|_{2}$,
-%and the \emph{separation radius} $\rho(\bm{x}) = \frac{1}{2}\min_{i\neq j}\|x_{i}-x_{j}\|_{2}$,
- so that the interpolation error converges to zero  as $N\rightarrow \infty$ if $\varphi(\bm{x})$ goes to zero.
- Any node set can be considered, as long as $\varphi(\bm{x})$ is small.
-Using these techniques, \cite{OaGi16} proposed another application of kernel interpolation: the construction of functional control variates in Monte Carlo integration.
-Finally, note that the application of these techniques is restricted to compact domains: the fill-in distance is infinite if $\X$ is not compact, even for ``well-spread" sets of nodes.
+% Scattered data approximation \citep{Wend04} is another field where quantitative error bounds for kernel interpolation on $\X\subset\mathbb{R}^d$ are investigated; see \citep{ScWe06} for a modern review. In a few words, these bounds typically depend on quantities such as the \emph{fill-in distance} $\varphi(\bm{x}) = \sup_{y \in \X} \min_{i \in [N]}\|y-x_{i}\|_{2}$,
+% %and the \emph{separation radius} $\rho(\bm{x}) = \frac{1}{2}\min_{i\neq j}\|x_{i}-x_{j}\|_{2}$,
+%  so that the interpolation error converges to zero  as $N\rightarrow \infty$ if $\varphi(\bm{x})$ goes to zero.
+%  Any node set can be considered, as long as $\varphi(\bm{x})$ is small.
+% Using these techniques, \cite{OaGi16} proposed another application of kernel interpolation: the construction of functional control variates in Monte Carlo integration.
+% Finally, note that the application of these techniques is restricted to compact domains: the fill-in distance is infinite if $\X$ is not compact, even for ``well-spread" sets of nodes.
 %\pc{Suggestion of a conclusion connected to the rest of the paper :}
 %Our approach will not suffer from such a restriction.
 
@@ -10076,72 +10351,72 @@ Finally, we emphasize that these algorithms require the knowledge of a Mercer-ty
 
 
 %%%%%%%%%
-\subsection{Random designs}
+% \subsection{Random designs}
 
-In this section, we survey random node designs with uniform-in-$g$ approximation guarantees for the embeddings $\mu_{g}$ in the RKHS norm.
-% \pc{Donc on se rapproche du pb de l'interpolation, le dire.}
-% Following \citep{Avr18}, we call these designs \emph{universal} \rb{not sure we should pretend to universality, maybe uniform is good enough.}.
-\cite{Bac17} studied the quadrature resulting from sampling i.i.d. nodes $(x_j)$ from some proposal distribution $q$. He proved that when the proposal is chosen to be
-% , and taking the weights $\hat{\bm{w}}$ that solve the regularized optimization problem
-% %%%%%%%%%%%%%% EQUATION 4 moved above
-% \begin{equation}\label{CVS_eq:reg_kernel_opt_problem}
-% \min\limits_{\bm{w} \in \mathbb{R}^{N}} \Big\| \mu_{g} - \sum\limits_{j \in [N]} \frac{w_{j}}{q(x_{j})^{1/2}} k(x_{j},.) \Big\|_{\mathcal{F}}^{2} + \lambda N \|w\|_{2}^{2},
+% In this section, we survey random node designs with uniform-in-$g$ approximation guarantees for the embeddings $\mu_{g}$ in the RKHS norm.
+% % \pc{Donc on se rapproche du pb de l'interpolation, le dire.}
+% % Following \citep{Avr18}, we call these designs \emph{universal} \rb{not sure we should pretend to universality, maybe uniform is good enough.}.
+% \cite{Bac17} studied the quadrature resulting from sampling i.i.d. nodes $(x_j)$ from some proposal distribution $q$. He proved that when the proposal is chosen to be
+% % , and taking the weights $\hat{\bm{w}}$ that solve the regularized optimization problem
+% % %%%%%%%%%%%%%% EQUATION 4 moved above
+% % \begin{equation}\label{CVS_eq:reg_kernel_opt_problem}
+% % \min\limits_{\bm{w} \in \mathbb{R}^{N}} \Big\| \mu_{g} - \sum\limits_{j \in [N]} \frac{w_{j}}{q(x_{j})^{1/2}} k(x_{j},.) \Big\|_{\mathcal{F}}^{2} + \lambda N \|w\|_{2}^{2},
+% % \end{equation}
+% % for some value of the regularization parameter $\lambda>0$.
+% % Using an analysis similar to \citep{Bac13} and \citep{AlMa15} for the Nyström approximation and an extension of Matrix Bernstein concentration inequality for random operators \citep{Min17}, the author proved that using nodes that are sampled according to the continuous ridge leverage score function
+% \begin{equation}
+% 	q_{\lambda}^*(x) \propto \sum\limits_{m \in \Ns} \frac{\sigma_{m}}{\sigma_{m}+\lambda} e_{m}(x)^{2},
+% \label{CVS_e:proposalBach}
 % \end{equation}
-% for some value of the regularization parameter $\lambda>0$.
-% Using an analysis similar to \citep{Bac13} and \citep{AlMa15} for the Nyström approximation and an extension of Matrix Bernstein concentration inequality for random operators \citep{Min17}, the author proved that using nodes that are sampled according to the continuous ridge leverage score function
-\begin{equation}
-	q_{\lambda}^*(x) \propto \sum\limits_{m \in \Ns} \frac{\sigma_{m}}{\sigma_{m}+\lambda} e_{m}(x)^{2},
-\label{CVS_e:proposalBach}
-\end{equation}
-with $\lambda >0$,
-and the number of points $N$ satisfies $N \geq 5 d_\lambda \log(16 d_\lambda / \delta)$ with $d_\lambda = \Tr \bm{\Sigma}(\bm{\Sigma} + \lambda \bm{I})^{-1}$, then with probability larger than $1-\delta$,
-%Let $\delta \in [0,1]$, and . Assume that , then
-\begin{equation}\label{CVS_eq:Bach_bound}
-\sup\limits_{\|g\|_{\mathrm{d}\omega} \leq 1} \inf\limits_{ \|\bm{w}\|^{2}\leq \frac{4}{N}} \Big\| \mu_{g} - \sum\limits_{j \in [N]} \frac{w_{j}}{q_\lambda(x_{j})^{1/2}} k(x_{j},.)\Big\|_{\mathcal{F}}^{2} \leq 4\lambda .
-\end{equation}
-% \rb{Not clear where the optimal weights $\hat w$ intervene in the bound \eqref{CVS_eq:Bach_bound}. If they don't , then it's useless to introduce them.}
+% with $\lambda >0$,
+% and the number of points $N$ satisfies $N \geq 5 d_\lambda \log(16 d_\lambda / \delta)$ with $d_\lambda = \Tr \bm{\Sigma}(\bm{\Sigma} + \lambda \bm{I})^{-1}$, then with probability larger than $1-\delta$,
+% %Let $\delta \in [0,1]$, and . Assume that , then
+% \begin{equation}\label{CVS_eq:Bach_bound}
+% \sup\limits_{\|g\|_{\mathrm{d}\omega} \leq 1} \inf\limits_{ \|\bm{w}\|^{2}\leq \frac{4}{N}} \Big\| \mu_{g} - \sum\limits_{j \in [N]} \frac{w_{j}}{q_\lambda(x_{j})^{1/2}} k(x_{j},.)\Big\|_{\mathcal{F}}^{2} \leq 4\lambda .
+% \end{equation}
+% % \rb{Not clear where the optimal weights $\hat w$ intervene in the bound \eqref{CVS_eq:Bach_bound}. If they don't , then it's useless to introduce them.}
 
-The bound in \eqref{CVS_eq:Bach_bound} gives a control on the approximation error of $\mu_{g}$ by the subspace spanned by the $k(x_{j},.)$, and this control is uniform over $g$ in the unit ball of $\mathbb{L}_{2}(\mathrm{d}\omega)$.
-Note that for a fixed value of $\lambda$, the upper bound in \eqref{CVS_eq:Bach_bound} guarantees that the approximation error is smaller than $4\lambda$. It does not however guarantee that the error goes to zero as $N$ increases since it appears that $\lambda$ should decrease as $N$ increases.
-This coupling of $N$ and $\lambda$ combined with the condition $N \geq d_{\lambda} \log d_{\lambda}$ makes it intricate to derive a convergence rate from \eqref{CVS_eq:Bach_bound}.
- Moreover, the optimal density $q_{\lambda}^*$ is only implicitly available in general through the limit in \eqref{CVS_e:proposalBach}, which makes sampling and pointwise evaluation difficult in practice.
+% The bound in \eqref{CVS_eq:Bach_bound} gives a control on the approximation error of $\mu_{g}$ by the subspace spanned by the $k(x_{j},.)$, and this control is uniform over $g$ in the unit ball of $\mathbb{L}_{2}(\mathrm{d}\omega)$.
+% Note that for a fixed value of $\lambda$, the upper bound in \eqref{CVS_eq:Bach_bound} guarantees that the approximation error is smaller than $4\lambda$. It does not however guarantee that the error goes to zero as $N$ increases since it appears that $\lambda$ should decrease as $N$ increases.
+% This coupling of $N$ and $\lambda$ combined with the condition $N \geq d_{\lambda} \log d_{\lambda}$ makes it intricate to derive a convergence rate from \eqref{CVS_eq:Bach_bound}.
+%  Moreover, the optimal density $q_{\lambda}^*$ is only implicitly available in general through the limit in \eqref{CVS_e:proposalBach}, which makes sampling and pointwise evaluation difficult in practice.
 
-\cite{BeBaCh19} proposed a related kernel-based quadrature, but using nodes sampled from a repulsive joint distribution called a \emph{projection determinantal point process} (DPP); see \citep{HoKrPeVi06} and our Section~\ref{CVS_sec:VS_DPP}. In particular, the repulsion is characterized by the first eigenfunctions $(e_{n})_{n \in [N]}$ of the integration operator $\bm{\Sigma}$. The weights $\hat{\bm{w}}$ are chosen again by minimizing the residual error \eqref{CVS_e:residual},
-% which has a simple unique solution with probability 1 under the DPP and
-which gives the uniform bound
-\begin{equation}\label{CVS_eq:proj_DPP_bound}
-\EX \sup\limits_{\|g\|_{\mathrm{d}\omega} \leq 1} \mathcal{E}(\mu_{g}; \bm{x})^{2} \leq 2(N^{2} r_{N} + o(N^{2} r_{N})) ,
-\end{equation}
-where $r_{N} = \sum\limits_{m \geq N+1} \sigma_{m}$. This result can be improved by further restricting $g$ to be an eigenfunction of $\bm{\Sigma}$, leading to
-\begin{equation}\label{CVS_eq:proj_DPP_bound_eigen}
-\EX \sup\limits_{g \in \{e_{n};~ n\geq 1\}} \mathcal{E}(\mu_{g}; \bm{x})^{2} \leq 2(N r_{N} + o(N r_{N})).
-\end{equation}
+% \cite{BeBaCh19} proposed a related kernel-based quadrature, but using nodes sampled from a repulsive joint distribution called a \emph{projection determinantal point process} (DPP); see \citep{HoKrPeVi06} and our Section~\ref{CVS_sec:VS_DPP}. In particular, the repulsion is characterized by the first eigenfunctions $(e_{n})_{n \in [N]}$ of the integration operator $\bm{\Sigma}$. The weights $\hat{\bm{w}}$ are chosen again by minimizing the residual error \eqref{CVS_e:residual},
+% % which has a simple unique solution with probability 1 under the DPP and
+% which gives the uniform bound
+% \begin{equation}\label{CVS_eq:proj_DPP_bound}
+% \EX \sup\limits_{\|g\|_{\mathrm{d}\omega} \leq 1} \mathcal{E}(\mu_{g}; \bm{x})^{2} \leq 2(N^{2} r_{N} + o(N^{2} r_{N})) ,
+% \end{equation}
+% where $r_{N} = \sum\limits_{m \geq N+1} \sigma_{m}$. This result can be improved by further restricting $g$ to be an eigenfunction of $\bm{\Sigma}$, leading to
+% \begin{equation}\label{CVS_eq:proj_DPP_bound_eigen}
+% \EX \sup\limits_{g \in \{e_{n};~ n\geq 1\}} \mathcal{E}(\mu_{g}; \bm{x})^{2} \leq 2(N r_{N} + o(N r_{N})).
+% \end{equation}
 
-Now for smooth kernels, such as the Gaussian kernel or the Sobolev kernel with a large regularity parameter, the upper bounds in \eqref{CVS_eq:proj_DPP_bound} and \eqref{CVS_eq:proj_DPP_bound_eigen} do converge to $0$ as $N$ goes to $+\infty$. Furthermore, sampling from the recommended projection DPP can be implemented easily, although it still requires the knowledge of the Mercer decomposition of $k$, unlike the method that we introduce here in Section~\ref{CVS_sec:VS_DPP}.
-%\pc{We should conclude by reconnecting to interpolation here.}
+% Now for smooth kernels, such as the Gaussian kernel or the Sobolev kernel with a large regularity parameter, the upper bounds in \eqref{CVS_eq:proj_DPP_bound} and \eqref{CVS_eq:proj_DPP_bound_eigen} do converge to $0$ as $N$ goes to $+\infty$. Furthermore, sampling from the recommended projection DPP can be implemented easily, although it still requires the knowledge of the Mercer decomposition of $k$, unlike the method that we introduce here in Section~\ref{CVS_sec:VS_DPP}.
+% %\pc{We should conclude by reconnecting to interpolation here.}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Indeed, sampling only involves the first $N$ eigenfunctions \cite{HoKrPeVi06} although at a cost of $\mathcal O(N^3)$ operations, neglecting the cost of inner rejection sampling routines.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Moreover, these nodes do not depend on the eigenvalues of $\bm{\Sigma}$ and can be used for all the kernels $k$ that share the same eigenfunctions.
-% \rb{I commented out the previous sentence on uniformity among kernels with the same eigenfunctions, I'm not sure it's a strong and useful fact here}.
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % Indeed, sampling only involves the first $N$ eigenfunctions \cite{HoKrPeVi06} although at a cost of $\mathcal O(N^3)$ operations, neglecting the cost of inner rejection sampling routines.
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %Moreover, these nodes do not depend on the eigenvalues of $\bm{\Sigma}$ and can be used for all the kernels $k$ that share the same eigenfunctions.
+% % \rb{I commented out the previous sentence on uniformity among kernels with the same eigenfunctions, I'm not sure it's a strong and useful fact here}.
 
 
-Since the bounds in \eqref{CVS_eq:proj_DPP_bound} and \eqref{CVS_eq:proj_DPP_bound_eigen} are uniform-in-$g$, they also concern interpolation. One downside of the analysis in \citep{BeBaCh19} is that these upper bounds are rather pessimistic: experimental results suggest faster rates in $\mathcal{O}(\sigma_{N})$. If one could prove these rates, then kernel quadrature or interpolation using DPPs would reach known lower bounds, which we now quickly survey.
-% \pc{Peut-etre ajouter un truc du genre : This motivates the present work that proves convergence rates in $\mathcal{O}(\sigma_{N})$ for both the quadrature and interpolation problems.}
+% Since the bounds in \eqref{CVS_eq:proj_DPP_bound} and \eqref{CVS_eq:proj_DPP_bound_eigen} are uniform-in-$g$, they also concern interpolation. One downside of the analysis in \citep{BeBaCh19} is that these upper bounds are rather pessimistic: experimental results suggest faster rates in $\mathcal{O}(\sigma_{N})$. If one could prove these rates, then kernel quadrature or interpolation using DPPs would reach known lower bounds, which we now quickly survey.
+% % \pc{Peut-etre ajouter un truc du genre : This motivates the present work that proves convergence rates in $\mathcal{O}(\sigma_{N})$ for both the quadrature and interpolation problems.}
 
 
-% Since the analysis of \cite{BeBaCh19} was inspired by previous work \citep{BeBaCh18} comparing discrete projection DPPs with another discrete repulsive distribution called \emph{volume sampling} \citep{DRVW06} for a column subset selection task. We follow the same steps of \citep{BeBaCh18}, yet in the continuous domain, and we give the definitions of the continuous volume sampling with projection DPP in Section~\ref{CVS_sec:VS_DPP}.
-% Note that the necessary number of samples $N$ diverges when $\lambda \rightarrow 0$ since $d_{\lambda} \rightarrow \infty$.
-% Conversely, for a given number of nodes $N$, the approximation error can be bounded for typical RKHSs \citep{Bac17}.
-%%%% Free some space by removing this paragraph
-% For example, when $\mathrm{d}\omega$ is the uniform measure on $[0,1]^{d}$ and $\mathcal{F}$ is the Sobolev space of order $s$, the approximation error is of order $\mathcal{O}(N^{-s/d})$.
-% On the other hand, when $\mathrm{d}\omega$ is the Gaussian measure on $\mathbb{R}^{d}$ and $\mathcal{F}$ is the RKHS associated to the Gaussian kernel, the approximation error is geometric in $N$.
-%%%%
+% % Since the analysis of \cite{BeBaCh19} was inspired by previous work \citep{BeBaCh18} comparing discrete projection DPPs with another discrete repulsive distribution called \emph{volume sampling} \citep{DRVW06} for a column subset selection task. We follow the same steps of \citep{BeBaCh18}, yet in the continuous domain, and we give the definitions of the continuous volume sampling with projection DPP in Section~\ref{CVS_sec:VS_DPP}.
+% % Note that the necessary number of samples $N$ diverges when $\lambda \rightarrow 0$ since $d_{\lambda} \rightarrow \infty$.
+% % Conversely, for a given number of nodes $N$, the approximation error can be bounded for typical RKHSs \citep{Bac17}.
+% %%%% Free some space by removing this paragraph
+% % For example, when $\mathrm{d}\omega$ is the uniform measure on $[0,1]^{d}$ and $\mathcal{F}$ is the Sobolev space of order $s$, the approximation error is of order $\mathcal{O}(N^{-s/d})$.
+% % On the other hand, when $\mathrm{d}\omega$ is the Gaussian measure on $\mathbb{R}^{d}$ and $\mathcal{F}$ is the RKHS associated to the Gaussian kernel, the approximation error is geometric in $N$.
+% %%%%
 
 \subsection{Lower bounds}\label{CVS_sec:lower_bounds}
 When investigating upper bounds for kernel interpolation errors, it is useful to remember existing lower bounds, so as to evaluate the tightness of one's results. In particular, $N$-widths theory \citep{Pin12} implies lower bounds for kernel interpolation errors, which once again show the importance of the spectrum of $\bm{\Sigma}$.
@@ -10320,7 +10595,7 @@ In particular, if the spectrum of $k$ decreases polynomially, then $\delta_{N} =
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-A projection DPP can be sampled exactly as long as one can evaluate the corresponding projection kernel $\KDPP$ \citep{HoKrPeVi06}. For kernel quadrature \citep{BeBaCh19}, evaluating $\KDPP$ requires the knowledge of the Mercer decomposition of the RKHS kernel $k$. The algorithm of \cite{HoKrPeVi06} implements the chain rule for projection DPPs, and each conditional is sampled using rejection sampling; see \cite{GaBaVa19} for recommendations on proposals. This suggests using the mixture in Proposition~\ref{CVS_prop:VS_decomposition} to sample from the volume sampling distribution.
+A projection DPP can be sampled exactly as long as one can evaluate the corresponding projection kernel $\KDPP$ \citep{HoKrPeVi06}. For kernel quadrature \citep{BeBaCh19}, evaluating $\KDPP$ requires the knowledge of the Mercer decomposition of the RKHS kernel $k$. The algorithm of \cite{HoKrPeVi06} implements the chain rule for projection DPPs, and each conditional is sampled using rejection sampling. This suggests using the mixture in Proposition~\ref{CVS_prop:VS_decomposition} to sample from the volume sampling distribution.
 Again, such an algorithm requires explicit knowledge of the Mercer decomposition of the kernel or at least a decomposition onto an orthonormal basis of $\F$ as in \citep{KaSaTa19}. This is a strong requirement that is undesirable in practice.
 
 The fact that the joint pdf \eqref{CVS_e:CVS_density} only requires evaluating $k$ pointwise suggests that volume sampling is \emph{fully kernelized}, in the sense that a sampling algorithm should be able to bypass the need for a kernel decomposition, thus making the method very widely applicable.
