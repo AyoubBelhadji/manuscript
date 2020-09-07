@@ -81,21 +81,21 @@
 \contentsline {figure}{\numberline {4.33}{\ignorespaces (Left): comparison of $\sigma _{N+1}$ in the Korobov case according to the spectral order and $(\qopname \relax o{log}N)^{2s(d-1)}N^{-2s}$ for $d \in \{2,3,4\}$ and $s=1$, (Right): comparison of $\sigma _{N+1}$ in the Gaussian case according to the spectral order and $\beta ^{d}e^{-\delta d!^{1/d}N^{1/d}}$ for $d \in \{2,3,4\}$ and $\gamma = 1$.\relax }}{108}{figure.caption.78}
 \contentsline {figure}{\numberline {4.34}{\ignorespaces $\mu _{g}$ in the periodic Sobolev space for three different $g$. \relax }}{111}{figure.caption.80}
 \contentsline {figure}{\numberline {4.41}{\ignorespaces Illustration of the largest principal angle between the subspaces $\mathcal {T}(\bm {x})$ and $\mathcal {E}_{N}^{\mathcal {F}}$ in the case of the periodic Sobolev space of order 1. \relax }}{119}{figure.caption.85}
-\contentsline {figure}{\numberline {4.51}{\ignorespaces Squared approximation error vs. number of nodes $N$ in the case of the periodic Sobolev space for $s = 1$ (left) and $s=3$ (right). \relax }}{122}{figure.caption.87}
-\contentsline {figure}{\numberline {4.52}{\ignorespaces Squared interpolation error for the embedding of the eigenfunctions vs. number of nodes $N$ in the periodic Sobolev space for $s = 1$ (left) and $s=3$ (right). \relax }}{122}{figure.caption.89}
-\contentsline {figure}{\numberline {4.53}{\ignorespaces Squared worst interpolation error on $\mathcal {G}_{6}$ error vs. number of nodes $N$ for $s = 1$ (left) and $s=3$ (right). \relax }}{123}{figure.caption.91}
+\contentsline {figure}{\numberline {4.51}{\ignorespaces Squared approximation error vs. number of nodes $N$ in the case of the periodic Sobolev space for $s = 1$ (left) and $s=3$ (right). \relax }}{121}{figure.caption.87}
+\contentsline {figure}{\numberline {4.52}{\ignorespaces Squared interpolation error for the embeddings of the eigenfunctions vs. number of nodes $N$ in the periodic Sobolev space for $s = 1$ (left) and $s=3$ (right). \relax }}{122}{figure.caption.89}
+\contentsline {figure}{\numberline {4.53}{\ignorespaces Squared worst interpolation error on $\mathcal {U}$ error vs. number of nodes $N$ for $s = 1$ (left) and $s=3$ (right). \relax }}{123}{figure.caption.91}
 \contentsline {figure}{\numberline {4.54}{\ignorespaces Squared approximation error vs. number of nodes $N$ in the case of the Korobov space for $s = 1$ (left) and $s=3$ (right); and for $d =2$ (top) and $d=3$ (bottom). \relax }}{124}{figure.caption.93}
-\contentsline {figure}{\numberline {4.55}{\ignorespaces Squared interpolation error for the embedding of the eigenfunctions vs. number of nodes $N$ in the Korobov space for $s = 1$ (left) and $s=3$ (right) under DPPKQ (top), LVSQ (middle) and UGKQ (bottom). \relax }}{126}{figure.caption.95}
-\contentsline {figure}{\numberline {4.56}{\ignorespaces The squared error $\delimiter "026B30D \mu _{g}-\DOTSB \sum@ \slimits@ \limits _{n \in [N]} w_{n}k(x_{n},.)\delimiter "026B30D _{\mathcal {F}}^{2}$ vs. the number of nodes $N$ for $\gamma = 0.5, a = 0.25$.\relax }}{127}{figure.caption.96}
+\contentsline {figure}{\numberline {4.55}{\ignorespaces Squared interpolation error for the embeddings of the eigenfunctions vs. number of nodes $N$ in the Korobov space for $s = 1$ (left) and $s=3$ (right) under DPPKQ (top), LVSQ (middle) and UGKQ (bottom). \relax }}{125}{figure.caption.95}
+\contentsline {figure}{\numberline {4.56}{\ignorespaces The squared error $\delimiter "026B30D \mu _{g}-\DOTSB \sum@ \slimits@ \limits _{n \in [N]} w_{n}k(x_{n},.)\delimiter "026B30D _{\mathcal {F}}^{2}$ vs. the number of nodes $N$ in the Gaussian space $\mathcal {G}_{\gamma }$ with $\gamma = 1/2$.\relax }}{127}{figure.caption.96}
 \contentsline {subfigure}{\numberline {(a)}{\ignorespaces {The case of $g = e_{1}$.}}}{127}{subfigure.6.1}
 \contentsline {subfigure}{\numberline {(b)}{\ignorespaces {The case of $g = e_{5}$.}}}{127}{subfigure.6.2}
 \contentsline {subfigure}{\numberline {(c)}{\ignorespaces {The case of $g = e_{10}$.}}}{127}{subfigure.6.3}
 \contentsline {subfigure}{\numberline {(d)}{\ignorespaces {The case of $g = e_{15}$.}}}{127}{subfigure.6.4}
-\contentsline {figure}{\numberline {4.57}{\ignorespaces The squared error for the Gaussian space ($d \in \{2,3\}$, $\gamma =1$). \relax }}{127}{figure.caption.97}
+\contentsline {figure}{\numberline {4.57}{\ignorespaces The squared interpolation error in the Gaussian space $\mathcal {G}_{d,\gamma }$ with $d \in \{2,3\}$ and $\gamma =1$. \relax }}{127}{figure.caption.97}
 \ttl@tocsep 
 \ttl@tocsep 
 \ttl@tocsep 
-\contentsline {figure}{\numberline {7.21}{\ignorespaces The spectral rate $\sigma _{N+1}$ compared to the Bakhvalov rate $\sigma _{N+1}/(N+1)$ in the case of the Korobov space of order $s=1$ and $d =2$. \relax }}{182}{figure.caption.120}
+\contentsline {figure}{\numberline {7.21}{\ignorespaces The spectral rate $\sigma _{N+1}$ compared to the Bakhvalov rate $\sigma _{N+1}/(N+1)$ in the case of the Korobov space of order $s=1$ and $d =2$. \relax }}{184}{figure.caption.120}
 \ttl@tocsep 
 \ttl@tocsep 
 \ttl@tocsep 
