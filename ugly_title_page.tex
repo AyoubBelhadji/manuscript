@@ -1,0 +1,116 @@
+
+%\newcommand*{\titleGM}{
+%\makeatletter
+%\def\@maketitle{%
+\newcommand{\maketitleGM}{
+%\pagestyle{empty}
+    \begingroup % Create the command for including the title page in the document
+    \thispagestyle{empty}
+    \newgeometry{textwidth=15cm, top=0cm, bottom=1.5cm}
+
+    \hbox{ % Horizontal box
+        \hspace*{0.025\textwidth} % Whitespace to the left of the title page
+        %\rule{2pt}{\textheight} % Vertical line
+        %\hspace*{0.05\textwidth} % Whitespace between the vertical line and title page text
+        \parbox[c]{\textwidth}{ % Paragraph box which restricts text to less than the width of the page
+        \vspace*{-2em}
+        {Numéro d'ordre: ??}
+        {\LARGE \begin{center} Centrale Lille \end{center} }
+
+        \vspace{2em}
+
+        {\huge \begin{center} Thèse de Doctorat \end{center} }
+        % {\Large \begin{center} En \end{center} }
+        {\Large \begin{center}
+        % Spécialité :
+        \textbf{En Automatique, Génie informatique, Traitement du signal et image} \end{center} }
+
+        \vspace{2em}
+
+        \begin{center}
+        	\Large Par \huge \textsc{Ayoub Belhadji} % Author name
+        \end{center}
+
+        \vspace{2em}
+
+        {\Large
+        \begin{center}
+            Doctorat délivré par Centrale Lille
+        \end{center} }
+
+        \vspace{2em}
+
+        {\begin{center}
+        	{\noindent\LARGE \textbf{Subspace sampling using determinantal point processes.}}\\[1\baselineskip]
+        	{\noindent\large \emph{Echantillonnage des sous-espaces à l'aide des processus ponctuels déterminantaux}}\\[1\baselineskip]
+        \end{center}}
+
+        \vspace{2em}
+
+        {\begin{minipage}[b]{0.55\linewidth}
+          \hspace{-2.5em}
+          % \large Soutenue le 03 novembre 2020 devant le jury d'examen:
+        \end{minipage}
+        \hfill
+        \begin{minipage}[b]{0.49\linewidth}
+
+        \end{minipage}}
+
+        \vspace{0.5em}
+
+        {\hspace{-3em}
+        \begin{tabular}{lll}
+        % \textit{Président}
+        %     &
+        %     Pierre-Olivier {\scshape Amblard}
+        %     &
+        %     Directeur de Recherche CNRS, Université de Grenoble-Alpes
+        %     \\
+        \textit{Rapporteurs}
+            &   Agnès {\scshape Desolneux }
+            &   Directrice de Recherche CNRS, ENS Paris-Saclay
+            \\
+            &   Romain {\scshape Couillet}
+            &   Professeur des universités, CentraleSupélec Paris\\
+        \textit{Examinateurs}
+            &   Frédéric {\scshape Lavancier}
+            &   Maître de conférences, Université de Nantes
+            \\
+            &   Sheehan {\scshape Olver}
+            &   Reader, Imperial College, London
+            \\
+            &   Michalis {\scshape Titsias}
+            &   Research Scientist, DeepMind, London
+            \\
+        \textit{Directeurs de thèse}
+            &   Pierre {\scshape Chainais}
+            &   Professeur des universités, Centrale Lille
+            \\
+            &   Rémi {\scshape Bardenet}
+            &   Chargé de Recherche CNRS, Université de Lille
+        \end{tabular}
+        }
+        % \end{center}
+
+        \vspace{2em}
+
+        \begin{center}
+            {\large Thèse préparée dans le Laboratoire} \\
+            {\large \textit{Centre de Recherche en Informatique Signal et Automatique de Lille}\\ Université de Lille, Centrale Lille, CNRS, UMR 9189 - CRIStAL \\
+            École Doctorale SPI 072}
+        \end{center}
+
+        \vspace{2em}
+
+        % \begin{center}
+        %     \includegraphics[height=1.3cm]{images/logo_centrale.png}\hspace{1em}
+        %     \includegraphics[height=1.3cm]{images/logo_univ_lille.pdf}\hspace{1em}
+        %     \includegraphics[height=1.3cm]{images/logo_CRIStAL.jpg}\hspace{1em}
+        %     \includegraphics[height=1.3cm]{images/logo_CNRS.jpg}\hspace{1em}
+        %     \includegraphics[height=1.3cm]{images/logo_INRIA.jpg}
+        % \end{center}
+        }
+    }
+    \endgroup
+}
+\makeatother
