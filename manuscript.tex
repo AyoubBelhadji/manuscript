@@ -3104,7 +3104,7 @@ Then
 \end{equation}
 and
 \begin{equation}
-\EX_{\VS} \| \bm{X} - \Pi_{S}^{2}\bm{X} \|_{2}^{2} \leq (d-k)(k+1)\| \bm{X} - \Pi_{k}\bm{X} \|_{\Fr}^{2} .
+\EX_{\VS} \| \bm{X} - \Pi_{S}^{2}\bm{X} \|_{2}^{2} \leq (d-k)(k+1)\| \bm{X} - \Pi_{k}\bm{X} \|_{2}^{2} .
 \label{e:vsBound2}
 \end{equation}
 \end{theorem}
@@ -8149,7 +8149,7 @@ As we have seen in Chapter~\ref{chapter:cssp}, projection DPPs shine in taking e
 
 \begin{proposition}\label{cor:cos_ratio_det}
 Let $\bm{x} =  \{ x_{1}, \dots , x_{N}\} \subset \mathcal{X}$ such that $\Det^{2} \bm{E}(\bm{x}) \neq 0$. Then,
-\begin{equation}
+\begin{equation}\label{eq:cos_ratio_det_eq_1}
 \prod\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell} \left(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \right)} = \frac{\Det \bm{K}(\bm{x})}{\Det^{2} \bm{E}^{\mathcal{F}}(\bm{x})},
 \end{equation}
 and
@@ -8689,27 +8689,34 @@ First, in Section~\ref{s:proofOfSeparationLemma}, we prove Lemma~\ref{lemma:appr
 
 % which separates the search for an upper bound into examining the contribution of the three terms in~\eqref{e:boundingOrthogonalProjection}; this is Section~\ref{s:proofOfSeparationLemma}. The first two terms of \eqref{e:boundingOrthogonalProjection} only depend on the function $g$ in~\eqref{e:quadrature}, and we leave them be. 
 
-Second, in Section~\ref{s:proofOfPerturbationInequality}, we bound the geometric term $\max_{n \in [N]} \sigma_{n} \|\bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}} e_{n}^{\mathcal{F}}\|_{\mathcal{F}}^{2}$ for a fixed configuration $\bm{x}$ by $\max_{n \in [N]} \sigma_{1} \|\bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})^{\perp}} e_{n}^{\tilde{\mathcal{F}}}\|_{\tilde{\mathcal{F}}}^{2}$. This is done in Proposition~\ref{prop:kernel_perturbation_inequality}, which in turn requires two intermediate results, Lemma~\ref{lemma:interpolation_error_matricial_form} and Proposition~\ref{prop:graded_RKHS}.
+
+Second, we prove Proposition~\ref{prop:expected_value_of_product_of_cos}
+% we take the expectation of the bound in Proposition~\ref{prop:kernel_perturbation_inequality} under the proposed DPP. 
+%to Lemma~\ref{lemma:approximation_error_spectral_bound}, Lemma \ref{lemma:max_error_cos},
+ which is proven thanks  \eqref{eq:cos_ratio_det_eq_1} in Proposition~\ref{cor:cos_ratio_det}  and Proposition~\ref{lemma:truncated_Fredholm_formula}. This is Section~\ref{s:proofOfExpectedProduct}.
+
+
+
+Third, in Section~\ref{s:proofOfPerturbationInequality}, we bound the geometric term $\max_{n \in [N]} \sigma_{n} \|\bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}} e_{n}^{\mathcal{F}}\|_{\mathcal{F}}^{2}$ for a fixed configuration $\bm{x}$ by $\max_{n \in [N]} \sigma_{1} \|\bm{\Pi}_{\tilde{\mathcal{T}}(\bm{x})^{\perp}} e_{n}^{\tilde{\mathcal{F}}}\|_{\tilde{\mathcal{F}}}^{2}$. This is done in Proposition~\ref{prop:kernel_perturbation_inequality}, which in turn requires two intermediate results, Lemma~\ref{lemma:interpolation_error_matricial_form} and Proposition~\ref{prop:graded_RKHS}.
 
 %We pay attention to obtain a bound that will later yield a tractable expectation under the distribution of the projection DPP.
 
-Third, we take the expectation of the bound in Proposition~\ref{prop:kernel_perturbation_inequality} under the proposed DPP. This is done in Proposition~\ref{prop:expected_value_of_product_of_cos}, which is proven thanks to Proposition~\ref{prop:K_N_non_singular}, Lemma \ref{lemma:max_error_cos} and Corollary \ref{lemma:cor_ratio_det} \& \ref{lemma:truncated_Fredholm_formula}. This is Section~\ref{s:proofOfExpectedProduct}.
 
-
-
-Fourth, Theorem~\ref{thm:main_theorem} is obtained in Section~\ref{s:finalBound}, using the results of the previous steps, and an argument to reduce the proof to RKHSs with flat initial spectrum.
+Fourth, Theorem~\ref{thm:main_theorem} is obtained in Section~\ref{s:finalBound}, using the results of the previous steps.
 
 Finally, we prove the refined result of Theorem~\ref{thm:main_theorem_improved} using Proposition~\ref{prop:ex_dpp_sum_inv_cos} in Section~\ref{sec:dppkq_last_proof}.  
 
 
-\subsection{A borrowed result: leverage score changes under rank 1 updates} \label{subsec:lv_score_updates}
+\subsection{A borrowed result: leverage scores changes under rank 1 updates} \label{subsec:lv_score_updates}
 
 
 %\subsubsection{}
 In this section we prove a lemma inspired from Lemma 5 in \cite{Coh15}. This lemma concerns the changes of leverage scores under rank 1 updates.
 
-We start by recalling the definition of leverage scores, which play an important role in randomized linear algebra \citep{DrMaMu06}. Let $N,M \in \mathbb{N}^{*}$, $M \geq N$. Let $\bm{A} \in \mathbb{R}^{N \times M}$ be a matrix of full rank.
-For $i \in [M]$, denote $\bm{a}_{i}$ the $i$-th column of the matrix $\bm{A}$. Now, the $i$-th leverage score of the matrix $\bm{A}$ is defined by
+% Remember the definition of leverage scores, which play an important role in randomized linear algebra \citep{DrMaMu06}.
+
+Let $N,M \in \mathbb{N}^{*}$, $M \geq N$. Let $\bm{A} \in \mathbb{R}^{N \times M}$ be a matrix of full rank.
+For $i \in [M]$, denote $\bm{a}_{i}$ the $i$-th column of the matrix $\bm{A}$. The $i$-th leverage score of the matrix $\bm{A}$ is defined by
 \begin{equation}\label{eq:def_matrix_leverage_score}
 \tau_{i}(\bm{A}) = \bm{a}_{i}^{\Tran} (\bm{A}\bm{A}^{\Tran})^{-1}\bm{a}_{i},
 \end{equation}
@@ -8758,13 +8765,13 @@ Now let $j \in [M]-\{i\}$. By definition of $\tau_{j}(\bm{A}\bm{W})$
 
 
 \subsection{Principal angles in Hilbert spaces}\label{sec:proof_principal_angles}
+The notion of principal angles between subspaces of a Hilbert spaces can be extended in many ways. See for example~\citep{Deu95}. We give in the following theorem  one extension of this notion. This extension is restricted to subspaces of finite dimension, which is more than enough for our proofs.
 
 \begin{theorem}\label{prop:cos_between_subspaces}
 Let $\mathcal{H}$ be a Hilbert space. Let $\mathcal{P}_{1}$ and $\mathcal{P}_{2}$ be two finite-dimensional subspaces of $\mathcal{H}$ with $N = \dim \mathcal{P}_{1} = \dim \mathcal{P}_{2}$. Denote $\bm{\Pi}_{\mathcal{P}_{1}}$ and $\bm{\Pi}_{\mathcal{P}_{2}}$ the orthogonal projections of $\mathcal{H}$ onto these two subspaces. There exist two orthonormal bases for $\mathcal{P}_{1}$ and $\mathcal{P}_{2}$ denoted $(\bm{v}_{i}^{1})_{i \in [N]}$ and $(\bm{v}_{i}^{2})_{i \in [N]}$, and a set of angles $\theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2}) \in [0,\frac{\pi}{2}]$ such that
 \begin{equation}
 \cos \theta_{N}(\mathcal{P}_{1},\mathcal{P}_{2}) \leq \dots \leq \cos \theta_{1}(\mathcal{P}_{1},\mathcal{P}_{2}) ,
 \end{equation}
-
 %%%%%%%%%%%
 and for $i \in [1,...,N]$
 \begin{equation}
@@ -8780,7 +8787,7 @@ and
 \end{equation}
 In particular
 \begin{equation}\label{eq:costhetaN}
-\cos \theta_{N}(\mathcal{P}_{1},\mathcal{P}_{2}) = \inf\limits_{\bm{v} \in \mathcal{P}_{1},\|\bm{v}\|_{\mathcal{H}} = 1} \|\bm{\Pi}_{\mathcal{P}_{2}}\bm{v}\|_{\mathcal{H}}.
+\cos \theta_{N}(\mathcal{P}_{1},\mathcal{P}_{2}) = \inf\limits_{\bm{v} \in \mathcal{P}_{1},\|\bm{v}\|_{\mathcal{H}} = 1} \|\bm{\Pi}_{\mathcal{P}_{2}}\bm{v}\|_{\mathcal{H}} = \inf\limits_{\bm{v} \in \mathcal{P}_{2},\|\bm{v}\|_{\mathcal{H}} = 1} \|\bm{\Pi}_{\mathcal{P}_{1}}\bm{v}\|_{\mathcal{H}}.
 \end{equation}
 \end{theorem}
 
@@ -9572,11 +9579,11 @@ We first prove the following lemma.
 
 
 %%%%%% Lemma 5
-\begin{lemma}\label{lemma:truncated_Fredholm_formula}
+\begin{proposition}\label{lemma:truncated_Fredholm_formula}
 \begin{equation}
   \frac{1}{N!} \int_{\mathcal{X}^{N}}\Det \bm{K}(x_{1}, \dots, x_{N}) \otimes_{j \in [N]} \mathrm{d}\omega(x_{j})  = \sum\limits_{\substack{T \subset \mathbb{N}^{*} \\ |T| = N}}  \prod\limits_{t \in T}\sigma_{t}.
 \end{equation}
-\end{lemma}
+\end{proposition}
 %% Proof
 \begin{proof}
 Let $\bm{x} = (x_{1}, \dots, x_{N}) \in \mathcal{X}^{N}$. From \eqref{eq:truncated_kernel_limit}
@@ -12477,15 +12484,67 @@ the constant $B$ of Proposition~\ref{CVS_prop:constant_bound} is small for low v
 
 % We started this manuscript by a review on the recent work on subsampling problems for problems with some linear structure. 
 
-This thesis has developed studied some subsampling problems with linear structure through the lens of determinantal point process. 
+% This thesis has developed studied some subsampling problems with linear structure through the lens of determinantal point process. 
+We started this manuscript by reviewing the exiting work in subsampling for problems with a linear structure. In particular, we were questioning whether DPPs would be beneficial for this class of problems. 
 
-We started this manuscript by questioning the optimality of volume sampling for column subset selection problem and the potential improvement of the existing results. This question was the motive to adopt a new interpretation of determinantal point processes: they define naturally random subspaces that tend to be close to some reference subspace. 
+We started by the problem of column subset selection: for a given matrix $\bm{X} \in \mathbb{R}^{N \times d}$, select the set $S \subset [d]$ that defines the most representative columns of $\bm{X}$. 
+The idea was to investigate the well-known algorithm called volume sampling through the lens of DPPs, and to challenge its optimality for this approximation task. Indeed,  we observed that volume sampling can be seen as a mixture of projection DPPs that depend on the spectral decomposition of the matrix $\bm{X}^{\Tran}\bm{X}$. From this observation, we can expect that there may exist a better choice of DPP rather than this seemingly arbitrary mixture. This motivated the work done in the Chapter~\ref{chapter:cssp}, where we proposed to study the column subset selection task using the projection DPP with the largest weight in the mixture of volume sampling. This choice was motivated by a new geometric interpretation of projection DPPs: they define naturally a random space that "float" around a reference subspace. We formalized this idea  using the notion of principal angles between subspaces. This new parametrization allowed to derive theoretical guarantees for the  projection DPP and lead to improved theoretical guarantees compared to  volume sampling under some structural conditions on the matrix $\bm{X}$.
+
+The intuitions and techniques acquired in Chapter~\ref{chapter:cssp} were used to tackle another approximation problem that can be informally called the \emph{ continuous column subset selection problem}. This time the starting point was the work of \cite{Bac17} on quadrature problems for functions living in RKHSs: for a given kernel $k$ defined on some metric space $\X$ select the most representative set of nodes $\bm{x} = \{x_{1}, \dots, x_{N} \}$ that can be used for approximating integrals that involves the functions $f$ that lives in the RKHS associated to $k$. The solution proposed by \cite{Bac17} relies on independent random sampling from the continuous ridge leverage score distribution. This distribution is intractable in general, and we proposed in Chapter~\ref{chap:dppkq} to use the projection DPP associated to the first eigenfunctions of the integration operator. Using again this new interpretation of projection DPPs (a projection DPP defines a random subspace), we succeeded to derive the theoretical bound for optimal kernel quadrature when the nodes follow the distribution of this projection DPP.
+In particular, the rates of convergence of this class of quadratures depends on the eigenvalues of the integration operator: the smoother is the kernel, the faster is the convergence of the quadrature. However, empirical investigations showed that these theoretical rates were pessimistic. 
+
+This observation motivated the work of Chapter~\ref{chap:CVS} where we investigated an extension of  volume sampling to continuous domains. Once again, we used the accumulated intuitions from Chapter~\ref{chapter:cssp} and Chapter~\ref{chap:dppkq} to study kernel quadrature and kernel interpolation under the distribution of continuous volume sampling. In particular, we proved tractable formulas of the expected value of the interpolation error when the nodes follows this repulsive distribution. These tractable formulas were useful to derive sharp upper bounds for kernel quadrature that scale as the existing lower bounds. Moreover, the continuous volume sampling distribution has the advantage to be approximated using a fully kernelized MCMC algorithm i.e. an MCMC that can be implemented using the knowledge of the evaluation of the kernel $k$ but without the need of the spectral decomposition of the integration operator. This property places continuous volume sampling as a natural alternative to the intractable continuous ridge leverage score distribution.
+
+We conclude with a thought on the scientific impact (or the scientific leverage) of this thesis.
+One way to measure the impact of an algorithm is to estimate how hard it is to be replaced.
+
+% We tried to give an overview of the existing literature for every approximation task treated in this manuscript to shed the light on the existing "concurrent" algorithms. 
+
+% The purpose behind the lengthy bibliographic work conducted in this thesis was to emphasize on the richness of the literature for the three approximation tasks that we have studied. 
+
+From the lengthy bibliographic work, that was conducted across the chapters of this thesis, we can conclude that the scientific impact of DPPs and their variants depend on the problem to study. Indeed, we have three settings with three different levels of impact. 
+
+It seems that the impact of DPPs may be limited for sub-sampling in discrete sets. Indeed, the literature is already abundant with solutions that may be way more simple to implement. This does not undermine the work done in Chapter~\ref{chapter:cssp} that was crucial to develop the necessary techniques and intuitions to study DPPs in  settings where they may have higher impact.
+
+This corresponds to sub-sampling problems on continuous domains. Here again we have two different levels of impact that corresponds to two different situations. In the first situation, the RKHS is "classical" and there exist some configuration with good approximation guarantees for kernel quadrature or kernel interpolation. This is the case of 
+the periodic Sobolev space where the uniform grid is known to be a "simple and efficient" solution. In this case, we know from the theoretical and the empirical results that DPP based nodes would be as competitive as this deterministic sequence but with a supplementary cost that corresponds to the sampling cost.
+
+
+In the second situation, the RKHS is not "usual" and no known algorithm exist that can compete with the optimality of DPPs. In this case DPPs cannot be replaced and have high impact. We review in the following section some  examples of kernels where DPPs and their variants may have a high impact.
+% highlighted that the impact of DPPs for this 
+
+
+% a hard to be replaced algorithm.
+
+
+% the use of continuous volume sampling distribution for the task of kernel quadrature and for the slightly more general task of kernel interpolation.
+
+
+% % the slightly more general problem of kernel interpolation.
+
+% % the task is to s
+
+% % Formally, 
+
+% % such that the set of representative set of nodes in $\X$ for the numerical integration task
+
+%  % Not only This new parametrization reinforces the geometric intuition of projection DPPs  that seem to be useful in the development of 
+
+% In particular, we challenged the optimality of volume sampling for this task by looking for another alternative whithin all the possible options offered
+
+
+% and the potential improvement of the existing results.
+
+
+% Indeed, it is immediate to see that volume sampling is a mixture of projection DPPs and 
+
+% We started this manuscript by questioning  This question was the motive to adopt a new interpretation of determinantal point processes: they define naturally random subspaces that tend to be close to some reference subspace. This new interpretation 
 
 
 \section{Perspectives}
 
 
-\subsection{Exploring new kernels}
+\subsection{Exploring new kernels}\label{sec:new_kernels}
 
 The empirical investigations in Chapter~\ref{chap:dppkq} and Chapter~\ref{chap:CVS} were restricted to  classic RKHSs such as Sobolev spaces and Gaussian spaces. Nevertheless, our theoretical results are applicable to a broader class of less-known kernels.
 
@@ -12661,6 +12720,9 @@ These models were studied in various fields of mathematics and theoretical physi
 
 In this thesis, we study subspace sampling using determinantal point processes. This problem take place within the intersection of three sub-domains of approximation theory: subset selection, kernel quadrature and kernel interpolation. We study these old topics, that exist for decades, through a new interpretation of these probabilistic models: a determinantal point process is a natural way to define a random  subspace. Beside giving a unified analysis to numerical integration and interpolation under determinantal point processes, this new perspective allows to workout the theoretical analysis of several approximation algorithms, and to prove their optimality in some settings. 
 
+
+\subsubsection{Abstract in French}
+Cette thèse est consacrée à l'étude des algorithmes d'échantillonnage qui apparaissent à la fois pour le traitement des données en l'intelligence artificielle, en traitement du signal ou en statistiques Bayésiennes. La contribution de cette thèse dans ce domaine est l'étude des processus ponctuels déterminantals comme un modèle d'échantillonnage universel. L'idée est d'associer à chaque classe de signaux ou de matrices un échantillonnage adapté à l'aide d'un outil mathématique inspiré de la physique statistique qu'on appelle les processus ponctuels déterminantals. Ces processus ponctuels, qui sont des sous-ensembles aléatoires, permettent la modélisation d'un échantillonnage répulsive. Cette propriété de répulsion est cruciale: elle permet de proposer des configurations qui captent le maximum d'informations dans un signal pour un budget d'échantillonnage $N$ qui est le nombre de points du sous-ensemble. Cela permet de réduire le budget d'échantillonnage pour atteindre une précision de reconstruction donnée. Ce modèle est très flexible et permet d'étudier plusieurs classes de signaux qui apparaissent dans différents domaines de traitement de données.
 
 % This new perspective leads to unify the treatement of discrete 
 
