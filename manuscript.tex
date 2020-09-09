@@ -7326,7 +7326,7 @@ The left of Figure~\ref{f:rates} illustrates the eigenvalues $\sigma_{N+1}$ orde
 % \subsubsection{The Gaussian kernels}
 
 
-\subsubsection{The Gaussian spaces}
+\subsubsection{The Gaussian spaces}\label{sec:dppkq_gaussian_space_def}
 Let $\mathcal{X} = \mathbb{R}$ equipped with the measure $\mathrm{d} \omega(x) = w(x) \mathrm{d}x$ defined by
 \begin{equation}
 w(x) = \frac{1}{\sqrt{2 \pi} }e^{-x^{2}/2}.
@@ -8238,9 +8238,9 @@ Let $\mathcal{S}_{s}$ the periodic Sobolev space of order $s \in \mathbb{N}^{*}$
 % k_{s}(x,y) = 1+ 2\sum\limits_{m \in \mathbb{N}^{*}} \frac{1}{m^{2s}} \cos(2\pi m(x-y)),
 % \end{equation}
 % so that $\mathcal{F}=\mathcal{F}_{s}$ is the periodic Sobolev space of order $s$ on $[0,1]$.
-We consider a set of three numerical experiments. In the first one, we consider the approximation of $\mu_{g}$ when $g \equiv 1$, that is $g \equiv e^{\mathcal{S}_{s}}_{1}$, using several quadratures; in the second one, we consider the approximation of $\mu_{g}$ when $g$ is an arbitrary eigenfunction of $\bm{\Sigma}$ using the optimal kernel quadrature based on the projection DPP; in the third one, we consider the worst interpolation error of the $\mu_g$ when $g$ spans the unit ball of $\mathbb{L}_{2}(\mathrm{d}\omega)$. 
+We consider a set of three numerical experiments. In the first one, we consider the approximation of $\mu_{g}$ when $g \equiv 1$, that is $g \equiv e_{1}$ \footnote{We write $e_{m}$ rather than $e^{\mathcal{S}_{s}}_{m}$ to make the notation lighter.}, using several quadratures; in the second one, we consider the approximation of $\mu_{g}$ when $g$ is an arbitrary eigenfunction of $\bm{\Sigma}$ using the optimal kernel quadrature based on the projection DPP; in the third one, we consider the worst interpolation error of the $\mu_g$ when $g$ spans the unit ball of $\mathbb{L}_{2}(\mathrm{d}\omega)$. 
 \subsubsection{The reconstruction of the embedding of the first eigenfunction}
- We take $g\equiv e^{\mathcal{S}_{s}}_{1}$ so that the embedding $\mu_{g} = e^{\mathcal{S}_{s}}_{1}$. We compare the following algorithms: $(i)$ the quadrature rule DPPKQ we propose in Theorem~\ref{thm:main_theorem} (optimal kernel quadrature based on the projection DPP $(\KDPP, \mathrm{d}\omega)$), $(ii)$ the quadrature rule DPPUQ based on the same projection DPP but with uniform weights $(w_{n} = 1/N)$ \citep{Joh97}, $(iii)$ the kernel quadrature rule \eqref{eq:reg_kernel_opt_problem} of \cite{Bac17}, which we denote LVSQ for \emph{leverage score quadrature}, without regularization $(\lambda =0)$\footnote{The optimal proposal $q_{\lambda}^*$ is not defined, in a strict sense, when $\lambda = 0$. However, it is constant for $\lambda>0$; so we implement LVSQ $(\lambda = 0)$ using i.i.d. nodes from the uniform distribution of $[0,1]$.}, $(iv)$ sequential Bayesian quadrature (SBQ) \citep{HuDu12} with regularization to avoid numerical instability, and $(v)$ optimal kernel quadrature on the uniform grid (UGKQ). We take $N \in [5,50]$. Figure~\ref{fig:pDPP_results_pSobolev_exp_1} shows log-log plots of the square of the worst case quadrature error~\eqref{eq:wce_kquadrature} w.r.t. $N$, averaged over 50 samples for each point, for $s \in \{1,3\}$.
+ We take $g\equiv e_{1}$ so that the embedding $\mu_{g} = e_{1}$. We compare the following algorithms: $(i)$ the quadrature rule DPPKQ we propose in Theorem~\ref{thm:main_theorem} (optimal kernel quadrature based on the projection DPP $(\KDPP, \mathrm{d}\omega)$), $(ii)$ the quadrature rule DPPUQ based on the same projection DPP but with uniform weights $(w_{n} = 1/N)$ \citep{Joh97}, $(iii)$ the kernel quadrature rule \eqref{eq:reg_kernel_opt_problem} of \cite{Bac17}, which we denote LVSQ for \emph{leverage score quadrature}, without regularization $(\lambda =0)$\footnote{The optimal proposal $q_{\lambda}^*$ is not defined, in a strict sense, when $\lambda = 0$. However, it is constant for $\lambda>0$; so we implement LVSQ $(\lambda = 0)$ using i.i.d. nodes from the uniform distribution of $[0,1]$.}, $(iv)$ sequential Bayesian quadrature (SBQ) \citep{HuDu12} with regularization to avoid numerical instability, and $(v)$ optimal kernel quadrature on the uniform grid (UGKQ). We take $N \in [5,50]$. Figure~\ref{fig:pDPP_results_pSobolev_exp_1} shows log-log plots of the square of the worst case quadrature error~\eqref{eq:wce_kquadrature} w.r.t. $N$, averaged over 50 samples for each point, for $s \in \{1,3\}$.
 
 
  We observe that the approximation errors of all first four quadratures converge to $0$ with different rates. Both UGKQ and DPPKQ converge to $0$ with a rate of $\mathcal{O}(N^{-2s})$, which indicates that our $\mathcal{O}(N^{2-2s})$ bound in Theorem~\ref{thm:main_theorem} is not tight in the Sobolev case. Meanwhile, the rate of DPPUQ is $\mathcal{O}(N^{-2})$ across the three values of $s$: it does not adapt to the regularity of the integrands. This corresponds to the CLT proven by \cite{Joh97}.
@@ -8264,10 +8264,10 @@ Overall, in the Sobolev case, DPPKQ and UGKQ have the best convergence rate. UGK
 % Observe that in this case $g$ is an eigenfunction of $\bm{\Sigma}$ corresponding to the largest eigenvalue that equals $1$. We consider in the next section, the interpolation of $\mu_{g}$ when $g$ is a generic eigenfunction of $\bm{\Sigma}$.
 
 \subsubsection{The reconstruction of the embeddings of the other eigenfunctions}
-We consider $g$ to be an eigenfunction $\bm{\Sigma}$: $g \in \{e_{5}^{\mathcal{S}_{s}},e_{10}^{\mathcal{S}_{s}},e_{14}^{\mathcal{S}_{s}},e_{15}^{\mathcal{S}_{s}},e_{16}^{\mathcal{S}_{s}},e_{17}^{\mathcal{S}_{s}}\}$, so that $\mu_{g} = \bm{\Sigma}g$ is tractable. We observe the interpolation error under the projection DPP (DPPKQ) for $N \in [5,50]$. Figure~\ref{fig:pDPP_results_pSobolev_exp_2} shows log-log plots of the square of the interpolation error~\eqref{e:interpolation_error_def} w.r.t. $N$, averaged over 50 samples for each point, for $s \in \{1,3\}$.
+We consider $g$ to be an eigenfunction $\bm{\Sigma}$: $g \in \{e_{5},e_{10},e_{14},e_{15},e_{16},e_{17}\}$, so that $\mu_{g} = \bm{\Sigma}g$ is tractable. We observe the interpolation error under the projection DPP (DPPKQ) for $N \in [5,50]$. Figure~\ref{fig:pDPP_results_pSobolev_exp_2} shows log-log plots of the square of the interpolation error~\eqref{e:interpolation_error_def} of the embedding $\mu_{e_{n}}$ w.r.t. $N$, denoted $\epsilon_{n}(N)$, averaged over 50 samples for each point, for $s \in \{1,3\}$. 
 
 
- We observe that for every $g = e_{n}$, the interpolation error goes through two phases: in the first phase ($N < n$) the interpolation error is practically equal to \emph{the initial error} that is $\|\mu_{g}\|_{\mathcal{F}}^{2} = \sigma_{n}$; in the second phase ($N \geq n$) the interpolation error decreases to $0$ at the rate $\mathcal{O}(N^{-2s})$. These observations indicate again that the $\mathcal{O}(N^{2-2s})$ bound in Theorem~\ref{thm:main_theorem} is not tight.
+ We observe that for every $e_{N_{0}}$, the interpolation error goes through two phases: in the first phase ($N < N_{0}$) the interpolation error is practically equal to \emph{the initial error} that is $\|\mu_{e_{N_0}}\|_{\mathcal{F}}^{2} = \sigma_{N_{0}}$; in the second phase ($N \geq N_{0}$) the interpolation error decreases to $0$ at the rate $\mathcal{O}(N^{-2s})$. These observations indicate again that the $\mathcal{O}(N^{2-2s})$ bound in Theorem~\ref{thm:main_theorem} is not tight.
  Moreover, we observe that given two eigenfunctions $e_{n}$ and $e_{n'}$ corresponding to the same eigenvalue, the expected interpolation error is practically the same. This is the case, for instance, of $e_{14}$ and $e_{15}$ or $e_{16}$ and $e_{17}$.
 \begin{figure}
 \centering
@@ -8289,7 +8289,7 @@ We investigate this quantity by considering the following surrogate
 \begin{equation}\label{eq:surrogate_worst_inerpolation_error}
 \sup\limits_{g \in \mathcal{U}} \|\mu_{g}-\bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\mathcal{F}}^{2},
 \end{equation}
-where $\mathcal{U}$ is a finite subset of the intersection of the unit ball of $\mathbb{L}_{2}(\mathrm{d}\omega)$ with the subspace $\Span(e_{n}^{\mathcal{S}_{s}})_{n \in [50]}$\footnote{The square of the interpolation error when $g \in \Span(e_{n}^{\mathcal{S}_{s}})_{n \in [50]}^{\perp_{\mathrm{d}\omega}}$ starts from an initial error lower than $\sigma_{51}$.}. We take $|\mathcal{U}| = 2000$.
+where $\mathcal{U}$ is a finite subset of the intersection of the unit ball of $\mathbb{L}_{2}(\mathrm{d}\omega)$ with the subspace $\Span(e_{n})_{n \in [50]}$\footnote{The square of the interpolation error when $g \in \Span(e_{n}^{\mathcal{S}_{s}})_{n \in [50]}^{\perp}$ starts from an initial error lower than $\sigma_{51}$.}. We take $|\mathcal{U}| = 2000$.
 % The quantity~\eqref{eq:surrogate_worst_inerpolation_error} is an approximation of the worst interpolation error. Indeed, if $g = \sum\limits_{\delta \in [\Delta]} \epsilon_{\delta} e_{\delta}$ for some $(\epsilon_{1}, \dots, \epsilon_{\Delta})$, then $\|g\|_{\mathrm{d}\omega} = 1$.
 
 Again, we compare the following quadratures defined in the first experiment: $(i)$ the quadrature rule DPPKQ, $(ii)$ LVSQ with regularization parameter $\lambda \in \{ 0, 0.01,0.1 \}$, and $(iii)$ UGKQ. We take $N \in [5,50]$. Figure~\ref{fig:pDPP_results_pSobolev_exp_3_G6} show log-log plots of the square of the worst interpolation error on $\mathcal{U}$ w.r.t. $N$, averaged over 50 samples for each point, for $s \in \{1,3\}$.  
@@ -8357,11 +8357,11 @@ Now, we consider the Korobov space $\mathcal{K}_{d,s}$ defined in Section~\ref{s
 % \begin{equation}
 % \sigma_{n} = \prod\limits_{\delta \in [d]} \sigma_{u_{\delta}^{n}}^{1}.
 % \end{equation}
-The repulsion kernel writes
-\begin{equation}
-\KDPP(x,y) =\sum\limits_{n \in [N]} e_{n}^{\mathcal{K}_{d,s}}(x)e_{n}^{\mathcal{K}_{d,s}}(y).
-\end{equation}
-We sampled from the corresponding DPP using the generic sampling algorithm in \cite{HoKrPeVi06}. The implementation requires to sample from density $x \mapsto \frac{1}{N} \KDPP(x,x)$ which possible the uniform density as a proposal in the successive rejection sampling steps. Indeed, the analytical expression of $\KDPP(x,x)$ involves the squares of cosine and sine functions that can be upper bounded by constants.
+% The repulsion kernel writes
+% \begin{equation}
+% \KDPP(x,y) =\sum\limits_{n \in [N]} e_{n}^{\mathcal{K}_{d,s}}(x)e_{n}^{\mathcal{K}_{d,s}}(y).
+% \end{equation}
+We sampled from the corresponding DPP using the generic sampling algorithm in \cite{HoKrPeVi06}. The implementation requires to sample from density $x \mapsto \frac{1}{N} \KDPP(x,x)$, which is possible using the uniform density as a proposal in the successive rejection sampling steps. Indeed, the analytical expression of $\KDPP(x,x)$ involves the squares of cosine and sine functions that can be upper bounded by constants.
 
 
 We consider two numerical experiments. In the first one, we consider the approximation of $\mu_{g}$ when $g \equiv 1$ using several quadratures; in the second one, we consider the approximation of $\mu_{g}$ when $g$ is an eigenfunction of $\bm{\Sigma}$ using DPPKQ, LVSQ $(\lambda = 0)$, LVSQ $(\lambda = 0.01)$ and UGKQ. 
@@ -8390,9 +8390,9 @@ We still take $g\equiv 1$ so that $\mu_{g} \equiv 1$. We compare $(i)$ our DPPKQ
 
 \subsubsection{The reconstruction of the embeddings of the other eigenfunctions}
 
-We consider now $g$ to be an eigenfunction $\bm{\Sigma}$, $g \in \{e_{1}^{\mathcal{K}_{d,s}},\dots,e_{8}^{\mathcal{K}_{d,s}},e_{11}^{\mathcal{K}_{d,s}},e_{12}^{\mathcal{K}_{d,s}},e_{21}^{\mathcal{K}_{d,s}},e_{22}^{\mathcal{K}_{d,s}}\}$. We observe the interpolation errors for the following algorithms $(i)$ our DPPKQ, $(ii)$ LVSQ without regularization ($\lambda =0$), $(iii)$ the optimal kernel quadrature based on the uniform grid UGKQ for $N \in [5,1000]$. Figure~\ref{fig:Korobov_multig_results} shows log-log plots of the square of the interpolation errors of the corresponding embedding  w.r.t. $N$, averaged over 50 samples (in the case of DPPKQ and LVSQ) for each point, for $s \in \{1,3\}$; respectively for the DPPKQ, LVSQ and UGKQ.
+We consider now $g$ to be an eigenfunction $\bm{\Sigma}$, $g \in \{e_{1},\dots,e_{8},e_{11},e_{12},e_{21},e_{22}\}$. We observe the interpolation errors for the following algorithms $(i)$ our DPPKQ, $(ii)$ LVSQ without regularization ($\lambda =0$), $(iii)$ the optimal kernel quadrature based on the uniform grid UGKQ for $N \in [5,1000]$. Figure~\ref{fig:Korobov_multig_results} shows log-log plots of the square of the interpolation errors of the corresponding embedding  w.r.t. $N$, averaged over 50 samples (in the case of DPPKQ and LVSQ) for each point, for $s \in \{1,3\}$; respectively for the DPPKQ, LVSQ and UGKQ.
 
-Once again, we observe that under DPPKQ, the empirical expected interpolation error  curves manifest two phases: the plateau of the initial error $(N<n)$ followed by the convergence at the rate $\mathcal{O}(\sigma_{N+1})$. Moreover, we observe again that eigenfunctions with the same eigenvalue have similar curves; and for sufficiently large values of $N$ all the curves seem to coincide. As for LVSQ, the empirical curves seem to have the same rates as those of DPPKQ yet with worst constants. Finally, the empirical curves of UGKQ converges to $0$ at the rate $\mathcal{O}(N^{-2s/d})$ and the curves do not seem to coincide for large values of $N$.
+Once again, we observe that under DPPKQ, the empirical expected interpolation error  curves manifest two phases: the plateau of the initial error $(N<N_{0})$ followed by the convergence at the rate $\mathcal{O}(\sigma_{N+1})$. Moreover, we observe again that eigenfunctions with the same eigenvalue have similar curves; and for sufficiently large values of $N$ all the curves seem to coincide. As for LVSQ, the empirical curves seem to have the same rates as those of DPPKQ yet with worst constants. Finally, the empirical curves of UGKQ converges to $0$ at the rate $\mathcal{O}(N^{-2s/d})$ and the curves do not seem to coincide for large values of $N$.
 
 Once again, the rates predicted by the bounds in Theorem~\ref{thm:main_theorem} are pessimistic compared to the empirical rates of DPPKQ. 
 
@@ -8454,22 +8454,24 @@ Once again, the rates predicted by the bounds in Theorem~\ref{thm:main_theorem} 
 
 \subsection{The unidimensional Gaussian kernel}\label{s:gaussian_numsim}
 % \rb{replace BQ by sequential BQ in the next paragraph}
-We now consider the Gaussian space $\mathcal{G}_{\gamma}$ defined in Section??? 
+Now, we consider the Gaussian space $\mathcal{G}_{\gamma}$ defined in Section~\ref{sec:dppkq_gaussian_space_def}.
 % $\mathrm{d}\omega$ to be the Gaussian measure on $\mathcal{X} = \mathbb{R}$ along with the RKHS kernel $\displaystyle k_{\gamma}(x,y) = \exp[-(x-y)^{2}/2\gamma^{2}]$. 
 
-Figure~\ref{fig:unidim_gaussian_dppkq} compiles the empirical performance of DPPKQ for $g \in \{e_{1},e_{5},e_{10},e_{15}\}$ compared to the theoretical bound of Theorem~\ref{thm:main_theorem} , crude Monte Carlo with i.i.d. sampling from the measure $\omega$ (MC), optimal kernel quadrature based on i.i.d. samples from $\omega$ (MCKQ), sequential Bayesian Quadrature (SBQ). We again average over $50$ samples for the random quadratures.
-We take $N \in [5,50]$ and $\gamma = \frac{1}{2}$. Note that, this time, only the $y$-axis is on the log scale for better display, and that LVSQ is not plotted since we don't know how to sample from $q_\lambda$ in \eqref{e:proposalBach} in this case.
+Figure~\ref{fig:unidim_gaussian_dppkq} compiles the empirical performance of DPPKQ for $g \in \{e_{1},e_{5},e_{10},e_{15}\}$ compared to the theoretical bound of Theorem~\ref{thm:main_theorem} , crude Monte Carlo with i.i.d. sampling from the measure $\omega$ (MC), optimal kernel quadrature based on i.i.d. samples from $\omega$ (MCKQ), sequential Bayesian Quadrature (SBQ). From random quadrature, we take the average over $50$ samples.
+We take $N \in [5,50]$ and $\gamma = \frac{1}{2}$. Note that, this time, only the $y$-axis is on the log scale for better display, and that LVSQ is not plotted since we don't know how to sample from the continuous ridge leverage score distribution $q_\lambda^{*}$ in \eqref{e:proposalBach}.
 %
 
-We observe that, for $g = e_{N_{0}}$, the approximation error of any quadrature does not decrease significantly for $N \leq N_{0}$; yet, for $N > N_{0}$, the quadratures converge to $0$ at different rates. DPPKQ converges as $\sigma_{N+1}$ starting from $N\geq N_{0}$, while the discussion below Theorem~\ref{thm:main_theorem} let us expect a slightly slower rate $\mathcal{O}(N\sigma_{N+1})$ denoted DPPKQ (UB) in the figures. MCKQ improves upon Monte Carlo that converges as $\mathcal{O}(N^{-1})$. Yet, it seems that the larger is the value of $N_0$, the slower is the convergence of MCKQ to $0$ compared to the convergence of DPPKQ that does not depend on $N_0$.
+We observe that, for $g = e_{N_{0}}$, the quadratures converge to $0$ at different rates after the plateau of the initial error $N \geq N_{0}$. DPPKQ converges as $\mathcal{O}(\sigma_{N+1})$ while the discussion below Theorem~\ref{thm:main_theorem} let us expect a slightly slower rate $\mathcal{O}(N\sigma_{N+1})$ denoted DPPKQ (UB) in the figure. MCKQ improves upon Monte Carlo that converges as $\mathcal{O}(N^{-1})$. Yet, it seems that the larger is the value of $N_0$, the slower is the convergence of MCKQ to $0$ compared to the convergence of DPPKQ that does not depend on the value of $N_0$.
 %yet it plateaus for large values of $N$.
  % In particular, MCKQ seems to be at pair with DPPKQ for small value and for $N_{0}=1$, yet this good performance 
- The same observations apply for SBQ, that has the smallest error for small values of $N$, yet its convergence plateaus for large values of $N$.
+ The same observations apply for SBQ, that has the smallest error for small values of $N$, yet its convergence slowdown for large values of $N$. Moreover, its performance deteriorates for large values of $N_0$.
 
  %  especially for large values of $N$ 
  % Similarly to Sobolev spaces, the convergence of sequential Bayesian quadrature plateaus even if it .
  % Moreover, 
-We also conclude that DPPKQ is a close runner-up to SBQ and definitely takes the lead for large enough $N$.
+We conclude that DPPKQ has the most consistent behaviour among the four quadratures that we have compared. Moreover, the squared worst integration error scales as $\mathcal{O}(\sigma_{N+1})$, which is slightly better than the rate predicted by Theorem~\ref{thm:main_theorem_improved}.
+
+% is a close runner-up to SBQ and definitely takes the lead for large enough $N$.
 
 
 % We observe that the approximation error of DPPKQ, for $g = e_{N_{0}}$, converges to $0$ as $\sigma_{N+1}$ starting from $N\geq N_{0}$, while the discussion below Theorem~\ref{thm:main_theorem} let us expect a slightly slower rate $\mathcal{O}(N\sigma_{N+1})$ denoted DPPKQ (UB) in the figures. . 
@@ -8498,9 +8500,8 @@ We also conclude that DPPKQ is a close runner-up to SBQ and definitely takes the
 
 \subsection{The multidimensional Gaussian kernel}\label{s:multigaussian_numsim}
 
-We consider the case of Gaussian spaces with $d \in \{2,3\}$. The kernel $k_{\gamma,d}$ and the reference measure are the tensor product of respectively the same kernel and the same measure used in Section~\ref{s:gaussian_numsim}. We compare DPPKQ and Bayesian quadrature based on the tensor product of Gauss-Hermite nodes noted GHBQ. Note that a variant of this algorithm was proposed in \citep{KaSa19}: the quadrature nodes are the tensor product of the Gauss-Hermite nodes however the weights were calculated differently. The authors proved under an assumption on the stability of the weights (that was verified empirically) that the rate of convergence is $\mathcal{O}(dr^{d}\beta'^{d}e^{-\delta' d N^{1/d}})$, where $r$ is a constant that quantify the stability of the weights, and $\beta',\delta'$ are constants that depend simultaneously on the the stability of the weights and length scales of the kernel and the measure. The results are compiled in Figure~\ref{fig:GaussianResult}.
-
-The numerical simulations shows that the empirical rate of DPPKQ is $\mathcal{O}(e^{-\delta d N^{1/d}})$ that is slightly better than its theoretical rate $\mathcal{O}(e^{-\delta d!^{1/d} N^{1/d}})$. Moreover, we observe that the empirical rate of DPPKQ is better than the empirical rate of HGBQ.
+We consider the case of the multidimensional Gaussian space $\mathcal{G}_{d,\gamma}$ with $d \in \{2,3\}$ and $\gamma = 1$. We take $g = e_{1}$. The results are compiled in Figure~\ref{fig:GaussianResult}.
+Once again, the numerical simulations show that the empirical rate of DPPKQ scales as $\mathcal{O}(\sigma_{N+1})$. 
 
 \begin{figure}[]
     \centering
@@ -8594,10 +8595,19 @@ We have introduced a new class of quadratures: the optimal kernel quadrature bas
 Similarly to the quadratures reviewed in Section~\ref{sec:DPPs_for_quadrature}, this new class of quadratures is suitable for functions living in a Hilbert space; however, the two settings are different. Indeed, the previous results deal with functions living in Sobolev spaces that does not correspond to some RKHS $(s \leq d/2)$. This point will be discussed more in details in Section~\ref{sec:bakhvalov}. 
 
 Unlike the CLTs reviewed in Section~\ref{sec:DPPs_for_quadrature}, our theoretical rates are non-asymptotic. Moreover, the technique of the proof is new and relies on controlling the  largest principal angle between the subspaces $\tilde{\mathcal{T}}(\bm{x})$ and $\mathcal{E}_{N}^{\tilde{\F}}$ under the distribution of the projection DPP. To achieve this control, we have introduced the symmetrizations \eqref{eq:max_error_as_function_of_cos_prod} and \eqref{eq:max_error_as_function_of_cos_sum}  of \eqref{eq:max_error_as_function_of_cos}, that are rather loose majorizations. Our motivation is that the expected value of each of these symmetric quantities is tractable under the DPP. 
-Compared to the multiplicative symmetrization, the additive symmetrization gives a neater upper bound of $\EX_{\DPP}  1 \big/\cos^{2} \theta_{N} \big(\mathcal{E}^{\tilde{\mathcal{F}}}_{N}, \tilde{\mathcal{T}}(\bm{x}) \big)$ without improving the rate of convergence. Getting rid of these symmetrizations could make the bound much tighter. We discuss this perspective in Section??
+Compared to the multiplicative symmetrization, the additive symmetrization gives a neater upper bound of $\EX_{\DPP}  1 \big/\cos^{2} \theta_{N} \big(\mathcal{E}^{\tilde{\mathcal{F}}}_{N}, \tilde{\mathcal{T}}(\bm{x}) \big)$ without improving the rate of convergence. Getting rid of these symmetrizations could make the bound much tighter. We discuss this perspective in Section~\ref{sec:conclusion_trigonometry_problem}.
 
 
-Intuitively, dividing  the upper bound in \eqref{eq:expected_value_of_product_of_cos} to the power $1/N$ results in a term in $\mathcal{O}(r_{N})$ for the RKHS $\tilde{\mathcal{F}}$. Improving the bound in \eqref{eq:expected_value_of_product_of_cos} would require a de-symmetrization by comparing the maximum of the $1/\cos^{2} \theta_{\ell}(\mathcal{T}(\bm{x}),\mathcal{E}^{\mathcal{F}}_{N})$ to their geometric mean.
+Now, compared to other algorithms and quadratures, DPPKQ seem to give consistent empirical performance: the squared interpolation error scales as $\mathcal{O}(\sigma_{N})$ after a stagnation at the plateau of the initial error. 
+
+ DPPKQ offers an implementable solution with guarantees in the ridgeless regime $(\lambda = 0)$, in comparison LVSQ have guarantees when $\lambda >0$, yet the continuous ridge leverage score distribution is not be tractable in general. 
+
+ % This distribution is not  In particular, in the ridgeless regime the continuous ridge leverage score distribution is not defined.  
+
+Moreover, DPPKQ seems to be numerically stable compared to other algorithms such as SBQ that require some regularization.  
+
+
+% Intuitively, dividing  the upper bound in \eqref{eq:expected_value_of_product_of_cos} to the power $1/N$ results in a term in $\mathcal{O}(r_{N})$ for the RKHS $\tilde{\mathcal{F}}$. Improving the bound in \eqref{eq:expected_value_of_product_of_cos} would require a de-symmetrization by comparing the maximum of the $1/\cos^{2} \theta_{\ell}(\mathcal{T}(\bm{x}),\mathcal{E}^{\mathcal{F}}_{N})$ to their geometric mean.
 % We expect techniques from the literature on interlacing families \cite{MaSpSr15,AnGh14} to help for the de-symmetrization, but this is beyond the scope of this article.
 % An easier route than de-symmetrization could be to replace the product in \eqref{eq:max_error_as_function_of_cos} by a sum, but this is beyond the scope of this article.
 
@@ -8648,7 +8658,9 @@ Intuitively, dividing  the upper bound in \eqref{eq:expected_value_of_product_of
 % \end{equation}
 % \end{theorem}
 
-Moreover, it can be combined with the following sharper majorization to give a better rate of convergence when $g$ is an eigenfunction of $\bm{\Sigma}$.
+Now all that remains to be done is to sharpen the theoretical bounds of DPPKQ. We can already guess that the successive majorizations are to blame for these non optimal bounds. We will see in Chapter~\ref{chap:CVS}, an alternative distribution under which we can express $\EX \|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F}^{2}$ in a tractable way without loose majorization. In addition, this distribution can be approximated using an MCMC algorithm without the need to the spectral decomposition of the integration operator.
+
+% Moreover, it can be combined with the following sharper majorization to give a better rate of convergence when $g$ is an eigenfunction of $\bm{\Sigma}$.
 % \begin{proposition}\label{lemma:sharp_additive_symmetrization}
 % For $n \in [N]$,
 % \begin{equation}\label{eq:sharp_additive_symmetrization}
@@ -8830,29 +8842,28 @@ where we take $\theta_{m}(\mathcal{P}_{1}, \mathcal{P}_2) = \pi/2$ for $m \in \{
 
 % The families $(e_{n})_{n \in [N]}$ and $(f_{n})_{n \in [N]}$ are orthonormal in $\mathcal{H}$, and $\dim \mathcal{P}_{1} = \dim \mathcal{P}_{2} = N$, then $(e_{n})_{n \in [N]}$ is an orthonormal basis of $\mathcal{P}_{1}$ and $(f_{n})_{n \in [N]}$ is an orthonormal basis of $\mathcal{P}_{2}$.
 
-Now, $\bm{\pi}$ is the product of two orthogonal projections, then $\sigma_{n}(\bm{\pi})$ are included in $]0,1]$. We denote for $n \in [R]$ $\theta_{n}(\mathcal{P}_1,\mathcal{P}_2) \in [0,\pi/2[$ such that
+Now, $\bm{\pi}$ is the product of two orthogonal projections, then the $\sigma_{n}(\bm{\pi})$ are included in $]0,1]$. We denote for $n \in [R]$, $\theta_{n}(\mathcal{P}_1,\mathcal{P}_2) \in [0,\pi/2[$ such that
 \begin{equation}
 \cos \theta_n(\mathcal{P}_1,\mathcal{P}_2) = \sigma_{n}(\bm{\pi}).
 \end{equation}
-By definition, $(\sigma_{n}(\bm{\pi}))_{n \in [R]}$ is a decreasing sequence, then $(\theta_{n}(\mathcal{P}_1,\mathcal{P}_2))_{n \in [R]}$ is an increasing sequence. Therefore, $(\theta_{n}(\mathcal{P}_1,\mathcal{P}_2))_{n \in [N]}$
-is an increasing sequence.
+By definition, $(\sigma_{n}(\bm{\pi}))_{n \in [R]}$ is a non-increasing sequence, then $(\theta_{n}(\mathcal{P}_1,\mathcal{P}_2))_{n \in [R]}$ is a non-decreasing sequence. Therefore, $(\theta_{n}(\mathcal{P}_1,\mathcal{P}_2))_{n \in [N]}$
+is a non-decreasing sequence.
 
 Now, by~\eqref{eq:SVD_bmpi}
 \begin{equation}
-\cos \theta_n(\mathcal{P}_1,\mathcal{P}_2) \bm{v}^{2}_{n} = \bm{\pi} \bm{v}^{2}_{n} = \bm{\Pi}_{\mathcal{P}_{2}} \bm{\Pi}_{\mathcal{P}_{1}} \bm{v}^{1}_{n} = \bm{\Pi}_{\mathcal{P}_{2}} \bm{v}^{1}_{n},
+\cos \theta_n(\mathcal{P}_1,\mathcal{P}_2) \bm{v}^{2}_{n} = \sigma_{n}(\bm{\pi}) \bm{v}^{2}_{n} = \bm{\pi} \bm{v}^{2}_{n} = \bm{\Pi}_{\mathcal{P}_{2}} \bm{\Pi}_{\mathcal{P}_{1}} \bm{v}^{1}_{n} = \bm{\Pi}_{\mathcal{P}_{2}} \bm{v}^{1}_{n},
 \end{equation}
 and
 \begin{align}
-\cos \theta_n(\mathcal{P}_1,\mathcal{P}_2) & = \sigma_n(\bm{\pi}) \langle \bm{v}^{2}_{n}, \bm{v}^{2}_{n} \rangle_{\mathcal{H}} \nonumber \\
-& = \langle \bm{v}^{2}_{n},\bm{\Pi}_{\mathcal{P}_2} \bm{\Pi}_{\mathcal{P}_1} \bm{v}^{1}_{n}\rangle_{\mathcal{H}} \nonumber \\
+\cos \theta_n(\mathcal{P}_1,\mathcal{P}_2) & =  \langle \bm{v}^{2}_{n},  \cos \theta_n(\mathcal{P}_1,\mathcal{P}_2) \bm{v}^{2}_{n} \rangle_{\mathcal{H}} \nonumber \\
 & = \langle \bm{v}^{2}_{n}, \bm{\Pi}_{\mathcal{P}_2} \bm{v}^{1}_{n} \rangle_{\mathcal{H}} \nonumber \\
 & = \langle \bm{\Pi}_{\mathcal{P}_2} \bm{v}^{2}_{n},  \bm{v}^{1}_{n} \rangle_{\mathcal{H}} \nonumber \\
 & = \langle \bm{v}^{2}_{n},  \bm{v}^{1}_{n} \rangle_{\mathcal{H}}.
 \end{align}
 
-By taking the adjoint in~\eqref{eq:SVD_bmpi}, 
+By taking the adjoint in~\eqref{eq:SVD_bmpi} we get
 \begin{equation}
-\forall x \in \mathcal{H}, \:\: \bm{\pi}^{*} x = \sum\limits_{n \in [R]} \sigma_{n}(\bm{\pi}) \langle x,\bm{v}^{2}_{n} \rangle_{\mathcal{H}} \bm{v}^{1}_{n},
+ \bm{\pi}^{*} x = \bm{\Pi}_{\mathcal{P}_1}\bm{\Pi}_{\mathcal{P}_2} = \sum\limits_{n \in [R]} \sigma_{n}(\bm{\pi}) \langle x,\bm{v}^{2}_{n} \rangle_{\mathcal{H}} \bm{v}^{1}_{n},
 \end{equation}
 and we can prove similarly that
 \begin{equation}
@@ -8875,7 +8886,8 @@ We give in the following, the consequences of Theorem~\ref{prop:cos_between_subs
 We start by the following result that shows that the principal angles are somewhat independent of the choice of orthonormal bases. It can be found in \cite{BjGo73,MiBe92} for the finite dimensional case. We give here the proof for the general case.
 \begin{proposition}\label{prop:cos_det_relationship}
 Let $(\bm{w}^{1}_{i})_{i \in [N]}$ be any orthonormal basis of $\mathcal{P}_{1}$ and $(\bm{w}^{2}_{i})_{i \in [N]}$ be any orthonormal basis of $\mathcal{P}_{2}$, and let $\bm{W} = (\langle \bm{w}^{1}_{i},\bm{w}^{2}_{j} \rangle_{\mathcal{H}})_{1\leq i,j \leq N}$ and $\bm{G} = \bm{W}\bm{W}^{\Tran}$. Then
-the eigenvalues of $\bm{G}$ are the $\cos^{2} \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2})$. In particular, $\Det^{2} \bm{W} = \Det \bm{G} =  \prod\limits_{i \in [N]} \cos^{2} \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2})$.
+the eigenvalues of $\bm{G}$ are the $\cos^{2} \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2})$. 
+% In particular, $\Det^{2} \bm{W} = \Det \bm{G} =  \prod\limits_{i \in [N]} \cos^{2} \theta_{i}(\mathcal{P}_{1},\mathcal{P}_{2})$.
 \end{proposition}
 
 
@@ -8945,7 +8957,7 @@ Finally, $\bm{V}$ is a diagonal matrix and the eigenvalues of $\bm{G}$ are the $
 % \end{equation}
 \subsubsection{Proof of Lemma~\ref{lemma:max_error_cos}}
 
-Let $\bm{x} = \{x_{1}, \dots , x_{N}\} \subset \mathcal{X}$ such that $\Det \bm{E}(\bm{x}) \neq 0$. By Proposition~\ref{prop:K_N_non_singular}, $\bm{K}(\bm{x})$ is non singular. Thus $\dim \mathcal{T}(\bm{x}) = N$. 
+Let $\bm{x} = (x_{1}, \dots, x_N) \in \mathcal{X}^{N}$ such that $\Det \bm{E}(\bm{x}) \neq 0$. By Proposition~\ref{prop:K_N_non_singular}, $\bm{K}(\bm{x})$ is non singular. Thus $\dim \mathcal{T}(\bm{x}) = N$. 
 
 We have
 \begin{equation}
@@ -8994,9 +9006,18 @@ and
 
 The condition $\Det^{2} \bm{E}(\bm{x}) \neq 0$ yields by Proposition~\ref{prop:K_N_non_singular} that $\bm{K}(\bm{x})$ is non singular. Thus $\dim \mathcal{T}(\bm{x}) = N$. Let $(t_{i})_{i \in [N]}$ be an orthonormal basis of $\mathcal{T}(\bm{x})$ with respect to $\langle ., . \rangle_{\mathcal{F}}$.
 %
-Using Proposition~\ref{prop:cos_det_relationship}, and the fact that $(e_{n}^{\mathcal{F}})_{n \in [N]}$ is an orthonormal basis of $\mathcal{E}^{\mathcal{F}}_{N}$ according to $\langle ., . \rangle_{\mathcal{F}}$,
+Define 
+\begin{equation}
+\bm{W} = (\langle e_{n}^{\mathcal{F}}, t_{i} \rangle_{\mathcal{F}})_{(n,i) \in [N]\times[N]}.
+\end{equation}
+Using Proposition~\ref{prop:cos_det_relationship}, and the fact that $(e_{n}^{\mathcal{F}})_{n \in [N]}$ is an orthonormal basis of $\mathcal{E}^{\mathcal{F}}_{N}$, the eigenvalues of the matrix $\bm{W} \bm{W}^{\Tran}$ are the $\cos^{2} \theta_{\ell} \left(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \right)$.
+Therefore
 \begin{equation}\label{eq:prod_cos_det_E}
-\prod\limits_{\ell \in [N]} \cos^{2} \theta_{\ell} \left(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \right) = \Det^{2} (\langle e_{n}^{\mathcal{F}}, t_{i} \rangle_{\mathcal{F}})_{(n,i) \in [N]\times[N]}.
+\prod\limits_{\ell \in [N]} \cos^{2} \theta_{\ell} \left(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \right) = \Det (\bm{W}\bm{W}^{\Tran}),
+\end{equation}
+and if $\bm{W}\bm{W}^{\Tran}$ is non singular then 
+\begin{equation}
+\sum\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell} \left(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \right)} = \Tr (\bm{W}\bm{W}^{\Tran})^{-1}.
 \end{equation}
 Now, write for $i \in [N]$,
 \begin{equation}\label{eq:t_as_function_of_kx}
@@ -9011,37 +9032,51 @@ Thus
 %
 Then
 \begin{equation}
-(\langle e_{n}^{\mathcal{F}}, t_{i} \rangle_{\mathcal{F}})_{(n,i) \in [N]\times[N]} = \bm{E}^{\mathcal{F}}(\bm{x}) \bm{C}(\bm{x})^{\Tran} ,
+\bm{W} = \bm{E}^{\mathcal{F}}(\bm{x}) \bm{C}(\bm{x})^{\Tran} ,
 \end{equation}
 where
 \begin{equation}
 \bm{C}(\bm{x}) = (c_{i,j})_{1 \leq i,j \leq N}.
 \end{equation}
-%
-Thus
-\begin{equation}\label{eq:AN_times_EN}
-\Det^{2} (\langle e_{n}^{\mathcal{F}}, t_{i} \rangle_{\mathcal{F}})_{(n,i) \in [N]\times[N]} = \Det^{2} \bm{C}(\bm{x}) \Det^{2} \bm{E}^{\mathcal{F}}(\bm{x}).
-\end{equation}
-%%%%
-Now, let $\bm{c}_{i}$ the columns of the matrix $\bm{C}(\bm{x})$. $(t_{i})_{i \in [N]}$ is an orthonormal basis of $\mathcal{T}(\bm{x})$ with respect to $\langle .,. \rangle_{\mathcal{F}}$, then by \eqref{eq:t_as_function_of_kx}
+In particular
 \begin{equation}
-  \delta_{i,i'} = \langle t_{i}, t_{i'} \rangle_{\mathcal{F}} = \bm{c}_{i}^{\Tran} \bm{K}(\bm{x}) \bm{c}_{i'}  .
+ \bm{W} \bm{W}^{\Tran} = \bm{E}^{\mathcal{F}}(\bm{x}) \bm{C}(\bm{x}) ^{\Tran} \bm{C}(\bm{x}) \bm{E}^{\mathcal{F}}(\bm{x})^{\Tran} ,
 \end{equation}
+%
+%%%%
+% Now, let $\bm{c}_{i}$ the columns of the matrix $\bm{C}(\bm{x})^{\Tran}$. 
+Now, $(t_{i})_{i \in [N]}$ is an orthonormal basis of $\mathcal{T}(\bm{x})$, then by \eqref{eq:t_as_function_of_kx}
+\begin{equation}
+  \delta_{i,i'} = \langle t_{i}, t_{i'} \rangle_{\mathcal{F}} = 
+ \sum\limits_{j \in [N]} \sum\limits_{j' \in [N]} c_{i,j}c_{i',j'} k(x_{j},x_{j'})   .
+\end{equation}
+%= \bm{c}_{i}^{\Tran} \bm{K}(\bm{x}) \bm{c}_{i'}
 Therefore
 \begin{equation}
-\bm{C}(\bm{x})^{\Tran} \bm{K}(\bm{x}) \bm{C}(\bm{x}) = \mathbb{I}_{N}.
+\bm{C}(\bm{x}) \bm{K}(\bm{x}) \bm{C}(\bm{x})^{\Tran} = \mathbb{I}_{N}.
 \end{equation}
-Thus
-\begin{equation}\label{eq:det_AN_det_KN_relationship}
-\Det^{2} \bm{C}(\bm{x}) = \frac{1}{\Det \bm{K}(\bm{x})}.
-\end{equation}
-Combining \eqref{eq:prod_cos_det_E}, \eqref{eq:AN_times_EN} and \eqref{eq:det_AN_det_KN_relationship} concludes the proof of Proposition~\ref{cor:cos_ratio_det}
+Thus 
 \begin{equation}
-\prod\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell} \left(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \right)} = \frac{\Det \bm{K}(\bm{x})}{\Det^{2} \bm{E}^{\mathcal{F}}(\bm{x})}.
+\bm{W}\bm{W}^{\Tran} = \bm{E}^{\mathcal{F}}(\bm{x}) \bm{K}(\bm{x})^{-1} \bm{E}^{\mathcal{F}}(\bm{x})^{\Tran}.
 \end{equation}
-Similarly, we prove that
+%
+In particular $\bm{W}\bm{W}^{T}$ is non singular. Moreover, we have
+
+%\bm{K}(\bm{x}) = \big(\bm{C}(\bm{x})^{\Tran
+% \begin{equation}\label{eq:det_AN_det_KN_relationship}
+% \Det^{2} \bm{C}(\bm{x}) = \frac{1}{\Det \bm{K}(\bm{x})}.
+% \end{equation}
+% Combining \eqref{eq:prod_cos_det_E}, \eqref{eq:AN_times_EN} and \eqref{eq:det_AN_det_KN_relationship} concludes the proof of Proposition~\ref{cor:cos_ratio_det}
 \begin{equation}
-\sum\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell} \left(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \right)} = \Tr \bigg(\bm{E}^{\mathcal{F}}(\bm{x})^{\Tran^{-1}}  \bm{K}(\bm{x}) \bm{E}^{\mathcal{F}}(\bm{x})^{-1} \bigg).
+\prod\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell} \left(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \right)} = \frac{1}{\Det(\bm{W}\bm{W}^{T}) }= \frac{\Det \bm{K}(\bm{x})}{\Det^{2} \bm{E}^{\mathcal{F}}(\bm{x})},
+\end{equation}
+% Thus
+% \begin{equation}\label{eq:AN_times_EN}
+% \Det^{2} (\langle e_{n}^{\mathcal{F}}, t_{i} \rangle_{\mathcal{F}})_{(n,i) \in [N]\times[N]} = \Det^{2} \bm{C}(\bm{x}) \Det^{2} \bm{E}^{\mathcal{F}}(\bm{x}).
+% \end{equation}
+and
+\begin{equation}
+\sum\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell} \left(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \right)} = \Tr \big(\bm{W}\bm{W}^{\Tran} \big)^{-1} = \Tr \bigg(\bm{E}^{\mathcal{F}}(\bm{x})^{\Tran^{-1}}  \bm{K}(\bm{x}) \bm{E}^{\mathcal{F}}(\bm{x})^{-1} \bigg).
 \end{equation}
 
 
@@ -9098,32 +9133,29 @@ First, we prove that
 \end{equation} 
  Recall that
 \begin{equation}
-\mu_{g} = \int_{\mathcal{X}} g(y)k(.,y) \mathrm{d}\omega(y),
+\mu_{g} = \int_{\mathcal{X}} g(y)k(.,y) \mathrm{d}\omega(y) = \bm{\Sigma}g.
 \end{equation}
-and that we assumed in Section~\ref{s:intro} that $\mathcal{F}$ is dense in $\mathbb{L}_{2}(\mathrm{d}\omega)$, so that $(e_{m})_{m \in \mathbb{N}}$ is an orthonormal basis of $\mathbb{L}_{2}(\mathrm{d}\omega)$ and the eigenvalues $\sigma_{n}$ are strictly positive. Now let $\bm{\Sigma}^{-1/2} : \mathcal{F} \rightarrow \mathbb{L}_{2}(\mathrm{d}\omega)$ and $\bm{\Sigma}^{1/2} : \mathbb{L}_{2}(\mathrm{d}\omega) \rightarrow \mathcal{F}$ be defined by
-\begin{equation}
-\bm{\Sigma}^{-1/2} e_{m}^{\mathcal{F}} = e_{m}, \: \forall m\in \mathbb{N}^*,
-\end{equation}
-\begin{equation}
-\bm{\Sigma}^{1/2} e_{m} =  e_{m}^{\mathcal{F}}, \: \forall m\in \mathbb{N}^*.
-\end{equation}
-Observe that $\bm{\Sigma}^{-1/2} \mu_{g} = \bm{\Sigma}^{-1/2} \bm{\Sigma} g = \bm{\Sigma}^{1/2} g \in \mathcal{F}$. Now, for $m \in \mathbb{N}^{*}$,
-% since $e_{m} = \sigma_{m}^{-1/2}e_{m}^{\mathcal{F}}=\bm{\Sigma}^{-1/2}e_{m}e_{m}^{\mathcal{F}}$, duality yields
-\begin{align}
-\langle e_{m}^{\mathcal{F}}, \bm{\Sigma}^{-1/2}\mu_{g} \rangle_{\mathcal{F}} & =\langle e_{m}^{\mathcal{F}}, \bm{\Sigma}^{1/2}g \rangle_{\mathcal{F}} \\
-& = \langle e_{m}^{\mathcal{F}}, \bm{\Sigma}^{1/2} \sum\limits_{n \in \mathbb{N}^{*}} \langle g, e_{n} \rangle_{\mathrm{d}\omega} e_{n} \rangle_{\mathcal{F}}\\
-& = \sum\limits_{n \in \mathbb{N}^{*}} \langle g, e_{n} \rangle_{\mathrm{d}\omega} \langle e_{m}^{\mathcal{F}}, \bm{\Sigma}^{1/2} e_{n} \rangle_{\mathcal{F}} \\
-& = \sum\limits_{n \in \mathbb{N}^{*}} \langle g, e_{n} \rangle_{\mathrm{d}\omega} \langle e_{m}^{\mathcal{F}},  e_{n}^{\mathcal{F}} \rangle_{\mathcal{F}} \\
-& = \langle g,e_{m} \rangle_{\mathrm{d}\omega} \nonumber.
-\end{align}
-As a consequence,
-\begin{equation}\label{eq:bound_on_norm_mean_element}
-  \|\bm{\Sigma}^{-1/2}\mu_{g}\|_{\mathcal{F}}^{2} = \|g\|_{\mathrm{d}\omega}^{2} \leq 1.
-\end{equation} 
-
-
-
-
+% and that we assumed in Section~\ref{s:intro} that $\mathcal{F}$ is dense in $\mathbb{L}_{2}(\mathrm{d}\omega)$, so that $(e_{m})_{m \in \mathbb{N}}$ is an orthonormal basis of $\mathbb{L}_{2}(\mathrm{d}\omega)$ and the eigenvalues $\sigma_{n}$ are strictly positive. Now let $\bm{\Sigma}^{-1/2} : \mathcal{F} \rightarrow \mathbb{L}_{2}(\mathrm{d}\omega)$ and $\bm{\Sigma}^{1/2} : \mathbb{L}_{2}(\mathrm{d}\omega) \rightarrow \mathcal{F}$ be defined by
+% \begin{equation}
+% \bm{\Sigma}^{-1/2} e_{m}^{\mathcal{F}} = e_{m}, \: \forall m\in \mathbb{N}^*,
+% \end{equation}
+% \begin{equation}
+% \bm{\Sigma}^{1/2} e_{m} =  e_{m}^{\mathcal{F}}, \: \forall m\in \mathbb{N}^*.
+% \end{equation}
+Then $\bm{\Sigma}^{-1/2} \mu_{g} = \bm{\Sigma}^{-1/2} \bm{\Sigma} g = \bm{\Sigma}^{1/2} g \in \mathcal{F}$, so that $ \|\bm{\Sigma}^{-1/2}\mu_{g}\|_{\mathcal{F}}^{2} = \|g\|_{\mathrm{d}\omega}^{2} \leq 1$.
+% Now, for $m \in \mathbb{N}^{*}$,
+% % since $e_{m} = \sigma_{m}^{-1/2}e_{m}^{\mathcal{F}}=\bm{\Sigma}^{-1/2}e_{m}e_{m}^{\mathcal{F}}$, duality yields
+% \begin{align}
+% \langle e_{m}^{\mathcal{F}}, \bm{\Sigma}^{-1/2}\mu_{g} \rangle_{\mathcal{F}} & =\langle e_{m}^{\mathcal{F}}, \bm{\Sigma}^{1/2}g \rangle_{\mathcal{F}} \\
+% & = \langle e_{m}^{\mathcal{F}}, \bm{\Sigma}^{1/2} \sum\limits_{n \in \mathbb{N}^{*}} \langle g, e_{n} \rangle_{\mathrm{d}\omega} e_{n} \rangle_{\mathcal{F}}\\
+% & = \sum\limits_{n \in \mathbb{N}^{*}} \langle g, e_{n} \rangle_{\mathrm{d}\omega} \langle e_{m}^{\mathcal{F}}, \bm{\Sigma}^{1/2} e_{n} \rangle_{\mathcal{F}} \\
+% & = \sum\limits_{n \in \mathbb{N}^{*}} \langle g, e_{n} \rangle_{\mathrm{d}\omega} \langle e_{m}^{\mathcal{F}},  e_{n}^{\mathcal{F}} \rangle_{\mathcal{F}} \\
+% & = \langle g,e_{m} \rangle_{\mathrm{d}\omega} \nonumber.
+% \end{align}
+% As a consequence,
+% \begin{equation}\label{eq:bound_on_norm_mean_element}
+%   \|\bm{\Sigma}^{-1/2}\mu_{g}\|_{\mathcal{F}}^{2} = \|g\|_{\mathrm{d}\omega}^{2} \leq 1.
+% \end{equation} 
 % Now we turn to proving \eqref{e:boundingOrthogonalProjection} from the main text. Define first the operators $\bm{\Sigma}_{N}, \bm{\Sigma}_{N}^{1/2}, \bm{\Sigma}_{N}^{\perp}, \bm{\Sigma}_{N}^{\perp 1/2}: \mathbb{L}_{2}(\mathrm{d}\omega) \rightarrow \mathcal{F}$, $\bm{\Sigma}_{N}^{1/2} : \mathbb{L}_{2}(\mathrm{d}\omega) \rightarrow \mathcal{F}$ and $\bm{\Sigma}_{N}^{\perp} : \mathbb{L}_{2}(\mathrm{d}\omega) \rightarrow \mathcal{F}$ by
 % \begin{equation}
 %  \bm{\Sigma}_{N} e_{m} = \left\{
@@ -9158,8 +9190,7 @@ As a consequence,
 %     \end{array}
 % \right. ,
 % \end{equation}
-
-Using \eqref{eq:bound_on_norm_mean_element}, there exists $\tilde{\mu}_{g} \in \mathcal{F}$ such that $\|\tilde{\mu}_{g}\|_{\mathcal{F}} \leq 1$ and $\mu_{g} = \bm{\Sigma}^{1/2}\tilde{\mu}_{g}$. Moreover,
+Therefore, there exists $\tilde{\mu}_{g} \in \mathcal{F}$ such that $\|\tilde{\mu}_{g}\|_{\mathcal{F}} \leq 1$ and $\mu_{g} = \bm{\Sigma}^{1/2}\tilde{\mu}_{g}$. Moreover,
 since $(e_{n}^{\F})_{n \in \mathbb{N}^{*}}$ is an o.n.b. of $\F$, we have
 \begin{equation}
 \F = \mathcal{E}_{N}^{\F} \oplus \Span (e_{n}^{\F})_{n \geq N+1},
@@ -9182,12 +9213,13 @@ with $(\tilde{\mu}_{g,N}, \tilde{\mu}_{g,N^{\perp}}) \in \mathcal{E}_{N}^{\F} \t
   & \leq 2 \left(\| \bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}}\bm{\Sigma}^{1/2}\tilde{\mu}_{g,N}\| _{\mathcal{F}}^{2} + \| \bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}}\bm{\Sigma}^{1/2} \tilde{\mu}_{g,N^{\perp}}\| _{\mathcal{F}}^{2}\right) \nonumber.
 \end{align}
 %%%
-The operator $\bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}}$ is an orthogonal projection so that by \eqref{eq:sup_sigma_N}
+The operator $\bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}}$ is an orthogonal projection. Then by \eqref{eq:sup_sigma_N}
 %
 \begin{equation}
 \| \bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}}\bm{\Sigma}^{1/2} \tilde{\mu}_{g,N^{\perp}}\| _{\mathcal{F}}^{2} \leq \| \bm{\Sigma}^{1/2} \tilde{\mu}_{g,N^{\perp}}\| _{\mathcal{F}}^{2} \leq \sigma_{N+1}.
 \end{equation}
-Now, recall that the $(e_{n}^{\mathcal{F}})_{n \in [N]}$ is an orthonormal family. Moreover
+% Now, recall that the $(e_{n}^{\mathcal{F}})_{n \in [N]}$ is an orthonormal family.
+Moreover
 \begin{equation}
 \forall n \in [N], \:\: \bm{\Sigma}^{1/2}e_{n}^{\F} = \sqrt{\sigma}_{n} e_{n}^{\F}.
 \end{equation}
@@ -9229,7 +9261,7 @@ We first prove a technical result, Lemma~\ref{lemma:interpolation_error_matricia
 %%%
 \subsubsection{A preliminary lemma}
 
-Let $\bm{x} = (x_{1}, \dots, x_{N}) \in \mathcal{X}^{N}$. Recall that $\bm{K}(\bm{x}) = (k(x_{i},x_{j}))_{1 \leq i,j \leq N}$ and denote $\tilde{\bm{K}}(\bm{x}) = (\tilde{k}(x_{i},x_{j}))_{1 \leq i,j \leq N}$, see section \ref{subsec:expectation_under_the_DPP}.
+Let $\bm{x} = (x_{1}, \dots, x_{N}) \in \mathcal{X}^{N}$. Recall that $\bm{K}(\bm{x}) = (k(x_{i},x_{j}))_{1 \leq i,j \leq N}$ and denote similarly $\tilde{\bm{K}}(\bm{x}) = (\tilde{k}(x_{i},x_{j}))_{1 \leq i,j \leq N}$.
 %
 %\pc{Peut-être aussi rappeler le rôle crucial (en 1 phrase) de ces quantités : que mesurent-elles ?}
 In the following, we define  %\pc{$\tilde{\cal F}_\ell$ is not defined at this level !}
@@ -9243,7 +9275,8 @@ Lemma~\ref{lemma:interpolation_error_matricial_form} below shows that each term 
 
 % Sketch of proof
 Indeed, $\displaystyle \|\bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}}e_{n}^{\mathcal{F}}\|^{2}_{\mathcal{F}} = 1- \|\bm{\Pi}_{\mathcal{T}(\bm{x})}e_{n}^{\mathcal{F}}\|^{2}_{\mathcal{F}}$ since $\|e_{n}^{\mathcal{F}}\|^{2}_{\mathcal{F}} = 1$.
-Thus it is sufficient to prove that $\|\bm{\Pi}_{\mathcal{T}(\bm{x})}e_{n}^{\mathcal{F}}\|^{2}_{\mathcal{F}} = \Delta_n^{\cal F}(\bm{x})$. This boils down to showing that $\bm{K}(\bm{x})^{-1}$ is the matrix of the inner product $\langle \cdot,\cdot \rangle_{\cal F}$ restricted to ${\mathcal{T}(\bm{x})}$.
+Thus it is sufficient to prove that $\|\bm{\Pi}_{\mathcal{T}(\bm{x})}e_{n}^{\mathcal{F}}\|^{2}_{\mathcal{F}} = \Delta_n^{\cal F}(\bm{x})$. 
+% This boils down to showing that $\bm{K}(\bm{x})^{-1}$ is the matrix of the inner product $\langle \cdot,\cdot \rangle_{\cal F}$ restricted to ${\mathcal{T}(\bm{x})}$.
 % Lemma
 \begin{lemma}\label{lemma:interpolation_error_matricial_form}
 For $n \in \mathbb{N}^{*}$, let $e_{n}^{\mathcal{F}}(\bm{x}), e_{n}^{\tilde{\mathcal{F}}}(\bm{x})\in \mathbb{R}^{N}$ the vectors of the evaluations of $e_{n}^{\mathcal{F}}$ and $e_{n}^{\tilde{\mathcal{F}}}$ on the elements of $\bm{x}$ respectively. Then
@@ -9269,10 +9302,10 @@ where the $c_{i}$ are the elements of the vector $\bm{c} = \bm{K}(\bm{x})^{-1}e_
 & = e_{n}^{\mathcal{F}}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1} e_{n}^{\mathcal{F}}(\bm{x}) \nonumber \\
 & = \Delta_{n}^{\mathcal{F}}(\bm{x}) \nonumber.
 \end{align}
-Moreover, since $\|e_{n}^{\mathcal{F}}\|_{\mathcal{F}} = 1$, we have
-\begin{equation}
-\|\bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}}e_{n}^{\mathcal{F}}\|^{2}_{\mathcal{F}} = \|e_{n}^{\mathcal{F}}\|^{2}_{\mathcal{F}}- \|\bm{\Pi}_{\mathcal{T}(\bm{x})}e_{n}^{\mathcal{F}}\|^{2}_{\mathcal{F}} = 1 - \|\bm{\Pi}_{\mathcal{T}(\bm{x})}e_{n}^{\mathcal{F}}\|^{2}_{\mathcal{F}} = 1-\Delta_{n}^{\mathcal{F}}(\bm{x}).
-\end{equation}
+% Moreover, since $\|e_{n}^{\mathcal{F}}\|_{\mathcal{F}} = 1$, we have
+% \begin{equation}
+% \|\bm{\Pi}_{\mathcal{T}(\bm{x})^{\perp}}e_{n}^{\mathcal{F}}\|^{2}_{\mathcal{F}} = \|e_{n}^{\mathcal{F}}\|^{2}_{\mathcal{F}}- \|\bm{\Pi}_{\mathcal{T}(\bm{x})}e_{n}^{\mathcal{F}}\|^{2}_{\mathcal{F}} = 1 - \|\bm{\Pi}_{\mathcal{T}(\bm{x})}e_{n}^{\mathcal{F}}\|^{2}_{\mathcal{F}} = 1-\Delta_{n}^{\mathcal{F}}(\bm{x}).
+% \end{equation}
 
 
 \end{proof}
@@ -9509,7 +9542,7 @@ This proves inequality~\eqref{eq:graded_RKHS_inequality_2} and concludes the pro
 In this section, $\bm{x}  = (x_{1}, \dots , x_{N}) \in \mathcal{X}^{N}$ is the realization of the DPP of Theorem~\ref{thm:main_theorem}. Let $\bm{E}^{\mathcal{F}}(\bm{x}) = (e_{i}^{\mathcal{F}}(x_{j}))_{1 \leq i,j \leq N}$ and $\bm{E}(\bm{x}) = (e_{i}(x_{j}))_{1 \leq i,j \leq N}$, and $\bm{K}(\bm{x})= (k(x_{i},x_{j}))_{1 \leq i,j \leq N} $.
 Moreover, let $\mathcal{E}^{\mathcal{F}}_{N} = \Span(e_{m}^{\mathcal{F}})_{m \in [N]}$ and $\mathcal{T}(\bm{x}) =  \Span \left( k(x_{i},.) \right)_{i \in [N]}$.
 
-We first prove the following lemma.
+We first prove the following proposition.
 
 % that is necessary to prove Proposition~\ref{prop:expected_value_of_product_of_cos}
 %%%
@@ -9637,15 +9670,15 @@ Then by monotone convergence theorem, $\displaystyle \bm{x} \mapsto \frac{1}{N!}
 \subsubsection{End of the proof of Proposition~\ref{prop:expected_value_of_product_of_cos}}
 %Now we can prove Proposition~\ref{prop:expected_value_of_product_of_cos} thanks to Lemmas~\ref{lemma:cos_ratio_det} \& \ref{lemma:truncated_Fredholm_formula} above.
 \begin{proof}
-Remember that
+Remember that under the distribution of the projection DPP of kernel $\KDPP$ 
 \begin{equation}
 \Prb \left( \Det \bm{E}(\bm{x})  \neq 0 \right) = 1.
 \end{equation}
-Then by Lemma~\ref{lemma:cos_ratio_det} and the fact that $\Det^{2} \bm{E}^{\mathcal{F}}(\bm{x}) = \prod\limits_{n \in [N]} \sigma_{n} \Det^{2} \bm{E}(\bm{x})$
+Then by Proposition~\ref{cor:cos_ratio_det} and the fact that $\Det^{2} \bm{E}^{\mathcal{F}}(\bm{x}) = \prod\limits_{n \in [N]} \sigma_{n} \Det^{2} \bm{E}(\bm{x})$
 \begin{equation}
 \prod\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell} \left(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \right)} = \frac{\Det \bm{K}(\bm{x})}{\Det^{2} \bm{E}^{\mathcal{F}}(\bm{x})} = \frac{1}{\prod\limits_{n \in [N]} \sigma_{n}}\frac{\Det \bm{K}(\bm{x})}{\Det^{2} \bm{E}(\bm{x})}.
 \end{equation}
-Then, taking the expectation with respect to $\bm{x}$ resulting from a DPP of kernel $\KDPP(x,y)$,
+Then, taking the expectation with respect to $\bm{x}$ resulting from a DPP of kernel $\KDPP$
 \begin{align}
 \EX_{\DPP} \prod\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell}\left(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \right)} = & \frac{1}{N!} \int_{\mathcal{X}^{N}} \Det^{2} \bm{E}(\bm{x}) \prod\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell} \left(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \right)} \otimes_{i =1}^{N} \mathrm{d}\omega(x_{i}) \\
  = & \frac{1}{N!} \int_{\mathcal{X}^{N}} \Det^{2} \bm{E}(\bm{x}) \frac{1}{\prod\limits_{n \in [N]} \sigma_{n}}\frac{\Det \bm{K}(\bm{x})}{\Det^{2} \bm{E}(\bm{x})} \otimes_{i =1}^{N} \mathrm{d}\omega(x_{i}) \nonumber\\
@@ -9723,7 +9756,7 @@ which can be plugged in Lemma~\ref{lemma:approximation_error_spectral_bound} to 
 
 \subsection{The proof of Theorem~\ref{thm:main_theorem_improved} and Proposition~\ref{prop:ex_dpp_sum_inv_cos}}\label{sec:dppkq_last_proof}
 
-The proof of Theorem~\ref{thm:main_theorem_improved} follows the same steps as the proof of Theorem~\ref{thm:main_theorem} with the exception that we use Proposition~\ref{prop:ex_dpp_sum_inv_cos} instead of Proposition~\ref{prop:expected_value_of_product_of_cos}.
+The proof of Theorem~\ref{thm:main_theorem_improved} follows the same steps as the proof of Theorem~\ref{thm:main_theorem} with the exception that we use Proposition~\ref{prop:ex_dpp_sum_inv_cos} instead of Proposition~\ref{prop:expected_value_of_product_of_cos} (for $\tilde{\F}$ and $\tilde{k}$).
 
 
 \subsubsection{Proof of Proposition~\ref{prop:ex_dpp_sum_inv_cos}}
@@ -9752,8 +9785,6 @@ Our objective in this section is to give a tractable expression of
 % \sum\limits_{\ell \in [N]} \frac{1}{\cos^{2} \theta_{\ell} \bigg(\mathcal{E}^{\mathcal{F}}_{N}, \mathcal{T}(\bm{x}) \bigg)} = \Tr \bigg( \bm{W}(\bm{x})\bm{W}(\bm{x})^{\Tran} \bigg)^{-1}.
 % \end{equation}
 % Now, using the same analysis as in the proof of Lemma~\ref{lemma:cos_ratio_det}, we get 
-
-
 % % Now, write for $i \in [N]$,
 % % \begin{equation}\label{eq:t_as_function_of_kx}
 % % t_{i} = \sum\limits_{j \in [N]} c_{j,i} k(x_{j},.).
@@ -9773,7 +9804,6 @@ Our objective in this section is to give a tractable expression of
 % \begin{equation}
 % \bm{C}(\bm{x})^{\Tran} \bm{K}(\bm{x}) \bm{C}(\bm{x}) = \mathbb{I}_{N}.
 % \end{equation}
-
 % %
 % Thus
 % \begin{align}\label{eq:AN_times_EN}
@@ -9787,29 +9817,25 @@ Our objective in this section is to give a tractable expression of
 % \end{proof}
 % Now, we are ready to prove Proposition~\ref{prop:ex_dpp_sum_inv_cos}
 % \paragraph{Proof of Proposition~\ref{prop:ex_dpp_sum_inv_cos}}
-Let $\bm{x} = (x_{1}, \dots, x_{N}) \in \X^{N}$ such that $\Det^{2} \bm{E}(\bm{x}) > 0$, consider the polynomial 
-
+Let $\bm{x} = (x_{1}, \dots, x_{N}) \in \X^{N}$ such that $\Det^{2} \bm{E}(\bm{x}) > 0$, and consider the characteristic polynomial of the matrix $\bm{E}^{\mathcal{F}}(\bm{x})^{\Tran^{-1}}\bm{K}(\bm{x})\bm{E}^{\mathcal{F}}(\bm{x})^{-1}$
 \begin{equation}
 \chi_{\bm{x}}(t) = \Det \Big( \bm{E}^{\mathcal{F}}(\bm{x})^{\Tran^{-1}}\bm{K}(\bm{x})\bm{E}^{\mathcal{F}}(\bm{x})^{-1}  - t \mathbb{I}_{N} \Big) \in \mathbb{R}_{N}[t].
 \end{equation}
+By Proposition~\ref{cor:cos_ratio_det}, the roots of $\chi_{\bm{x}}(t)$ are  the $1/\cos^{2} \theta_{n}\big(\mathcal{T}(\bm{x}), \mathcal{E}_{N}^{\mathcal{F}} \big)$ for $n \in [N]$.
 
-
-$\chi_{\bm{x}}(t)$ is the characteristic polynomial of the matrix $\bm{E}^{\mathcal{F}}(\bm{x})^{\Tran^{-1}}\bm{K}(\bm{x})\bm{E}^{\mathcal{F}}(\bm{x})^{-1}$. By Proposition~\ref{cor:cos_ratio_det}, the roots of $\chi_{\bm{x}}(t)$ are  $\Big(1/\cos^{2} \theta_{n}\big(\mathcal{T}(\bm{x}), \mathcal{E}_{N}^{\mathcal{F}} \big) \Big)_{n \in [N]}$.
-
-Denote for any polynomial $P \in \mathbb{R}_{N}[t]$,
+Now, for any polynomial $P \in \mathbb{R}_{N}[t]$, denote by $a_{n}(P)$ its coefficients
 \begin{equation}
 P(t) = \sum\limits_{n = 0}^{N} a_{n}(P)t^{n}.
 \end{equation}
-
 Then by Vieta's formula, 
 \begin{equation}
-a_{n-1}(\chi_{\bm{x}}(t)) = -\Tr \Big(\bm{E}^{\mathcal{F}}(\bm{x})^{\Tran^{-1}}\bm{K}(\bm{x})\bm{E}^{\mathcal{F}}(\bm{x})^{-1} \Big).
+a_{N-1}(\chi_{\bm{x}}(t)) = (-1)^{N-1}\Tr \Big(\bm{E}^{\mathcal{F}}(\bm{x})^{\Tran^{-1}}\bm{K}(\bm{x})\bm{E}^{\mathcal{F}}(\bm{x})^{-1} \Big).
 \end{equation}
 Therefore,
 \begin{align}
 I_{k,N}  & = \EX_{\DPP} \Tr \Big(\bm{E}^{\mathcal{F}}(\bm{x})^{\Tran^{-1}}\bm{K}(\bm{x})\bm{E}^{\mathcal{F}}(\bm{x})^{-1} \Big) \nonumber\\
-& = -\EX_{\DPP} a_{0}(\chi_{\bm{x}}(t)) \nonumber\\
-& = -a_{0}(\EX_{\DPP} \chi_{\bm{x}}(t)),
+& = (-1)^{N-1}\EX_{\DPP} a_{N-1}(\chi_{\bm{x}}(t)) \nonumber\\
+& = (-1)^{N-1}a_{N-1}(\EX_{\DPP} \chi_{\bm{x}}(t)),
 \end{align}
 where $\EX_{\DPP} \chi_{\bm{x}}(t)$ is the expected characteristic polynomial. Therefore, in order to calculate $I_{k,N}$, it is sufficient to calculate $\EX_{\DPP} \chi_{\bm{x}}(t)$. Since $\EX_{\DPP} \chi_{\bm{x}}(t)$ is a polynomial, it is completely determined in the interval $[-1/2,1/2]$ \footnote{The reason behind this choice will appear later}.  
 % \begin{equation}
@@ -9825,7 +9851,7 @@ Now, let $t \in [-1/2,1/2]$
 
 Now, define the kernel $k_{t}$ 
 \begin{equation}
-k_{t}(x,y) = k(x,y) - t\sum\limits_{n \in [N]}e_{n}(x)e_{n}(y).
+k_{t}(x,y) = k(x,y) - t\sum\limits_{n \in [N]}\sigma_{n}e_{n}(x)e_{n}(y).
 \end{equation}
 
 Then
@@ -9867,7 +9893,11 @@ Now,
 \EX_{\DPP} \gamma_{\bm{x}}(t) & = \frac{1}{\prod\limits_{n \in [N]}\sigma_n} \Big[ (1-t)^{N} \sum\limits_{\substack{V \subset [N]\\|V| = N}} \prod\limits_{v \in V}\sigma_{v}  + (1-t)^{N-1} \sum\limits_{\substack{V \subset [N]\\|V| = N-1}} \prod\limits_{v \in V}\sigma_{v}  \sum\limits_{w \in \mathbb{N}^{*} \smallsetminus [N]} \sigma_{w} \Big] +p(t),
 \end{align}
 where $p$ is a polynomial of degree smaller than $N-2$.
-
+Therefore
+\begin{equation}
+a_{N-1}(\EX_{\DPP} \gamma_{\bm{x}}(t)) = \frac{(-1)^{N-1}}{\prod\limits_{v \in [N]}\sigma_{v}} \left( N\prod\limits_{v \in [N]}\sigma_{v} + \sum\limits_{\substack{V \subset [N]\\ |V| = N-1}} \prod\limits_{v \in V}\sigma_{v} \sum\limits_{w \in \mathbb{N}^{*}\smallsetminus [N]} \sigma_{w} \right).
+\end{equation}
+Finally, we get
 
 % \begin{equation}
 % a_{n-1}(\EX_{\DPP} \gamma_{\bm{x}}(t)) = \frac{1}{\prod\limits_{n \in [N]}\sigma_n} \sum\limits_{\ell =0}^{N} (1-t)^{\ell} \sum\limits_{\substack{V \subset [N]\\|V| = \ell}} \prod\limits_{v \in V}\sigma_{v}  \sum\limits_{\substack{W \subset \mathbb{N}^{*} \smallsetminus[N]\\  |W|= N-|V|}}  \prod\limits_{w \in W}\sigma_{w}
@@ -9876,9 +9906,9 @@ where $p$ is a polynomial of degree smaller than $N-2$.
 % \begin{equation}\label{eq:explicit_phi_derivative_at_zero}
 % \partial_{t} \phi_{|t = 0} = N\prod\limits_{v \in [N]}\sigma_{v} + \sum\limits_{w \in \mathbb{N}^{*}\smallsetminus [N]} \sigma_{w}\sum\limits_{\substack{V \subset [N]\\ |V| = N-1}} \prod\limits_{v \in V}\sigma_{v}.
 % \end{equation}
-Finally, combining \eqref{eq:I_k_N}, \eqref{eq:phi_derivative_at_zero} and \eqref{eq:explicit_phi_derivative_at_zero} we get
+% Finally, combining \eqref{eq:I_k_N}, \eqref{eq:phi_derivative_at_zero} and \eqref{eq:explicit_phi_derivative_at_zero} we get
 \begin{align}
-\EX_{\DPP}  \Tr \bigg(  \bm{E}^{\mathcal{F}}(\bm{x})^{\Tran^{-1}}\bm{K}(\bm{x})\bm{E}^{\mathcal{F}}(\bm{x})^{-1} \bigg) & = a_{N-1}(\EX_{\DPP} \gamma_{\bm{x}}(t))\\
+\EX_{\DPP}  \Tr \bigg(  \bm{E}^{\mathcal{F}}(\bm{x})^{\Tran^{-1}}\bm{K}(\bm{x})\bm{E}^{\mathcal{F}}(\bm{x})^{-1} \bigg) & = (-1)^{N-1}a_{N-1}(\EX_{\DPP} \gamma_{\bm{x}}(t))\\
 & = \frac{1}{\prod\limits_{v \in [N]}\sigma_{v}} \left( N\prod\limits_{v \in [N]}\sigma_{v} + \sum\limits_{\substack{V \subset [N]\\ |V| = N-1}} \prod\limits_{v \in V}\sigma_{v} \sum\limits_{w \in \mathbb{N}^{*}\smallsetminus [N]} \sigma_{w} \right) \nonumber\\
 & =  N + \sum\limits_{\substack{V \subset [N]\\ |V| = N-1}} \frac{1}{\sigma_{v}} \sum\limits_{w \in \mathbb{N}^{*}\smallsetminus [N]} \sigma_{w} .
 \end{align}
@@ -12652,7 +12682,7 @@ However, the rate of convergence of these quadratures seem to scales as $\mathca
 % As we have seen in Section~\ref{sec:DPPs_for_quadrature}, several quadratures based on DPPs achieve either the rate...
 
 
-\subsection{A Grassmannian trigonometry problem}
+\subsection{A Grassmannian trigonometry problem}\label{sec:conclusion_trigonometry_problem}
 % the analysis of column subset selection and kernel quadrature under the distribution of a  projection DPP makes use of the control of symmetric functions on the principal angles b
 % In this thesis, we have introduced  technical contribution of this thesis is to use principal angles to control 
 We conclude with a technical open question that concerns the control of principal angles under the distribution of projection DPPs.
