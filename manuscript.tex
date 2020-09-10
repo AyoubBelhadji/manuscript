@@ -367,11 +367,11 @@ This thesis is devoted to investigate the suitability and the pertinence of usin
 In order to situate the contributions of this thesis, a brief review on randomized subsampling techniques for problems with a linear structure is given in the following. 
 % \subsection{Independent sampling: from linear regression to kernel interpolation}
 
-We start by the problem of linear regression under constraint on the number of observations. Consider a matrix $\bm{X}\in \mathbb{R}^{N \times d}$ that contains the $d$ features of $N$ observations, with $N \geq d$, and the rank of $\bm{X}$ is equal to $d$. A recurrent task in data analysis and statistics is linear regression that consist on looking for the minimum-length vector $\bm{w} \in \mathbb{R}^{d}$ among the vectors minimizing the residual
+We start by the problem of linear regression under constraint on the number of observations. Consider a matrix $\bm{X}\in \mathbb{R}^{N \times d}$ that contains the $d$ features of $N$ observations, with $N \geq d$, and assume the rank of $\bm{X}$ is equal to $d$. A recurrent task in data analysis and statistics is linear regression, which consists in looking for the minimum-length vector $\bm{w} \in \mathbb{R}^{d}$ among the vectors minimizing the residual
 \begin{equation}
 \|\bm{y} - \bm{X}\bm{w}\|^{2},
 \end{equation}
-for a given vector of labels $\bm{y} \in \mathbb{R}^{N}$. It is well known that this vector is given by $\bm{w}^{*} = \bm{X}^{+}\bm{y}$, where $\bm{X}^{+}$ is the Moore-Penrose pseudo inverse of $\bm{X}$
+for a given vector of labels $\bm{y} \in \mathbb{R}^{N}$. It is well known that the solution is given by $\bm{w}^{*} = \bm{X}^{+}\bm{y}$, where $\bm{X}^{+}$ is the Moore-Penrose pseudo-inverse of $\bm{X}$
 % \begin{equation}\label{eq:intro_pseudo_inverse}
 % \bm{w}^{*} = \bm{X}^{+}\bm{y},
 % \end{equation}
@@ -381,29 +381,29 @@ and the optimal  residual writes
 \end{equation}
 with $\bm{U} \in \mathbb{R}^{N \times d}$ is a matrix containing the left eigenvectors of $\bm{X}$.
 
-In some situations, calculating $\bm{w}^{*}$ using the pseudo-inverse formula is not affordable, either because $N$ is very large and the computation resources are not sufficient (the numerical issue), or because obtaining the $N$ labels $(y_{n})_{n \in [N]}$ is expensive (the sensing issue). In such a situation, looking for representatives can be beneficial.
+In some situations, calculating $\bm{w}^{*}$ using a pseudo-inverse formula is not affordable, either because $N$ is very large and the computation resources are not sufficient (the numerical issue), or because obtaining the $N$ labels $(y_{n})_{n \in [N]}$ is expensive (the sensing issue). In such a situation, looking for representatives can be beneficial.
 
  Formally, a family of representatives 
  % corresponds to a family of indices $(n_{i})_{i \in I}$ and a family of weights $(s_{i})_{i \in I}$ $...$
- corresponds to a subset $S = \{i_{1}, \dots, i_{c} \} \subset [N]$ with $c \in \mathbb{N}^{*}$ and $i_{1} < i_{2} < \dots < i_{c}$, and a matrix $\bm{S} \in \mathbb{R}^{c \times N}$ such that for $j \in [c]$, 
- $\bm{S}_{j,i_{j}}  = s_{j}>0$, and the other elements of $\bm{S}$ are equal to $0$. The constant $c$ represents the \emph{budget} of sub-sampling.
+ corresponds to a subset $S = \{i_{1}, \dots, i_{c} \} \subset [N]$ with $c \in \mathbb{N}^{*}$, $i_{1} < i_{2} < \dots < i_{c}$, and a matrix $\bm{S} \in \mathbb{R}^{c \times N}$ such that for $j \in [c]$, 
+ $\bm{S}_{j,i_{j}}  = s_{j}>0$, and the other elements of $\bm{S}$ are equal to $0$. The constant $c$ represents the \emph{budget} of sub-sampling,
   % that contains only one non-vanishing element in a row: for every $n \in [N]$, if $\bm{S}_{i,n}  = s_{i}>0$ then the $n$-element of $[N]$ is kept in the subset $S$, and if $\bm{S}_{i,n} = 0$ then the $n$-element of $[N]$ is removed.
-  In such a way that $\bm{S}^{\Tran}\bm{X} \in \mathbb{R}^{c \times d}$ represents the sub-matrix of $\bm{X}$ that correspond to the subset $S$ after rescaling the rows by the factors $s_{i}$.
+  and $\bm{S}^{\Tran}\bm{X} \in \mathbb{R}^{c \times d}$ is the sub-matrix of $\bm{X}$ that correspond to the subset $S$, after rescaling the rows by the factors $s_{i}$.
   % The values of the $s_{n}$ corresponds to either the multiplicities of these rows, or some rescaling factors necessary for the theoretical analysis. In particular $\bm{S}^{\Tran} \bm{X}$ is the sub-matrix of $\bm{X}$ with the indices of the rows 
 
- Now, using a sampling matrix $\bm{S}$, one can define an approximation of $\bm{w}^{*}$. For example, in \citep*{DrMaMu06}, the following approximation was proposed
+ Now, one can define an approximation of $\bm{w}^{*}$ based on the subset $S$. For example, \cite*{DrMaMu06} proposed
 \begin{equation}
 \bm{w}_{S}^{*} = (\bm{S}^{\Tran}\bm{X})^{+} (\bm{S}^{\Tran}\bm{y}).
 \end{equation}
 % This way, the calculation
-In this approximation, the couple $(\bm{X},\bm{y})$ was replaced by the reduced couple $(\bm{S}^{\Tran}\bm{X},\bm{S}^{\Tran}\bm{y})$.
-A good family of representatives would define a sampling matrix $\bm{S}$ that satisfy
+In this approximation, the pair $(\bm{X},\bm{y})$ was replaced by the reduced pair $(\bm{S}^{\Tran}\bm{X},\bm{S}^{\Tran}\bm{y})$.
+A good choice of the representers would define a sampling matrix $\bm{S}$ that satisfy
 \begin{equation}
 \forall \bm{y} \in \mathbb{R}^{N}, \:\: \|\bm{y} - \bm{X} \bm{w}_{S}^{*}\|^{2} \leq (1+\epsilon) \|\bm{y} - \bm{X} \bm{w}^{*}\|^{2},
 \end{equation}
 for some tolerable error $\epsilon >0$. This condition can be written as
 \begin{equation}\label{eq:introduction_embedding_condition}
-(1-\epsilon) \mathbb{I}_{d} \prec \sum\limits_{j \in [c]} s_{j} \tilde{x}_{i_{j}} \tilde{x}_{i_{j}}^{\Tran} \prec (1+\epsilon) \mathbb{I}_{d} \iff \|\mathbb{I}_{d} - \sum\limits_{j \in [c]} s_{j} \tilde{x}_{i_{j}} \tilde{x}_{i_{j}}^{\Tran}\|_{2} \leq \epsilon,
+(1-\epsilon) \mathbb{I}_{d} \prec \sum\limits_{j \in [c]} s_{j} \tilde{x}_{i_{j}} \tilde{x}_{i_{j}}^{\Tran} \prec (1+\epsilon) \mathbb{I}_{d} \iff \big \|\mathbb{I}_{d} - \sum\limits_{j \in [c]} s_{j} \tilde{x}_{i_{j}} \tilde{x}_{i_{j}}^{\Tran} \big\|_{2} \leq \epsilon,
 \end{equation}
 % with
 % \begin{equation}
@@ -413,42 +413,42 @@ where $\mathbb{I}_{d}$ is the identity matrix of dimension $d$, $\tilde{x}_{n} =
 % \begin{equation}
 % \forall n \in [N], \:\:\tilde{x}_{n} = \bm{M}^{-1/2} x_{n}.
 % \end{equation}
-Therefore, the sub-sampling problem boils down to looking for the matrix $\bm{S}$ that make the reduced matrix $\sum_{j \in [c]} s_{j} \tilde{x}_{i_{j}} \tilde{x}_{i_{j}}^{\Tran}$ close to the identity matrix $\mathbb{I}_{d}$, which writes as the sum of rank one matrices
+Therefore, the sub-sampling problem boils down to looking for a matrix $\bm{S}$ that makes the reduced matrix $\sum_{j \in [c]} s_{j} \tilde{x}_{i_{j}} \tilde{x}_{i_{j}}^{\Tran}$ close to the identity matrix $\mathbb{I}_{d}$, which itself writes as the sum of rank one matrices
 \begin{equation}\label{eq:sum_to_identity_real}
 \mathbb{I}_{d} = \sum\limits_{n \in [N]}\tilde{x}_{n}\tilde{x}_{n}^{\Tran}.
 \end{equation}
 
 % This sparsification ca
 % Intuitively, one would like to keep the $\tilde{v}_{n}$ that form a 
-One way to design a sampling matrix $\bm{S}$ that satisfy the condition~\eqref{eq:introduction_embedding_condition} is to consider a randomized sub-sum of~\eqref{eq:sum_to_identity_real}, and to make use of a matrix concentration inequality to prove that this sub-sum concentrate around $\mathbb{I}_{d}$. For example, consider the following random sum
-\begin{equation}
+One way to design a sampling matrix $\bm{S}$ that satisfies condition~\eqref{eq:introduction_embedding_condition} is to consider a randomized sub-sum of~\eqref{eq:sum_to_identity_real}, and to make use of a matrix concentration inequality to prove that this sub-sum concentrates around $\mathbb{I}_{d}$. For example, consider the following random sum
+\begin{equation}\label{eq:introduction_random_subsample}
 I_{c} = \frac{1}{c}\sum\limits_{i \in [c]} \frac{1}{p_{n_{i}}}z_{{n_{i}}}z_{{n_{i}}}^{\Tran},
 \end{equation}
-where the $p_n$ are positive and sum to one, and the $n_{i}$ are sampled independently from the multinomial random variable of parameter $\bm{p} = (p_{n})_{n \in [N]}$. We can prove easily that $\EX I_{c} = \mathbb{I}_{d}$. Moreover, the fluctuations of $I_{c}$ around $\mathbb{I}_{d}$ can be derived using a concentration inequality \citep{Tro15}.
+where the $p_n$ are positive and sum to one, and the $n_{i}$ are sampled independently from the multinomial random variable of parameter $\bm{p} = (p_{n})_{n \in [N]}$. We can easily prove  that $\EX I_{c} = \mathbb{I}_{d}$. Moreover, the fluctuations of $I_{c}$ around $\mathbb{I}_{d}$ can be controlled using a concentration inequality.
 % An example of such a result is given in the following.
-\begin{theorem}[Matrix Bernstein concentration inequality]\label{thm:matrix_bernstein}
-Consider a finite sequence $(X_{j})_{j}$ of independent, random, self-adjoint $d\times d$ matrices. Assume that each matrix $X_{j}$
+\begin{theorem}[Matrix Bernstein concentration inequality] \citep{Tro15}\label{thm:matrix_bernstein}
+Consider a finite sequence $(X_{j})$ of independent, random, self-adjoint $d\times d$ matrices. Assume that each matrix $X_{j}$
 satisfies 
 \begin{align}
  \EX X_{j} &= \mathbb{0}_{d \times d},\\
  \|X_{j}\|_{2} &\leq \tau,
 \end{align}
-where $\tau >0$ and define $\sigma^{2} = \|\EX \sum\limits_{j} X_{j}^{2}\|$.
+where $\tau >0$, and define $\sigma^{2} = \|\EX \sum\limits_{j} X_{j}^{2}\|$.
 % and 
 % Let $\rho_{j} = \max(\|\EX X_{j} X_{j}^{\Tran}\|_{2}, \|\EX X_{j}^{\Tran}X_{j}\|_{2})$, and $\max\limits_{j \in [c]} $.
  Then for $\epsilon >0$, 
 
 \begin{equation}
-\Prb \left( \|\sum\limits_{j} X_{j}\|_{2} \geq \epsilon \right) \leq 2 d e^{-\frac{3}{2} \frac{\epsilon^{2}}{3\sigma^{2} + \tau \epsilon}}.
+\Prb \left( \big\|\sum\limits_{j} X_{j} \big\|_{2} \geq \epsilon \right) \leq 2 d e^{-\frac{3}{2} \frac{\epsilon^{2}}{3\sigma^{2} + \tau \epsilon}}.
 \end{equation}
 \end{theorem}
-Theorem~\ref{thm:matrix_bernstein} can be applied to the matrix $I_{c}$ by considering the random matrices $X_{i} = (\tilde{x}_{n_{i}}\tilde{x}_{n_{i}}^{\Tran}/p_{n_{i}} - \mathbb{I}_{d})/c$. In particular, when $\bm{p} =(1/N)$, the bounds of Theorem~\ref{thm:matrix_bernstein} are significant if $c \geq C N \log(d)\max_{n \in [N]}\|\tilde{x}_n\|^{2}$, where $C$ is a universal constant that does not depend on $d$ and $N$: if there exists $n$ such that $\|\tilde{x}_{n}\|=1$, then $c \geq C N \log(d)$ and the subsampling does not allow to reduce the complexity of the problem; however, if $\max_{n \in [N]}\|\tilde{x}_n\|^{2}$ is equal to its minimal value $d/N$, then the budget $c = C d \log(d)$ is enough to have good guarantees. In other words, uniform sub-sampling reduces the complexity of the problem if the \emph{coherence} $\max_{n \in [N]}\|\tilde{x}_n\|^{2}$ approaches its lowest possible value $d/N$, otherwise the minimal budget have to be larger than $N$ which at odds with the idea of sub-sampling. Intuitively, the variance of such a randomized sub-sum is governed by the vectors $\tilde{x}_{n}$ that have large norms, and including them in this sum with a probability larger than $1/N$  would make this variance low. This intuition motivates the introduction of the \emph{leverage scores} $(\ell_{n})_{n \in [N]}$ defined by
+Theorem~\ref{thm:matrix_bernstein} can be applied to the matrix $I_{c}$ in~\eqref{eq:introduction_random_subsample} by considering the random matrices $X_{i} = (\tilde{x}_{n_{i}}\tilde{x}_{n_{i}}^{\Tran}/p_{n_{i}} - \mathbb{I}_{d})/c$. In particular, when $\bm{p} =(1/N)$, the bounds of Theorem~\ref{thm:matrix_bernstein} are significant if $c \geq C N \log(d)\max_{n \in [N]}\|\tilde{x}_n\|^{2}$, where $C$ is a universal constant that does not depend on $d$ and $N$: if there exists $n$ such that $\|\tilde{x}_{n}\|=1$, then one needs to take $c \geq C N \log(d)$ and the subsampling does not allow to reduce the complexity of the problem; however, if $\max_{n \in [N]}\|\tilde{x}_n\|^{2}$ is equal to its minimal value $d/N$, then the budget $c = C d \log(d)$ is enough to have good guarantees. In other words, uniform sub-sampling reduces the complexity of the problem if the \emph{coherence} $\max_{n \in [N]}\|\tilde{x}_n\|^{2}$ approaches its lowest possible value $d/N$, otherwise the minimal budget has to be larger than $N$, which is at odds with the idea of sub-sampling. Intuitively, the variance of such a randomized sub-sum is governed by the vectors $\tilde{x}_{n}$ that have large norms, and including them in this sum with a probability larger than $1/N$  would make this variance low. This intuition motivates the introduction of the \emph{leverage scores} $(\ell_{n})_{n \in [N]}$ defined by
 \begin{equation}
 \ell_{n} = \|\tilde{x}_{n}\|^{2}.
 \end{equation}
 Indeed, using again Theorem~\ref{thm:matrix_bernstein}, if $\bm{p} = (\ell_{n}/d)_{n \in [N]}$, the budget $c = C d \log(d)$ is enough to have good guarantees independently of the value of the coherence, and more importantly, independently of $N$. This constitutes a significant reduction of the complexity of the problem in situations where $N$ is very large compared to $d$. 
 
-This reduction can be beneficial in other problems with a linear structure beside vanilla linear regression. For example, for the problem of graph sparsification, i.e. sub-sampling the edges of a graph while maintaining its spectral properties. For this problem the dimension $d$ is the number of the nodes that can be very small compared to the number of the edges $N$. Leverage score sampling was studied for this problem under the name of \emph{effective resistance sampling} \citep*{SpTe04,SpSr11}. Sub-sampling on graphs can be beneficial on the other way also: sub-sampling nodes for the recovery of band-limited signals \citep*{PuTrGrVa18}. In this setting, $d$ is the the size of the band of the signal and $N$ is the number of the nodes. Finally, the notion of leverage score sampling was used for low rank approximations \citep*{DrMaMu07} as we shall see more in detail in Chapter~\ref{chapter:cssp}.
+Beside vanilla linear regression, this reduction can be beneficial in other problems with a linear structure. For example, for the problem of graph sparsification, i.e. sub-sampling the edges of a graph while maintaining its spectral properties. For this problem, the dimension $d$ is the number of the nodes, which can be very small compared to the number of the edges $N$. Leverage score sampling was studied for this problem under the name of \emph{effective resistance sampling} \citep*{SpTe04,SpSr11}. Sub-sampling nodes in a graph can also be beneficial, e.g. for the recovery of band-limited signals \citep*{PuTrGrVa18}. In this setting, $d$ is the  size of the band of the signal and $N$ is the number of the nodes. Finally, the notion of leverage score sampling was used for low-rank approximations, of general matrices \citep*{DrMaMu07}, as we shall see more in detail in Chapter~\ref{chapter:cssp}.
 
  % have a significant impact when $N$ is very large  sub-sampling using the leverage score distribution leads to compressing the 
 
@@ -589,24 +589,24 @@ This reduction can be beneficial in other problems with a linear structure besid
 
 % Moreover, it can be extended to kernel matrix approximations under the name of \emph{ridge-leverage scores} distribution.
 
-Another field of application of matrix sub-sampling is low rank approximation of kernel matrices. These approximations are widely used to scale up kernel methods~\citep{ScSm18,ShCr04}. To give an example, consider the kernel ridge regression problem defined for
+Another field of application of matrix sub-sampling is low-rank approximation of kernel matrices. These approximations are widely used to scale up kernel methods~\citep{ScSm18,ShCr04}. To give an example, consider the kernel ridge regression problem, defined for
  % that are recurrently used in kernel methods \citep{Bac13,AlMa15}. For example,
-  some elements $x_{1}, \dots, x_{N}$ of a metric space $\X$ equipped with a p.s.d. kernel $k: \X \times \X \rightarrow \mathbb{R}$
+  some elements $x_{1}, \dots, x_{N}$ of a metric space $\X$ equipped with a p.s.d. kernel $k: \X \times \X \rightarrow \mathbb{R}$ as
 \begin{equation}\label{eq:kernel_ridge_regression_problem}
 \min\limits_{\bm{\alpha} \in \mathbb{R}^{N}} \frac{1}{2}\|\bm{y} - \bm{K}(\bm{x}) \bm{\alpha}\|^{2} + \lambda \bm{\alpha}^{\Tran} \bm{K}(\bm{x}) \bm{\alpha},
 \end{equation}
 where $\bm{y} \in \mathbb{R}^{N}$ and $\bm{K}(\bm{x}) = (k(x_{n},x_{n'}))_{n,n' \in [N]} \in \mathbb{R}^{N \times N}$.
-The solution of~\eqref{eq:kernel_ridge_regression_problem} have a tractable formula
+The solution of~\eqref{eq:kernel_ridge_regression_problem} has a tractable form
 \begin{equation}
 \bm{\alpha}^{*} = (\bm{K}(\bm{x}) +N\lambda \mathbb{I}_{N})^{-1} \bm{y},
 \end{equation}
-yet it is not amenable to use for large values of $N$ because the required number of operations to invert $\bm{K}(\bm{x}) +N\lambda \mathbb{I}_{N}$ scales as $\mathcal{O}(N^{3})$. One way to scale up this problem is to consider a low rank approximation of the kernel matrix $\bm{K}(\bm{x})$. Indeed, if a low rank approximation of $\bm{K}(\bm{x})$ is known then approximation of $\bm{w}^{*}$ can be done in $\mathcal{O}(Nr + r^{3})$ with $r$ is the rank of the approximation \citep{SmSc00,WiSe01}. Nystr{\"o}m approximation is a widely used low rank approximation; it is simple to implement and amenable to theoretical analysis. This approximation is based on a subset $S \subset [N]$, and writes
+yet it is impractical to compute for large values of $N$, because the required number of operations to invert $\bm{K}(\bm{x}) +N\lambda \mathbb{I}_{N}$ scales as $\mathcal{O}(N^{3})$. One way to scale up this problem is to consider a low rank approximation of the kernel matrix $\bm{K}(\bm{x})$. Indeed, if a low rank approximation of $\bm{K}(\bm{x})$ is known, then approximating of $\bm{w}^{*}$ can be done in $\mathcal{O}(Nr + r^{3})$, with $r$ the rank of the approximation \citep{SmSc00,WiSe01}. Nystr{\"o}m approximation is a widely used low rank approximation; it is simple to implement and amenable to theoretical analysis. This approximation is based on a subset $S \subset [N]$, and writes
 \begin{equation}
 \bm{K}(\bm{x}) \approx \bm{K}(\bm{x})_{:,S} \bm{K}(\bm{x})_{S,S}^{+} \bm{K}(\bm{x})_{:,S}^{\Tran},
 \end{equation}
 where $\bm{K}(\bm{x})_{:,S}$ and $\bm{K}(\bm{x})_{S,S}$ are respectively the columns and the sub-matrix of $\bm{K}(\bm{x})$ corresponding to the indices in the set $S$.
 
-The theoretical analysis of the Nystr{\"o}m approximation for kernel ridge regression, was carried out in \citep{Bac13} under uniform sub-sampling, and in \citep{AlMa15} under the 
+The theoretical analysis of the Nystr{\"o}m approximation for kernel ridge regression was carried out in \citep{Bac13} under uniform sub-sampling, and in \citep{AlMa15} under the 
 % Hence, the need to  can be used such as
 % \begin{equation}
 % \bm{\alpha}_{S}^{*} = 
@@ -623,12 +623,12 @@ If a spectral decomposition of $\bm{K}(\bm{x}) = \bm{U}\Diag((\sigma_{\ell})_{ \
 
 The analysis conducted in these works highlighted the importance of a quantity called \emph{the effective dimension} defined by
 \begin{equation}
-d_{\eff}(\lambda) = \Tr \bm{K}(\bm{x})(\bm{K}(\bm{x})+ N\lambda \mathbb{I}_{N})^{-1},
+d_{\eff}(\lambda) = \Tr \bm{K}(\bm{x})(\bm{K}(\bm{x})+ N\lambda \mathbb{I}_{N})^{-1}.
 \end{equation}
 % In particular, the minimal budget to conducted the Nystrom approximation scales as $\mathcal{O}(d_{\eff}(\lambda) \log d_{\eff}(\lambda))$:
- that plays the same role as the dimension $d$ for the sparsification of the identity matrix $\mathbb{I}_{d}$ reviewed previously: the minimal  budget $|S|$ have to scale as $\mathcal{O}(d_{\eff}(\lambda) \log d_{\eff}(\lambda))$ to obtain a statistical risk within a factor $(1+\epsilon)$ of the statistical risk obtained when the full matrix $\bm{K}(\bm{x})$ is used.
- This suggests that kernel ridge regression under under ridge leverage scores sampling would scales as $\mathcal{O}(N d_{\eff}(\lambda)^{2})$. 
-  Nevertheless, the calculation of the ridge leverage scores through the definition~\eqref{eq:introduction_rlv_score}, or the spectral representation~\eqref{eq:introduction_rlv_score_spectral} is as expensive as the initial problem. To close the loop, many approximation schemes of the ridge leverage scores were proposed and analysed. These methods have a better scaling on $N$; see \citep*{CaLaVa17,Cal17} for an algorithm that runs in $\mathcal{O}(N d_{\eff}(\lambda)^{3})$ operations.
+The effective dimension plays the same role as the dimension $d$ for the sparsification of the identity matrix $\mathbb{I}_{d}$ reviewed around Theorem~\ref{thm:matrix_bernstein}: the minimal  budget $|S|$ has to scale as $\mathcal{O}(d_{\eff}(\lambda) \log d_{\eff}(\lambda))$ to obtain a statistical risk within a factor $(1+\epsilon)$ of the statistical risk obtained when the full matrix $\bm{K}(\bm{x})$ is used.
+ This suggests that kernel ridge regression under ridge leverage score sampling would scale as $\mathcal{O}(N d_{\eff}(\lambda)^{2})$. 
+  Nevertheless, the calculation of the ridge leverage scores through the definition~\eqref{eq:introduction_rlv_score}, or the spectral representation~\eqref{eq:introduction_rlv_score_spectral} is as expensive as the initial problem. To close the loop, many approximation schemes of the ridge leverage scores were proposed and analysed. These methods scale better with $N$; see \citep*{CaLaVa17,Cal17} for an algorithm that runs in $\mathcal{O}(N d_{\eff}(\lambda)^{3})$ operations.
  % Moreover, tMoreover, i.i.d. sampling requires an $\Omega(d_{\eff}(\lambda) \log d_{\eff}(\lambda)$ samples, where $d_{\eff}$ is the effective dimension 
 
 
@@ -655,7 +655,7 @@ d_{\eff}(\lambda) = \Tr \bm{K}(\bm{x})(\bm{K}(\bm{x})+ N\lambda \mathbb{I}_{N})^
 
  % usually  initially were used for the pre-conditioning of linear solvers \citep{Golub1965} [???] that is purely a numerical routine in numerical linear algebra. Yet, the use of the subset selection paradigm expanded and covered different problems in various settings: coresets for a learning task, subset selection in numerical linear algebra especially for regression tasks and for efficient factorization of gram kernel matrices, signal recovery on graphs, low rank factorization of matrices, efficient implementations of Bayesian inference based on MCMC algorithms...
 
-As one would observe, all the problems we reviewed previously are \emph{fixed design} problems, in the sense that it is required to sub-sample from a given set $\{x_{1}, \dots, x_{N}\}$. This setting is typical in numerical linear algebra and machine learning applications where $\{x_{1}, \dots, x_{N}\}$ corresponds to some fixed dataset. Yet, as it was shown by \cite{Bac17}, the analysis of some \emph{random design} problems can be conducted using the same spectral techniques used for fixed design problems. Indeed, the author considered the problem of approximating a function $\mu$ defined on some metric space $\X$ by a finite mixture of some kernel translates $k(x_{n},.)$ 
+As one would observe, all the problems we reviewed so far are \emph{fixed design} problems, in the sense that it is required to sub-sample from a given set $\{x_{1}, \dots, x_{N}\}$. This setting is typical in numerical linear algebra and machine learning applications, where $\{x_{1}, \dots, x_{N}\}$ corresponds to some fixed matrix or dataset. Yet, as it was shown by \cite{Bac17}, the analysis of some \emph{random design} problems can be conducted using the same spectral techniques used for fixed design problems. Indeed, the author considered the problem of approximating a function $\mu$ defined on some metric space $\X$ by a finite mixture of kernel translates $k(x_{n},.)$ 
 \begin{equation}\label{eq:introduction_f_mixture}
 \mu \approx \sum\limits_{n \in [N]}w_{n}k(x_{n},.).
 \end{equation}
@@ -665,7 +665,7 @@ More precisely, $\X$ is assumed to be a measurable space equipped with a measure
 \begin{equation}
 \mu = \mu_{g} := \int_{\X}k(x,.)g(x) \mathrm{d}\omega(x),
 \end{equation}
-with $g \in \mathbb{L}_{2}(\mathrm{d}\omega)$. By construction, $\mu$ belongs to the RKHS associated to the kernel $k$ that we assume to be embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$. Insuring a "good" approximation in~\eqref{eq:introduction_f_mixture} leads to quadrature with strong guarantees. Indeed, we have
+with $g \in \mathbb{L}_{2}(\mathrm{d}\omega)$. By construction, $\mu$ belongs to the RKHS $\F$ associated to the kernel $k$ that we assume to be embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$. Insuring a "good" approximation in~\eqref{eq:introduction_f_mixture} leads to quadrature with strong guarantees. Indeed, we have
 \begin{equation}
 \forall f \in \F, \:\: \Big| \int_{\X} f(x)g(x)\mathrm{d}\omega(x) - \sum\limits_{n \in N}w_{n}f(x_{n})  \Big| \leq \|f\|_{\F} \Big\|\mu_{g} - \sum\limits_{n \in [N]} w_{n}k(x_{n},.) \Big\|_{\F}.
 \end{equation}
