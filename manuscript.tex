@@ -260,7 +260,8 @@ does not require the spectral decomposition of the integration operator.
 
 \paragraph{intro 2}
 
-Many approximation tasks in applied mathematics can be reformulated as problems of estimations under \emph{size constraints}, that is the estimation of some object based on a partial knowledge of the available data; this object can be a scalar, a vector, a matrix or even a function. These approximations are conducted, mainly, for three purposes: improving the numerical complexity of an existing algorithm (\emph{numerical issue}), reducing the cost of labelling (\emph{sensing issue}) or making an algorithm more interpretable (\emph{interpretation issue}). Examples of these approximation problems include subset selection, quadrature or interpolation. 
+Many approximation tasks in applied mathematics can be reformulated as problems of estimations under \emph{size constraints}, that is the estimation of some object based on a partial knowledge of the available data; this object can be a scalar, a vector, a matrix or even a function. 
+These approximations are conducted, mainly, for three purposes: improving the numerical complexity of an existing algorithm (\emph{numerical issue}), reducing the cost of labelling (\emph{sensing issue}) or making an algorithm more interpretable (\emph{interpretation issue}); and have many applications in data analysis, signal processing, machine learning and statistics: continuous signal discretization, numerical integration, dimension reduction, learning on budget, preconditioning...
 
 
 These three problems, seemingly unrelated, can be tackled using the same strategy: looking for the most representative elements in a set. Indeed,
@@ -665,22 +666,24 @@ More precisely, $\X$ is assumed to be a measurable space equipped with a measure
 \begin{equation}
 \mu = \mu_{g} := \int_{\X}k(x,.)g(x) \mathrm{d}\omega(x),
 \end{equation}
-with $g \in \mathbb{L}_{2}(\mathrm{d}\omega)$. By construction, $\mu$ belongs to the RKHS $\F$ associated to the kernel $k$ that we assume to be embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$. Insuring a "good" approximation in~\eqref{eq:introduction_f_mixture} leads to quadrature with strong guarantees. Indeed, we have
-\begin{equation}
-\forall f \in \F, \:\: \Big| \int_{\X} f(x)g(x)\mathrm{d}\omega(x) - \sum\limits_{n \in N}w_{n}f(x_{n})  \Big| \leq \|f\|_{\F} \Big\|\mu_{g} - \sum\limits_{n \in [N]} w_{n}k(x_{n},.) \Big\|_{\F}.
+with $g \in \mathbb{L}_{2}(\mathrm{d}\omega)$. By construction, $\mu$ belongs to the RKHS $\F$ associated to the kernel $k$, which we assume to be embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$. Ensuring a "good" approximation in~\eqref{eq:introduction_f_mixture} is particulary useful for quadrature. Indeed, we have
+\begin{equation}\label{eq:introduction_bound_on_quadrature_using_kernel}
+\forall f \in \F, \:\: \Big| \int_{\X} f(x)g(x)\mathrm{d}\omega(x) - \sum\limits_{n \in N}w_{n}f(x_{n})  \Big| \leq \|f\|_{\F} \Big\|\mu_{g} - \sum\limits_{n \in [N]} w_{n}k(x_{n},.) \Big\|_{\F},
 \end{equation}
-Moreover, $\|\mu_{g} - \sum_{n \in [N]} w_{n}k(x_{n},.) \|_{\F}$ is the worst integration error on the unit ball of $\F$ defined by
+so that controlling the approximation error in r.h.s. of~\eqref{eq:introduction_bound_on_quadrature_using_kernel} yields a control on the integration error in the l.h.s.
+Moreover, $\|\mu_{g} - \sum_{n \in [N]} w_{n}k(x_{n},.) \|_{\F}$ is actually the worst case integration error on the unit ball of $\F$. 
+%defined by
  % $| \int_{\X} f(x)g(x)\mathrm{d}\omega(x) - \sum_{n \in N}w_{n}f(x_{n}) |$ of a function $f$ that belongs to the unit ball of the RKHS $\F$. 
 
-\begin{equation}
-\sup\limits_{\substack{\|f\|_{\F} \leq 1}} \Big| \int_{\X} f(x)g(x)\mathrm{d}\omega(x) - \sum_{n \in N}w_{n}f(x_{n}) \Big|.
-\end{equation}
+% \begin{equation}
+% \sup\limits_{\substack{\|f\|_{\F} \leq 1}} \Big| \int_{\X} f(x)g(x)\mathrm{d}\omega(x) - \sum_{n \in N}w_{n}f(x_{n}) \Big|.
+% \end{equation}
 
 % As we can see, both the \emph{nodes} $x_{n}$ and the $\emph{weights}$ $w_{n}$ 
 %  this problem appears in quadrature problems of functions that belong to reproducing kernel Hilbert spaces. 
 
 
-The author proposed to take the \emph{nodes} $x_{n}$ to be independent random variables that follow a density $q$ with respect to the measure $\omega$, and to take weights $(w_{n})_{n \in N}$ to be a solution of the optimization problem
+\cite{Bac17} proposed to take the \emph{nodes} $x_{n}$ to be independent random variables that follow a density $q$ with respect to the measure $\omega$, and to take weights $(w_{n})_{n \in N}$ to be a solution of the optimization problem
 \begin{equation}\label{eq:introduction_reg_problem_kernel_quadrature}
 \min\limits_{ \bm{w}\in \mathbb{R}^{N}} \Big\|\mu_{g} - \sum\limits_{n \in [N]} \frac{w_{n}}{q(x_{n})^{1/2}}k(x_{n},.) \Big\|_{\F}^{2} + N \lambda \|\bm{w}\|^{2}.
 \end{equation}
@@ -693,25 +696,28 @@ In particular, there exists a density $q^{\lambda}$ called the \emph{continuous 
 \begin{equation}
 \sup\limits_{\substack{g \in \mathbb{L}_2(\mathrm{d}\omega)\\ \|g\|_{\mathrm{d}\omega} \leq 1}} \Big \|\mu_g - \sum\limits_{n \in [N]} \frac{w_{n}^{*}}{q^{\lambda}(x_{n})^{1/2}}k(x_{n},.) \Big \|_{\F}^{2} \leq \lambda, 
 \end{equation}
-with high probability, whenever $N \geq C d_{\eff}(\lambda) \log d_{\eff}(\lambda)$, with $d_{\eff}(\lambda)$ is the effective degree of freedom defined by
+where high probability, whenever $N \geq C d_{\eff}(\lambda) \log d_{\eff}(\lambda)$, with $d_{\eff}(\lambda)$ is the effective degree of freedom defined by
 \begin{equation}
 d_{\eff}(\lambda) = \Tr \bm{\Sigma}(\bm{\Sigma} + \lambda \mathbb{I}_{\F})^{-1},
 \end{equation}
-where $\bm{\Sigma}$ is the integration operator associated to the kernel $k$ and the measure $\omega$, defined on $\mathbb{L}_{2}(\mathrm{d}\omega)$ by $\bm{\Sigma} g = \int_{\X} g(.)k(x,.) \mathrm{d}\omega(x)$. Similarly to the discrete ridge leverage score distribution, the continuous ridge leverage score density have a spectral expression
-\begin{equation}
+and $\bm{\Sigma}$ is the integration operator associated to the kernel $k$ and the measure $\omega$, defined on $\mathbb{L}_{2}(\mathrm{d}\omega)$ by $\bm{\Sigma} g = \int_{\X} g(.)k(x,.) \mathrm{d}\omega(x)$. Similarly to the discrete ridge leverage score distribution, the continuous ridge leverage score density has a spectral expression
+\begin{equation}\label{eq:introduction_optimal_density}
 q^{\lambda}(x) = \sum\limits_{n \in \mathbb{N}^{*}} \frac{\sigma_{n}}{\sigma_n + \lambda} e_{n}(x)^{2},
 \end{equation} 
 where the $(\sigma_{n},e_n)$ are the eigenpairs of the integration operator $\bm{\Sigma}$. 
 
-In a nutshell, this result implies that the resulting quadrature $(\bm{x}, \bm{w}^{*})$ have a worst integration error that goes below $\lambda$, with high probability, if $N \geq C d_{\eff}(\lambda) \log d_{\eff}(\lambda)$, yet for a fixed level of regularization $\lambda$, sampling more nodes from $q^{\lambda}$ does not improve the worst integration error. 
-Nevertheless, one can build up an infinite sequence of quadratures $(\bm{x}_{t}, \bm{w}^{*}_{t})_{t \in \mathbb{N}^{*}}$, each associated to a regularization parameter $\lambda_{t}$, such that $\lim_{t \rightarrow +\infty}\lambda_{t} \rightarrow 0$. This way, the author was able to derive the rates of convergence of these sequence of quadratures in the limiting asymptotic $\lambda \rightarrow 0$ in different RKHSs. Whereas it seems to be intricate, this method allows to prove that the rates of the resulting quadratures are almost optimal, up to logarithmic terms. Moreover, these rates depends on the eigenvalues $\sigma_{n}$ of the integration operator: the smoother is the kernel, the faster is the convergence to $0$. 
+In a nutshell, this result implies that the resulting quadrature $(\bm{x}, \bm{w}^{*})$ has a worst case integration error that goes below $\lambda$, with high probability, if $N \geq C d_{\eff}(\lambda) \log d_{\eff}(\lambda)$. Yet, for a fixed level of regularization $\lambda$, sampling more nodes from $q^{\lambda}$ does not improve the worst case integration error. 
+Nevertheless, one can build up an infinite sequence of quadratures $(\bm{x}_{t}, \bm{w}^{*}_{t})_{t \in \mathbb{N}^{*}}$, each associated to a regularization parameter $\lambda_{t}$, such that $\lim_{t \rightarrow +\infty}\lambda_{t} \rightarrow 0$. This way, \cite{Bac17} was able to derive the rates of convergence of these sequence of quadratures in the limiting asymptotic $\lambda \rightarrow 0$ in different RKHSs. While intricate, this method allows to prove that the rates of the resulting quadratures are almost optimal, up to logarithmic terms. Moreover, these rates depend on the eigenvalues $\sigma_{n}$ of the integration operator: the smoother the kernel, the faster the convergence to $0$. 
 % In a nutshell, this result implies that for a given $\lambda >0$, error level\footnote{It is a regularization parameter.} $\lambda$
-However, and contrary to the discrete case, the ridge leverage score density may not have a tractable expression, in general; even worse the spectral decomposition of $\bm{\Sigma}$ may not be tractable.
+However, and unlike the discrete case, the ridge leverage score density~\ref{eq:introduction_optimal_density} may not have a tractable expression, in general; even worse the spectral decomposition of $\bm{\Sigma}$ may not be available.
 
 
-Remarkably, the proof of this result relies on an extension of Bernstein matrix concentration inequality to self-adjoint operators \citep{Min17} and suggests that even random design problems can be analyse using spectral techniques. 
+Remarkably, the proof of this result relies on an extension of Bernstein matrix concentration inequality to self-adjoint operators \citep{Min17}. This suggests that even random design problems can be analysed using spectral techniques. 
 
-We continue on this direction on Chapter~\ref{chap:dppkq} and Chapter~\ref{chap:CVS} where we try to solve the problem of the intractability of the continuous ridge leverage score density using DPPs and one of its variants: continuous volume sampling. For now, we review the existing work on discrete volume sampling in the following section.
+We continue on this direction on Chapter~\ref{chap:dppkq} and Chapter~\ref{chap:CVS} where we try to solve the problem of the intractability of the continuous ridge leverage score density using DPPs and one of its variants, continuous volume sampling. We mention that the contributions of these two chapters are an extension of the work initiated in Chapter~\ref{chapter:cssp} on the column subset selection problem. In particular, we investigated in this chapter volume sampling through the lens of DPPs. Before giving a detailed account of these contributions, we review, in the following section, the existing work on the volume sampling distribution and some of its applications to subsampling problems with a linear structure.
+
+
+
 
  % DPP or volume sampling that we introduce in te following section
 % Moreover, many typical notions of matrix sub-sampling were showed to extend to this problem. For example, there exists a distribution $q_{*}$ called the continuous ridge leverage score distribution for which 
@@ -1035,32 +1041,32 @@ As we have seen in the previous section, independent sampling was used in a vari
 
 Now we will review another approach of sampling that relies on high order information. This is achieved by determinantal point processes and their variants. Indeed, this class of distributions defines the most natural extension of leverage score sampling with negative correlation property.
 
-We start again with the problem of linear regression under budget constraint. Remember that, for this problem, it is required to estimate $\bm{X}^{+}\bm{y}$ using a subset of $[N]$. Now, if $\bm{X}$ is of full rank, the Moore-Penrose pseudo inverse have a \emph{determinantal representation} \citep{BeTe90}
+We start again with the problem of linear regression under budget constraint. Remember that, for this problem, it is required to estimate $\bm{X}^{+}\bm{y}$ using a subset of $[N]$. Now, if $\bm{X}$ is of full rank, the Moore-Penrose pseudo inverse has a \emph{determinantal representation} \citep{BeTe90}
 \begin{equation}
 \bm{X}^{+}\bm{y} = \sum\limits_{I \in \mathcal{I}_{N,d}} \frac{\Delta_{I}}{\Delta} \bm{X}_{I,:}^{+}\bm{y}_{I},
 \end{equation}
-where $\mathcal{I}_{N,d} = \{ I \subset [N], \:|I| = d \}$, $\Delta_{I} = \Det^{2} \bm{X}_{I,:}$ and $\Delta = \sum_{I \in \mathcal{I}_{N,d}} \Delta_{I}$. In other words, to solve the solution of problem?? is a mixture of the smaller linear problems defined by the couples $(\bm{X}_{I,:},\bm{y}_{I})$, and the weight is proportional to the $\Det^{2} \bm{X}_{I,:}$ that is the volume spanned by the rows of $\bm{X}_{I,:}$ in the space $\mathbb{R}^{d}$. In particular, singular sub-matrices $\bm{X}_{I,:}$ do not participate in this mixture. Obviously, this determinantal representation can not be used in this raw form. Indeed, an exhaustive enumeration of the $\mathcal{I}_{N,d}$ would cost much more than calculating $\bm{X}^{+}\bm{y}$. Yet, its structure is amenable to a probabilistic interpretation. Indeed, if we consider a random element $Y$ of $\mathcal{I}_{N,d}$ such that
+where $\mathcal{I}_{N,d} = \{ I \subset [N], \:|I| = d \}$, $\Delta_{I} = \Det^{2} \bm{X}_{I,:}$ and $\Delta = \sum_{I \in \mathcal{I}_{N,d}} \Delta_{I}$. In other words, the solution of the regression problem defined for the pair $(\bm{X},\bm{y})$ is a mixture of the solutions of the smaller regression problems defined by the pairs $(\bm{X}_{I,:},\bm{y}_{I})$, and the weight is proportional to $\Det^{2} \bm{X}_{I,:}$ that is, the volume spanned by the rows of $\bm{X}_{I,:}$ in the space $\mathbb{R}^{d}$. In particular, singular sub-matrices $\bm{X}_{I,:}$ do not participate in this mixture. Obviously, this determinantal representation cannot be used in this raw form. Indeed, an exhaustive enumeration of $\mathcal{I}_{N,d}$ would cost much more than calculating $\bm{X}^{+}\bm{y}$. Yet, its structure is amenable to a probabilistic interpretation. Indeed, if we consider a random element $S$ of $\mathcal{I}_{N,d}$ such that
 \begin{equation}\label{eq:first_mention_volume_sampling}
-\forall I \in \mathcal{I}_{N,d}, \:\: \Prb(Y = I) = \Delta_{I}/\Delta,
+\forall I \in \mathcal{I}_{N,d}, \:\: \Prb(S = I) = \Delta_{I}/\Delta,
 \end{equation} 
 then
 \begin{equation}\label{eq:first_mention_unbiasedness}
-\bm{X}^{+}\bm{y} = \EX \bm{X}_{I,:}^{+}\bm{y}_{I}.
+\bm{X}^{+}\bm{y} = \EX \bm{X}_{S,:}^{+}\bm{y}_{S}^{\phantom{+}}.
 \end{equation}
-In other words, under the distribution~\eqref{eq:first_mention_volume_sampling}, also called \emph{volume sampling}, $\bm{X}_{I,:}^{+}\bm{y}_{I}$ is an unbiased estimator of $\bm{X}^{+}\bm{y}$. 
+In other words, under the distribution~\eqref{eq:first_mention_volume_sampling}, also called \emph{volume sampling}, $\bm{X}_{S,:}^{+}\bm{y}_{S}^{\phantom{+}}$ is an unbiased estimator of $\bm{X}^{+}\bm{y}^{\phantom{+}}$. 
 %Volume sampling distribution favours subset of rows that complementarity among the rows of the selected subset. 
 This idea was exploited in \citep{DeWa17}, where the authors studied the mean square error of this estimator and proved that
 \begin{equation}\label{eq:first_mention_VS}
-\EX \|\bm{y}-\bm{X}\bm{w}_{I}^{*}\|^{2} \leq (1+d) \|\bm{y} - \bm{X}\bm{w}^{*}\|^{2}.
+\EX \|\bm{y}-\bm{X}\bm{w}_{S}^{*}\|^{2} \leq (1+d) \|\bm{y} - \bm{X}\bm{w}^{*}\|^{2}.
 \end{equation} 
-This bound holds for a budget of subsampling that is equal to the dimension $d$ that is the smallest budget that we can expect. This "sparsity level" has no equivalent under independent sampling for which the minimal budget scales as $\mathcal{O}(d \log d)$. Moreover, the bound~\eqref{eq:first_mention_VS} does not tell much about the high order moments of $\|\bm{y}-\bm{X}\bm{w}_{I}^{*}\|^{2}$ that can be useful to derive probabilistic bounds with exponential tails as it is the case for leverage score sampling. 
+This bound holds for a budget of subsampling that is equal to the dimension $d$, that is, the smallest budget that we can expect. This "sparsity level" has no equivalent under independent sampling for which the minimal budget scales as $\mathcal{O}(d \log d)$. Moreover, the bound~\eqref{eq:first_mention_VS} does not tell much about the high-order moments of $\|\bm{y}-\bm{X}\bm{w}_{S}^{*}\|^{2}$, which would be useful to derive probabilistic bounds with exponential tails as it is the case for leverage score sampling. 
 Therefore, the two distributions are not comparable.
 
-However, volume sampling distribution belongs to a larger class of distributions called \emph{dual volume sampling}. These distributions charge positively subsets $I \subset [N]$ of a fixed cardinality $c \geq d$ as following
+However, volume sampling belongs to a larger class of distributions called \emph{dual volume sampling}. These distributions charge subsets $I \subset [N]$ of a fixed cardinality $c \geq d$ as follows
 \begin{equation}\label{eq:second_mention_volume_sampling}
-\Prb(Y = I) \propto \Det \bm{X}_{I}^{\Tran} \bm{X}_{I}.
+\Prb(S = I) \propto \Det \bm{X}_{I}^{\Tran} \bm{X}_{I} \mathbb{1}_{|I| = c}.
 \end{equation} 
-In particular the case $c = d$ corresponds to the volume sampling distribution. These distributions satisfy the unbiasedness property~\eqref{eq:first_mention_unbiasedness} as it was shown by the authors of \citep{DeWa17}. However, the empirical investigation conducted in~\citep{DeWaHs18} shows that dual volume sampling in the regime $c = \Omega(d \log d)$ can lead to an inferior approximation compared to leverage score sampling. 
+In particular the case $c = d$ corresponds to the volume sampling distribution. These distributions satisfy the unbiasedness property~\eqref{eq:first_mention_unbiasedness}, as shown by \cite{DeWa17}. However, the empirical investigation conducted in~\citep{DeWaHs18} shows that dual volume sampling in the regime $c = \Omega(d \log d)$ can lead to an inferior approximation compared to leverage score sampling. 
 
 
  % that we present in details in Chapter~\ref{chapter:dpp},
