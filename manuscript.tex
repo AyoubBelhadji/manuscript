@@ -209,13 +209,56 @@
 \tableofcontents
 
 %\section{Introduction en français}
+
+
 \chapter{Introduction}\label{chap:introduction}
 %\subsection{Sensing on budget} 
 %data analysis, signal processing or machine learning
 % From .... to the evaluation of a financial product, approximations occupied the minds for centuries and shaped the development of mathematics...
+\paragraph{intro french}
+
+Le sous-échantillonnage est une tâche récurrente dans les mathématiques appliquées. Ce paradigme a des applications dans le traitement du signal, l'analyse des données, l'apprentissage automatique ou bien les statistiques: la discrétisation des signaux analogiques, le calcul approché des intégrales, la réduction de dimension, la réduction du budget d’étiquetage des algorithmes d'apprentissage... Alors qu'ils apparaissent différents, ces problèmes peuvent être aborder avec la même stratégie: chercher les éléments les plus représentatifs d'un ensemble. 
+Un bon ensemble de représentatifs doit éviter de contenir des informations redondantes. Pour certains problèmes à structure linéaire, l'ensemble peut être plongé dans un espace vectoriel et la redondance d'un sous-ensemble peut se mesurer à l'aide du volume du polytope engendré par ce sous-ensemble. Il se trouve qu'il existe une famille de modèles probabilistes qui définissent des sous-ensembles aléatoires avec une propriété de répulsion: d'une façon informelle, la probabilité d'apparition d'un sous-ensemble est proportionnelle au volume qu'il engendre dans cet espace vectoriel. Ces modèles sont connus sous le nom des processus ponctuels déterminantaux et ils étaient étudié dans plusieurs domaines: les matrices aléatoires, l'optique quantique, les statistiques spatiales, le traitement des images, l'apprentissage automatique et récemment l'intégration numérique.
+ % These models owes this increasing interest to the simplicity of their expression using the language of linear algebra and functional analysis.
+
+Cette thèse est consacrée à l'étude de la pertinence d'utiliser les DPPs pour certaines tâches de sous-échantillonnage.
+Dans un premier temps, on a considéré le problème de sélection d'attributs: pour une matrice qui représente des données exprimées sur un système d'attributs, on cherche à sélectionner les attributs les plus représentatifs. En particulier, on a étudié l'échantillonnage volumique, un algorithme bien connu dans la littérature, à travers la théorie des DPPs; et on a proposé un algorithme alternatif à base d'un DPP avec des meilleurs garanties théoriques et des meilleurs performances empiriques. Le choix de ce DPP était motivé par une nouvelle interprétation géométrique qu'on a contribué: un DPP définit naturellement un sous-espace vectorielle aléatoire qui "plane" autour d'un sous-espace de référence. 
+
+A l'aide de cette nouvelle interprétation, on a réussie à étudier un autre problème d'approximation: l'approximation d'intégrales de fonctions qui vivent dans un espace à noyau, aussi appelé le problème des quadratures à noyau.
+
+Pour ce problème, on a proposé une nouvelle classe de quadratures: les quadratures à noyau optimisées et  basées sur des noeuds qui suivent la distribution d'un DPP. La définition de ce DPP est basée sur les fonctions propres de l'opérateur d'intégration correspondant; et on a montré que les taux de convergences de cette classe de quadratures dépendent des valeurs propres de cet opérateur: plus le noyau est régulier, mieux est la convergence de la quadrature. Néanmoins, les expériences numériques montrent que ces taux de convergence sont pessimistes pour certains espaces fonctionnels.
+%We studied kernel quadrature and kernel interpolation under the distribution of continuous volume sampling.
+
+Cette observation a motivé l'extension de l'échantillonnage volumique au domaine continu. En fait, on étudié le problème de quadrature à noyau ainsi que le problème d’interpolation à noyau pour des noeuds qui suivent cette nouvelle distribution. En particulier, on a démontré des formules closes de l'espérance de l'erreur sous cette distribution répulsive. Ces formules ont permit de démontrer l'optimalité de l’échantillonnage volumique pour cette classe de problèmes d'approximation. En plus, cette nouvelle distribution peut être approchée par un algorithme MCMC qui peut être implémenter sans le recours à la décomposition spectrale de l'opérateur d'intégration.
+
+\paragraph{intro 1}
+
+Subsampling is a recurrent task in applied mathematics. This paradigm has many applications in data analysis, signal processing, machine learning and statistics: continuous signal discretization, numerical integration, dimension reduction, learning on budget, preconditioning... Seemingly unrelated, these problems can be tackled using the same strategy: looking for the most representative elements in a set. 
+ % Indeed, the aim of subset selection is to select the most representative elements of a large set (or even a countable infinite set) to approximate an object that can be scalar, a vector, a matrix ... On the other hand, quadrature and interpolation aim to select the most representative elements of a continuous domain to approximate a function or an integral. 
+A good subset of representatives would capture the essential of the information avoiding any unnecessary redundancy. For some problems with linear structure, the set can be embedded in a vector space, and 
+ the redundancy may be measured by the volume spanned by these elements. Intuitively, a subset would be redundant if it defines a polytope with small volume, and it would be non-redundant if it defines a polytope with large volume. It turns out that there exist a family of probabilistic models that define random subsets with a repulsion property: informally, the probability of appearance of a subset is proportional to the volume it defines in the vector space. These models are called determinantal point processes and they were
+% These approximation theory problems have, usually, linear structure that helps in setting up the quest for good representatives.
+ % This property can be expressed using probabilistic models of repulsion called 
+ the topic of intense research in various fields: random matrices, quantum optics, spatial statistics, image processing, machine learning and recently numerical integration. 
+ % These models owes this increasing interest to the simplicity of their expression using the language of linear algebra and functional analysis.
+
+This thesis is devoted to investigate the suitability and the pertinence of using determinantal point processes to some subsampling tasks.
+
+First, we considered the column subset selection problem. In this problem we look for selecting the most representative columns, or features, of a matrix that represents a dataset. In particular, we investigated volume sampling, a well-known algorithm for this task, through the lens of DPPs; and we proposed an alternative algorithm, based on a DPP, with better theoretical guarantees and empirical performance. The choice of this DPP was motivated by a new geometric interpretation: a DPP defines naturally a random linear subspace that "hover" around a reference  subspace. 
+
+Using this new interpretation of DPPs, we succeeded to derive the theoretical analysis of another approximation problem: kernel quadrature. These quadratures are suitable for the approximation of integrals of functions living in a reproducing kernel Hilbert space.
+
+We proposed a new class of quadratures: optimal kernel quadrature based on nodes that follow the distribution of a DPP. This DPP is defined through the eigenfunctions of the corresponding integration operator. We showed that the rates of convergence of this class of quadratures depend on the eigenvalues of the integration operator: the smoother is the kernel, the faster is the convergence of the quadrature. However, empirical investigations showed that these theoretical rates were pessimistic in some RKHSs. 
+%We studied kernel quadrature and kernel interpolation under the distribution of continuous volume sampling.
+
+This observation motivated the extension of volume sampling to continuous domains. Indeed, we studied both kernel quadrature and kernel interpolation under this distribution. In particular, we proved tractable formulas of the expected value of the error under this repulsive distribution. These tractable formulas were useful to derive sharp upper bounds for kernel quadrature that scale as the existing lower bounds. Moreover, the continuous volume sampling distribution has the advantage to be approximated using a fully kernelized MCMC algorithm i.e. the implementation of this algorithm 
+relies on evaluating the kernel and
+does not require the spectral decomposition of the integration operator. 
 
 
+ % an MCMC that can be implemented using the knowledge of the evaluation of the kernel but without the need of 
 
+\paragraph{intro 2}
 
 Many approximation tasks in applied mathematics can be reformulated as problems of estimations under \emph{size constraints}, that is the estimation of some object based on a partial knowledge of the available data; this object can be a scalar, a vector, a matrix or even a function. These approximations are conducted, mainly, for three purposes: improving the numerical complexity of an existing algorithm (\emph{numerical issue}), reducing the cost of labelling (\emph{sensing issue}) or making an algorithm more interpretable (\emph{interpretation issue}). Examples of these approximation problems include subset selection, quadrature or interpolation. 
 
