@@ -696,7 +696,7 @@ In particular, there exists a density $q^{\lambda}$ called the \emph{continuous 
 \begin{equation}
 \sup\limits_{\substack{g \in \mathbb{L}_2(\mathrm{d}\omega)\\ \|g\|_{\mathrm{d}\omega} \leq 1}} \Big \|\mu_g - \sum\limits_{n \in [N]} \frac{w_{n}^{*}}{q^{\lambda}(x_{n})^{1/2}}k(x_{n},.) \Big \|_{\F}^{2} \leq \lambda, 
 \end{equation}
-where high probability, whenever $N \geq C d_{\eff}(\lambda) \log d_{\eff}(\lambda)$, with $d_{\eff}(\lambda)$ is the effective degree of freedom defined by
+with high probability, whenever $N \geq C d_{\eff}(\lambda) \log d_{\eff}(\lambda)$, with $d_{\eff}(\lambda)$ is the effective degree of freedom defined by
 \begin{equation}
 d_{\eff}(\lambda) = \Tr \bm{\Sigma}(\bm{\Sigma} + \lambda \mathbb{I}_{\F})^{-1},
 \end{equation}
@@ -714,7 +714,7 @@ However, and unlike the discrete case, the ridge leverage score density~\ref{eq:
 
 Remarkably, the proof of this result relies on an extension of Bernstein matrix concentration inequality to self-adjoint operators \citep{Min17}. This suggests that even random design problems can be analysed using spectral techniques. 
 
-We continue on this direction on Chapter~\ref{chap:dppkq} and Chapter~\ref{chap:CVS} where we try to solve the problem of the intractability of the continuous ridge leverage score density using DPPs and one of its variants, continuous volume sampling. We mention that the contributions of these two chapters are an extension of the work initiated in Chapter~\ref{chapter:cssp} on the column subset selection problem. In particular, we investigated in this chapter volume sampling through the lens of DPPs. Before giving a detailed account of these contributions, we review, in the following section, the existing work on the volume sampling distribution and some of its applications to subsampling problems with a linear structure.
+We continue on this direction on Chapter~\ref{chap:dppkq} and Chapter~\ref{chap:CVS} where we try to solve the problem of the intractability of the continuous ridge leverage score density using DPPs and one of its variants, continuous volume sampling. We mention that the contributions of these two chapters are extensions of the work initiated in Chapter~\ref{chapter:cssp} on the column subset selection problem. In particular, we investigated in this chapter volume sampling through the lens of DPPs. Before giving a detailed account of these contributions, we review, in the following section, the existing work on the volume sampling distribution and some of its applications to subsampling problems with a linear structure.
 
 
 
@@ -1064,7 +1064,7 @@ Therefore, the two distributions are not comparable.
 
 However, volume sampling belongs to a larger class of distributions called \emph{dual volume sampling}. These distributions charge subsets $I \subset [N]$ of a fixed cardinality $c \geq d$ as follows
 \begin{equation}\label{eq:second_mention_volume_sampling}
-\Prb(S = I) \propto \Det \bm{X}_{I}^{\Tran} \bm{X}_{I} \mathbb{1}_{|I| = c}.
+\Prb(S = I) \propto \Det \bm{X}_{I,:}^{\Tran} \bm{X}_{I,:}^{\phantom{\Tran}} \mathbb{1}_{ \{|I| = c \}}.
 \end{equation} 
 In particular the case $c = d$ corresponds to the volume sampling distribution. These distributions satisfy the unbiasedness property~\eqref{eq:first_mention_unbiasedness}, as shown by \cite{DeWa17}. However, the empirical investigation conducted in~\citep{DeWaHs18} shows that dual volume sampling in the regime $c = \Omega(d \log d)$ can lead to an inferior approximation compared to leverage score sampling. 
 
@@ -1072,12 +1072,12 @@ In particular the case $c = d$ corresponds to the volume sampling distribution. 
  % that we present in details in Chapter~\ref{chapter:dpp},
 
 
-Remarkably, the volume sampling distribution can be used to tackle another problem that is the column subset selection problem, which we discuss in detail in Chapter~\ref{chapter:cssp}. In a nutshell, the subset selection, in this setting, is meant to resolve the interpretation issue of the principal component analysis. This later outputs features that does not have, in general, a physical meaning. Hence, the idea to sub-sample a set of  features $S$ of the matrix $\bm{X}$, that are represented by the matrix $\bm{C} = \bm{X}_{:,S}$, with the constraint to control the residual $\bm{X}-\Pi_{\Span \bm{C}}\bm{X}$ using the spectral norm $\|.\|_{2}$ or the Frobenius norm $\|.\|_{\Fr}$, with $\Pi_{\Span \bm{C}}$ is the projection on the subspace of $\mathbb{R}^{N}$ spanned by the columns $\bm{C}$\footnote{As we shall see in Chapter~\ref{chapter:cssp}, the projection $\Pi_{\Span \bm{C}}$ depends on the norm. We neglect this subtility for the moment.}. In this setting, volume sampling distribution is defined on the set of subset of $[d]$ of cardinality $k \in [d]$ by
+Remarkably, volume sampling can be used to tackle another problem, namely column subset selection, which we discuss in detail in Chapter~\ref{chapter:cssp}. In a nutshell, the subset selection, in this setting, is meant to resolve the interpretation issue of principal component analysis. The latter outputs features that do not have, in general, a physical meaning. Hence, the idea to sub-sample a set of  features $S$ of the matrix $\bm{X}$, that are represented by the matrix $\bm{C} = \bm{X}_{:,S}$, with the constraint to control the residual $\bm{X}-\Pi_{\Span \bm{C}}\bm{X}$ using the spectral norm $\|.\|_{2}$, or the Frobenius norm $\|.\|_{\Fr}$, with $\Pi_{\Span \bm{C}}$ the projection onto the subspace of $\mathbb{R}^{N}$ spanned by the columns $\bm{C}$\footnote{As we shall see in Chapter~\ref{chapter:cssp}, the projection $\Pi_{\Span \bm{C}}$ depends on the norm. We neglect this subtility for the moment.}. In this setting, volume sampling is defined on the set of subset of $[d]$ by
 \begin{equation}
-\Prb_{\VS}(Y=S) \propto \,\Det(\bm{X}_{:,S}^{\Tran}\bm{X}_{:,S}^{}) \:,
+\Prb_{\VS}(S=I) \propto \,\Det(\bm{X}_{:,I}^{\Tran}\bm{X}_{:,I}^{\phantom{\Tran}}) \mathbb{1}_{\{|I| = k \}} \:.
 \label{e:introduction_vs}
 \end{equation}
-and it satisfies the following bounds \citep*{DRVW06}
+It satisfies \citep*{DRVW06}
 % \begin{theorem}[\citealp{DRVW06}]
 %   \label{thrm:volume_sampling_theorem}
 % Let $S$ be a random subset of $[d]$, chosen with probability
@@ -1091,9 +1091,9 @@ and
 \EX_{\VS} \| \bm{X} - \Pi_{\Span \bm{C}}\bm{X} \|_{2}^{2} \leq (d-k)(k+1)\| \bm{X} - \Pi_{k}\bm{X} \|_{2}^{2},
 \label{e:introduction_vsBound2}
 \end{equation}
-where $\Pi_{k}$ is the projection on the first left eigenvectors of $\bm{X}$. These two bounds are optimal in a sense that we will describe in Chapter~\ref{chapter:cssp}.
+where $\Pi_{k}$ is the projection onto the first left eigenvectors of $\bm{X}$. These two bounds are optimal in a sense that we will describe in Chapter~\ref{chapter:cssp}.
 
-The starting point of this thesis was to challenge the optimality of these bounds. The first step was to see the volume sampling distribution through the lens of determinantal point processes. This perspective allows us to propose a new sub-sampling algorithm based on a DPP that have a better geometric interpretation than volume sampling, and that leads to better theoretical guarantees and empirical results under some conditions. Intuitively, we can see that this specific choice of DPP defines a distribution on the set of subspaces of $\mathbb{R}^{d}$ of dimension $k$, the \emph{Grassmannian} $\mathbb{G}(\mathbb{R}^{d},k)$, that favours the subspaces that are close to the principal subspace of $\bm{X}$ of dimension $k$. This is to be compared to the uniform distribution on the Grassmannian $\mathbb{G}(\mathbb{R}^{d},k)$ usually used in the compressed sensing literature \citep{Chi12}[Theorem 2.2.1.]. We push this geometric interpretation further in Chapter~\ref{chap:dppkq} to tackle the problem of kernel quadrature in an RKHS. In particular we connect the previous work on numerical integration using DPPs \citep{BaHa16,CoMaAm20} and the work of \citep{Bac17} to propose a new class of quadrature based on DPPs nodes and weights that solve the un-regularized version of the optimization problem~\ref{eq:introduction_reg_problem_kernel_quadrature} (without the rescaling by the $q(x_{n})$). We prove convergence bounds of these quadratures for smooth kernels. This contribution solves partially the problem of intractability of the continuous ridge leverage density of \citep{Bac17}. Indeed, under the condition that the spectral decomposition of $\bm{\Sigma}$ is known, the numerical implementation of this DPP is tractable as it relies only on the first eigenfunctions of $\bm{\Sigma}$. Finally, by reconsidering the links between DPPs and volume sampling that we have discussed in Chapter~\ref{chapter:cssp}, we define the continuous volume sampling distribution in Chapter~\ref{chap:CVS} to tackle the more general problem of kernel interpolation. We prove sharp bounds for kernel interpolation under this distribution along with other properties. The advantage of this distribution is that it is amenable to approximate sampling via a \emph{fully kernelized} MCMC algorithm: this approximate sampler can be implemented using only the evaluations of the kernel $k$ without the need to the spectral decomposition of $\bm{\Sigma}$.
+The starting point of this thesis is to challenge the optimality of these bounds. The first step was to see the volume sampling distribution through the lens of determinantal point processes. This perspective allows us to propose a new sub-sampling algorithm based on a DPP, which has a better geometric interpretation than volume sampling, and which leads to better theoretical guarantees and empirical results under some conditions. Intuitively, we can see that this specific choice of DPP defines a distribution on the set of subspaces of $\mathbb{R}^{d}$ of dimension $k$, the \emph{Grassmannian} $\mathbb{G}(\mathbb{R}^{d},k)$, that favours the subspaces that are close to the principal subspace of $\bm{X}$ of dimension $k$. This is to be compared to the uniform distribution on the Grassmannian $\mathbb{G}(\mathbb{R}^{d},k)$ usually used in the compressed sensing literature \citep{Chi12}[Theorem 2.2.1.]. We push this geometric interpretation further in Chapter~\ref{chap:dppkq} to tackle the problem of kernel quadrature in an RKHS. In particular we connect the previous work on numerical integration using DPPs \citep{BaHa16,CoMaAm20} and the work of \citep{Bac17} to propose a new class of quadrature, based on DPP nodes, and weights that solve the unregularized version of the optimization problem~\eqref{eq:introduction_reg_problem_kernel_quadrature}. We prove convergence bounds of these quadratures for smooth kernels. This contribution partially solves the problem of intractability of the continuous ridge leverage density of \citep{Bac17}. Indeed, under the condition that the spectral decomposition of $\bm{\Sigma}$ is known, the numerical implementation of this DPP is tractable as it relies only on the first eigenfunctions of $\bm{\Sigma}$. Finally, by reconsidering the links between DPPs and volume sampling that we have discussed in Chapter~\ref{chapter:cssp}, we define the continuous volume sampling distribution in Chapter~\ref{chap:CVS} to tackle the more general problem of kernel interpolation. We prove sharp bounds for kernel interpolation under this distribution along with other properties related to the unbiasedness of volume sampling in the finite setting. The advantage of continuous volume sampling is that it is amenable to approximate sampling via a \emph{fully kernelized} MCMC algorithm: this approximate sampler can be implemented using only evaluations of the kernel $k$, without needing to the spectral decomposition of $\bm{\Sigma}$.
 
 % This geometric intuition is based on the notion of principal angles between subspaces
 %  that we exploit to extend these results to random designs on continuous domain. 
@@ -1127,7 +1127,7 @@ The starting point of this thesis was to challenge the optimality of these bound
 
 
 
-\section{The layout and the contributions}
+\section{Layout of the thesis and the contributions}
 % This thesis aims to investigate the use of determinantal point processes and their variants for subset selection problems and operator discretization. 
 
 % % The major technical contribution of this article 
