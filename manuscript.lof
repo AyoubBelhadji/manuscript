@@ -2,9 +2,9 @@
 \ttl@tocsep 
 \ttl@tocsep 
 \contentsline {figure}{\numberline {1.1}{\ignorespaces .... \relax }}{14}{figure.caption.4}
-\contentsline {figure}{\numberline {1.2}{\ignorespaces The projection DPP improves on volume sampling under the condition of the sparsity of the $k$-leverage scores quantified by $p$. \relax }}{17}{figure.caption.6}
-\contentsline {figure}{\numberline {1.3}{\ignorespaces The worst interpolation error on the unit ball of $\PazoBB {L}_{2}(\mathrm {d}\omega )$ under projection DPP (DPPKQ), continuous ridge leverage score density (LVSQ) and the uniform grid (UGKQ) compared to the eigenvalue of order $\sigma _{N+1}$. The RKHS is the periodic Sobolev space of order $s=3$. \relax }}{18}{figure.caption.8}
-\contentsline {figure}{\numberline {1.4}{\ignorespaces The theoretical values of the $\epsilon _{m}(N)$ compared to the empirical estimation using a fully kernelized MCMC. \relax }}{19}{figure.caption.11}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces The projection DPP improves on volume sampling under the condition of sparsity of the $k$-leverage scores quantified by parameter $p$ on the x-axis. \relax }}{17}{figure.caption.6}
+\contentsline {figure}{\numberline {1.3}{\ignorespaces The worst interpolation error on the unit ball of $\PazoBB {L}_{2}(\mathrm {d}\omega )$ under projection DPP (DPPKQ), continuous ridge leverage score density (LVSQ) and the uniform grid (UGKQ) compared to the eigenvalue of order $\sigma _{N+1}$. The RKHS is the periodic Sobolev space of order $s=3$. \relax }}{19}{figure.caption.8}
+\contentsline {figure}{\numberline {1.4}{\ignorespaces The theoretical values of the $\epsilon _{m}(N)$ compared to the empirical estimation using a fully kernelized MCMC. The RKHS is the periodic Sobolev space of order $ s=2$. \relax }}{20}{figure.caption.10}
 \ttl@tocsep 
 \contentsline {figure}{\numberline {2.1}{\ignorespaces A set $\{x_1, x_{2}, x_{3}, x_{4}\}$ can be identified with the atomic measure $\DOTSB \sum@ \slimits@ \limits _{n =1}^{4}\delta _{x_n}$. \relax }}{21}{figure.caption.12}
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Three realizations from the CUE with $N = 15$ particles (top) compared to 15 particles sampled i.i.d in the unit circle (bottom). \relax }}{34}{figure.caption.18}
