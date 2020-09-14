@@ -16,7 +16,7 @@
 \usepackage{bm}
 \usepackage{bbm}
 %\usepackage{natbib}
-\usepackage[backend=bibtex,natbib=true,  maxnames=2,style = chicago-authordate,isbn=false,url=false,doi=false,eprint=false]{biblatex}
+\usepackage[backend=bibtex,natbib=true,  maxnames=3,style = authoryear,isbn=false,url=false,doi=false,eprint=false]{biblatex}
 
 % \usepackage[,authordate]{biblatex-chicago}
 
@@ -248,6 +248,13 @@
   {\usebibmacro{citeindex}%
    \printtext[bibhyperref]{\usebibmacro{cite}}}
   {\multicitedelim}
+
+\DeclareCiteCommand*{\nparencite}[\mkbibparens]
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{citeyear}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
 
 \renewcommand*{\nameyeardelim}{\addcomma\space}
 \begin{document}
@@ -500,7 +507,7 @@ In some situations, calculating $\bm{w}^{*}$ using a pseudo-inverse formula is n
   and $\bm{S}^{\Tran}\bm{X} \in \mathbb{R}^{c \times d}$ is the sub-matrix of $\bm{X}$ that correspond to the subset $S$, after rescaling the rows by the factors $s_{i}$.
   % The values of the $s_{n}$ corresponds to either the multiplicities of these rows, or some rescaling factors necessary for the theoretical analysis. In particular $\bm{S}^{\Tran} \bm{X}$ is the sub-matrix of $\bm{X}$ with the indices of the rows 
 
- Now, one can define an approximation of $\bm{w}^{*}$ based on the subset $S$. For example, \cite*{DrMaMu06} proposed
+ Now, one can define an approximation of $\bm{w}^{*}$ based on the subset $S$. For example, \cite{DrMaMu06} proposed
 \begin{equation}
 \bm{w}_{S}^{*} = (\bm{S}^{\Tran}\bm{X})^{+} (\bm{S}^{\Tran}\bm{y}).
 \end{equation}
@@ -779,7 +786,7 @@ More precisely, $\X$ is assumed to be a measurable space equipped with a measure
 \end{equation}
 with $g \in \mathbb{L}_{2}(\mathrm{d}\omega)$. By construction, $\mu$ belongs to the RKHS $\F$ associated to the kernel $k$, which we assume to be embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$. Ensuring a "good" approximation in~\eqref{eq:introduction_f_mixture} is particulary useful for quadrature. Indeed, we have
 \begin{equation}\label{eq:introduction_bound_on_quadrature_using_kernel}
-\forall f \in \F, \:\: \Big| \int_{\X} f(x)g(x)\mathrm{d}\omega(x) - \sum\limits_{n \in N}w_{n}f(x_{n})  \Big| \leq \|f\|_{\F} \Big\|\mu_{g} - \sum\limits_{n \in [N]} w_{n}k(x_{n},.) \Big\|_{\F},
+\forall f \in \F, \:\: \Big| \int_{\X} f(x)g(x)\mathrm{d}\omega(x) - \sum\limits_{n \in N}w_{n}f(x_{n})  \Big| \leq \|f\|_{\F} \Big\|\mu_{g} - \sum\limits_{n \in [N]} w_{n}k(x_{n},.) \Big\|_{\F} \:, 
 \end{equation}
 so that controlling the approximation error in r.h.s. of~\eqref{eq:introduction_bound_on_quadrature_using_kernel} yields a control on the integration error in the l.h.s.
 Moreover, $\|\mu_{g} - \sum_{n \in [N]} w_{n}k(x_{n},.) \|_{\F}$ is actually the worst case integration error on the unit ball of $\F$. 
@@ -841,11 +848,11 @@ We continue on this direction on Chapter~\ref{chap:dppkq} and Chapter~\ref{chap:
 % \end{equation}
 
 
-\begin{figure}[h]
-\centering
-\includegraphics[width= 0.7\textwidth]{img/reconstruction/signal_reconstruction_spread_nodes.pdf}
-\caption{.... \label{fig:introduction_reconstuction}}
-\end{figure}
+% \begin{figure}[h]
+% \centering
+% \includegraphics[width= 0.7\textwidth]{img/reconstruction/signal_reconstruction_spread_nodes.pdf}
+% \caption{.... \label{fig:introduction_reconstuction}}
+% \end{figure}
 
 
  % For example, in the kernel ridge regression problem, the $x_{n}$ are fixed and it is required to sub-sample from the set $\{ x_{1}, \dots, x_{N} \}$. 
@@ -1312,7 +1319,7 @@ In Chapter~\ref{chap:dppkq}, we introduce a new class of quadratures based on pr
 \end{equation}
 %This time the projection DPP is based on the first eigenfunctions of the corresponding integration operator. 
 %This new class of quadratures is universal in the sense that it covers a large class of kernels. 
- The solution of \eqref{eq:introduction_dppkq_opt_problem} writes $\hat{\bm{w}} = \bm{K}(\bm{x})^{-1} \mu_{g}(\bm{x})$, and the optimal mixture $\sum_{n \in [N]} \hat{w_{n}}k(x_n,.)$ is the projection of $\mu_{g}$ on the subspace $\mathcal{T}(\bm{x}) = \Span( k(x_{n},.)_{n \in [N]})$ denoted $\bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}$, and the optimal value of \eqref{eq:introduction_dppkq_opt_problem} is called the interpolation error of $\mu_{g}$. As for the nodes, we take a random set $\bm{x} = \{x_{1}, \dots,x_{N}\}$ that follows the distribution of a projection DPP that depends only on the first eigenfunctions of $\bm{\Sigma}$.
+ The solution of \eqref{eq:introduction_dppkq_opt_problem} writes $\hat{\bm{w}} = \bm{K}(\bm{x})^{-1} \mu_{g}(\bm{x})$, and the optimal mixture $\sum_{n \in [N]} \hat{w_{n}}k(x_n,.)$ is the projection of $\mu_{g}$ on the subspace $\mathcal{T}(\bm{x}) = \Span( k(x_{n},.)_{n \in [N]})$ denoted $\bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}$, and the optimal value of \eqref{eq:introduction_dppkq_opt_problem} is called the interpolation error of $\mu_{g}$. As for the nodes, we take a random set $\bm{x} = \{x_{1}, \dots,x_{N}\}$ that follows the distribution of a projection DPP that depends only on the first eigenfunctions of $\bm{\Sigma}$: this projection DPP provide an implementable alternative to the continuous ridge leverage scores distribution when the spectral decomposition of $\bm{\Sigma}$ is known.
 
 
 % ; and the sampling distribution depends only on the first eigenfunctions of $\bm{\Sigma}$.
@@ -1321,11 +1328,11 @@ In Chapter~\ref{chap:dppkq}, we introduce a new class of quadratures based on pr
 
 We give a theoretical analysis of this class of quadratures and we show that the convergence rate depends on the eigenvalues $(\sigma_{n})_{n \in \mathbb{N}^{*}}$ of the integration operator as $\mathcal{O}(N\sum_{n \geq N+1} \sigma_n)$, where $N$ is the number of quadrature nodes. Numerical simulations hint that the rate of convergence actually scales as fast as $\mathcal{O}(\sigma_{N})$. This is illustrated in Figure~\ref{fig:introduction_pDPP_results_pSobolev_exp_2}, where we compare the worst interpolation error $\sup_{\|g\|_{\mathrm{d}\omega} \leq 1}\| \mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}\|_{\F}^{2}$ of our quadrature (DPPKQ) compared the rate $\mathcal{O}(\sigma_{N+1})$ and the quadrature based on continuous ridge leverage score sampling (LVSQ) and the quadrature based on uniform grid (UGKQ) and the weights that solve the optimization problem~\eqref{eq:introduction_dppkq_opt_problem} in the case of the periodic Sobolev space of order $s = 3$.
 
-From a technical point of view, we make use of the geometric intuitions developed in Chapter~\ref{chapter:cssp} to work out the theoretical analysis of these quadratures. Indeed, the expected value of the interpolation error under the distribution of the projection DPP
-% \begin{equation}
-% \EX_{\DPP} \|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x}) \mu_{g}\|_{\mathcal{F}}^{2}
-% \end{equation}
-has no tractable formula, yet we show that there is a tractable upper bound.
+From a technical point of view, we harness the geometric intuitions developed in Chapter~\ref{chapter:cssp} to work out the theoretical analysis of these quadratures. In particular, we make use of the notion of principal angles between subspaces to derive a tractable upper bound of the expected value of the squared interpolation error
+\begin{equation}
+\EX_{\DPP} \|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\mathcal{F}}^{2},
+\end{equation}
+which has no tractable formula.
 
 The material of this chapter
 is based on the following article
@@ -1367,9 +1374,9 @@ is based on the following article
 
 
 \subsubsection{Continuous volume sampling for kernel interpolation}
-In Chapter~\ref{chap:CVS}, we continue the line of research initiated in Chapter~\ref{chapter:cssp} and Chapter~\ref{chap:dppkq}, and we study kernel quadrature and kernel interpolation based on nodes that follow the  continuous volume sampling distribution, a generalization of discrete volume sampling. In particular, we show a closed formula for the expected interpolation error
+In Chapter~\ref{chap:CVS}, we continue the line of research initiated in Chapter~\ref{chapter:cssp} and Chapter~\ref{chap:dppkq}, and we study kernel quadrature and kernel interpolation based on nodes that follow the  continuous volume sampling distribution, a generalization of discrete volume sampling. Contrary to the projection DPP of Chapter~\ref{chap:dppkq}, we show that the expected value of the squared interpolation error has a closed formula under the distribution of continuous volume sampling
 \begin{equation}
-\EX_{\bm{x} \sim \mathrm{CVS}} \|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F}^{2} = \sum\limits_{m \in \mathbb{N}^{*}} \langle g,e_{m} \rangle_{\mathrm{d}\omega} \epsilon_{m}(N),
+\EX_{\mathrm{CVS}} \|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F}^{2} = \sum\limits_{m \in \mathbb{N}^{*}} \langle g,e_{m} \rangle_{\mathrm{d}\omega}^{2} \epsilon_{m}(N),
 \end{equation}
 where
 \begin{equation}
@@ -1437,22 +1444,27 @@ Table~\ref{table:matrix_operator_duality} situates the contributions of this the
 \item \fullcite{BeBaCh18}
 \end{itemize}
 
-\section*{International peer-reviewed conferences}
+\section*{Peer-reviewed conferences}
 
 \begin{itemize}
 \item \fullcite{BeBaCh19}.
 \item \fullcite{BeBaCh20}.
-\end{itemize}
-
-
-\section*{National peer-reviewed conferences}
-
-\begin{itemize}
 \item \fullcite{BeBaCh19b}.
 \end{itemize}
 
-???
 
+% % \section*{National peer-reviewed conferences}
+
+% \begin{itemize}
+
+% \end{itemize}
+
+
+\section*{Workshops}
+
+\begin{itemize}
+\item ???
+\end{itemize}
 
 
 
@@ -2593,7 +2605,7 @@ Now, in general, there exists an algorithm for the numerical simulation of a pro
 
 
 \subsubsection{The HKPV algorithm for projection DPPs}
- A universal sampling  algorithm of projection DPPs was proposed by \cite*{HoKrPeVi06}. The idea behind the algorithm goes as follow.
+ A universal sampling  algorithm of projection DPPs was proposed by \nparencite*{HoKrPeVi06}. The idea behind the algorithm goes as follow.
 
 Define the projection kernel
 \begin{equation}
@@ -4620,6 +4632,8 @@ In terms of computational cost, our algorithms scale with the cost of finding th
 
 % Finally, in our experimental section, we used an adhoc randomized algorithm inspired by \cite{FMPS13} to sample toy datasets with a prescribed profile of $k$-leverage scores. An interesting question would be to characterize the distribution of the output of our algorithm. In particular, sampling from the uniform measure on the set of symmetric matrices with prescribed spectrum and leverage scores is an open problem \citep*{DhHeSuTr05}. %The code of all the experiments is available online for sake of reproducible research. \footnote{\url{http://github.com/AyoubBelhadji/CSSPy}} \footnote{\url{http://github.com/AyoubBelhadji/FrameBuilder}}
 
+
+\chapter*{Proofs}
 
 \section{Proofs}
 \label{app:proofs}
@@ -8901,7 +8915,7 @@ Now all that remains to be done is to sharpen the theoretical bounds of DPPKQ. W
 
 \chapter*{Proofs}
 
-\section{The proofs}
+\section{Proofs}
 \label{s:proofs}
 This section contains the detailed proofs of the results appearing in this chapter. 
 
@@ -11705,6 +11719,8 @@ In the context of interpolation, \parencite{KaSaTa19} propose to use approximate
 
 %\begin{subproofs}
 
+\chapter*{Proofs}
+
 
 \section{Proofs}
 
@@ -12930,23 +12946,21 @@ It seems that the impact of DPPs and their variants may be limited for sub-sampl
 % leverage scores sampling may have better  empirical performance compared to dual volume sampling in Bernstein regime of sampling. In other words, 
 Nevertheless, the work done in Chapter~\ref{chapter:cssp} was crucial to develop the necessary techniques and intuitions to study DPPs in  settings where they may have higher impact.
 
-These settings correspond to sub-sampling problems on continuous domains. Indeed, the projection DPP we proposed in Chapter~\ref{chap:dppkq} improves upon the continuous ridge leverage scores distribution, when it is possible to sample from the latter. Moreover, 
+These settings correspond to sub-sampling problems on continuous domains. Indeed, the projection DPP, we proposed in Chapter~\ref{chap:dppkq}, is an implementable alternative to continuous ridge leverage scores distribution. Moreover, when it is is possible to sample from the latter, like in the periodic Sobolev spaces, the projection DPP has better empirical performance. In other words, in continuous domains, high-order information is worthwhile for sub-sampling. 
 
 
-the numerical simulations showed that the projection DPP gives better approximation guarantees compared to 
+Still, even in this setting
+% the numerical simulations showed that the projection DPP gives better approximation guarantees compared to 
+%  ( when it is possible to sample from the 
+% ....
+we have two different levels of impact that corresponds to two different situations. In the first situation, the RKHS is "classical" and there exists some configuration with good approximation guarantees for kernel quadrature or kernel interpolation. This is the case of 
+the periodic Sobolev space where the uniform grid is known to achieve the optimal rates. In these cases, we know from the theoretical and the empirical results that the projection DPP and continuous volume sampling would be as competitive as the deterministic sequence but with the supplementary cost of sampling.
 
 
- ( when it is possible to sample from the 
-....
+In the second situation, the RKHS is not classical and there is no simpler alternative algorithm that can  compete with the optimality of the projection DPP or continuous volume sampling. In these cases DPPs and their variants cannot be replaced! 
 
-Here again we have two different levels of impact that corresponds to two different situations. In the first situation, the RKHS is "classical" and there exists some configuration with good approximation guarantees for kernel quadrature or kernel interpolation. This is the case of 
-the periodic Sobolev space where the uniform grid is known to be a simple and optimal solution. In these cases, we know from the theoretical and the empirical results that DPP based nodes would be as competitive as the deterministic sequence but with a supplementary cost that corresponds to the sampling cost.
-
-
-In the second situation, the RKHS is not "usual" and there is no simpler alternative algorithm that outputs a configuration that can compete with the optimality of the projection DPP or continuous volume sampling. In this case DPPs cannot be replaced and have high impact. 
-
-We review in Section~\ref{sec:new_kernels} examples of kernels where DPPs and their variants may have a high impact. In Section~\ref{sec:conclusion_new_tasks}, we discuss the possibility of exploring other approximation tasks where DPPs. In Section~\ref{sec:bakhvalov}, we shed the light about a feature that make DPPs interesting .... Finally, we rise an open technical question in Section~\ref{sec:conclusion_trigonometry_problem}.... 
-% highlighted that the impact of DPPs for this 
+% We review in Section~\ref{sec:new_kernels} examples of kernels where DPPs and their variants may have a high impact. In Section~\ref{sec:conclusion_new_tasks}, we discuss the possibility of exploring other approximation tasks where DPPs. In Section~\ref{sec:bakhvalov}, we shed the light about a feature that make DPPs interesting .... Finally, we rise an open technical question in Section~\ref{sec:conclusion_trigonometry_problem}.... 
+% % highlighted that the impact of DPPs for this 
 
 
 % a hard to be replaced algorithm.
@@ -12981,10 +12995,14 @@ We review in Section~\ref{sec:new_kernels} examples of kernels where DPPs and th
 
 \subsection{Exploring other kernels}\label{sec:new_kernels}
 
-The empirical investigations in Chapter~\ref{chap:dppkq} and Chapter~\ref{chap:CVS} were restricted to  classic RKHSs such as Sobolev spaces and Gaussian spaces. Nevertheless, our theoretical results are applicable to a broader class of less-known kernels.
+The empirical investigations in Chapter~\ref{chap:dppkq} and Chapter~\ref{chap:CVS} were restricted to  classical RKHSs such as Sobolev spaces and Gaussian spaces. Nevertheless, our theoretical results are applicable to a broader class of less-known kernels.
 
 
-In particular, our results are valid for RKHSs defined by \emph{localization operators}. For example, the RKHS  defined by band-limited functions restricted to a compact interval $I$ of $\mathbb{R}$, generated by the Sinc kernel and the uniform measure on $I$ was the topic of intense research in signal processing \parencite{SlPo61,LaPo61}. This RKHS contains  realistic signals that the classical interest in this  stems from its realism: it contains band-limited signals captured in a limited span of time. Our approach applies to this RKHS, since the ...
+In particular, our results are valid for RKHSs defined by \emph{localization operators}. For example, the RKHS  defined by band-limited functions restricted to a compact interval $I$ of $\mathbb{R}$, generated by the Sinc kernel and the uniform measure on $I$ was the topic of intense research in signal processing \parencite{SlPo61,LaPo61}. This RKHS contains band-limited functions truncated in the interval $I$, and represent band-limited signals measured in a limited span of time, which is a more realistic class of functions to work with in signal processing.
+
+ % that the classical interest in this  stems from its realism: it contains band-limited signals . 
+
+ Our approach applies to this RKHS, since the ...
 
  % Working in this RKHS is more  than the RKHS of band-limited functions 
 
