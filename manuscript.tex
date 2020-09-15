@@ -1,6 +1,7 @@
 
 \documentclass[twoside,11pt]{book}
 
+\usepackage[english,french]{babel}
 \usepackage{classicthesis}
 
 \usepackage[margin=3cm]{geometry}
@@ -257,6 +258,15 @@
   {\usebibmacro{postnote}}
 
 \renewcommand*{\nameyeardelim}{\addcomma\space}
+
+\newenvironment{abstractpage}
+  {\cleardoublepage\vspace*{\fill}\thispagestyle{empty}}
+  {\vfill\cleardoublepage}
+\newenvironment{abstract}[1]
+  {\bigskip\selectlanguage{#1}%
+   \begin{center}\bfseries\abstractname\end{center}}
+  {\par\bigskip}
+
 \begin{document}
 
 \title{Thesis manuscript}
@@ -278,10 +288,27 @@
 
 
 
+\begin{abstractpage}
+
+\begin{abstract}{french}
+Les processus ponctuels déterminantaux (DPP) sont des modèles probabilistes impliquant une répulsion entre les points. Ces modèles ont été étudiés dans différents domaines allant de l'étude des matrices aléatoires à l’optique quantique, en passant par le traitement d’image, l’apprentissage automatique et plus récemment les quadratures.
+Dans cette thèse, on étudie l’échantillonnage de sous-espaces à l’aide des DPP. Ce problème se trouve à l’intersection de trois branches de la théorie de l’approximation: la sous-sélection dans les ensembles discrets, la quadrature à noyau et l’interpolation à noyau. On étudie ces questions classiques à travers une nouvelle interprétation des DPP: un DPP est une façon naturelle de définir un sous-espace aléatoire ayant de bonnes propriétés. En plus de donner une analyse unifiée de l’intégration et de l’interpolation sous les DPPs, cette nouvelle approche permet de démontrer les garanties théoriques de plusieurs algorithmes impliquant des DPPs.
+\end{abstract}
+
+
+\begin{abstract}{english}
+Determinantal point processes are probabilistic models of repulsion. These models were studied in various fields: random matrices, quantum optics, spatial statistics, image processing, machine learning and recently numerical integration. In this thesis, we study subspace sampling using determinantal point processes. This problem takes place within the intersection of three sub-domains of approximation theory: subset selection, kernel quadrature and kernel interpolation. We study these classical topics, through a new interpretation of these probabilistic models: a determinantal point process is a natural way to define a random subspace. Beside giving a unified analysis to numerical integration and interpolation under determinantal point processes, this new perspective allows to work out the theoretical guarantees of several approximation algorithms, and to prove their optimality in some settings.
+\end{abstract}
+
+
+
+\end{abstractpage}
+
 \newpage
 \tableofcontents
 
 %\section{Introduction en français}
+
 
 
 \chapter{Introduction}\label{chap:introduction}
@@ -1466,7 +1493,7 @@ Table~\ref{table:matrix_operator_duality} situates the contributions of this the
 \chapter{Determinantal point processes}\label{chapter:dpp}
 %As it was mentioned in the Introduction, t
 
-Determinantal point processes (DPPs) were introduced by \cite{Mac75} as probabilistic models for beams of fermions in quantum optics and their use widely spread after the 2000s in random matrix theory \parencite{Joh05}, machine learning \parencite{KuTa12}, spatial statistics \parencite{LaMoRu15}, and Monte Carlo methods \parencite{BaHa16}, among others.
+Determinantal point processes (DPPs) were introduced by \cite{Mac75} as probabilistic models for beams of fermions in quantum optics and their use widely spread after the 2000s in random matrix theory \parencite{Joh05}, machine learning \parencite{KuTa12}, spatial statistics \parencite{LaMoRu15}, image processing \AtNextCitekey{\defcounter{maxnames}{99}} \parencite{LaGaDe20}, and Monte Carlo methods \parencite{BaHa16}, among others.
 
 
 
@@ -1476,7 +1503,7 @@ Determinantal point processes (DPPs) were introduced by \cite{Mac75} as probabil
 % DPPs can be viewed as the kernel machine of point processes; they were introduced by \cite{Mac75} in quantum optics, 
 
 
-This chapter is dedicated to give a formal introduction on determinantal point processes. These probabilistic models appear mainly in two forms: discrete DPPs and continuous DPPs. We shall give an abstract definition that includes the two settings to emphasize on the universality of this mathematical tool.
+This chapter is dedicated to give a formal introduction on DPPs.  Intuitively, a DPP defines a random discrete subset of negatively correlated particles. These probabilistic models appear mainly in two forms: discrete DPPs and continuous DPPs. We shall give an abstract definition that includes the two settings to emphasize on the universality of this mathematical object.
 
 
 % Thereafter we instantiate this definition to highlight the differences between them. For this reason, 
@@ -1496,13 +1523,13 @@ We adopted a different notation in this chapter that will change in the next cha
 
 \section{Point processes}\label{sec:pointprocesses}
 
-Intuitively, a point process is a random discrete subset of points in some  measurable space $(\mathcal{D}, \mathcal{B})$. In order to define such an object rigorously, it is more convenient to see a discrete subset of $\mathcal{D}$ as an atomic measure defined on $\mathcal{D}$ as illustrated in Figure~\ref{fig:pointprocess}. Indeed, as we shall see, under some conditions on the domain $\mathcal{D}$, the set of measures on $\mathcal{D}$ have some nice properties that are compatible with the standard setting of probability theory. 
+Intuitively, a point process is a random discrete subset of points in some  measurable space $(\mathcal{D}, \mathcal{B})$. In order to define this object rigorously, it is more convenient to see a discrete subset of $\mathcal{D}$ as an atomic measure defined on $\mathcal{D}$ as illustrated in Figure~\ref{fig:pointprocess}. Indeed, as we shall see, under some conditions on $\mathcal{D}$, the set of measures on $\mathcal{D}$ have nice properties that are compatible with the standard setting of probability theory. 
 
 %As we shall see, we will define a point process on $\mathcal{D}$ as a random variable in the space of measures defined on $\mathcal{D}$.
 
 % within the usual framework of probability theory,
 % the set of discrete subsets of $\mathcal{D}$ have to 
-\begin{figure}[]
+\begin{figure}[h]
 \centering
 \input{img/pointprocess/pointprocess.tex}
  \caption{ A set $\{x_1, x_{2}, x_{3}, x_{4}\}$ can be identified with the atomic measure $\sum\limits_{n =1}^{4}\delta_{x_n}$. \label{fig:pointprocess}}
@@ -1515,10 +1542,28 @@ Intuitively, a point process is a random discrete subset of points in some  meas
 % In order to define such a concept within the usual framework of probability theory, $\mathcal{D}$ have to satisfy some conditions. 
 
 Polish spaces are recurrently used in probability theory as they define a large class of topological spaces without containing pathological ones. 
-This class of spaces contains among others, discrete sets and many continuous domains, and they seem to be the convenient setting to give a unified definition of DPPs. We will give the definition of a Polish space in the following. Let $(\mathcal{D},\mathcal{T})$ be a topological space that is \emph{locally compact} (every point has a compact neighborhood), \emph{second countable} ($\mathcal{T}$ has a countable base) and \emph{Hausdorff} (for any two distinct points there exist neighborhoods of each point that are disjoint).
- These three conditions guarantee that $(\mathcal{D},\mathcal{T})$ is a Polish space, that is there exists some metric $\delta$ on $\mathcal{D}$ such that the
-topology induced by $\delta$ is equal to $\mathcal{T}$ and $(\mathcal{D},\delta)$ is a \emph{complete} and \emph{separable} (there is a dense countable set $\{x_{n}; n \in \mathbb{N}\}$ in $\mathcal{D}$)
-metric space; see Theorem 5.3 in \parencite{Kec95}.
+This class of spaces contains among others, discrete sets and many continuous domains, and they seem to be the convenient setting to give a unified definition of DPPs. We will give the definition of a Polish space in the following.
+
+
+\begin{definition}
+
+ Let $(\mathcal{D},\mathcal{T})$ be a topological space. $(\mathcal{D},\mathcal{T})$ is said to be a Polish space, if there exists a metric $\delta$ on $\mathcal{D}$ such that 
+\begin{itemize}
+\item $(\mathcal{D},\delta)$ is a \emph{complete} metric space, 
+\item $(\mathcal{D},\delta)$ is \emph{separable}: there exists a  countable subset $\{x_{n}; n \in \mathbb{N}\} \subset \mathcal{D}$ dense in $\mathcal{D}$,
+\end{itemize}
+and the topology induced by $\delta$ is equal to $\mathcal{T}$.
+\end{definition}
+In other words, a Polish space is 
+
+\begin{definition}
+
+ Let $(\mathcal{D},\mathcal{T})$ be a topological space that is \emph{locally compact} (every point has a compact neighborhood), \emph{second countable} ($\mathcal{T}$ has a countable base) and \emph{Hausdorff} (for any two distinct points there exist neighborhoods of each point that are disjoint).
+\end{definition}
+
+
+
+ These three conditions guarantee that $(\mathcal{D},\mathcal{T})$ is a  see Theorem 5.3 in \parencite{Kec95}.
 
 We give some examples of Polish spaces. 
 % First, we assume that $(\mathcal{D},d)$ is a metric space for some metric $d$. 
@@ -1540,7 +1585,7 @@ Define $\mathcal{B}$ to be the Borel $\sigma$-algebra: the smallest $\sigma$-alg
 \end{equation}
 % In a Polish space $\mathcal{D}$, a locally finite measure is $\sigma$-finite, that is there exists 
 % countable family of measurable sets of finite measure according to $\mu$ that covers $\mathcal{D}$; see Lemma 1.1.4 in ??
-
+\subsection{Discrete subsets as counting measures}
 
 Denote by $\mathbf{M}(\mathcal{D})$ the set of locally finite measures on $\mathcal{D}$. 
 % This assumption is not restrictive, as it includes a wide class of sets:  
@@ -1594,8 +1639,6 @@ Another example is given by the set of simple counting measures Lemma 3.1.4 in \
 \mathbf{N}_{s}(\mathcal{D}) = \Big\{ \gamma \in \mathbf{M}(\mathcal{D}); \:\: \forall x \in \mathcal{D}, \gamma(\{x\}) \in \{0,1\} \Big\}.
 \end{equation}
 % We refer to Lemma 3.1.2 and  for the proofs that $\mathbf{N}(\mathcal{D})$ and $\mathbf{N}_{s}(\mathcal{D})$ (are you sure????) belong to $\mathcal{M}(\mathcal{D})$.
-
-
 Starting from a collection of points $x_{1}, \dots, x_{N}$ in $\mathcal{D}$, one can define a counting measure
 \begin{equation}
 \gamma = \sum\limits_{n \in [N]}\delta_{x_n},
@@ -1639,16 +1682,13 @@ Let $\gamma$ be a counting measure on $\mathcal{D}$. Then $\gamma$ can be writte
 \begin{equation}
 \gamma = \sum\limits_{i \in I} m_{i} \delta_{x_{i}},
 \end{equation}
-where $I \in \mathbb{N} \cup \{ \infty \}$, $(x_{i})_{i \in I}$ is a sequence of points in $\mathcal{D}$ without accumulation point and $(m_{i})_{i \in I}$ is a sequence of positive integers. Moreover, this decomposition is unique up
+where I is a countable set and $(x_{i})_{i \in I}$ is a sequence of points in $\mathcal{D}$ without accumulation point and $(m_{i})_{i \in I}$ is a sequence of positive integers. Moreover, this decomposition is unique up
 to a permutation. 
 \end{theorem}
-
-In the case of simple counting measure, the integers $b_{i}$ belong to $\{0,1\}$.
-
-
+In the case of a simple counting measure, the integers $m_{i}$ belong to $\{0,1\}$.
 % Yet, we are mostly interested in simple counting measures in this manuscript.
-
-Now, we can give the definition of a point process in $\mathcal{D}$. It is a special case of a random measure that we recall the definition in the following. 
+\subsection{Point processes as random measures}
+Now, we give the definition of a point process. It is a special case of a random measure. 
 
 %In this manuscript, we will work with simple counting measures. 
 % Discrete subsets of $\Omega$ can be identified to simple counting measures by considering the corresponding atomic measures. Thereby, general counting measures can be seen as discrete subsets with multiplicities. 
@@ -1725,6 +1765,9 @@ A Poisson point process is simple if and only if its intensity measure is \emph{
 \end{equation}
 
 % The following variation of Binomial process generate a rich family of point processes called \emph{Poisson point processes.}
+
+
+\subsection{The mean measure of a point process}
 The description of a point process through the cylinder sets $\big\{ \gamma(B_{1}) = n_1, \dots, \gamma(B_{m}) = n_m \big\}$ is convenient in some cases such as the binomial process and the Poisson point process. However, in general the probability
 \begin{equation}
 \mathbb{P} \Big(\gamma(B_{1}) = n_{1}, \dots, \gamma(B_{m}) = n_{m} \Big)
@@ -1801,6 +1844,7 @@ Note that the Campbell theorem can be applied for general point processes: the t
 %  can be described by
 % its joint intensities
 % Again, we can calculate the joint intensities $\rho_L$ for
+\subsection{High-order moment measures of a point process}
 The mean measure gives an idea of the random measure $\gamma$ evaluated on one Borel set $B \in \mathcal{B}$ yet it does not capture the correlations between the evaluation of $\gamma$ on a family of Borel sets $B_{1}, \dots, B_{L} \in \mathcal{B}$. There are many ways to estimate this interaction. For example, we can define the $L$-th power of $\gamma$ that is a point process on the measurable space $\mathcal{D}^{L}$, equipped with the product $\sigma$-algebra, defined by
 \begin{equation}
 \forall \prod\limits_{\ell \in [L]} B_{\ell} \in \mathcal{B}^{L}, \:\: \gamma^{\otimes_{L}}(\prod\limits_{\ell \in [L]} B_{\ell}) = \prod\limits_{\ell \in [L]} \gamma(B_{\ell}),
@@ -2028,47 +2072,48 @@ The identity~\eqref{eq:ppp_orthogonality} reflects the independence of the rando
 %  discrete determinantal point processes (DPPs) and the related $k$-DPPs, of which volume sampling is an example. 
 
 \section{Determinantal point processes}\label{sec:dpp_defs}
-
+\subsection{Definition}
 We give now the definition of a DPP. First, consider a measurable function $\kappa: \mathcal{D} \times \mathcal{D} \rightarrow \mathbb{C}$.
 \begin{definition}\label{def:def_dpp_chapter_2}
 Let $\gamma$ be a simple point process on $\mathcal{D}$. $\gamma$ is said to be a determinantal point process with kernel $\kappa$ and reference measure $\mathrm{d}\omega$ if the joint intensities $\rho_L$ with respect to the measure $\mathrm{d}\omega$ are well defined for $L \in \mathbb{N}^{*}$ and satisfy
 \begin{equation}\label{eq:correlation_functions_dpp_def}
- \rho_{L}(x_{1}, \dots, x_{L}) = \Det \bm{\kappa}\big( x_{1}, \dots, x_{L} \big), \:\: \text{a.s. (} \mathrm{d}\omega^{\otimes L} \text{)},
+ \rho_{L}(x_{1}, \dots, x_{L}) = \Det \bm{\kappa}\big( x_{1}, \dots, x_{L} \big),
 \end{equation}
 where $\bm{\kappa}\big( x_{1}, \dots, x_{L} \big) = (\kappa(x_{\ell},x_{\ell^{'}}))_{\ell,\ell^{'} \in [L]} \in \mathbb{C}^{N \times N}$.
 
 \end{definition}
-An example of a DPP is a Poisson point process with a diffuse intensity.
-\begin{example}
-Let $\gamma$ be a Poisson point process on $\mathcal{D}$ with diffuse locally finite intensity measure $\mathrm{d}\omega$. Then, remember that \eqref{eq:ppp_orthogonality}: for every $L \in \mathbb{N}^{*}$ the $L$-factorial moment measure is 
-\begin{equation}\label{eq:poisson_gamma_L_is_a_DPP}
-\gamma_{L} = \mathrm{d}\omega^{\otimes L}.
-\end{equation}
-Then $\gamma_{L}$ have a density $\rho_{L}$ with respect to $\mathrm{d}\omega^{\otimes L}$ and
-\begin{equation}
-\rho_L(x_{1}, \dots, x_{L}) = 1, \:\: \text{a.s. (} \mathrm{d}\omega^{\otimes L} \text{)} .
-\end{equation}
-This proves that $\gamma$ is a DPP associated to the reference measure $\mathrm{d}\omega$ and the kernel
-\begin{equation}\label{eq:the_degenerate_poisson_kernel}
-\kappa_{\mathrm{P}}(x,y) = \mathbb{1}_{\{(a,b) \in \mathcal{D}^{2}, a=b \}}(x,y).
-\end{equation}
-Indeed, for any $(x_{1}, \dots, x_{L}) \in \mathcal{D}^{L}_{\neq} $, $\bm{\kappa}_{\mathrm{P}}(x_{1}, \dots, x_{L})$ is the identity matrix of dimension $L \times L$, so that
-\begin{equation}
-\Det \bm{\kappa}_{\mathrm{P}}(x_{1}, \dots, x_{L}) = 1.
-\end{equation}
-Moreover, since $\mathrm{d}\omega$ is diffuse, $\mathrm{d}\omega ^{\otimes L} \Big( \mathcal{D}^{L} \smallsetminus \mathcal{D}^{L}_{\neq} \Big) = 0$. 
-% \begin{equation}
 
+% An example of a DPP is a Poisson point process with a diffuse intensity.
+% \begin{example}
+% Let $\gamma$ be a Poisson point process on $\mathcal{D}$ with diffuse locally finite intensity measure $\mathrm{d}\omega$. Then, remember that \eqref{eq:ppp_orthogonality}: for every $L \in \mathbb{N}^{*}$ the $L$-factorial moment measure is 
+% \begin{equation}\label{eq:poisson_gamma_L_is_a_DPP}
+% \gamma_{L} = \mathrm{d}\omega^{\otimes L}.
 % \end{equation}
-\end{example}
+% Then $\gamma_{L}$ have a density $\rho_{L}$ with respect to $\mathrm{d}\omega^{\otimes L}$ and
+% \begin{equation}
+% \rho_L(x_{1}, \dots, x_{L}) = 1, \:\: \text{a.s. (} \mathrm{d}\omega^{\otimes L} \text{)} .
+% \end{equation}
+% This proves that $\gamma$ is a DPP associated to the reference measure $\mathrm{d}\omega$ and the kernel
+% \begin{equation}\label{eq:the_degenerate_poisson_kernel}
+% \kappa_{\mathrm{P}}(x,y) = \mathbb{1}_{\{(a,b) \in \mathcal{D}^{2}, a=b \}}(x,y).
+% \end{equation}
+% Indeed, for any $(x_{1}, \dots, x_{L}) \in \mathcal{D}^{L}_{\neq} $, $\bm{\kappa}_{\mathrm{P}}(x_{1}, \dots, x_{L})$ is the identity matrix of dimension $L \times L$, so that
+% \begin{equation}
+% \Det \bm{\kappa}_{\mathrm{P}}(x_{1}, \dots, x_{L}) = 1.
+% \end{equation}
+% Moreover, since $\mathrm{d}\omega$ is diffuse, $\mathrm{d}\omega ^{\otimes L} \Big( \mathcal{D}^{L} \smallsetminus \mathcal{D}^{L}_{\neq} \Big) = 0$. 
+% % \begin{equation}
+
+% % \end{equation}
+% \end{example}
 
 % In other words, the Poisson point process corresponds to the DPP with the kernel~\eqref{eq:the_degenerate_poisson_kernel}. 
-The kernel $\kappa_{\mathrm{P}}$ is "degenerate" and does not capture interactions between disjoint Borel sets.
-We illustrate the \emph{negative correlation} property that "proper" DPPs can have in the following.
-
-Consider $\gamma$ be a DPP of kernel $\kappa$ and reference measure $\mathrm{d}\omega$. Assume that $\kappa$ is Hermitian
+% The kernel $\kappa_{\mathrm{P}}$ is "degenerate" and does not capture interactions between disjoint Borel sets.
+% We illustrate the \emph{negative correlation} property that "proper" DPPs can have in the following.
+In other words, a DPP defines a point process with the correlations, defined through the joint intensity functions, are described by the kernel $\kappa$. From Definition~\ref{def:def_dpp_chapter_2}, we can already define a point process with the \emph{negative correlation} property. 
+Indeed, let $\gamma$ be a DPP of kernel $\kappa$ and reference measure $\mathrm{d}\omega$. Assume that the kernel $\kappa$ is Hermitian
 \begin{equation} \label{eq:hermitian_condition_kappa}
-\kappa(x,y) = \overline{\kappa(y,x)} \:\: \text{a.s. (} \mathrm{d}\omega^{\otimes 2} \text{)}.  
+\kappa(x,y) = \overline{\kappa(y,x)}.  
 \end{equation}
 %%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%
@@ -2100,24 +2145,26 @@ Therefore
 \mathrm{Cov} \Big(\gamma(B_{1}), \gamma(B_{2}) \Big)  =  - \int_{B_{1} \times B_{2}} |\kappa(x_{1},x_{2})|^{2} \mathrm{d}\omega(x_1) \mathrm{d}\omega(x_2) \leq 0.
 \end{equation}
 
-In other words, the covariance of the random variables $\gamma(B_1)$ and $\gamma(B_1)$ is non-positive. It is negative, when $\int_{B_{1} \times B_{2}} |\kappa(x_{1},x_{2})|^{2} \mathrm{d}\omega(x_1) \mathrm{d}\omega(x_2) >0$, and the two variables are negatively correlated and it vanishes in the case of Poisson point process with intensity $\mathrm{d}\omega$: $\int_{B_{1} \times B_{2}} |\kappa_{\mathrm{P}}(x_{1},x_{2})|^{2} \mathrm{d}\omega(x_1) \mathrm{d}\omega(x_2) = 0$.
+In other words, the covariance of the random variables $\gamma(B_1)$ and $\gamma(B_1)$ is non-positive. It is negative, when $\int_{B_{1} \times B_{2}} |\kappa(x_{1},x_{2})|^{2} \mathrm{d}\omega(x_1) \mathrm{d}\omega(x_2) >0$, and the two variables are negatively correlated. This is to be compared with a Poisson point process where the random variables $\gamma(B_1)$ and $\gamma(B_1)$ are independents.
+
+ % and it vanishes in the case of  $\int_{B_{1} \times B_{2}} |\kappa_{\mathrm{P}}(x_{1},x_{2})|^{2} \mathrm{d}\omega(x_1) \mathrm{d}\omega(x_2) = 0$.
 
 % , while the random variables $\tilde{\gamma}(B_1)$ and $\tilde{\gamma}(B_1)$ are uncorrelated even though they have the same mean measure $\gamma_1$
 
 % : the probability of co-occurrence is always smaller than that of a Poisson point process with the same intensity. We can say, informally, that the Poisson point process is a DPP with a degenerate kernel without any interaction: $\kappa(x,y) = \delta_{x}(y)$.
 
-Observe the importance of the condition~\ref{eq:hermitian_condition_kappa} from the second line to the third line in the development of \eqref{eq:cov_DPP_gamma_B_1_B_2_dev} where we have used
+Observe the importance of the condition~\eqref{eq:hermitian_condition_kappa} from the second line to the third line in the development of \eqref{eq:cov_DPP_gamma_B_1_B_2_dev} where we have used
 \begin{equation}
 \int_{B_{1} \times B_{2}} \kappa(x_{1},x_{2}) \kappa(x_{2},x_{1}) \mathrm{d}\omega(x_{1}) \mathrm{d}\omega(x_{2}) = \int_{B_{1} \times B_{2}} \kappa(x_{1},x_{2}) \overline{\kappa(x_{1},x_{2})} \mathrm{d}\omega(x_{1}) \mathrm{d}\omega(x_{2}).
 \end{equation}
-Without the condition~\ref{eq:hermitian_condition_kappa}, the negative correlation property does not hold. We present in the next section a class of kernels that satisfy this condition and define "proper" DPPs with interesting properties. 
+Without the condition~\eqref{eq:hermitian_condition_kappa}, the negative correlation property does not hold. We present in the next section a class of kernels that satisfy this condition and define  DPPs with interesting properties. 
 
 
 % regular
 
 
 % Interesting kernels that define "proper" DPPs are regular in some sense. 
-\subsubsection{DPPs associated to trace class kernels}
+\subsection{DPPs associated to trace class kernels}
 %This kernel  that does not encode 
 
 %  without interactions: that 
@@ -2203,7 +2250,7 @@ These DPPs are important in the characterization of DPPs that satisfy the condit
 
 
 \begin{theorem}[Theorem 7 in \parencite{HoKrPeVi06}]\label{thm:mixture_of_projection_DPPs}
-Let $\kappa$ be a kernel such that $\bm{\Sigma}_{\kappa}$ satisfies the casual conditions and denote $(\sigma_{m},v_{m})$ its eigenpairs. Assume that the spectrum of $\bm{\Sigma}_{\kappa}$ is included in $[0,1]$.
+Let $\kappa$ be a kernel such that $\bm{\Sigma}_{\kappa}$ satisfies the usual conditions and denote $(\sigma_{m},v_{m})$ its eigenpairs. Assume that the spectrum of $\bm{\Sigma}_{\kappa}$ is included in $[0,1]$.
 
  % $\kappa$ is  the usual assumptions ??, ??, and ??. Define $(\sigma_{m},v_{m})$ the eigenpairs of the integration operator  with $\sigma_{m} \in [0,1]$.
 
@@ -2255,7 +2302,7 @@ We shall see in Section~\ref{sec:DPP_examples} another class of mixtures of proj
 %\subsubsection{The $N$-DPPs}
 
 
-\subsubsection{Relaxing the assumptions}
+\subsection{More general DPPs}
 
 
 
@@ -2268,7 +2315,7 @@ First, the assumption~\eqref{eq:integrability_condition_kappa} is usually relaxe
 
 Under this relaxed assumption, the domain of definition of the integration operator $\bm{\Sigma}_{\kappa}$ should be restrained to elements of $\mathbb{L}_{2}(\mathrm{d}\omega)$ that vanish $a.e.$ outside a compact subset of $\mathcal{D}$. Moreover, Theorem~\ref{thm:mac_sos} remains valid and Theorem~\ref{thm:mixture_of_projection_DPPs} and its consequences are still valid for the restricted integration operators: if $\gamma$ follows the distribution of a DPP of kernel $\kappa$ and reference measure $\mathrm{d}\omega$ then for every compact set $C \subset \mathcal{D}$, $\gamma \cap C$ follows the distribution of a DPP of the kernel $\kappa$ and the reference measure $\mathrm{d}\omega_{C}$ defined by
 \begin{equation}
-\forall B \in \mathcal{B}, \:\: \mathrm{d}\omega_{C}(B) = \mathrm{d}\omega(B \cap C).
+\forall B \in \mathcal{B}, \:\: \omega_{C}(B) = \omega(B \cap C).
 \end{equation}
 
 % : for a compact set $C \subset \mathcal{D}$, the restricted integration operator is defined
@@ -2881,7 +2928,7 @@ of $\bm{\Sigma}_{\kappa}$ is not tractable. For this reason, many approximate sa
 
 %\clearpage
 \chapter{Column subset selection using projection DPPs}\label{chapter:cssp}
-\section{Introduction}
+%\section{Introduction}
 
 %!TEX root=./submitted.tex
 
@@ -13316,19 +13363,6 @@ After matrix concentration inequalities and the Stieltjes transform, the expecte
 
 
 % Moreover, as we have seen in Section??, the empirical rates of optimal kernel quadrature under the distribution projection DPP
-
-\clearpage
-
-\subsubsection{Abstract in English}
-
-Determinantal point processes are probabilistic models of repulsion. 
-These models were studied in various fields of mathematics and theoretical physics: random matrices, quantum optics, spatial statistics, image processing, machine learning and recently numerical integration.
-
-In this thesis, we study subspace sampling using determinantal point processes. This problem take place within the intersection of three sub-domains of approximation theory: subset selection, kernel quadrature and kernel interpolation. We study these old topics, that exist for decades, through a new interpretation of these probabilistic models: a determinantal point process is a natural way to define a random  subspace. Beside giving a unified analysis to numerical integration and interpolation under determinantal point processes, this new perspective allows to workout the theoretical analysis of several approximation algorithms, and to prove their optimality in some settings. 
-
-
-\subsubsection{Abstract in French}
-Cette thèse est consacrée à l'étude des algorithmes d'échantillonnage qui apparaissent à la fois pour le traitement des données en l'intelligence artificielle, en traitement du signal ou en statistiques Bayésiennes. La contribution de cette thèse dans ce domaine est l'étude des processus ponctuels déterminantals comme un modèle d'échantillonnage universel. L'idée est d'associer à chaque classe de signaux ou de matrices un échantillonnage adapté à l'aide d'un outil mathématique inspiré de la physique statistique qu'on appelle les processus ponctuels déterminantals. Ces processus ponctuels, qui sont des sous-ensembles aléatoires, permettent la modélisation d'un échantillonnage répulsive. Cette propriété de répulsion est cruciale: elle permet de proposer des configurations qui captent le maximum d'informations dans un signal pour un budget d'échantillonnage $N$ qui est le nombre de points du sous-ensemble. Cela permet de réduire le budget d'échantillonnage pour atteindre une précision de reconstruction donnée. Ce modèle est très flexible et permet d'étudier plusieurs classes de signaux qui apparaissent dans différents domaines de traitement de données.
 
 % This new perspective leads to unify the treatement of discrete 
 
