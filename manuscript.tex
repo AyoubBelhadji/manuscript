@@ -16,7 +16,7 @@
 \usepackage{bm}
 \usepackage{bbm}
 %\usepackage{natbib}
-\usepackage[backend=bibtex,natbib=true,  maxnames=4,style = authoryear,isbn=false,url=false,doi=false,eprint=false]{biblatex}
+\usepackage[backend=bibtex,natbib=true,  maxnames=2,maxbibnames=99,style = authoryear,isbn=false,url=false,doi=false,eprint=false]{biblatex}
 
 % \usepackage[,authordate]{biblatex-chicago}
 
@@ -317,13 +317,13 @@
 
 % \paragraph{intro 2}
 Subsampling is a recurrent task in applied mathematics. This paradigm has many applications in data analysis, signal processing, machine learning and statistics: continuous signal discretization, numerical integration, dimension reduction, learning on budget, preconditioning... Seemingly unrelated, these problems can be tackled using the same strategy: looking for the most representative elements in a set. For example,
-the aim of subset selection is to select the most representative elements of a large set (or even a countable infinite set) to approximate an object that can be scalar, a vector, a matrix ... On the other hand, quadrature and interpolation aim to select the most representative elements of a continuous domain to approximate a function or an integral.
+the aim of subset selection is to select the most representative elements of a large set to approximate an object that can be scalar, a vector or a matrix. On the other hand, quadrature and interpolation aim to select the most representative elements of a continuous domain to approximate a function or an integral.
 These approximations are conducted, mainly, for three purposes: improving the numerical complexity of an existing algorithm (\emph{numerical issue}), reducing the cost of labelling (\emph{sensing issue}) or making an algorithm more interpretable (\emph{interpretation issue}).
 
-For some problems with linear structure, the set can be embedded in a vector space, and a good subset of representatives would have a geometric characterization that can be expressed in a simple way using the spectrum of some linear operator. In other words, the sub-sampling problem boils down to a geometric problem. One way to set up a linear representation on a set is to define a kernel. Indeed, 
-kernels are universal tools that can be defined in discrete sets or continuous domains; and they combine well with linearisation.
+For some problems with linear structure, the set can be embedded in a vector space. A good subset of representatives would have a geometric characterization that can be expressed in a simple way using the spectrum of some linear operator. In other words, the sub-sampling problem boils down to a geometric problem. One way to set up a linear representation on a set is to define a kernel. Indeed, 
+kernels are universal tools that can be defined in discrete sets or continuous domains. Moreover, they combine well with linearisation.
 
-Once an embedding is defined, one can make use of the abundant tools of linear operators such as linear algebra or functional analysis to resolve the geometrical problem that raised form the sub-sampling problem. Under this perspective, we can explain the recourse to random sub-sampling in many problems with linear structure: non asymptotic random matrix theory offers strong tools to tackle these geometric problems in a universal way. A universality that lacks to deterministic sub-sampling approaches.
+Once an embedding is defined, one can make use of the abundant tools of linear operators such as linear algebra or functional analysis to solve the geometrical problem that raised from the sub-sampling problem. Under this perspective, we can explain the recourse to random sub-sampling in many problems with linear structure: non-asymptotic random matrix theory offers strong tools to tackle these geometric problems in a universal way. A universality that lacks to deterministic sub-sampling approaches.
 
 
  % these linear spaces, the task of looking for representatives boils down to approximating a sum of matrices or operators using a smaller sum; and randomized averaging was extensively used for its versatility and its strong theoretical guarantees.
@@ -345,9 +345,9 @@ Once an embedding is defined, one can make use of the abundant tools of linear o
 % One way to set up this strategy is to look for a linear representation of the set and to make use of the abundant tools of linear algebra and functional analysis.  In these linear spaces, the task of looking for representatives boils down to approximating a sum of matrices or operators using a smaller sum; and randomized averaging was extensively used for its versatility and its strong theoretical guarantees. 
 
 
-Until now, sampling proportionally to lengths was the gold standard of randomized subsampling. Indeed, lengths are amenable to fast evaluation, approximation and sampling. Moreover, these simple sub-sampling schemes come with relatively strong guarantees. Still, lengths contain only the first-order information about the set to be sampled, and one may expect to improve the quality of sampling by considering high-order information such as volumes.
+Until now, sampling proportionally to lengths was the gold standard of randomized subsampling. Indeed, lengths are amenable to fast evaluation, approximation, and sampling. Moreover, these simple sub-sampling schemes come with relatively strong guarantees. Still, lengths contain only the first-order information about the set to be sampled. One may expect to improve the quality of sampling by considering high-order information such as volumes.
 
-Indeed, a good subset of representatives would capture the essential of the information avoiding any unnecessary redundancy that may be measured by the volume spanned by these elements. Intuitively, a subset would be redundant if it defines a polytope with small volume, and it would be non-redundant if it defines a polytope with large volume. It turns out that there exist a family of probabilistic models that define random subsets with a repulsion property: informally, the probability of appearance of a subset is proportional to the volume it defines in the vector space. These models are called determinantal point processes and they were the topic of intense research in various fields: random matrices, quantum optics, spatial statistics, image processing, machine learning and recently numerical integration. These probabilistic models seem to furnish the plausible framework for the study of sub-sampling using high-order information. Indeed, these probabilistic models are expressed using the language of linear operators and kernels and extend naturally first-order sub-sampling schemes.
+Indeed, a good subset of representatives would capture the substance of the information avoiding any unnecessary redundancy. This redundancy may be measured by the volume spanned by these elements. Intuitively, a subset would be redundant if defining a polytope with small volume, and it would be non-redundant if defining a polytope with large volume. It turns out that there exists a family of probabilistic models that define random subsets with a repulsion property: informally, the probability of appearance of a subset is proportional to the volume it defines in the vector space. These models are called determinantal point processes and they were the topic of intense research in various fields: random matrices, quantum optics, spatial statistics, image processing, machine learning and recently numerical integration. These probabilistic models seem to furnish the plausible framework for the study of sub-sampling using high-order information. Indeed, these probabilistic models are expressed using the language of linear operators and kernels: they naturally extend first-order sub-sampling schemes.
 
 
 
@@ -480,7 +480,7 @@ This thesis is devoted to investigate the suitability and the pertinence of usin
 
 \section{Subsampling problems with linear structure}
 
-In order to situate the contributions of this thesis, a brief review on randomized subsampling techniques for problems with a linear structure is given in the following. 
+In order to situate the contributions of this thesis, a brief review of randomized subsampling techniques for problems with a linear structure is given in the following. 
 % \subsection{Independent sampling: from linear regression to kernel interpolation}
 
 We start by the problem of linear regression under constraint on the number of observations. Consider a matrix $\bm{X}\in \mathbb{R}^{N \times d}$ that contains the $d$ features of $N$ observations, with $N \geq d$, and assume the rank of $\bm{X}$ is equal to $d$. A recurrent task in data analysis and statistics is linear regression, which consists in looking for the minimum-length vector $\bm{w} \in \mathbb{R}^{d}$ among the vectors minimizing the residual
@@ -504,16 +504,16 @@ In some situations, calculating $\bm{w}^{*}$ using a pseudo-inverse formula is n
  corresponds to a subset $S = \{i_{1}, \dots, i_{c} \} \subset [N]$ with $c \in \mathbb{N}^{*}$, $i_{1} < i_{2} < \dots < i_{c}$, and a matrix $\bm{S} \in \mathbb{R}^{c \times N}$ such that for $j \in [c]$, 
  $\bm{S}_{j,i_{j}}  = s_{j}>0$, and the other elements of $\bm{S}$ are equal to $0$. The constant $c$ represents the \emph{budget} of sub-sampling,
   % that contains only one non-vanishing element in a row: for every $n \in [N]$, if $\bm{S}_{i,n}  = s_{i}>0$ then the $n$-element of $[N]$ is kept in the subset $S$, and if $\bm{S}_{i,n} = 0$ then the $n$-element of $[N]$ is removed.
-  and $\bm{S}^{\Tran}\bm{X} \in \mathbb{R}^{c \times d}$ is the sub-matrix of $\bm{X}$ that correspond to the subset $S$, after rescaling the rows by the factors $s_{i}$.
+  and $\bm{S}^{\Tran}\bm{X} \in \mathbb{R}^{c \times d}$ is the sub-matrix of $\bm{X}$ that corresponds to the subset $S$, after rescaling the rows by the factors $s_{i}$.
   % The values of the $s_{n}$ corresponds to either the multiplicities of these rows, or some rescaling factors necessary for the theoretical analysis. In particular $\bm{S}^{\Tran} \bm{X}$ is the sub-matrix of $\bm{X}$ with the indices of the rows 
 
- Now, one can define an approximation of $\bm{w}^{*}$ based on the subset $S$. For example, \cite{DrMaMu06} proposed
+ Now, one can define an approximation of $\bm{w}^{*}$ based on the subset $S$. For example, \AtNextCitekey{\defcounter{maxnames}{99}} \cite{DrMaMu06} proposed
 \begin{equation}
 \bm{w}_{S}^{*} = (\bm{S}^{\Tran}\bm{X})^{+} (\bm{S}^{\Tran}\bm{y}).
 \end{equation}
 % This way, the calculation
 In this approximation, the pair $(\bm{X},\bm{y})$ was replaced by the reduced pair $(\bm{S}^{\Tran}\bm{X},\bm{S}^{\Tran}\bm{y})$.
-A good choice of the representers would define a sampling matrix $\bm{S}$ that satisfy
+A good choice of the representatives would define a sampling matrix $\bm{S}$ that satisfies
 \begin{equation}
 \forall \bm{y} \in \mathbb{R}^{N}, \:\: \|\bm{y} - \bm{X} \bm{w}_{S}^{*}\|^{2} \leq (1+\epsilon) \|\bm{y} - \bm{X} \bm{w}^{*}\|^{2},
 \end{equation}
@@ -541,7 +541,7 @@ Therefore, the sub-sampling problem boils down to looking for a matrix $\bm{S}$ 
 % Intuitively, one would like to keep the $\tilde{v}_{n}$ that form a 
 One way to design a sampling matrix $\bm{S}$ that satisfies condition~\eqref{eq:introduction_embedding_condition} is to consider a randomized sub-sum of~\eqref{eq:sum_to_identity_real}, and to make use of a matrix concentration inequality to prove that this sub-sum concentrates around $\mathbb{I}_{d}$. For example, consider the following random sum
 \begin{equation}\label{eq:introduction_random_subsample}
-I_{c} = \frac{1}{c}\sum\limits_{i \in [c]} \frac{1}{p_{n_{i}}}z_{{n_{i}}}z_{{n_{i}}}^{\Tran},
+I_{c} = \frac{1}{c}\sum\limits_{i \in [c]} \frac{1}{p_{n_{i}}}\tilde{x}_{{n_{i}}}\tilde{x}_{{n_{i}}}^{\Tran},
 \end{equation}
 where the $p_n$ are positive and sum to one, and the $n_{i}$ are sampled independently from the multinomial random variable of parameter $\bm{p} = (p_{n})_{n \in [N]}$. We can easily prove  that $\EX I_{c} = \mathbb{I}_{d}$. Moreover, the fluctuations of $I_{c}$ around $\mathbb{I}_{d}$ can be controlled using a concentration inequality.
 % An example of such a result is given in the following.
@@ -567,7 +567,7 @@ Theorem~\ref{thm:matrix_bernstein} can be applied to the matrix $I_{c}$ in~\eqre
 \end{equation}
 Indeed, using again Theorem~\ref{thm:matrix_bernstein}, if $\bm{p} = (\ell_{n}/d)_{n \in [N]}$, the budget $c = C d \log(d)$ is enough to have good guarantees independently of the value of the coherence, and more importantly, independently of $N$. This constitutes a significant reduction of the complexity of the problem in situations where $N$ is very large compared to $d$. 
 
-Beside vanilla linear regression, this reduction can be beneficial in other problems with a linear structure. For example, for the problem of graph sparsification, i.e. sub-sampling the edges of a graph while maintaining its spectral properties. For this problem, the dimension $d$ is the number of the nodes, which can be very small compared to the number of the edges $N$. Leverage score sampling was studied for this problem under the name of \emph{effective resistance sampling} \citep*{SpTe04,SpSr11}. Sub-sampling nodes in a graph can also be beneficial, e.g. for the recovery of band-limited signals \citep*{PuTrGrVa18}. In this setting, $d$ is the  size of the band of the signal and $N$ is the number of the nodes. Finally, the notion of leverage score sampling was used for low-rank approximations, of general matrices \citep*{DrMaMu07}, as we shall see more in detail in Chapter~\ref{chapter:cssp}.
+Beside vanilla linear regression, this reduction can be beneficial in other problems with a linear structure. For example, for the problem of graph sparsification, i.e. sub-sampling the edges of a graph while maintaining its spectral properties. For this problem, the dimension $d$ is the number of nodes, which can be very small compared to the number of edges $N$. Leverage score sampling was studied for this problem under the name of \emph{effective resistance sampling} \citep*{SpTe04,SpSr11}. Sub-sampling nodes in a graph can also be beneficial, e.g. for the recovery of band-limited signals \citep*{PuTrGrVa18}. In this setting, $d$ is the  size of the band of the signal and $N$ is the number of nodes. Finally, the notion of leverage score sampling was used for low-rank approximations, of general matrices \citep*{DrMaMu07}, as we shall see more in detail in Chapter~\ref{chapter:cssp}.
 
  % have a significant impact when $N$ is very large  sub-sampling using the leverage score distribution leads to compressing the 
 
@@ -725,7 +725,7 @@ yet it is impractical to compute for large values of $N$, because the required n
 \end{equation}
 where $\bm{K}(\bm{x})_{:,S}$ and $\bm{K}(\bm{x})_{S,S}$ are respectively the columns and the sub-matrix of $\bm{K}(\bm{x})$ corresponding to the indices in the set $S$.
 
-The theoretical analysis of the Nystr{\"o}m approximation for kernel ridge regression was carried out in \parencite{Bac13} under uniform sub-sampling, and in \parencite{AlMa15} under the 
+The theoretical analysis of Nystr{\"o}m approximation for kernel ridge regression was carried out in \parencite{Bac13} under uniform sub-sampling, and in \parencite{AlMa15} under the 
 % Hence, the need to  can be used such as
 % \begin{equation}
 % \bm{\alpha}_{S}^{*} = 
@@ -734,7 +734,6 @@ The theoretical analysis of the Nystr{\"o}m approximation for kernel ridge regre
 \begin{equation}\label{eq:introduction_rlv_score}
 \ell^{\lambda}_{n} = k(x_{n},.)^{\Tran} \big( \bm{K}(\bm{x}) + N \lambda \mathbb{I}_{N} \big)^{-1}k(x_{n},.).
 \end{equation}
-
 If a spectral decomposition of $\bm{K}(\bm{x}) = \bm{U}\Diag((\sigma_{\ell})_{ \ell \in [N]})\bm{U}^{\Tran}$ is known, then 
 \begin{equation}\label{eq:introduction_rlv_score_spectral}
 \ell^{\lambda}_{n} = \sum\limits_{\ell \in [N]} \frac{\sigma_{\ell}}{\sigma_\ell + N\lambda}  \bm{U}_{n,\ell}^{2}.
@@ -801,7 +800,7 @@ Moreover, $\|\mu_{g} - \sum_{n \in [N]} w_{n}k(x_{n},.) \|_{\F}$ is actually the
 %  this problem appears in quadrature problems of functions that belong to reproducing kernel Hilbert spaces. 
 
 
-\cite{Bac17} proposed to take the \emph{nodes} $x_{n}$ to be independent random variables that follow a density $q$ with respect to the measure $\omega$, and to take weights $(w_{n})_{n \in N}$ to be a solution of the optimization problem
+\cite{Bac17} proposed to choose the \emph{nodes} $x_{n}$ to be independent random variables that follow a density $q$ with respect to the measure $\omega$, and to choose the weights $(w_{n})_{n \in N}$ as the solution of the optimization problem
 \begin{equation}\label{eq:introduction_reg_problem_kernel_quadrature}
 \min\limits_{ \bm{w}\in \mathbb{R}^{N}} \Big\|\mu_{g} - \sum\limits_{n \in [N]} \frac{w_{n}}{q(x_{n})^{1/2}}k(x_{n},.) \Big\|_{\F}^{2} + N \lambda \|\bm{w}\|^{2}.
 \end{equation}
@@ -810,9 +809,9 @@ This optimization problem admits a unique solution
 \bm{w}^{*} = (\overline{\bm{K}}(\bm{x})+\lambda \mathbb{I}_{N})^{-1}\mu_{g}(\bm{x}),
 \end{equation}
 where $\mu_{g}(\bm{x}) = (\mu_{g}(x_{n}))_{n \in [N]} \in \mathbb{R}^{N}$, and $\overline{\bm{K}}(\bm{x}) = (q(x_{n})^{-1/2} k(x_{n},x_{n'}) q(x_{n'})^{-1/2})_{n,n' \in [N]}$. 
-In particular, there exists a density $q^{\lambda}$ called the \emph{continuous ridge leverage score density} for which 
+In particular, there exists a density $q_{\lambda}^{*}$ called the \emph{continuous ridge leverage score density} for which 
 \begin{equation}
-\sup\limits_{\substack{g \in \mathbb{L}_2(\mathrm{d}\omega)\\ \|g\|_{\mathrm{d}\omega} \leq 1}} \Big \|\mu_g - \sum\limits_{n \in [N]} \frac{w_{n}^{*}}{q^{\lambda}(x_{n})^{1/2}}k(x_{n},.) \Big \|_{\F}^{2} \leq \lambda, 
+\sup\limits_{\substack{g \in \mathbb{L}_2(\mathrm{d}\omega)\\ \|g\|_{\mathrm{d}\omega} \leq 1}} \Big \|\mu_g - \sum\limits_{n \in [N]} \frac{w_{n}^{*}}{q_{\lambda}^{*}(x_{n})^{1/2}}k(x_{n},.) \Big \|_{\F}^{2} \leq \lambda, 
 \end{equation}
 with high probability, whenever $N \geq C d_{\eff}(\lambda) \log d_{\eff}(\lambda)$, with $d_{\eff}(\lambda)$ is the effective degree of freedom defined by
 \begin{equation}
@@ -820,11 +819,11 @@ d_{\eff}(\lambda) = \Tr \bm{\Sigma}(\bm{\Sigma} + \lambda \mathbb{I}_{\F})^{-1},
 \end{equation}
 and $\bm{\Sigma}$ is the integration operator associated to the kernel $k$ and the measure $\omega$, defined on $\mathbb{L}_{2}(\mathrm{d}\omega)$ by $\bm{\Sigma} g = \int_{\X} g(.)k(x,.) \mathrm{d}\omega(x)$. Similarly to the discrete ridge leverage score distribution, the continuous ridge leverage score density has a spectral expression
 \begin{equation}\label{eq:introduction_optimal_density}
-q^{\lambda}(x) = \sum\limits_{n \in \mathbb{N}^{*}} \frac{\sigma_{n}}{\sigma_n + \lambda} e_{n}(x)^{2},
+q_{\lambda}^{*}(x) = \sum\limits_{n \in \mathbb{N}^{*}} \frac{\sigma_{n}}{\sigma_n + \lambda} e_{n}(x)^{2},
 \end{equation} 
 where the $(\sigma_{n},e_n)$ are the eigenpairs of the integration operator $\bm{\Sigma}$. 
 
-In a nutshell, this result implies that the resulting quadrature $(\bm{x}, \bm{w}^{*})$ has a worst case integration error that goes below $\lambda$, with high probability, if $N \geq C d_{\eff}(\lambda) \log d_{\eff}(\lambda)$. Yet, for a fixed level of regularization $\lambda$, sampling more nodes from $q^{\lambda}$ does not improve the worst case integration error. 
+In a nutshell, this result implies that the resulting quadrature $(\bm{x}, \bm{w}^{*})$ has a worst case integration error that goes below $\lambda$, with high probability, if $N \geq C d_{\eff}(\lambda) \log d_{\eff}(\lambda)$. Yet, for a fixed level of regularization $\lambda$, sampling more nodes from $q_{\lambda}^{*}$ does not improve the worst case integration error. 
 Nevertheless, one can build up an infinite sequence of quadratures $(\bm{x}_{t}, \bm{w}^{*}_{t})_{t \in \mathbb{N}^{*}}$, each associated to a regularization parameter $\lambda_{t}$, such that $\lim_{t \rightarrow +\infty}\lambda_{t} \rightarrow 0$. This way, \cite{Bac17} was able to derive the rates of convergence of these sequence of quadratures in the limiting asymptotic $\lambda \rightarrow 0$ in different RKHSs. While intricate, this method allows to prove that the rates of the resulting quadratures are almost optimal, up to logarithmic terms. Moreover, these rates depend on the eigenvalues $\sigma_{n}$ of the integration operator: the smoother the kernel, the faster the convergence to $0$. 
 % In a nutshell, this result implies that for a given $\lambda >0$, error level\footnote{It is a regularization parameter.} $\lambda$
 However, and unlike the discrete case, the ridge leverage score density~\ref{eq:introduction_optimal_density} may not have a tractable expression, in general; even worse the spectral decomposition of $\bm{\Sigma}$ may not be available.
@@ -1155,7 +1154,7 @@ We continue on this direction on Chapter~\ref{chap:dppkq} and Chapter~\ref{chap:
 
 
 \section{Determinantal sampling}
-As we have seen in the previous section, independent sampling was used in a variety of approximation tasks that have linear structure. These sub-sampling methods relies on first-order information such as the leverage score distribution. 
+As we have seen in the previous section, independent sampling was used in a variety of approximation tasks that have linear structure. These sub-sampling methods rely on first-order information such as the leverage score distribution. 
 
 Now we will review another approach of sampling that relies on high order information. This is achieved by determinantal point processes and their variants. Indeed, this class of distributions defines the most natural extension of leverage score sampling with negative correlation property.
 
@@ -1177,7 +1176,7 @@ This idea was exploited in \parencite{DeWa17}, where the authors studied the mea
 \begin{equation}\label{eq:first_mention_VS}
 \EX \|\bm{y}-\bm{X}\bm{w}_{S}^{*}\|^{2} \leq (1+d) \|\bm{y} - \bm{X}\bm{w}^{*}\|^{2}.
 \end{equation} 
-This bound holds for a budget of subsampling that is equal to the dimension $d$, that is, the smallest budget that we can expect, otherwise the the rank of the submatrix $\bm{X}_{S,:}$ is smaller than $d$ and and the estimator $\bm{w}_{S}^{*}$ ????. This "sparsity level" has no equivalent under independent sampling for which the minimal budget scales as $\mathcal{O}(d \log d)$. Indeed, under leverage score sampling (with or without replacement) and in the "minimalist sampling" regime i.e. when $c$ is very close to $d$, the matrix $\bm{X}_{S,:}$ is rank-defficient with high probability; see~\parencite{IpWe14} for details on this phenomenon and Section 6.1.2 in \parencite{Tro15} for a discussion on the optimality of the Matrix Bernstein concentration inequality. On the other hand, the bound~\eqref{eq:first_mention_VS} does not tell much about the high-order moments of $\|\bm{y}-\bm{X}\bm{w}_{S}^{*}\|^{2}$, which would be useful to derive probabilistic bounds with exponential tails as it is the case for leverage score sampling. 
+This bound holds for a budget of subsampling that is equal to the dimension $d$, that is, the smallest budget that we can expect, otherwise the rank of the submatrix $\bm{X}_{S,:}$ is smaller than $d$ and and the estimator $\bm{w}_{S}^{*}$ is ill-defined. This "sparsity level" has no equivalent under independent sampling for which the minimal budget scales as $\mathcal{O}(d \log d)$. Indeed, under leverage score sampling (with or without replacement) and in the "minimalist sampling" regime i.e. when $c$ is very close to $d$, the matrix $\bm{X}_{S,:}$ is rank-defficient with high probability; see~\parencite{IpWe14} for details on this phenomenon and Section 6.1.2 in \parencite{Tro15} for a discussion on the optimality of the Matrix Bernstein concentration inequality. On the other hand, the bound~\eqref{eq:first_mention_VS} does not tell much about the high-order moments of $\|\bm{y}-\bm{X}\bm{w}_{S}^{*}\|^{2}$, which would be useful to derive probabilistic bounds with exponential tails as it is the case for leverage score sampling. 
 Therefore, the two distributions are not comparable.
 
 However, if we must compare the two distributions, we may recall that
@@ -1185,12 +1184,12 @@ However, if we must compare the two distributions, we may recall that
 \begin{equation}\label{eq:second_mention_volume_sampling}
 \Prb(S = I) \propto \Det \bm{X}_{I,:}^{\Tran} \bm{X}_{I,:}^{\phantom{\Tran}} \mathbb{1}_{ \{|I| = c \}}.
 \end{equation} 
-In particular the case $c = d$ corresponds to the volume sampling distribution. These distributions satisfy the unbiasedness property~\eqref{eq:first_mention_unbiasedness}, as shown by \cite{DeWa17}. However, the empirical investigation conducted in~\parencite{DeWaHs18} shows that dual volume sampling in the regime $c = \Omega(d \log d)$ can lead to an inferior approximation compared to leverage score sampling. In other words, dual volume sampling is better used in the "minimalist sampling" regime $c \approx d$, and leverage score sampling is better used in "Bernstein" regime $c = \Omega(d \log d)$.
+In particular the case $c = d$ corresponds to the volume sampling distribution. These distributions satisfy the unbiasedness property~\eqref{eq:first_mention_unbiasedness}, as shown by \cite{DeWa17}. However, the empirical investigation conducted in~\parencite{DeWaHs18} showed that dual volume sampling in the regime $c = \Omega(d \log d)$ can lead to an inferior approximation compared to leverage score sampling. In other words, dual volume sampling is better used in the "minimalist sampling" regime $c \approx d$, and leverage score sampling is better used in "Bernstein" regime $c = \Omega(d \log d)$.
 
 
  % that we present in details in Chapter~\ref{chapter:dpp},
 
-This suggests that volume sampling should be used for problems where we need to keep the budget of sub-sampling $c$ to its lowest possible value. As an example,  volume sampling can be used to tackle the column subset selection problem, which we discuss in detail in Chapter~\ref{chapter:cssp}. In a nutshell, the subset selection, in this setting, is meant to resolve the interpretation issue of principal component analysis. The latter outputs features that do not have, in general, a physical meaning. Hence, the idea to sub-sample a set of  features $S$ of the matrix $\bm{X}$, that are represented by the matrix $\bm{C} = \bm{X}_{:,S}$, with the constraint to control the residual $\bm{X}-\Pi_{\Span \bm{C}}\bm{X}$ using the spectral norm $\|.\|_{2}$, or the Frobenius norm $\|.\|_{\Fr}$, with $\Pi_{\Span \bm{C}}$ the projection onto the subspace of $\mathbb{R}^{N}$ spanned by the columns $\bm{C}$\footnote{As we shall see in Chapter~\ref{chapter:cssp}, the projection $\Pi_{\Span \bm{C}}$ depends on the norm. We neglect this subtility for the moment.}. In this setting, volume sampling is defined on the set of subsets of $[d]$ by
+This suggests that volume sampling should be used for problems where we need to keep the budget of sub-sampling $c$ to its lowest possible value. As an example,  volume sampling can be used to tackle the column subset selection problem, which we discuss in detail in Chapter~\ref{chapter:cssp}. In a nutshell, the subset selection, in this setting, is meant to resolve the interpretation issue of principal component analysis. The latter outputs features that do not have, in general, a physical meaning. Hence, the idea to sub-sample a set of  features $S$ of the matrix $\bm{X}$, that are represented by the matrix $\bm{C} = \bm{X}_{:,S}$, with the constraint to control the residual $\bm{X}-\Pi_{\Span \bm{C}}\bm{X}$, where $\Pi_{\Span \bm{C}}$ the projection onto the subspace of $\mathbb{R}^{N}$ spanned by the columns $\bm{C}$. In this setting, volume sampling is defined on the set of subsets of $[d]$ by
 \begin{equation}
 \Prb_{\VS}(S=I) \propto \,\Det(\bm{X}_{:,I}^{\Tran}\bm{X}_{:,I}^{\phantom{\Tran}}) \mathbb{1}_{\{|I| = k \}} \:.
 \label{e:introduction_vs}
@@ -1269,20 +1268,13 @@ We give in the following a detailed layout of the manuscript, and mention the as
 In Chapter~\ref{chapter:cssp}, we propose and analyze a new column subset selection algorithm for low rank matrix factorization based on a projection DPP. 
 In particular, we compare a particular projection DPP with volume sampling, and we prove that this projection DPP can lead to better theoretical guarantees and empirical results under a condition called \emph{the sparsity of the $k$-leverage scores}. Moreover, we prove theoretical guarantees under a more realistic condition called \emph{the relaxed sparsity of the $k$-leverage scores}. Interestingly, the introduction of this notion of sparsity is inspired from an analysis that we conducted of a worst-case example in the literature \parencite{DeRa10}. Our novel analysis proves that it is possible to bypass this lower bound if we assume a sparsity condition. These sparsity conditions are shown to be satisfied by several datasets. 
 % Moreover, we check that these conditions are satisfied in several datasets. 
-
 A major contribution of this chapter is to highlight the importance of geometric parameters called the principal angles between subspaces. Besides their geometric intuition, the introduction of these parameters enables closed form calculation of some upper bounds of the expected approximation error under the projection DPP distribution.
 This new parametrization also allows to give a simultaneous analysis under the Frobenius norm and the spectral norm. Moreover, the conducted analysis allows the study of the  regression bias.
-
 % The advantage of thisimprovement is expressed both using the Frobenius and the spectral norm. 
-
-
 % Another interesting feature about this theoretical analysis is its ver
-
-
 %  relaxed sparsity   on the sparisiy of show the influence of the choi using a specific choice of projection DPP, the theoretical guarantees  ac allows to improve both and the empirical results 
 % on this settings deal with ....
 % The first contribution of this thesis was to propose and analyse a . In fact, the initial objective was to understand whether the well-known result on the litterature is improvable.
-
 % \begin{theorem}[\citealp{DRVW06}]
 %   \label{thrm:volume_sampling_theorem_introduction}
 % Let $S$ be a random subset of $[d]$, chosen with probability
@@ -1302,12 +1294,11 @@ This new parametrization also allows to give a simultaneous analysis under the F
 % \label{e:vsBound2}
 % \end{equation}
 % \end{theorem}
-
 %  that allow us to propose a column subset selection algorithm based on a projection DPP that improves on volume sampling under some conditions. 
-
 The material of this chapter
 is based on the following article 
 \begin{itemize}
+\AtNextCitekey{\defcounter{maxnames}{99}}
 \item \fullcite{BeBaCh18}.
 \end{itemize}
 
@@ -1332,12 +1323,11 @@ From a technical point of view, we harness the geometric intuitions developed in
 \begin{equation}
 \EX_{\DPP} \|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\mathcal{F}}^{2},
 \end{equation}
-which has no tractable formula.
-
-The material of this chapter
+which has no tractable formula. The material of this chapter
 is based on the following article
 
 \begin{itemize}
+\AtNextCitekey{\defcounter{maxnames}{99}}
 \item \fullcite{BeBaCh19}.
 \end{itemize}
 
@@ -1388,11 +1378,10 @@ The advantage of this distribution is that it is amenable to approximation using
 
 Figure~\ref{fig:introduction_VS_th_vs_exp} illustrates the comparison between the theoretical values of the $\epsilon_{m}(N))$ and their estimation using the MCMC sampler of \parencite{ReGh19} in the case of the periodic Sobolev space of order $s = 2$.
  % under the distribution of the continuous volume sampling ....
-
 % These closed formulas allow us to prove sharp upper bounds ... In particular, we prove the optimality...
-
 The material of this chapter is based on the following article
 \begin{itemize}
+\AtNextCitekey{\defcounter{maxnames}{99}}
 \item \fullcite{BeBaCh20}.
 \end{itemize}
 
@@ -1441,14 +1430,18 @@ Table~\ref{table:matrix_operator_duality} situates the contributions of this the
 \section*{Journal Articles}
 
 \begin{itemize}
+\AtNextCitekey{\defcounter{maxnames}{99}}
 \item \fullcite{BeBaCh18}
 \end{itemize}
 
 \section*{Peer-reviewed conferences}
 
 \begin{itemize}
+\AtNextCitekey{\defcounter{maxnames}{99}}
 \item \fullcite{BeBaCh19}.
+\AtNextCitekey{\defcounter{maxnames}{99}}
 \item \fullcite{BeBaCh20}.
+\AtNextCitekey{\defcounter{maxnames}{99}}
 \item \fullcite{BeBaCh19b}.
 \end{itemize}
 
@@ -3011,6 +3004,13 @@ In a sense, the DPP we propose is a nonindependent generalization of the multino
 %\subsection{Outline of the paper}
 The chapter is organized as follows. Section~\ref{s:notation} introduces our notations. Section~\ref{s:relatedwork} is a survey of column subset selection, up to the state of the art to which we later compare. In Section~\ref{s:dppsection}, we discuss determinantal point processes and their connection to volume sampling. Section~\ref{sec:main_results} contains our main results, in the form of both classical bounds on the approximation error and risk bounds when CSS is a prelude to linear regression. In Section~\ref{s:numexpesection}, we numerically compare CSS algorithms, using in particular a routine that samples random matrices with prescribed $k$-leverage scores.
 
+The material of this chapter
+is based on the following article 
+\begin{itemize}
+\AtNextCitekey{\defcounter{maxnames}{99}}
+\item \fullcite{BeBaCh18}.
+\end{itemize}
+
 %%%%%%%%%%%
 \section{Notation}
 \label{s:notation}
@@ -3181,13 +3181,13 @@ $p_{1}(k,d)$ and $p_{2}(k,d)$ are controlled.
 %\ab{explain more here}
 In practice, a RRQR factorization algorithm interchanges pairs of columns and updates or builds a QR decomposition on the fly.
  % start with a QR decomposition of the matrix $\bm{X}$, then apply a column permutation on $\bm{X}$ and update the decomposition. It was proven in \parencite{GuEi96} that $\Algo{StrongRRQR}$ interchanges any pair of columns that sufficiently increases $\Det(\bm{R}_{11})$.
-The link between RRQR factorization and k-CSSP was first discussed by \cite*{BoMaDr09}. The structure of a RRQR factorization indeed gives a deterministic selection of a subset of $k$ columns of $\bm{X}$. More precisely, if we take $\bm{C}$ to be the first $k$ columns of $\bm{X}\bm{\Pi}$, $\bm{C}$ is a subset of columns of $\bm{X}$ and $\| \bm{X} - \Pi_{S}^{\Fr}\bm{X}\|_{2} = \| \bm{R}_{[k+1:r],[k+1:r]}\|_{2}$. By \eqref{eq:rrqr_singular_values_inequality}, any RRQR algorithm thus provides provable guarantees in spectral norm for $k$-CSSP.
+The link between RRQR factorization and k-CSSP was first discussed by \AtNextCitekey{\defcounter{maxnames}{99}} \cite{BoMaDr09}. The structure of a RRQR factorization indeed gives a deterministic selection of a subset of $k$ columns of $\bm{X}$. More precisely, if we take $\bm{C}$ to be the first $k$ columns of $\bm{X}\bm{\Pi}$, $\bm{C}$ is a subset of columns of $\bm{X}$ and $\| \bm{X} - \Pi_{S}^{\Fr}\bm{X}\|_{2} = \| \bm{R}_{[k+1:r],[k+1:r]}\|_{2}$. By \eqref{eq:rrqr_singular_values_inequality}, any RRQR algorithm thus provides provable guarantees in spectral norm for $k$-CSSP.
 %Indeed, it was mentioned in Section 2 \citealp{BoMaDr09} that
 % \begin{equation}
 % \| \bm{X} - \Pi_{S}\bm{X}\|_{2} = \| \bm{R}_{22}\|_{2} \leq p_{2}(k,d) \sigma_{k+1}(\bm{X}) = p_{2}(k,d) \|\bm{X} - \Pi_{k}\bm{X}\|_{2}.
 % \end{equation}
 
-Following \cite{Golu65}, many papers gave algorithms that improved on $p_{1}(k,d)$ and $p_{2}(k,d)$ in Definition~\ref{d:rrqr}. Table~\ref{table:rrqr_examples} sums up the guarantees of the original algorithm of \cite{Golu65} and the state-of-the-art algorithms of \cite{GuEi96}. Note the dependency of $p_2(k,d)$ on the dimension $d$ through the term $\sqrt{d-k}$; this term is common for guarantees in spectral norm for $k$-CSSP. We refer to \cite{BoMaDr09} for an exhaustive survey on RRQR factorization.
+Following \parencite{Golu65}, many articles gave algorithms that improved on $p_{1}(k,d)$ and $p_{2}(k,d)$ in Definition~\ref{d:rrqr}. Table~\ref{table:rrqr_examples} sums up the guarantees of the original algorithm of \cite{Golu65} and the state-of-the-art algorithms of \cite{GuEi96}. Note the dependency of $p_2(k,d)$ on the dimension $d$ through the term $\sqrt{d-k}$; this term is common for guarantees in spectral norm for $k$-CSSP. We refer to \parencite{BoMaDr09} for an exhaustive survey on RRQR factorization.
 %\FloatBarrier
 \begin{table}
 \centering
@@ -3207,7 +3207,7 @@ Following \cite{Golu65}, many papers gave algorithms that improved on $p_{1}(k,d
 A RRQR factorization gives an example of a deterministic column subset selection with a spectral guarantee. We present in Section~\ref{subsec:volume_sampling} a randomized improvement over strong RRQR, called \emph{double phase}. As we shall see, randomized algorithms can match the bound in the bottom row of Table~\ref{table:rrqr_examples} and provide guarantees in Frobenius norm as well.
 % as a baseline. As we shall see There is a tradeoff and it serves as the basis of the double phase algorithm (Section~\ref{subsec:volume_sampling}) that is a state of the art algorithm in the literature. \rb{We should discuss this sentence. The bound in 2-norm looks the same as for VS, so why is Strong RRQR not already state-of-the-art?}
 \subsubsection{Length square importance sampling and additive bounds}\label{subsec:length_square_sampling}
-\cite*{DFKVV04} proposed a randomized CSS algorithm based on independently sampling $s$ indices $S=\{i_1,\dots,i_s\}$ from a multinomial distribution of parameter $\bm{p}$, where
+\AtNextCitekey{\defcounter{maxnames}{99}} \cite{DFKVV04} proposed a randomized CSS algorithm based on independently sampling $s$ indices $S=\{i_1,\dots,i_s\}$ from a multinomial distribution of parameter $\bm{p}$, where
 \begin{equation}
  p_{j} = \frac{\|\bm{X}_{:,j}\|_{2}^{2}}{\|\bm{X}\|_{\Fr}^{2}} \, , j \in [d].
 \end{equation}
@@ -3232,7 +3232,7 @@ Equation \eqref{eq:length_square_sampling_result} is a high-probability, \emph{a
 
 \subsubsection{$k$-leverage scores sampling and multiplicative bounds}
 \label{subsec:k-lvs_sampling}
-\citet*{DrMaMu07} proposed an algorithm with a provable multiplicative upper bound using multinomial sampling, but this time according to $k$-leverage scores.
+\AtNextCitekey{\defcounter{maxnames}{99}} \cite{DrMaMu07} proposed an algorithm with a provable multiplicative upper bound using multinomial sampling, but this time according to $k$-leverage scores.
 \begin{definition}[$k$-leverage scores]
 Let $\bm{X} = \bm{U}\bm{\Sigma}\bm{V}^{\Tran} \in\mathbb{R}^{N\times d}$ be the SVD of $\bm{X}$. We denote by $\bm{V}_{k} = \bm{V_{:,[k]}}$ the first $k$ columns of $\bm{V}$. For $i \in [d]$, the k-leverage score of the \rev{$i$}-th column of  $\bm{X}$ is defined by
 \begin{equation}\label{eq:klv_def}
@@ -3260,7 +3260,7 @@ then, under i.i.d. sampling from the $k$-leverage scores distribution,
     \Prb \bigg( \| \bm{X} - \Pi_{S,k}^{\Fr}\bm{X}\|_{\Fr}^{2} \leq (1 + \epsilon) \| \bm{X} - \Pi_{k}\bm{X}\|_{\Fr}^{2} \bigg) \geq 0.7 .
 \end{equation}
 \end{theorem}
-\citet{DrMaMu07} also considered replacing multinomial with Bernoulli sampling, still using the $k$-leverage scores. The expected number of columns needed for \eqref{eq:relative_error_bound} to hold is then lowered to $\mathcal{O}(\frac{k \log k}{\epsilon^{2}})$. A natural question is then to understand how low the number of columns can be, while still guaranteeing a multiplicative bound like \eqref{eq:relative_error_bound}. A partial answer has been given by \cite{DeVe06}.
+ \cite{DrMaMu07} also considered replacing multinomial with Bernoulli sampling, still using the $k$-leverage scores. The expected number of columns needed for \eqref{eq:relative_error_bound} to hold is then lowered to $\mathcal{O}(\frac{k \log k}{\epsilon^{2}})$. A natural question is then to understand how low the number of columns can be, while still guaranteeing a multiplicative bound like \eqref{eq:relative_error_bound}. A partial answer has been given by \cite{DeVe06}.
 \begin{proposition}[\citealp{DeVe06}, Proposition 4]\label{prop:lower_bound_cssp}
 Given $\epsilon > 0$, $k,d \in \mathbb{N}$ such that $d \epsilon \geq 2k$, there exists a matrix $\bm{X}^{\epsilon} \in \mathbb{R}^{kd \times k(d+1)}$ such that for any $S \subset [d]$,
 \begin{equation}
@@ -3278,7 +3278,7 @@ This suggests that a lower bound for the number of columns is $2k/\epsilon$, at 
 % \end{equation}
 % \end{theorem}
 
-Finally, a deterministic algorithm based on $k$-leverage score sampling was proposed by \citet*{PaKyBo14}. The algorithm selects the $c(\theta)$ columns of $\bm{X}$ with the largest $k$-leverage scores, where
+Finally, a deterministic algorithm based on $k$-leverage score sampling was proposed by \AtNextCitekey{\defcounter{maxnames}{99}} \cite{PaKyBo14}. The algorithm selects the $c(\theta)$ columns of $\bm{X}$ with the largest $k$-leverage scores, where
 \begin{equation}
     c(\theta) \in \argmin\limits_{u}\left(\sum_{i = 1}^{u}\ell_{i}^{k} > \theta\right),
 \end{equation}
@@ -3322,7 +3322,7 @@ This complements the fact that the worst case example in Proposition~\ref{prop:l
  In this section, we survey algorithms that randomly sample exactly $k$ columns from $\bm{X}$, further requiring the columns to be somehow negatively correlated to avoid redundancy. This is to be compared to the multinomial sampling schemes of Sections~\ref{subsec:length_square_sampling} and \ref{subsec:k-lvs_sampling}, which ignore the joint structure of $\bm{X}$ and typically require more than $k$ columns.
 }
 
- \citet*{DRVW06} obtained a multiplicative bound on the expected approximation error, with only $k$ columns, using the so-called \emph{volume sampling}.
+ \AtNextCitekey{\defcounter{maxnames}{99}} \cite{DRVW06} obtained a multiplicative bound on the expected approximation error, with only $k$ columns, using the so-called \emph{volume sampling}.
 \begin{theorem}[\citealp{DRVW06}]
   \label{thrm:volume_sampling_theorem}
 Let $S$ be a random subset of $[d]$, chosen with probability
@@ -3405,7 +3405,7 @@ and
 % \label{f:Double_Phase_algo}
 % \end{figure}
 % [Theorem 3.1]
-We note that $c_{0}$ is an unknown constant from \cite{RuVe07}. Although not explicitly stated by \cite{BoMaDr09}, the spectral bound \eqref{eq:spectral_double_phase} easily follows from their result using \eqref{eq:frob_as_estimator_of_spe}. We also note that to obtain their spectral bound, \cite{BoMaDr09} use a slight modification of the leverage scores in the random phase.
+We note that $c_{0}$ is an unknown constant from \parencite{RuVe07}. Although not explicitly stated by \cite{BoMaDr09}, the spectral bound \eqref{eq:spectral_double_phase} easily follows from their result using \eqref{eq:frob_as_estimator_of_spe}. We also note that to obtain their spectral bound, \cite{BoMaDr09} use a slight modification of the leverage scores in the random phase.
  % The constants $\Theta(k \log^{\frac{1}{2}} k)$ and $\Theta(k^{\frac{3}{4}} \log^{\frac{1}{4}} k)$ in the bounds \eqref{eq:frob_double_phase} and \eqref{eq:spectral_double_phase} depends on $c$ the number of pre-selected columns in the randomized step. In practice, the choice of the parameter $c$ of the randomized pre-selection phase has an influence on the quality of the approximation.
 %As a rule of thumb, the authors proposed to take $c$ not too large compared to $k$.
 %We refer to \parencite{BoMaDr09} for details.
@@ -3549,7 +3549,7 @@ For $i \in [d]$, let $\bm{e}_{i}$ be the $i$-th canonical basis vector of $\math
 \begin{equation}
 \cos^{2}(\theta_{i}) := \rev{\frac{\langle \bm{e}_{i},\Pi_{\mathcal{P}_{k}}\bm{e}_{i}\rangle^2}{\Vert\bm{e}_{i}\Vert^2 \Vert \Pi_{\mathcal{P}_{k}}\bm{e}_{i}\Vert^2}} = \langle \bm{e}_{i},\Pi_{\mathcal{P}_{k}}\bm{e}_{i}\rangle = \langle \bm{e}_{i}, \sum\limits_{j =1}^{k} V_{i,j}\bm{V}_{:,j}\rangle = \sum\limits_{j =1}^{k} V_{i,j}^{2} = \ell^{k}_{i}.
 \end{equation}
-A large $k$-leverage score $\ell_i^k$ thus indicates that $\bm{e}_i$ is almost aligned with $\mathcal{P}_{k}$. Selecting columns with large $k$-leverage scores as in \cite{DrMaMu07} can thus be interpreted as replacing the principal eigenspace $\mathcal{P}_k$ by a subspace that must contain $k$ of the original coordinate axes. Intuitively, a closer subspace to the original $\mathcal{P}_k$ would be obtained by selecting columns \emph{jointly} rather than independently, considering the angle with $\mathcal{P}_k$ of the subspace spanned by these columns. More precisely, consider $S \subset [d], |S| = k$, and denote $\mathcal{P}_{S} = \Span(\bm{e}_{j}, j \in S)$. A natural definition of the cosine between $\mathcal{P}_{k}$ and $\mathcal{P}_{S}$ is in term of the so-called \emph{principal angles} $(\theta_{i}(\mathcal{P}_{S},\mathcal{P}_{k}))_{i \in [k]}$ that define the relative position of the two subspaces \cite[Section 6.4.4]{GoVa96}; see Figure~\ref{f:cssp_principal_angles} for an illustration and Appendix~\ref{app:principal_angles} for the rigorous definition. In particular, Proposition~\ref{principal_angles_theorem_1} in Appendix~\ref{app:principal_angles} yields
+A large $k$-leverage score $\ell_i^k$ thus indicates that $\bm{e}_i$ is almost aligned with $\mathcal{P}_{k}$. Selecting columns with large $k$-leverage scores as in \parencite{DrMaMu07} can thus be interpreted as replacing the principal eigenspace $\mathcal{P}_k$ by a subspace that must contain $k$ of the original coordinate axes. Intuitively, a closer subspace to the original $\mathcal{P}_k$ would be obtained by selecting columns \emph{jointly} rather than independently, considering the angle with $\mathcal{P}_k$ of the subspace spanned by these columns. More precisely, consider $S \subset [d], |S| = k$, and denote $\mathcal{P}_{S} = \Span(\bm{e}_{j}, j \in S)$. A natural definition of the cosine between $\mathcal{P}_{k}$ and $\mathcal{P}_{S}$ is in term of the so-called \emph{principal angles} $(\theta_{i}(\mathcal{P}_{S},\mathcal{P}_{k}))_{i \in [k]}$ that define the relative position of the two subspaces \parencite[Section 6.4.4]{GoVa96}; see Figure~\ref{f:cssp_principal_angles} for an illustration and Appendix~\ref{app:principal_angles} for the rigorous definition. In particular, Proposition~\ref{principal_angles_theorem_1} in Appendix~\ref{app:principal_angles} yields
 \begin{equation}
 \cos^{2}(\mathcal{P}_{k},\mathcal{P}_{S}):= \prod\limits_{i \in [k]}\cos^{2} \theta_{i} (\mathcal{P}_{k},\mathcal{P}_{S}) = \Det(\bm{V}_{S,[k]})^{2}.
 \label{e:cosines}
@@ -3876,7 +3876,7 @@ The bound in \eqref{eq:spectral_bound_dpp} compares favourably with volume sampl
 % \end{equation}
 % \end{corollary}
 
-Now, one could argue that, in practice, sparsity is never exact: it can well be that $p = d$ while there still are a lot of small $k$-leverage scores. We will demonstrate in Section~\ref{s:numexpesection} that the DPP still performs better than volume sampling in this setting, which Proposition~\ref{hypo_one_two_proposition} doesn't reflect. We introduce two ideas to further tighten the bounds of Proposition~\ref{hypo_one_two_proposition}. First, we define an effective sparsity level in the vein of \cite{PaKyBo14}, see Section~\ref{subsec:k-lvs_sampling}. Second, we condition the DPP on a favourable event with controlled probability.
+Now, one could argue that, in practice, sparsity is never exact: it can well be that $p = d$ while there still are a lot of small $k$-leverage scores. We will demonstrate in Section~\ref{s:numexpesection} that the DPP still performs better than volume sampling in this setting, which Proposition~\ref{hypo_one_two_proposition} doesn't reflect. We introduce two ideas to further tighten the bounds of Proposition~\ref{hypo_one_two_proposition}. First, we define an effective sparsity level in the vein of \parencite{PaKyBo14}, see Section~\ref{subsec:k-lvs_sampling}. Second, we condition the DPP on a favourable event with controlled probability.
 %% Theorem
 \begin{theorem}\label{prop:p_eff_proposition}
     Let $\pi$ be a permutation of $[d]$ such that leverage scores are reordered
@@ -4158,7 +4158,7 @@ In order to be able to evaluate the expected errors \emph{exactly}, we generate 
 \subsubsection{Generating toy datasets}
 Recall that the SVD of $\bm{X}\in\mathbb{R}^{N\times d}$ reads $\bm{X} = \bm{U}\bm{\Sigma}\bm{V}^{\Tran}$, where $\bm{\Sigma}$ is a diagonal matrix and $\bm{U}$ and $\bm{V}$ are orthogonal matrices. To sample a matrix $\bm{X}$, \rev{we first let $\bm{U}$ correspond to the first $r$ columns of an $N \times N$ sample from the Haar measure on $\mathbb{O}_{N}(\mathbb{R})$}. Then, $\bm{\Sigma}$ is chosen among a few deterministic diagonal matrices that illustrate various spectral properties. Sampling the matrix $\bm{V}$ is trickier \rev{if $k$-leverage scores are to be prescribed}. The first $k$ columns of $\bm{V}$ are constrained as follows: the number of non vanishing rows of $\bm{V}_{k}$ is equal to $p$ and the norms of the nonvanishing rows are prescribed by a vector $\bm{\ell}$.
 % By considering the matrix $\bm{K} = \bm{V}_{k}^{}\bm{V}_{k}^{\Tran}$, generating $\bm{V}$ boils down \rb{Not clear} to the simulation of an Hermitian matrix with prescribed diagonal and spectrum (in this particular case the spectrum is included in $\{0,1\}$).
-We thus propose an algorithm that takes as input a leverage scores profile $\bm{\ell}$ and a spectrum $\bm{\sigma}^2$, and outputs a corresponding random orthogonal matrix $\bm{V}_k$; see Appendix~\ref{app:framebuilding}. This algorithm is a randomization\footnote{\url{http://github.com/AyoubBelhadji/FrameBuilder}} of the algorithm proposed by \cite*{FMPS13}.  Finally, the matrix $\bm{V}_{k} \in \mathbb{R}^{d \times k}$ is completed by applying the Gram-Schmidt procedure to $d-k$ additional i.i.d. unit Gaussian vectors, resulting in a matrix $\bm{V} \in \mathbb{R}^{d \times d}$. Figure~\ref{f:Matrix_Builder} summarizes the algorithm we use to generate matrices $\bm{X}$ with a $k$-leverage scores profile $\bm{\ell}$, spectrum $\bm{\Sigma}$, and a sparsity level $p$.
+We thus propose an algorithm that takes as input a leverage scores profile $\bm{\ell}$ and a spectrum $\bm{\sigma}^2$, and outputs a corresponding random orthogonal matrix $\bm{V}_k$; see Appendix~\ref{app:framebuilding}. This algorithm is a randomization\footnote{\url{http://github.com/AyoubBelhadji/FrameBuilder}} of the algorithm proposed by \AtNextCitekey{\defcounter{maxnames}{99}} \cite{FMPS13}.  Finally, the matrix $\bm{V}_{k} \in \mathbb{R}^{d \times k}$ is completed by applying the Gram-Schmidt procedure to $d-k$ additional i.i.d. unit Gaussian vectors, resulting in a matrix $\bm{V} \in \mathbb{R}^{d \times d}$. Figure~\ref{f:Matrix_Builder} summarizes the algorithm we use to generate matrices $\bm{X}$ with a $k$-leverage scores profile $\bm{\ell}$, spectrum $\bm{\Sigma}$, and a sparsity level $p$.
 
 \begin{figure}
 \centering
@@ -4374,7 +4374,7 @@ $$
 %This section compares the empirical performances of several column subset selection algorithms on the datasets in Table~\ref{table:real_datasets}.
 \rev{The datasets described in Table~\ref{table:real_datasets}} are illustrative of two extreme situations regarding the sparsity of the $k$-leverage scores. For instance, the dataset Basehock has a very sparse profile of $k$-leverage scores, while the dataset Colon has a quasi-uniform distribution of $k$-leverage scores, see Figures~\ref{subfig:basehock_cumul_klv}  \& \ref{subfig:colon_cumul_klv}. \rev{This section compares the empirical performances of several column subset selection algorithms on these datasets.}
 
-We consider the following algorithms presented in Section~\ref{s:relatedwork}: 1) the projection DPP with marginal kernel $\bm{K}=\bm{V}_{k}^{}\bm{V}_{k}^{\Tran}$, 2) volume sampling, 3) deterministically picking the largest $k$-leverage scores, 4) pivoted QR as in \cite{Golu65}, although the only known bounds for this algorithm are for the spectral norm, and 5) double phase, with $c$ manually tuned to optimize the performance, usually around $c \approx 10k$.
+We consider the following algorithms presented in Section~\ref{s:relatedwork}: 1) the projection DPP with marginal kernel $\bm{K}=\bm{V}_{k}^{}\bm{V}_{k}^{\Tran}$, 2) volume sampling, 3) deterministically picking the largest $k$-leverage scores, 4) pivoted QR as in \parencite{Golu65}, although the only known bounds for this algorithm are for the spectral norm, and 5) double phase, with $c$ manually tuned to optimize the performance, usually around $c \approx 10k$.
 
 %Comments on fig 7
 The rest of Figure~\ref{fig:colon_vs_basehock_comparison} sums up the empirical results of these algorithms on the Colon and Basehock datasets.
@@ -4625,7 +4625,7 @@ As detected in the experimental section, our bounds are sharp except in the larg
 Although generally studied as an independent task, in practice CSS is often a prelude to a learning algorithm. We have considered linear regression and we have given a bound on the excess risk of a regression performed on the selected columns only. In particular, the sparsity and decay of the $k$-leverage scores are again involved: the more localized the $k$-leverage scores, the smaller the excess risk bounds. Such an analysis of the excess risk in regression further highlights the interest of the DPP: it would be difficult to conduct for either volume sampling or double phase. Future work in this direction includes investigating the importance of the sparsity of the $k$-leverage scores on the performance of other learning algorithms such as spectral clustering or support vector machines. Moreover, our theoretical analysis may found an application in the field of graph signal reconstruction \parencite{TrAmBa17,PuTrGrVa18}.
 
 
-In terms of computational cost, our algorithms scale with the cost of finding the $k$ first right singular vectors, which is currently the main bottleneck. In line with \cite{DMMW12} and \cite{BoDrMI11}, where the authors estimate the $k$-leverage scores using random projections, we plan to investigate the impact of random projections to estimate the full matrix $\bm{K}$ on the approximation guarantees of our algorithms \parencite{MaZo08}.
+In terms of computational cost, our algorithms scale with the cost of finding the $k$ first right singular vectors, which is currently the main bottleneck. In line with \parencite{DMMW12} and \parencite{BoDrMI11}, where the authors estimate the $k$-leverage scores using random projections, we plan to investigate the impact of random projections to estimate the full matrix $\bm{K}$ on the approximation guarantees of our algorithms \parencite{MaZo08}.
 % Another potential application of our theoretical results is the analysis of signal reconstruction on graphs under 
 
 % A consequence for graph signal reconstruction
@@ -4661,7 +4661,7 @@ Furthermore,
 \| \bm{X} - \Pi_{S,k}^{\nu} \bm{X} \|_{\nu}^{2} \leq  \frac{1}{\sigma_{k}^{2}(\bm{V}_{S,[k]})} \| \bm{X} - \Pi_{k}\bm{X}\|_{\nu}^{2} , \quad \nu \in \{2,\Fr\}.
 \end{equation}
 \end{lemma}
-The following lemma was first proven by \citealp{DRVW06}, and later rephrased in \cite{DeRa10}.
+The following lemma was first proven by \citealp{DRVW06}, and later rephrased in \parencite{DeRa10}.
 \begin{lemma}[Lemma 11, \citealp{DeRa10}]\label{minors_symmetric_polynomials_lemma}
 Let $\bm{V} \in \mathbb{R}^{k \times d}$, $r = \rank(\bm{V})$ and $\ell \in [1:r]$. Then
 \begin{equation}
@@ -5442,7 +5442,7 @@ and yield \eqref{eq:prediction_bound_dpp2}.
 %\FloatBarrier
 \subsection{Principal angles}
 %\FloatBarrier
-This section surveys the notion of principal angles between subspaces, see \cite[Section 6.4.3]{GoVa96} for details.
+This section surveys the notion of principal angles between subspaces, see \parencite[Section 6.4.3]{GoVa96} for details.
 \begin{definition}
   \label{d:angles}
 Let $\mathcal{P},\mathcal{Q}$ be two subspaces in $\mathbb{R}^{d}$. Let $p= \dim\mathcal{P}$ and $q = \dim\mathcal{Q}$ and assume that $q \leq p$. To define the vector of principal angles $\bm{\theta} \in [0,\pi/2]^{q}$ between $\mathcal{P}$ and $\mathcal{Q}$, let
@@ -5495,7 +5495,7 @@ An important case for our work arises when $q=k$, $\bm{Q}=\bm{V} \in \mathbb{R}^
 %\end{figure}
 
 \subsection{The Cosine Sine decomposition}
-The Cosine Sine (CS) decomposition is useful for the study of the relative position of two subspaces. It generalizes the notion of cosine, sine and tangent to subspaces. The tangent of principal angles between subspaces were first mentioned in \citealp{ZhKn13}.
+The Cosine Sine (CS) decomposition is useful for the study of the relative position of two subspaces. It generalizes the notion of cosine, sine and tangent to subspaces. The tangent of principal angles between subspaces were first mentioned in \parencite{ZhKn13}.
 \begin{proposition}[\citealp{GoVa96}]
 Let $q,d \in \mathbb{N}$ and $\bm{Q} =
 \left[
@@ -5628,7 +5628,7 @@ Then,
 \end{proof}
 
 % Note the difference between Corollary~\ref{corollary:tangent_of_principal_angles} and the results proven in \citealp{DrIp18} that relates low rank approximations and principal angles between subspaces. The low rank approximation error in \citealp{DrIp18} was bounded by the sinus of principal angles between subspaces in $\mathbb{R}^{N}$ while Corollary~\ref{corollary:tangent_of_principal_angles} will be used to bound low rank approximation by the tangent of principal angles between subspaces in $\mathbb{R}^{d}$.
-\cite*{DrIp19} have also related principal angles to low rank approximations. We consider different subspaces, though, which crucially put forward the tangents of the principal angles.
+% \cite*{DrIp19} have also related principal angles to low rank approximations. We consider different subspaces, though, which crucially put forward the tangents of the principal angles.
 
 %We consider $\mathcal{P} = Span(\bm{X})$ and $\mathcal{Q} = Span(\bm{Y})$
 %and we note $\bm{C}$ a diagonal matrix containing the cosines of principal angles between $\mathcal{P}$ and $\mathcal{Q}$.\\
@@ -7206,7 +7206,7 @@ This new class of quadratures fit within the kernel framework for quadratures th
 
 The analysis of quadrature using kernel methods is convenient and elegant and it is expressed using functional analysis tools, similarly to DPPs. Added to that, many results in quasi-Monte Carlo theory have an interpretation within this framework. 
 
-The strength of this framework is its flexibility: the integration domain $\mathcal{X}$ is assumed to be a metric space endowed with a Borel measure $\mathrm{d}\omega$,
+The strength of this framework is its flexibility: the integration domain $\mathcal{X}$ is assumed to be a metric space endowed with a Borel measure $\omega$,
 %  We assume that for every open set $U$ of $\X$, 
 % \begin{equation}
 % \mathrm{d}\omega(U)>0.
@@ -7220,7 +7220,7 @@ Here $\mathbb{L}_{2}(\mathrm{d}\omega)$ is the Hilbert space of square integrabl
 
 % As we shall see, the analysis of the integration error in~\eqref{eq:int_error} is convenient if $f$ belongs to a Reproducing Kernel Hilbert Space (RKHS).
 
-We recall in the following some classic results on kernel quadrature. In particular, in Section~\ref{subsec:rkhs},  the definition of RKHSs is recalled along with our assumptions; in Section~\ref{subsec:mercer}, Mercer's theorem and its various extensions; in Section~\ref{subsec:int_error}, the definition of the worst case integration error on an RKHS is recalled; in Section~\ref{subsec:kernel_examples}, we give some examples of kernels widely used in the literature on kernel quadrature; in Section~\ref{subsec:bayesian_quadrature}, we recall the link between kernel quadrature and Gaussian process approximation, along with Bayesian quadrature; in Section~\ref{subsec:okq_analysis_paradigm} and Section~\ref{subsec:okq_algebraic_paradigm}, we review two paradigms of node design for kernel quadrature.
+We recall in the following some classic results on kernel quadrature. In particular, in Section~\ref{subsec:rkhs},  the definition of an RKHS is recalled along with our assumptions; in Section~\ref{subsec:mercer}, Mercer's theorem and its various extensions; in Section~\ref{subsec:kernel_examples}, we give some examples of kernels widely used in the literature on kernel quadrature; in Section~\ref{subsec:int_error}, the definition of the worst case integration error on an RKHS is recalled; in Section~\ref{subsec:okq_analysis_paradigm} we recall the definition of optimal kernel quadrature along with some of its properties; and in Section~\ref{subsec:okq_algebraic_paradigm} we review the existing methods of node design for optimal kernel quadrature.
 \subsection{Reproducing Kernel Hilbert Spaces}\label{subsec:rkhs}
 Let $\mathcal{X}$ be a metric space. A function $k: \mathcal{X} \times \mathcal{X} \rightarrow \mathbb{R}_{+}$ is said to be a kernel over $\mathcal{X}$ if $k$ is symmetric and for any finite set of points in $\mathcal{X}$, the matrix of pairwise kernel evaluations is positive semi-definite. A reproducing kernel Hilbert space (RKHS) over $\mathcal{X}$ is a Hilbert space $\mathcal{F}$ endowed with a kernel $k$ that satisfies the following two properties \cite{BeTh11}
 \begin{itemize}
@@ -7236,7 +7236,7 @@ Let $\mathcal{X}$ be a metric space. A function $k: \mathcal{X} \times \mathcal{
 We suppose the following assumptions on the measure$\mathrm{d}\omega$ and the kernel $k$.
 We make the following assumption on $\mathrm{d}\omega$.
 \begin{assumption}\label{hyp:domega_is_nondegenerate}
-$\omega$ is a \emph{non-degenerate} measure, i.e. the support of $\mathrm{d}\omega$ is equal to $\X$.
+$\omega$ is a \emph{non-degenerate} measure, i.e. the support of $\omega$ is equal to $\X$.
 \end{assumption}
 
 \begin{assumption}\label{hyp:k_is_continuous}
@@ -7256,7 +7256,7 @@ $x \mapsto k(x,x)$ is integrable with respect to $\mathrm{d}\omega$ so that $\ma
 
 
 
-Let $\mathcal{X} = [0,1]$ equipped with the uniform measure $\mathrm{d}\omega$, and define for $s \in \mathbb{N}^{*}$ the kernel
+Let $\mathcal{X} = [0,1]$ equipped with the uniform measure $\omega$, and define for $s \in \mathbb{N}^{*}$ the kernel
 \begin{equation}\label{eq:periodic_sobolev_space_in_cossin}
 k_{s}(x,y) = 1+ 2\sum\limits_{m \in \mathbb{N}^{*}} \frac{1}{m^{2s}} \cos(2\pi m(x-y)).
 \end{equation}
@@ -7265,7 +7265,7 @@ The kernel $k_{s}$ can be expressed in closed form using Bernoulli polynomials \
 k_{s}(x,y) = 1 + \frac{(-1)^{s-1}(2 \pi)^{2s}}{(2s)!} B_{2s}(\{x-y\}).
 \end{equation}
 The corresponding RKHS $\mathcal{F}=\mathcal{S}_{s}$ is the periodic Sobolev space of order $s$: an element of $\mathcal{S}_{s}$ is a function $f$ defined on $[0,1]$, that have the derivative of order $s$ defined in the sense of distributions such that
-$f^{(s)} \in \mathbb{L}_{2}([0,1])$, and
+$f^{(s)} \in \mathbb{L}_{2}(\mathrm{d}\omega)$, and
 \begin{equation}
 \forall i \in \{0, \dots, s-1\}, \:\: f^{(i)}(0) = f^{(i)}(1).
 \end{equation}
@@ -7306,15 +7306,15 @@ As we have seen in the example given in the previous section, periodic Sobolev s
  % This property can be proven by an application of the Mercer theorem. Indeed, 
 
 
-The Mercer's theorem was first proven when $\mathcal{X} = [0,1]$ and $\mathrm{d}\omega$ is the Lebesgue measure in \cite{Mer1909}.
-A modern proof of this classic result can be found in \cite{Lax02}. An extension to a general compact space $\mathcal{X}$ can be  found in \cite{CuZh07}. 
+The Mercer's theorem was first proven when $\mathcal{X} = [0,1]$ and $\omega$ is the Lebesgue measure in \parencite{Mer1909}.
+A modern proof of this classic result can be found in \parencite{Lax02}. An extension to a general compact space $\mathcal{X}$ can be  found in \parencite{CuZh07}. 
 %To state this classic result, we consider the integration operator
 % In this section we recall Mercer's theorem and its extensions to non-compact spaces. Let $\mathcal{X}$ be a measurable space and $\mathrm{d}\omega$ a measure on $\mathcal{X}$. 
 
 % Assume $k$ is a positive definite kernel on $\mathcal{X}$. Whenever it is well-defined, we consider the operator
 
 \begin{theorem}\label{thm:Mercer_for_compact}
-Assume that $\mathcal{X}$ is a compact space and $\mathrm{d}\omega$ is a finite Borel measure on $\mathcal{X}$ with full support (non-degenerate measure), and define the integration operator
+Assume that $\mathcal{X}$ is a compact space and $\omega$ is a finite Borel measure on $\mathcal{X}$ with full support (non-degenerate measure), and define the integration operator
 \begin{equation}
 \bm{\Sigma} f(x) = \int_{\mathcal{X}} k(x,y)f(y) \mathrm{d}\omega(y).
 \end{equation}
@@ -7330,7 +7330,7 @@ The existence of the orthonormal basis $(e_m)_{m \in \mathbb{N}^{*}}$ is a conse
 \begin{equation}\label{eq:e_m_is_an_eigenfunction}
 e_{m}(.) = \frac{1}{\sigma_m} \int_{\X}k(.,y) e_{m}(y) \mathrm{d}\omega(.).
 \end{equation}
-Moreover, by \eqref{eq:e_m_is_an_eigenfunction} we can take $e_{m} \in \F$ and, as a consequence of Theorem~\ref{thm:Mercer_for_compact}, the family $(e_{m}^{\F} = \sqrt{\sigma_m}e_m; \sigma_m>0)_{m \in \mathbb{N}^{*}}$ is an o.n.b. of $\mathcal{F}$; see Theorem 4.12 in \cite{CuZh07}. In particular
+Moreover, by \eqref{eq:e_m_is_an_eigenfunction} we can take $e_{m} \in \F$ and, as a consequence of Theorem~\ref{thm:Mercer_for_compact}, the family $(e_{m}^{\F} = \sqrt{\sigma_m}e_m; \sigma_m>0)_{m \in \mathbb{N}^{*}}$ is an o.n.b. of $\mathcal{F}$; see Theorem 4.12 in \parencite{CuZh07}. In particular
 \begin{equation}
 \|e_{m}^{\F}\|_{\F}^{2} = \sigma_{m}\|e_{m}\|_{\F}^{2} = 1,
 \end{equation}
@@ -7380,7 +7380,7 @@ where $f = \bm{\Sigma}^{1/2}g$ with $\bm{\Sigma}^{1/2}$ is the operator defined 
   \begin{equation}\label{eq:f_is_sigma_12_g}
   f = \bm{\Sigma}^{1/2}g,
   \end{equation}
-  with $\|f\|_{\mathcal{F}} = \|g\|_{\mathrm{d}\omega}$. By Assumption~\ref{hyp:domega_is_nondegenerate}, $\mathrm{d}\omega$ is non-degenerate, thus $\mathcal{F}$ is dense in $\mathbb{L}_{2}(\mathrm{d}\omega)$ if and only if all the eigenvalues $\sigma_{m}$ are positive. Under this condition, $\bm{\Sigma}^{1/2}$ is an isomorphism between $\mathbb{L}_{2}(\mathrm{d}\omega)$ and $\F$. Finally, note that 
+  with $\|f\|_{\mathcal{F}} = \|g\|_{\mathrm{d}\omega}$. By Assumption~\ref{hyp:domega_is_nondegenerate}, $\omega$ is non-degenerate, thus $\mathcal{F}$ is dense in $\mathbb{L}_{2}(\mathrm{d}\omega)$ if and only if all the eigenvalues $\sigma_{m}$ are positive. Under this condition, $\bm{\Sigma}^{1/2}$ is an isomorphism between $\mathbb{L}_{2}(\mathrm{d}\omega)$ and $\F$. Finally, note that 
   \begin{equation}
   \bm{\Sigma}^{1/2} \bm{\Sigma}^{1/2} = \bm{\Sigma}.
   \end{equation}
@@ -7400,7 +7400,7 @@ The compactness assumption in Theorem~\ref{thm:Mercer_for_compact} excludes some
 %or the Laplace kernels
 Hence the need to an extension of this result to non-compact spaces.
 
-In \cite{Sun05}, the author extended Theorem~\ref{thm:Mercer_for_compact} to $\mathcal{X} = \cup_{i \in \mathbb{N}} \mathcal{X}_{i}$, with the $\mathcal{X}_{i}$s are compacts and $\mathrm{d}\omega(\mathcal{X}_{i})<\infty$. One can also extend Mercer's theorem under a \textit{compact embedding} assumption \parencite{StSc12}: the RKHS $\mathcal{F}$ associated to $k$ is said to be compactly embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$ if the operator
+In \cite{Sun05}, the author extended Theorem~\ref{thm:Mercer_for_compact} to $\mathcal{X} = \cup_{i \in \mathbb{N}} \mathcal{X}_{i}$, with the $\mathcal{X}_{i}$s are compacts and $\omega(\mathcal{X}_{i})<\infty$. One can also extend Mercer's theorem under a \textit{compact embedding} assumption \parencite{StSc12}: the RKHS $\mathcal{F}$ associated to $k$ is said to be compactly embedded in $\mathbb{L}_{2}(\mathrm{d}\omega)$ if the operator
 \begin{align*}
   I_{\mathcal{F}}: \mathcal{F}&\longrightarrow \mathbb{L}_{2}(\mathrm{d}\omega) \\
   f &\longmapsto f
@@ -7432,7 +7432,7 @@ These conditions are satisfied by a large class of kernels; particularly the Gau
 \subsection{Examples}
 \label{subsec:kernel_examples}
 \subsubsection{The periodic Sobolev spaces}
-The Mercer decomposition of $k_{s}$ with respect to $\mathrm{d}\omega$ is explicitly given by~\eqref{eq:periodic_sobolev_space_in_cossin}
+The Mercer decomposition of $k_{s}$ with respect to $\omega$ is explicitly given by~\eqref{eq:periodic_sobolev_space_in_cossin}
 \begin{equation}
 \forall x,y \in [0,1], \:\: k_{s}(x,y) = 1+ \sum\limits_{m \in \mathbb{N}^{*}} \Big( \frac{1}{m^{2s}} \sqrt{2}\cos (2\pi mx) + \frac{1}{m^{2s}} \sqrt{2}\sin (2\pi mx) \Big).
 \end{equation}
@@ -7460,7 +7460,7 @@ $$
 \subsubsection{The Korobov spaces}\label{sec:Korobov_spaces_def}
 
 
-For a given $d \in \mathbb{N}^{*}$, let $\mathcal{X} = [0,1]^{d}$ and let $\mathrm{d}\omega$ be the uniform measure on $\mathcal{X}$. The Korobov space in dimension $d$ of order $s$  is the tensor product of $d$ copies of the periodic Sobolev space $\mathcal{S}_{s}$
+For a given $d \in \mathbb{N}^{*}$, let $\mathcal{X} = [0,1]^{d}$ and let $\omega$ be the uniform measure on $\mathcal{X}$. The Korobov space in dimension $d$ of order $s$  is the tensor product of $d$ copies of the periodic Sobolev space $\mathcal{S}_{s}$
 \begin{equation}
 \mathcal{K}_{d,s} = \{ f \in \mathbb{L}_{2}(\mathrm{d}\omega); \: f = \prod\limits_{\delta \in [d]} f_{\delta}, \: f_{\delta} \in \mathcal{S}_{s} \},
 \end{equation}
@@ -7813,7 +7813,7 @@ and
 In other words, the optimal kernel quadrature $(\bm{x},\hat{\bm{w}})$ controls both the mean and the variance of $\int_{\X}f(x)g(x)\mathrm{d}\omega(x)$. This link was leveraged in~\parencite{BOGOS2019} to establish rates of posterior contraction of Bayesian quadrature based on rates of convergence of optimal kernel quadrature.
 
 
-\subsection{Designs for optimal kernel quadrature}
+\subsection{Designs for optimal kernel quadrature}\label{subsec:okq_algebraic_paradigm}
 We review in this section the literature on the design of configurations for optimal kernel quadrature.
 \subsubsection{Deterministic configurations}
 \cite{Boj81} proved that, for $g=1$, the interpolation of $\mu_{g}$ using the uniform grid over $\X = [0,1]$ has an error in $\mathcal{O}(N^{-2s})$ if $\F$ is the periodic Sobolev space of order $s$, and that any set of nodes leads to that rate at least. A similar rate was proved for $g$ not constant \parencite{NoUlWo15} even though it is only asymptotically optimal in that case.
@@ -7822,7 +7822,7 @@ We review in this section the literature on the design of configurations for opt
 % In the quasi-Monte Carlo (QMC) literature, several designs were investigated for $\X = [0,1]^{d}$, $g = 1$ and $\F$ that may not even be a Hilbert space; see \parencite{DiPi10}. In this context, the term \emph{QMC quadrature rule} means a low discrepancy sequence, loosely speaking a ``well-spread" set of nodes, along with uniform weights $w_{i} \equiv 1/N$. If $\F$ is a Korobov space of order $s \geq 1$, the Halton sequence of nodes \parencite{Hal64} leads to $\mathcal{E}(\mu_1; \bm{x}, (1/N))^2$ in $\mathcal{O}(\log(N)^{2d} N^{-2})$ and higher-order digital nets converge faster as $\mathcal{O}(\log(N)^{2sd} N^{-2s})$ \parencite{DiPi14}[Theorem 5].
 
 As for QMC sequences, the rates are naturally inherited if the uniform weights, of a QMC rule, are replaced by the respective optimal weights $\hat{\bm{w}}$, as observed by \cite{BOGOS2019}.
-In particular, \cite{BOGOS2019} emphasize that the bound for higher-order digital nets attains the almost optimal rate in this RKHS. However, this inheritance argument does not explain the fast $\mathcal{O}(\log(N)^{2sd} N^{-2s})$ rates observed empirically for optimal kernel quadrature based on Halton sequences; see \cite{Oett17} and Section~\ref{sec:Korobov_num_simulations}.
+In particular, \cite{BOGOS2019} emphasize that the bound for higher-order digital nets attains the almost optimal rate in this RKHS. However, this inheritance argument does not explain the fast $\mathcal{O}(\log(N)^{2sd} N^{-2s})$ rates observed empirically for optimal kernel quadrature based on Halton sequences; see \parencite{Oett17} and Section~\ref{sec:Korobov_num_simulations}.
 % For optimal kernel quadrature based on Halton sequences, 
 
 
@@ -7896,7 +7896,7 @@ This approach is reminiscent of Frank-Wolfe algorithm and its different variants
 % Then, the weights were chosen to minimize the posterior variance of the integral of $f$. If the kernel of the Gaussian process is chosen to be $k$, this amounts to minimizing the RHS of \eqref{eq:integral_bound_mean_element}. The case of the Gaussian reference measure was later investigated in detail \parencite{Hag91}, while parametric integrands were considered in \parencite{Min00}.
 
 \subsubsection{Ridge leverage score quadrature}
-\label{subsec:okq_algebraic_paradigm}
+
 The regularization of the problem~\eqref{eq:wce_repeated_optimization} offers an alternative approach for the design of the configuration $\bm{x}$ as it was shown in \parencite{Bac17}.
 % A similar problem is the desig alternative approach is the regularization of the problem .... 
 This work highlights the fundamental role played by the spectral decomposition of the operator $\bm{\Sigma}$ in designing and analyzing kernel quadrature rules.
@@ -8161,7 +8161,8 @@ We have assumed that $\mathcal{F}$ is dense in $\mathbb{L}_{2}(\mathrm{d}\omega)
   \| \mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}\|_{\mathcal{F}}= 0 \:\: \text{a.s.}
 \end{equation}
 when $N= N_0$.
-This compares favourably with the quadrature based on herding with uniform weights that comes with a rate in $\mathcal{O}(\frac{1}{N})$  \parencite{ChWeSm10,BaLaOb12}. 
+
+% This compares favourably with the quadrature based on herding with uniform weights that comes with a rate in $\mathcal{O}(\frac{1}{N})$  \parencite{ChWeSm10,BaLaOb12}. 
 
 
 % \paragraph{The Gaussian kernel}
@@ -8191,7 +8192,7 @@ In comparison with \cite{Bac17}, we emphasize that the dependence of our bound o
 % It would be interesting to extend the analysis of our quadrature in the regime $\lambda >0$.
 
 
-Another advantage of DPPs is that they can be sampled exactly. Because of the orthonormality of $(\psi_n)$, one can write the chain rule for \eqref{eq:pdpp_definition}; see \parencite{HoKrPeVi06}. Sampling each conditional in turn, using e.g. rejection sampling \parencite{RoCa04}, then yields an exact sampling algorithm. Rejection sampling aside, the cost of this algorithm is cubic in $N$ without further assumptions on the kernel. The main limitation is the availability of good proposals for the successive rejection sampling routines.
+Another advantage of DPPs is that they can be sampled exactly. Because of the orthonormality of $(\psi_n)$, one can use the HKPV algorithm; see Section~\ref{sec:num_algos_dpps}. The main limitation is the availability of good proposals for the successive rejection sampling routines.
 
 %Simplifying assumptions can take many forms. 
 Theorem~\ref{thm:main_theorem_improved} gives a slightly sharper bound than Theorem~\ref{thm:main_theorem}, since if $Nr_{N} = o(1)$, then the right-hand side of \eqref{eq:main_result_first} is $N r_{N} + o(N r_{N})$. The proof of Theorem~\ref{thm:main_theorem_improved} follows the same steps as the proof of Theorem~\ref{thm:main_theorem}. We give the proofs of the two results simultaneously in the following section and we highlight the difference between the two in the end of the section.
@@ -8267,7 +8268,7 @@ Theorem~\ref{thm:main_theorem_improved} gives a slightly sharper bound than Theo
 
 \subsection{Bounding the interpolation error under the projection DPP}
 \label{subsec:dpp_quadrature_error_weak}
-In this section, we give the skeleton of the proofs of Theorem~\ref{thm:main_theorem} and Theorem~\ref{thm:main_theorem_refined}. The details of the proofs are deferred to Section~\ref{s:proofs}.
+In this section, we give the skeleton of the proofs of Theorem~\ref{thm:main_theorem} and Theorem~\ref{thm:main_theorem_improved}. The details of the proofs are deferred to Section~\ref{s:proofs}.
 
 The starting point of the analysis is the observation that the interpolation error is the RKHS norm of the residual $\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}$. Since the subspace $\mathcal{T}(\bm{x})$ can be arbitrary, as $\bm{x}$ spans the set of uni-solvent of $\X$ of cardinality $N$, it is hard to reckon how large the corresponding residual can be. For this reason, we consider the principal subspace $\mathcal{E}_N^{\mathcal{F}} = \Span(e_{n}^{\mathcal{F}})_{n \in [N]}$ and the corresponding \emph{filtering error} $\|\mu_{g} - \bm{\Pi}_{\mathcal{E}_{N}^{\mathcal{F}}} \mu_{g}\|_{\mathcal{F}}$. The filtering error is easier to quantify because we can prove easily that
 
@@ -8596,7 +8597,7 @@ Now, we consider the Korobov space $\mathcal{K}_{d,s}$ defined in Section~\ref{s
 We sampled from the corresponding DPP using the generic sampling algorithm in \cite{HoKrPeVi06}. The implementation requires to sample from density $x \mapsto \frac{1}{N} \KDPP(x,x)$, which is possible using the uniform density as a proposal in the successive rejection sampling steps. Indeed, the analytical expression of $\KDPP(x,x)$ involves the squares of cosine and sine functions that can be upper bounded by constants.
 
 
-We consider two numerical experiments. In the first one, we consider the approximation of $\mu_{g}$ when $g \equiv 1$ using several quadratures; in the second one, we consider the approximation of $\mu_{g}$ when $g$ is an eigenfunction of $\bm{\Sigma}$ using DPPKQ, LVSQ $(\lambda = 0)$, LVSQ $(\lambda = 0.01)$ and UGKQ. 
+We consider two numerical experiments. In the first one, we consider the approximation of $\mu_{g}$ when $g \equiv 1$ using several quadratures; in the second one, we consider the approximation of $\mu_{g}$ when $g$ is an eigenfunction of $\bm{\Sigma}$ using DPPKQ, LVSQ $(\lambda = 0)$ and UGKQ. 
 
 % in the third one, we consider the worst interpolation error when $g$ spans the unit ball of $\mathbb{L}_{2}(\mathrm{d}\omega)$. 
 
@@ -8690,13 +8691,13 @@ Now, we consider the Gaussian space $\mathcal{G}_{\gamma}$ defined in Section~\r
 % $\mathrm{d}\omega$ to be the Gaussian measure on $\mathcal{X} = \mathbb{R}$ along with the RKHS kernel $\displaystyle k_{\gamma}(x,y) = \exp[-(x-y)^{2}/2\gamma^{2}]$. 
 
 Figure~\ref{fig:unidim_gaussian_dppkq} compiles the empirical performance of DPPKQ for $g \in \{e_{1},e_{5},e_{10},e_{15}\}$ compared to the theoretical bound of Theorem~\ref{thm:main_theorem} , crude Monte Carlo with i.i.d. sampling from the measure $\omega$ (MC), optimal kernel quadrature based on i.i.d. samples from $\omega$ (MCKQ), sequential Bayesian Quadrature (SBQ). From random quadrature, we take the average over $50$ samples.
-We take $N \in [5,50]$ and $\gamma = \frac{1}{2}$. Note that, this time, only the $y$-axis is on the log scale for better display, and that LVSQ is not plotted since we don't know how to sample from the continuous ridge leverage score distribution $q_\lambda^{*}$ in \eqref{e:proposalBach}.
+We take $N \in [5,50]$ and $\gamma = \frac{1}{2}$. Note that, this time, only the $y$-axis is on the log scale for better display, and that LVSQ is not plotted since we don't know how to sample from the continuous ridge leverage score distribution $q_\lambda^{*}$. 
 %
 
 We observe that, for $g = e_{N_{0}}$, the quadratures converge to $0$ at different rates after the plateau of the initial error $N \geq N_{0}$. DPPKQ converges as $\mathcal{O}(\sigma_{N+1})$ while the discussion below Theorem~\ref{thm:main_theorem} let us expect a slightly slower rate $\mathcal{O}(N\sigma_{N+1})$ denoted DPPKQ (UB) in the figure. MCKQ improves upon Monte Carlo that converges as $\mathcal{O}(N^{-1})$. Yet, it seems that the larger is the value of $N_0$, the slower is the convergence of MCKQ to $0$ compared to the convergence of DPPKQ that does not depend on the value of $N_0$.
 %yet it plateaus for large values of $N$.
  % In particular, MCKQ seems to be at pair with DPPKQ for small value and for $N_{0}=1$, yet this good performance 
- The same observations apply for SBQ, that has the smallest error for small values of $N$, yet its convergence slowdown for large values of $N$. Moreover, its performance deteriorates for large values of $N_0$.
+ The same observations apply for SBQ, that has the smallest error for small values of $N$, yet its convergence slowdowns for large values of $N$. Moreover, its performance deteriorates for large values of $N_0$.
 
  %  especially for large values of $N$ 
  % Similarly to Sobolev spaces, the convergence of sequential Bayesian quadrature plateaus even if it .
@@ -8822,20 +8823,16 @@ Once again, the numerical simulations show that the empirical rate of DPPKQ scal
 % %\end{equation}
 % \end{theorem}
 
-We have introduced a new class of quadratures: the optimal kernel quadrature based on nodes that follows the distribution of the projection DPP $(\mathrm{d}\omega, \KDPP)$. Moreover, we gave theoretical guarantees of this class of quadratures. In particular, we proved that for $g \in \mathbb{L}_{2}(\mathrm{d}\omega)$ such that $\|g\|_{\mathrm{d}\omega} \leq 1$, the rate of convergence $\EX_{\DPP} \|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F}^{2}$ scales as $\mathcal{O}(Nr_{N+1})$, and $\EX_{\DPP} \sup_{\|g\|_{\mathrm{d}\omega} \leq 1}\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F}^{2}$ scales as $\mathcal{O}(N^{2}r_{N+1})$. The numerical simulations that we conducted suggest that these rates scale as $\mathcal{O}(\sigma_{N+1})$, which means that the theoretical guarantees we gave, are pessimistic and could be improved, especially for RKHSs with finite degree of smoothness like the periodic Sobolev spaces and the Korobov spaces.
+We have introduced a new class of quadratures: the optimal kernel quadrature based on nodes that follows the distribution of the projection DPP$(\KDPP,\mathrm{d}\omega)$. Moreover, we gave theoretical guarantees of this class of quadratures. In particular, we proved that for $g \in \mathbb{L}_{2}(\mathrm{d}\omega)$ such that $\|g\|_{\mathrm{d}\omega} \leq 1$, the rate of convergence $\EX_{\DPP} \|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F}^{2}$ scales as $\mathcal{O}(Nr_{N+1})$, and $\EX_{\DPP} \sup_{\|g\|_{\mathrm{d}\omega} \leq 1}\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F}^{2}$ scales as $\mathcal{O}(N^{2}r_{N+1})$. The numerical simulations that we conducted suggest that these rates scale as $\mathcal{O}(\sigma_{N+1})$, which means that the theoretical guarantees we gave are pessimistic, especially for RKHSs with finite degree of smoothness like the periodic Sobolev spaces and the Korobov spaces.
 
 Similarly to the quadratures reviewed in Section~\ref{sec:DPPs_for_quadrature}, this new class of quadratures is suitable for functions living in a Hilbert space; however, the two settings are different. Indeed, the previous results deal with functions living in Sobolev spaces that does not correspond to some RKHS $(s \leq d/2)$. This point will be discussed more in details in Section~\ref{sec:bakhvalov}. 
 
-Unlike the CLTs reviewed in Section~\ref{sec:DPPs_for_quadrature}, our theoretical rates are non-asymptotic. Moreover, the technique of the proof is new and relies on controlling the  largest principal angle between the subspaces $\tilde{\mathcal{T}}(\bm{x})$ and $\mathcal{E}_{N}^{\tilde{\F}}$ under the distribution of the projection DPP. To achieve this control, we have introduced the symmetrizations \eqref{eq:max_error_as_function_of_cos_prod} and \eqref{eq:max_error_as_function_of_cos_sum}  of \eqref{eq:max_error_as_function_of_cos}, that are rather loose majorizations. Our motivation is that the expected value of each of these symmetric quantities is tractable under the DPP. 
+Unlike the CLTs reviewed in Section~\ref{sec:DPPs_for_quadrature}, our theoretical rates are non-asymptotic. Moreover, the technique of the proof is new and relies on controlling the  largest principal angle between the subspaces $\tilde{\mathcal{T}}(\bm{x})$ and $\mathcal{E}_{N}^{\tilde{\F}}$ under the projection DPP. To achieve this control, we have introduced the symmetrizations \eqref{eq:max_error_as_function_of_cos_prod} and \eqref{eq:max_error_as_function_of_cos_sum}  of \eqref{eq:max_error_as_function_of_cos}, that are rather loose majorizations. Our motivation is that the expected value of each of these symmetric quantities is tractable under the DPP. 
 Compared to the multiplicative symmetrization, the additive symmetrization gives a neater upper bound of $\EX_{\DPP}  1 \big/\cos^{2} \theta_{N} \big(\mathcal{E}^{\tilde{\mathcal{F}}}_{N}, \tilde{\mathcal{T}}(\bm{x}) \big)$ without improving the rate of convergence. Getting rid of these symmetrizations could make the bound much tighter. We discuss this perspective in Section~\ref{sec:conclusion_trigonometry_problem}.
 
 
-Now, compared to other algorithms and quadratures, DPPKQ seem to give consistent empirical performance: the squared interpolation error scales as $\mathcal{O}(\sigma_{N})$ after a stagnation at the plateau of the initial error. 
-
- DPPKQ offers an implementable solution with guarantees in the ridgeless regime $(\lambda = 0)$, in comparison LVSQ have guarantees when $\lambda >0$, yet the continuous ridge leverage score distribution is not be tractable in general. 
-
+Now, compared to other algorithms and quadratures, DPPKQ seem to give consistent empirical performance: the squared interpolation error scales as $\mathcal{O}(\sigma_{N})$ after a stagnation at the plateau of the initial error. DPPKQ offers an implementable solution with guarantees in the ridgeless regime $(\lambda = 0)$, in comparison LVSQ have guarantees when $\lambda >0$, yet the continuous ridge leverage score distribution is not be tractable in general. 
  % This distribution is not  In particular, in the ridgeless regime the continuous ridge leverage score distribution is not defined.  
-
 Moreover, DPPKQ seems to be numerically stable compared to other algorithms such as SBQ that require some regularization.  
 
 
