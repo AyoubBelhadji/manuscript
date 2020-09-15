@@ -24,7 +24,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {2.4}{\ignorespaces Three realizations from the spherical ensemble with $N = 50$ particles (top) compared to their stereographic projections on the complex plan (bottom). \relax }}{35}{figure.caption.18}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Pseudocode of the HKPV algorithm for sampling from a projection DPP of marginal kernel $\kappa $.\relax }}{37}{figure.caption.21}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Pseudocode of the HKPV algorithm for sampling from a projection DPP of marginal kernel $\kappa $.\relax }}{36}{figure.caption.21}
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {2.6}{\ignorespaces The sharpness of Bernstein inequality for bounding the density $f_{\kappa ,1}$. \relax }}{39}{figure.caption.23}
 \defcounter {refsection}{0}\relax 
@@ -168,7 +168,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {4.34}{\ignorespaces $\mu _{g}$ in the periodic Sobolev space for three different $g$. \relax }}{117}{figure.caption.79}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.41}{\ignorespaces Illustration of the largest principal angle between the subspaces $\mathcal {T}(\bm {x})$ and $\mathcal {E}_{N}^{\mathcal {F}}$ in the case of the periodic Sobolev space of order 1. \relax }}{125}{figure.caption.84}
+\contentsline {figure}{\numberline {4.41}{\ignorespaces Illustration of the largest principal angle between the subspaces $\mathcal {T}(\bm {x})$ and $\mathcal {E}_{N}^{\mathcal {F}}$ in the case of the periodic Sobolev space of order 1. \relax }}{124}{figure.caption.84}
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {4.51}{\ignorespaces Squared approximation error vs. number of nodes $N$ in the case of the periodic Sobolev space for $s = 1$ (left) and $s=3$ (right). \relax }}{127}{figure.caption.86}
 \defcounter {refsection}{0}\relax 
@@ -180,15 +180,15 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {4.55}{\ignorespaces Squared interpolation error for the embeddings of the eigenfunctions vs. number of nodes $N$ in the Korobov space for $s = 1$ (left) and $s=3$ (right) under DPPKQ (top), LVSQ (middle) and UGKQ (bottom). \relax }}{131}{figure.caption.94}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {4.56}{\ignorespaces The squared error $\delimiter "026B30D \mu _{g}-\DOTSB \sum@ \slimits@ \limits _{n \in [N]} w_{n}k(x_{n},.)\delimiter "026B30D _{\mathcal {F}}^{2}$ vs. the number of nodes $N$ in the Gaussian space $\mathcal {G}_{\gamma }$ with $\gamma = 1/2$.\relax }}{133}{figure.caption.95}
+\contentsline {figure}{\numberline {4.56}{\ignorespaces The squared error $\delimiter "026B30D \mu _{g}-\DOTSB \sum@ \slimits@ \limits _{n \in [N]} w_{n}k(x_{n},.)\delimiter "026B30D _{\mathcal {F}}^{2}$ vs. the number of nodes $N$ in the Gaussian space $\mathcal {G}_{\gamma }$ with $\gamma = 1/2$.\relax }}{132}{figure.caption.95}
 \defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {The case of $g = e_{1}$.}}}{133}{subfigure.6.1}
+\contentsline {subfigure}{\numberline {(a)}{\ignorespaces {The case of $g = e_{1}$.}}}{132}{subfigure.6.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {The case of $g = e_{5}$.}}}{133}{subfigure.6.2}
+\contentsline {subfigure}{\numberline {(b)}{\ignorespaces {The case of $g = e_{5}$.}}}{132}{subfigure.6.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {The case of $g = e_{10}$.}}}{133}{subfigure.6.3}
+\contentsline {subfigure}{\numberline {(c)}{\ignorespaces {The case of $g = e_{10}$.}}}{132}{subfigure.6.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {The case of $g = e_{15}$.}}}{133}{subfigure.6.4}
+\contentsline {subfigure}{\numberline {(d)}{\ignorespaces {The case of $g = e_{15}$.}}}{132}{subfigure.6.4}
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {4.57}{\ignorespaces The squared interpolation error in the Gaussian space $\mathcal {G}_{d,\gamma }$ with $d \in \{2,3\}$ and $\gamma =1$. \relax }}{133}{figure.caption.96}
 \defcounter {refsection}{0}\relax 
@@ -198,21 +198,23 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {5.31}{\ignorespaces Pseudocode of approximate continuous volume sampling based on a variant of the HKPV.\relax }}{160}{figure.caption.106}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.41}{\ignorespaces The value of $\EX _{\VS } \mathcal {E}(\mu _{e_{m}};\bm {x})^{2}$ for $m \in \{1,2,3,4,5\}$ for the periodic Sobolev space of order $s =3$, compared to the theoretical upper bound (UB) of Theorem\nobreakspace {}\ref {CVS_thm:main_result_1}.\relax }}{162}{figure.caption.107}
+\contentsline {figure}{\numberline {5.32}{\ignorespaces The power function $p(x;\bm {x})$ in the case of the periodic Sobolev space of orders $s = 1$ (left), $s=2$ (middle) and $s=3$ (right), compared to the diagonal of the kernel $x \DOTSB \mapstochar \rightarrow k_{s}(x,x) = k_{s}(0,0)$ (the dashed line).\relax }}{162}{figure.caption.108}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.42}{\ignorespaces The subspace $\bm {\Sigma }\PazoBB {L}_{2}(\mathrm {d}\omega )$ is a particular case of the fractional spaces $\bm {\Sigma }^{1/2+r} \PazoBB {L}_{2}(\mathrm {d}\omega )$, with $r \in [0,1/2]$, that are subspaces of the RKHS $\F = \bm {\Sigma }^{1/2} \PazoBB {L}_{2}(\mathrm {d}\omega )$. \relax }}{163}{figure.caption.108}
+\contentsline {figure}{\numberline {5.41}{\ignorespaces The value of $\EX _{\VS } \mathcal {E}(\mu _{e_{m}};\bm {x})^{2}$ for $m \in \{1,2,3,4,5\}$ for the periodic Sobolev space of order $s =3$, compared to the theoretical upper bound (UB) of Theorem\nobreakspace {}\ref {CVS_thm:main_result_1}.\relax }}{164}{figure.caption.109}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.61}{\ignorespaces The expected value of the $m$-th leverage score $\EX _{\VS } \tau _{m}^{\F }(\bm {x})$ (left panels) and the expected interpolation error $\EX _{\VS } \mathcal {E}(\mu _{e_{m}};\bm {x})^{2}$ (right panels), under the distribution of continuous volume sampling, for $m \in \{1,2,3,4,5\}$ and the uni-variate periodic Sobolev kernel. Rows correspond to increasing values of the smoothness parameter $s=1,2,3,4,5$.\relax }}{168}{figure.caption.111}
+\contentsline {figure}{\numberline {5.42}{\ignorespaces The subspace $\bm {\Sigma }\PazoBB {L}_{2}(\mathrm {d}\omega )$ is a particular case of the fractional spaces $\bm {\Sigma }^{1/2+r} \PazoBB {L}_{2}(\mathrm {d}\omega )$, with $r \in [0,1/2]$, that are subspaces of the RKHS $\F = \bm {\Sigma }^{1/2} \PazoBB {L}_{2}(\mathrm {d}\omega )$. \relax }}{165}{figure.caption.110}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.62}{\ignorespaces The expected value of the $m$-th leverage score $\EX _{\VS } \tau _{m}^{\F }(\bm {x})$ and the expected interpolation error $\EX _{\VS } \mathcal {E}(\mu _{e_{m}};\bm {x})^{2}$ under the distribution of continuous volume sampling for $m \in \{1,2,3,4,5\}$. Every row corresponds to a uni-dimensional Gaussian space ($\sigma _{m} = \alpha ^{m}$) with a parameter $\alpha \in \{0.7,0.5,0.2\}$. \relax }}{169}{figure.caption.113}
+\contentsline {figure}{\numberline {5.61}{\ignorespaces The expected value of the $m$-th leverage score $\EX _{\VS } \tau _{m}^{\F }(\bm {x})$ (left panels) and the expected interpolation error $\EX _{\VS } \mathcal {E}(\mu _{e_{m}};\bm {x})^{2}$ (right panels), under the distribution of continuous volume sampling, for $m \in \{1,2,3,4,5\}$ and the uni-variate periodic Sobolev kernel. Rows correspond to increasing values of the smoothness parameter $s=1,2,3,4,5$.\relax }}{170}{figure.caption.113}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.63}{\ignorespaces The empirical estimate of $\EX _{\VS } \mathcal {E}(\mu _{e_{m}};\bm {x})^{2}$ for $m \in \{1,5,7\}$ compared to its expression \textup {\hbox {\mathsurround \z@ \normalfont (\ignorespaces \ref {CVS_eq:main_result_EX_VS_err_mu}\unskip \@@italiccorr )}} in the case of the periodic Sobolev space. The smoothness is $s=1$ (top), $s=2$ (bottom).\relax }}{170}{figure.caption.114}
+\contentsline {figure}{\numberline {5.62}{\ignorespaces The expected value of the $m$-th leverage score $\EX _{\VS } \tau _{m}^{\F }(\bm {x})$ and the expected interpolation error $\EX _{\VS } \mathcal {E}(\mu _{e_{m}};\bm {x})^{2}$ under the distribution of continuous volume sampling for $m \in \{1,2,3,4,5\}$. Every row corresponds to a uni-dimensional Gaussian space ($\sigma _{m} = \alpha ^{m}$) with a parameter $\alpha \in \{0.7,0.5,0.2\}$. \relax }}{171}{figure.caption.115}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.63}{\ignorespaces The empirical estimate of $\EX _{\VS } \mathcal {E}(\mu _{e_{m}};\bm {x})^{2}$ for $m \in \{1,5,7\}$ compared to its expression \textup {\hbox {\mathsurround \z@ \normalfont (\ignorespaces \ref {CVS_eq:main_result_EX_VS_err_mu}\unskip \@@italiccorr )}} in the case of the periodic Sobolev space. The smoothness is $s=1$ (top), $s=2$ (bottom).\relax }}{172}{figure.caption.116}
 \defcounter {refsection}{0}\relax 
 \ttl@tocsep 
 \defcounter {refsection}{0}\relax 
 \ttl@tocsep 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {6.21}{\ignorespaces The spectral rate $\sigma _{N+1}$ compared to the Bakhvalov rate $\sigma _{N+1}/(N+1)$ in the case of the Korobov space of order $s=1$ and $d =2$. \relax }}{195}{figure.caption.131}
+\contentsline {figure}{\numberline {6.21}{\ignorespaces The spectral rate $\sigma _{N+1}$ compared to the Bakhvalov rate $\sigma _{N+1}/(N+1)$ in the case of the Korobov space of order $s=1$ and $d =2$. \relax }}{197}{figure.caption.133}
 \defcounter {refsection}{0}\relax 
 \ttl@tocsep 
 \defcounter {refsection}{0}\relax 

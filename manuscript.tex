@@ -16,7 +16,7 @@
 \usepackage{bm}
 \usepackage{bbm}
 %\usepackage{natbib}
-\usepackage[backend=bibtex,natbib=true,  maxnames=3,style = authoryear,isbn=false,url=false,doi=false,eprint=false]{biblatex}
+\usepackage[backend=bibtex,natbib=true,  maxnames=4,style = authoryear,isbn=false,url=false,doi=false,eprint=false]{biblatex}
 
 % \usepackage[,authordate]{biblatex-chicago}
 
@@ -1160,7 +1160,7 @@ As we have seen in the previous section, independent sampling was used in a vari
 Now we will review another approach of sampling that relies on high order information. This is achieved by determinantal point processes and their variants. Indeed, this class of distributions defines the most natural extension of leverage score sampling with negative correlation property.
 
 We start again with the problem of linear regression under budget constraint. Remember that, for this problem, it is required to estimate $\bm{X}^{+}\bm{y}$ using a subset of $[N]$. Now, if $\bm{X}$ is of full rank, the Moore-Penrose pseudo inverse has a \emph{determinantal representation} \parencite{BeTe90}
-\begin{equation}
+\begin{equation}\label{eq:introd_det_repr}
 \bm{X}^{+}\bm{y} = \sum\limits_{I \in \mathcal{I}_{N,d}} \frac{\Delta_{I}}{\Delta} \bm{X}_{I,:}^{+}\bm{y}_{I},
 \end{equation}
 where $\mathcal{I}_{N,d} = \{ I \subset [N], \:|I| = d \}$, $\Delta_{I} = \Det^{2} \bm{X}_{I,:}$ and $\Delta = \sum_{I \in \mathcal{I}_{N,d}} \Delta_{I}$. In other words, the solution of the regression problem defined for the pair $(\bm{X},\bm{y})$ is a mixture of the solutions of the smaller regression problems defined by the pairs $(\bm{X}_{I,:},\bm{y}_{I})$, and the weight is proportional to $\Det^{2} \bm{X}_{I,:}$ that is, the volume spanned by the rows of $\bm{X}_{I,:}$ in the space $\mathbb{R}^{d}$. In particular, singular sub-matrices $\bm{X}_{I,:}$ do not participate in this mixture. Obviously, this determinantal representation cannot be used in this raw form. Indeed, an exhaustive enumeration of $\mathcal{I}_{N,d}$ would cost much more than calculating $\bm{X}^{+}\bm{y}$. Yet, its structure is amenable to a probabilistic interpretation. Indeed, if we consider a random element $S$ of $\mathcal{I}_{N,d}$ such that
@@ -1460,10 +1460,12 @@ Table~\ref{table:matrix_operator_duality} situates the contributions of this the
 % \end{itemize}
 
 
-\section*{Workshops}
+\section*{Invited talks}
 
 \begin{itemize}
-\item ???
+\item \emph{Variations around kernel quadrature with DPPs}, Minisymposium of Probabilistic Numerical and Kernel-Based Methods, MCQMC 2020
+\item \emph{Kernel quadrature and interpolation using determinantal sampling}, Laboratoire Paul Painlevé, Lille
+\item \emph{Kernel quadrature with DPPs}, UQAM, Montréal
 \end{itemize}
 
 
@@ -1644,7 +1646,7 @@ Let $\gamma$ be a counting measure on $\mathcal{D}$. Then $\gamma$ can be writte
 \begin{equation}
 \gamma = \sum\limits_{i \in I} m_{i} \delta_{x_{i}},
 \end{equation}
-where $I \in \mathbb{N} \cup \{ \infty \}$, $(x_{i})_{i \in I}$ is a sequence of points in $\mathcal{D}$ without accumulation point and $(b_{i})_{i \in I}$ is a sequence of positive integers. Moreover, this decomposition is unique up
+where $I \in \mathbb{N} \cup \{ \infty \}$, $(x_{i})_{i \in I}$ is a sequence of points in $\mathcal{D}$ without accumulation point and $(m_{i})_{i \in I}$ is a sequence of positive integers. Moreover, this decomposition is unique up
 to a permutation. 
 \end{theorem}
 
@@ -1693,23 +1695,23 @@ The point process $\gamma$ is said to be a simple if
 \end{definition}
 
 %\begin{example}
-Consider the following example. Let $\mathrm{d}\omega$ be a probability measure on $\mathcal{D}$ and let $\nu$ be a probability measure on $\mathbb{N}$. Let $x_{0}, x_{1} \dots, $ be independent random variables that follow the distribution $\mathrm{d}\omega$ and $N$ a random variable that follows the distribution $\nu$.
+Consider the following example. Let $\omega$ be a probability measure on $\mathcal{D}$ and let $\nu$ be a probability measure on $\mathbb{N}$. Let $x_{0}, x_{1} \dots, $ be independent random variables that follow the distribution $\omega$ and $N$ a random variable that follows the distribution $\nu$.
 Then the random measure $\gamma$ defined by
 \begin{equation}
 \gamma = \sum\limits_{n \in [N]} \delta_{x_{n}},
 \end{equation}
-is a point process on $\mathcal{D}$. This point process is called the \emph{mixed binomial process} with mixing distribution $\nu$ and sampling distribution $\mathrm{d}\omega$.
+is a point process on $\mathcal{D}$. This point process is called the \emph{mixed binomial process} with mixing distribution $\nu$ and sampling distribution $\omega$.
 Now, if  $\nu = \delta_{N_0}$ for some $N_0 \in \mathbb{N}^{*}$, we recover the binomial process defined by
 \begin{equation}\label{eq:binomial_cylinder_prb}
-\forall B \in \mathcal{B}, \:\:\forall n \in \{0, \dots, N_0\}, \:\: \mathbb{P}(\gamma(B) = n) = \binom{N_0}{n}\mathrm{d}\omega(B)^{n}(1-\mathrm{d}\omega(B))^{N_0-n}.
+\forall B \in \mathcal{B}, \:\:\forall n \in \{0, \dots, N_0\}, \:\: \mathbb{P}(\gamma(B) = n) = \binom{N_0}{n}\omega(B)^{n}(1-\omega(B))^{N_0-n}.
 \end{equation}
-On the other hand, if $\nu$ follows the distribution of a Poisson random variable of parameter $1$, then we recover a Poisson point process of intensity $\mathrm{d}\omega$ that we define in the following.
+On the other hand, if $\nu$ follows the distribution of a Poisson random variable of parameter $1$, then we recover a Poisson point process of intensity $\omega$ that we define in the following.
 % \begin{equation}
 % \forall n \in \mathbb{N}, \:\: \mathbb{P}(\gamma(B) = n) = e^{-\lambda \mu(B)}\frac{(\lambda \mu(B))^{n}}{n!}.
 % \end{equation}
 %\end{example}
 \begin{definition}
-Let $\mu$ be a locally finite measure on $\mathcal{D}$. A Poisson process with intensity measure $\mathrm{d}\omega$ is a point process $\gamma$ such that for all pairwise disjoint Borel sets $B_{1}, \dots, B_{m} \in \mathcal{B}$, the random variables $\gamma(B_{1}), \dots, \gamma(B_{m})$ are independent Poisson random variables with respective parameters $\mathrm{d}\omega(B_{1}), \dots, \mathrm{d}\omega(B_{m})$.
+Let $\mu$ be a locally finite measure on $\mathcal{D}$. A Poisson process with intensity measure $\mathrm{d}\omega$ is a point process $\gamma$ such that for all pairwise disjoint Borel sets $B_{1}, \dots, B_{m} \in \mathcal{B}$, the random variables $\gamma(B_{1}), \dots, \gamma(B_{m})$ are independent Poisson random variables with respective parameters $\omega(B_{1}), \dots, \omega(B_{m})$.
 
 %  that satisfies the following properties
 % \begin{itemize}
@@ -1718,15 +1720,15 @@ Let $\mu$ be a locally finite measure on $\mathcal{D}$. A Poisson process with i
 % \end{itemize}
 \end{definition}
 
-In other words, under a Poisson point process of intensity $\mathrm{d}\omega$, for every $B_{1}, \dots, B_{m} \in \mathcal{B}$ pairwise disjoint Borel sets, and $n_{1}, \dots, n_{m} \in \mathbb{N}$
+In other words, under a Poisson point process of intensity $\omega$, for every $B_{1}, \dots, B_{m} \in \mathcal{B}$ pairwise disjoint Borel sets, and $n_{1}, \dots, n_{m} \in \mathbb{N}$
 \begin{equation}\label{eq:poisson_cylinder_prb}
-\mathbb{P} \Big(\gamma(B_{1}) = n_{1}, \dots, \gamma(B_{m}) = n_{m} \Big) = e^{- \mathrm{d}\omega(B_{1})}\frac{ \mathrm{d}\omega(B_{1})^{n_1}}{n_{1}!} \times \dots \times e^{- \mathrm{d}\omega(B_{m})}\frac{ \mathrm{d}\omega(B_{m})^{n_m}}{n_{m}!} .
+\mathbb{P} \Big(\gamma(B_{1}) = n_{1}, \dots, \gamma(B_{m}) = n_{m} \Big) = e^{- \omega(B_{1})}\frac{ \omega(B_{1})^{n_1}}{n_{1}!} \times \dots \times e^{- \omega(B_{m})}\frac{ \omega(B_{m})^{n_m}}{n_{m}!} .
 \end{equation}
 
 
 A Poisson point process is simple if and only if its intensity measure is \emph{diffuse}, i.e. it has no atoms (Lemma 3.2.1 in \parencite{ScWe08})
 \begin{equation}
-\forall x \in \mathcal{D}, \:\: \mathrm{d}\omega(\{x\}) = 0.
+\forall x \in \mathcal{D}, \:\: \omega(\{x\}) = 0.
 \end{equation}
 
 % The following variation of Binomial process generate a rich family of point processes called \emph{Poisson point processes.}
@@ -1749,27 +1751,27 @@ The mean measure is well defined but may take infinite values.
 \begin{example}
 Let $\gamma$ be a Poisson point process associated to an intensity $\mu$, where $\mathrm{d}\omega$ is a measure on $\mathcal{D}$. It is immediate from~\eqref{eq:poisson_cylinder_prb} that 
 \begin{equation}
-\forall B \in \mathcal{B}, \:\: \mathbb{E}\gamma(B) = \mathrm{d}\omega(B).
+\forall B \in \mathcal{B}, \:\: \mathbb{E}\gamma(B) = \omega(B).
 \end{equation}
-Therefore, the mean measure of $\gamma$ is equal to $\mathrm{d}\omega$.
+Therefore, the mean measure of $\gamma$ is equal to $\omega$.
 \end{example}
 
 
 
-Now, consider $\mathrm{d}\omega$ to be a measure on $(\mathcal{D},\mathcal{B})$ that we call the \emph{reference measure}. If $\gamma_{1}$ is absolutely continuous with respect to $\mathrm{d}\omega$, then the Radon Nikodym derivative $\rho_{1}$ is called the \emph{first intensity function} and it satisfies
+Now, consider $\omega$ to be a measure on $(\mathcal{D},\mathcal{B})$ that we call the \emph{reference measure}. If $\gamma_{1}$ is absolutely continuous with respect to $\omega$, then the Radon Nikodym derivative $\rho_{1}$ is called the \emph{first intensity function} and it satisfies
 \begin{equation}\label{eq:first_intensity_function}
 \forall B \in \mathcal{B}, \:\:\mathbb{E} \gamma(B) = \gamma_1(B) = \int_{B} \rho_{1}(x) \mathrm{d}\omega(x). 
 \end{equation}
 % The intuition behind~\eqref{eq:first_intensity_function} depend on $\Omega$. We give two examples.
 
 \begin{example}\label{ex:rho_1_inclustion_probability_discret_set}
-Let $\mathcal{D}$ be a finite set and define the counting measure $\mathrm{d}\omega = \sum\limits_{x \in \mathcal{D}} \delta_x$. Let $\gamma$ be a simple point process defined on $\mathcal{D}$. Then, by definition of $\gamma_{1}$
+Let $\mathcal{D}$ be a finite set and define the counting measure $\omega = \sum\limits_{x \in \mathcal{D}} \delta_x$. Let $\gamma$ be a simple point process defined on $\mathcal{D}$. Then, by definition of $\gamma_{1}$
 \begin{align}
 \gamma_1(B) & = \sum\limits_{n \in \mathbb{N}^{*}} \Prb(\gamma(B) = n) n\\
 & = \sum\limits_{n \in \mathbb{N}^{*}} \Prb(\gamma(B) = n) \sum\limits_{b \in B} \Prb \big( \gamma(\{b\}) = 1| \gamma(B) = n \big) \nonumber\\
 & = \sum\limits_{b \in B} \sum\limits_{n \in \mathbb{N}^{*}} \Prb(\gamma(B) = n)  \Prb \big( \gamma(\{b\}) = 1| \gamma(B) = n \big) \nonumber\\
 & = \sum\limits_{b \in B}  \Prb \big( \gamma(\{b\}) = 1\big) \nonumber\\
-& = \sum\limits_{b \in B}  \Prb \big( \gamma(\{b\}) = 1\big) \mathrm{d}\omega(\{b\}) \nonumber\\
+& = \sum\limits_{b \in B}  \Prb \big( \gamma(\{b\}) = 1\big) \omega(\{b\}) \nonumber\\
 & = \int_{B} \rho_{1}(x) \mathrm{d}\omega(x), \nonumber
 \end{align}
 where 
@@ -1782,7 +1784,7 @@ We shall see later a similar characterization of the first intensity function of
 
 Now, given a simple point process $\gamma$, and by Theorem~\ref{thm:counting_measure_is_atomic}, the identity~\eqref{eq:first_intensity_measure} can be rewritten
 \begin{equation}\label{eq:primitif_Campbell_identity}
-\forall B \in \mathcal{B}, \:\:\int_{\mathcal{D}} \mathbb{1}_{B} \gamma_1 = \mathbb{E}\sum\limits_{x \in \gamma} \mathbb{1}_{B}(x).
+\forall B \in \mathcal{B}, \:\:\int_{\mathcal{D}} \mathbb{1}_{B} \mathrm{d}\gamma_1(x) = \mathbb{E}\sum\limits_{x \in \gamma} \mathbb{1}_{B}(x).
 \end{equation}
 The measurable function $\mathbb{1}_{B}$ in the identity \eqref{eq:primitif_Campbell_identity} can be replaced by any nonnegative measurable function as it is shown in the following result.
 
@@ -1790,7 +1792,7 @@ The measurable function $\mathbb{1}_{B}$ in the identity \eqref{eq:primitif_Camp
 \begin{theorem}[Campbell–Hardy theorem]
 Let $\gamma$ be simple point process in $\mathcal{D}$, and let $f: \mathcal{D} \rightarrow \mathbb{R}$ be a nonnegative measurable function. Then  $\sum\limits_{x \in \gamma} f(x)$ is measurable and 
 \begin{equation}
-\int_{\mathcal{D}} f \gamma_1 = \mathbb{E}\sum\limits_{x \in \gamma} f(x).
+\int_{\mathcal{D}} f \mathrm{d}\gamma_1(x) = \mathbb{E}\sum\limits_{x \in \gamma} f(x).
 \end{equation}
 In particular, if $\gamma_1$ is absolutely continuous with respect to $\mathrm{d}\omega$, then
 \begin{equation}
@@ -1800,7 +1802,7 @@ In particular, if $\gamma_1$ is absolutely continuous with respect to $\mathrm{d
 
 \end{theorem}
 
-Note that the Campbell theorem can be applied for general point processes: the term $\sum_{x \in \gamma} f(x)$ should be replaced by $\int_{\mathcal{D}} f \gamma$. Moreover, it can be extended to functions $f: \mathcal{D} \rightarrow \mathbb{R}$ that are integrable with respect to $\gamma_1$. See Theorem 1.2.5 in \parencite{BaBlKa20} for a general statement and its proof.
+Note that the Campbell theorem can be applied for general point processes: the term $\sum_{x \in \gamma} f(x)$ should be replaced by $\int_{\mathcal{D}} f \mathrm{d}\gamma$. Moreover, it can be extended to functions $f: \mathcal{D} \rightarrow \mathbb{R}$ that are integrable with respect to $\gamma_1$. See Theorem 1.2.5 in \parencite{BaBlKa20} for a general statement and its proof.
 
 % simpler di
 %  can be described by
@@ -1895,7 +1897,7 @@ If $\gamma_{L}$ is absolutely continuous with respect to $\mathrm{d}\omega^{\oti
 \begin{example}
 Consider $\mathcal{D} = \mathbb{R}^{d}$ and $\mathrm{d}\omega$ is the Lebesgue measure; and assume that $\gamma$ is simple. Let $x_{1}, \dots ,x_{L} \in \mathcal{D}$ pairwise distinct and let $\epsilon >0$ such that the balls $B_{\epsilon}(x_{\ell})$, centered around the $x_\ell$ and of radii equal to $\epsilon$, are pairwise distinct. Under some assumptions on the point process $\gamma$, we can prove that (see Chapter 1 of \parencite{HoKrPeVi09})
 \begin{equation}
-\rho_L(x_{1}, \dots, x_L) = \lim\limits_{ \epsilon \rightarrow 0} \frac{\mathbb{P}\bigg(\forall \ell \in [L], \:\: \gamma(B_{\epsilon}(x_{\ell})) = 1 \bigg)}{\mathrm{d}\omega \bigg(B_{\epsilon}(x_{\ell}) \bigg)}.
+\rho_L(x_{1}, \dots, x_L) = \lim\limits_{ \epsilon \rightarrow 0} \frac{\mathbb{P}\bigg(\forall \ell \in [L], \:\: \gamma(B_{\epsilon}(x_{\ell})) = 1 \bigg)}{\omega \bigg(B_{\epsilon}(x_{\ell}) \bigg)}.
 \end{equation}
 \end{example}
 
@@ -1922,7 +1924,7 @@ Consider $\mathcal{D} = \mathbb{R}^{d}$ and $\mathrm{d}\omega$ is the Lebesgue m
 
 
 \begin{example}\label{ex:rho_L_inclustion_probability_discret_set}
-Let $\mathcal{D}$ be a finite set and define the counting measure $\mathrm{d}\omega = \sum\limits_{x \in \mathcal{D}} \delta_x$; and we consider a simple point process $\gamma$. Using a similar analysis to the one in Example~\ref{ex:rho_1_inclustion_probability_discret_set}, we can prove that
+Let $\mathcal{D}$ be a finite set and define the counting measure $\omega = \sum\limits_{x \in \mathcal{D}} \delta_x$; and we consider a simple point process $\gamma$. Using a similar analysis to the one in Example~\ref{ex:rho_1_inclustion_probability_discret_set}, we can prove that
 
 \begin{equation}
 \rho_{L}(x_{1}, \dots, x_{L}) = \mathbb{P} \big(\forall \ell \in [L], \:\: \gamma(\{x_\ell\}) = 1 \big).
@@ -1953,7 +1955,7 @@ Let $\gamma$ be simple point process in $\mathcal{D}$, and let $f: \mathcal{D}^{
 \end{equation}
 is measurable and
 \begin{equation}
-\mathbb{E} \sum\limits_{\substack{(x_{1}, \dots, x_{L}) \in \gamma^{\otimes_{L}} \\ x_{\ell} \neq x_{\ell^{'}}}} f(x_{1}, \dots, x_{L}) = \int_{\mathcal{D}^{L}} f \gamma_{L}.
+\mathbb{E} \sum\limits_{\substack{(x_{1}, \dots, x_{L}) \in \gamma^{\otimes_{L}} \\ x_{\ell} \neq x_{\ell^{'}}}} f(x_{1}, \dots, x_{L}) = \int_{\mathcal{D}^{L}} f \mathrm{d}\gamma_{L}.
 \end{equation}
 
 
@@ -1997,13 +1999,13 @@ In particular, if the joint intensity $\rho_L$ is defined
 
 
 \begin{example}
-Let $\gamma$ be a Poisson point process associated to an intensity $\mathrm{d}\omega$, where $\mathrm{d}\omega$ is a locally finite measure on $\mathcal{D}$. Let $B_{1}, \dots, B_{L} \in \mathcal{B}$ be pairwise disjoint Borel sets. \eqref{eq:poisson_cylinder_prb} yields
+Let $\gamma$ be a Poisson point process associated to an intensity $\omega$, where $\omega$ is a locally finite measure on $\mathcal{D}$. Let $B_{1}, \dots, B_{L} \in \mathcal{B}$ be pairwise disjoint Borel sets. \eqref{eq:poisson_cylinder_prb} yields
 \begin{equation}\label{eq:ppp_orthogonality}
-\gamma_{L}(\prod\limits_{\ell \in [L]} B_\ell) =  \mathbb{E} \prod\limits_{\ell \in [L]} \gamma(B_\ell) = \prod\limits_{\ell \in [L]}\mathrm{d}\omega(B_\ell).
+\gamma_{L}(\prod\limits_{\ell \in [L]} B_\ell) =  \mathbb{E} \prod\limits_{\ell \in [L]} \gamma(B_\ell) = \prod\limits_{\ell \in [L]}\omega(B_\ell).
 \end{equation}
 Moreover,
 \begin{equation}\label{eq:ppp_orthogonality_strong}
-\gamma_L = \mathrm{d}\omega^{\otimes L}.
+\gamma_L = \omega^{\otimes L}.
 \end{equation}
 See Proposition 2.3.25 in \parencite{BaBlKa20}.
 % We can even prove that 
@@ -2304,7 +2306,7 @@ The second recurrent relaxation is the Hermitianity of $\kappa$: there are examp
 We review in this section some examples of DPPs.
 \paragraph{Discrete DPPs}
 
-This class of DPPs was the topic of intense research recently for machine learning applications; we refer the reader to \parencite{KuTa12} for details. In this setting, the domain is taken to be  $\mathcal{D} = [d]$ and usually; the reference measure is the counting measure $\mathrm{d}\omega = \sum\limits_{i \in [d]} \delta_{i}$; and the definition~\ref{def:def_dpp_chapter_2} is equivalent to the following.
+This class of DPPs was the topic of intense research recently for machine learning applications; we refer the reader to \parencite{KuTa12} for details. In this setting, the domain is taken to be  $\mathcal{D} = [d]$ and usually; the reference measure is the counting measure $\omega = \sum\limits_{i \in [d]} \delta_{i}$; and the definition~\ref{def:def_dpp_chapter_2} is equivalent to the following.
 
 
 % For all the definitions in this section, Recall that $[d] = \{1,\dots,d\}$.% A point process on $[d]$ is a probability measure over subsets of $[d]$.
@@ -2358,21 +2360,21 @@ where
 Each mixture component in square brackets in \eqref{eq:volume_sampling_as_mixture_equation_chapter_2} is a projection DPP with cardinality $k$. The main difference between $k$-DPPs and DPPs is that all mixture components in \eqref{eq:volume_sampling_as_mixture_equation_chapter_2} have the same cardinality $k$. In particular, projection DPPs are the only DPPs that are also $k$-DPPs.
 
 
-\begin{example}[\cite{BuPe93}]
-Let $G$ be a finite regular graph, and denote $\mathcal{D}$ the set of edges of $G$ and $\mathrm{d}\omega = \sum_{e \in \mathcal{D}} \delta_{e}$ be the counting measure on $\mathcal{D}$. Now, let $\bm{K} \in \mathbb{R}^{|\mathcal{D}| \times |\mathcal{D}|}$ be the transfer-impedance matrix. Let $T$ be a random spanning tree chosen uniformly from the
-set of all the spanning trees of $G$; then by Theorem 1.1 in \cite{BuPe93}
-\begin{equation}
-\Prb \Big( \{e_{1}, \dots , e_{m} \} \subset T \Big) = \Det \bm{K}_{\{e_{1}, \dots , e_{m}\}}.
-\end{equation}
+% \begin{example}[\cite{BuPe93}]
+% Let $G$ be a finite regular graph, and denote $\mathcal{D}$ the set of edges of $G$ and $\mathrm{d}\omega = \sum_{e \in \mathcal{D}} \delta_{e}$ be the counting measure on $\mathcal{D}$. Now, let $\bm{K} \in \mathbb{R}^{|\mathcal{D}| \times |\mathcal{D}|}$ be the transfer-impedance matrix. Let $T$ be a random spanning tree chosen uniformly from the
+% set of all the spanning trees of $G$; then by Theorem 1.1 in \cite{BuPe93}
+% \begin{equation}
+% \Prb \Big( \{e_{1}, \dots , e_{m} \} \subset T \Big) = \Det \bm{K}_{\{e_{1}, \dots , e_{m}\}}.
+% \end{equation}
 
-In other words, the edges of $T$ follows the distribution of DPP defined by the kernel $\bm{K}$ and reference measure $\mathrm{d}\omega$. Observe that the cardinality of $T$ is equal to $|G|-1$ (the number of nodes minus $1$) this fact is in coherence with Proposition~\ref{prop:projection_DPP_cardinality} and the fact that the matrix $\bm{K}$ is a projection matrix that have $|G|-1$ eigenvalues equal to $1$ [??]. 
-
-
-
- % [??] and its spectrum is included in $[0,1]$ [??] so that we can define the associated DPP.
+% In other words, the edges of $T$ follows the distribution of DPP defined by the kernel $\bm{K}$ and reference measure $\mathrm{d}\omega$. Observe that the cardinality of $T$ is equal to $|G|-1$ (the number of nodes minus $1$) this fact is in coherence with Proposition~\ref{prop:projection_DPP_cardinality} and the fact that the matrix $\bm{K}$ is a projection matrix that have $|G|-1$ eigenvalues equal to $1$ [??]. 
 
 
-\end{example}
+
+%  % [??] and its spectrum is included in $[0,1]$ [??] so that we can define the associated DPP.
+
+
+% \end{example}
 
 %In this paper, we use a definition of DPPs through their ...
 %Note that it is also common to see in the literature a related definition called an $\bm{L}$-ensemble \citet{KuTa12}.
@@ -2403,7 +2405,7 @@ In other words, the edges of $T$ follows the distribution of DPP defined by the 
 
 \paragraph{The Circular Unitary Ensemble}
 
-The set of the eigenvalues of a random matrix chosen uniformly (from Haar measure) on the unitary group $\mathbb{U}_{N}$, also called the Circular Unitary Ensemble (CUE), was introduced by \cite{Dys62}. It is an example of a DPP on a continuous domain: $\mathcal{D}$ is the unit circle in the complex plan and $\mathrm{d}\omega$ is the Lebesgue measure on $\mathcal{D}$. The construction of this DPP goes as follows.
+The set of the eigenvalues of a random matrix chosen uniformly (from Haar measure) on the unitary group $\mathbb{U}_{N}$, also called the Circular Unitary Ensemble (CUE), was introduced by \cite{Dys62}. It is an example of a DPP on a continuous domain: $\mathcal{D}$ is the unit circle in the complex plan and $\omega$ is the Lebesgue measure on $\mathcal{D}$. The construction of this DPP goes as follows.
 
 
 For $N \in \mathbb{N}^{*}$, denote by $\mathbb{U}_{N}$ the group of $N \times N$ unitary matrices. $\mathbb{U}_{N}$ endowed with the induced topology, as a subset of the set of $N\times N$ complex-valued matrices, is compact; therefore, there exists a unique Borel probability measure $\mathrm{d}M$ on $\mathbb{U}_{N}$, called \emph{Haar measure}, that is invariant under left multiplication by unitary matrices; see Theorem 5.14 in \parencite{Rud91}.  The following result is fundamental in the statistical description of the CUE.
@@ -2490,7 +2492,7 @@ process associated to the kernel defined on the complex plan
 \begin{equation}
 \kappa(z,w) = \sum\limits_{\ell =0}^{N-1} \frac{(z \overline{w})^{\ell}}{\ell!},
 \end{equation}
-with respect to the reference measure $\mathrm{d}\omega(z) = \frac{1}{\pi}e^{-|z|^{2}} \mathrm{d}\lambda(z)$, where $\mathrm{d}\lambda$ is the Lebesgue measure on $\mathbb{C}$.
+with respect to the reference measure $\mathrm{d}\omega(z) = \frac{1}{\pi}e^{-|z|^{2}} \mathrm{d}\lambda(z)$, where $\lambda$ is the Lebesgue measure on $\mathbb{C}$.
 \end{theorem}
 
 
@@ -2543,7 +2545,7 @@ process associated to the kernel defined on the complex plan
 \begin{equation}
 \kappa_{\mathbb{C}}(z,w) = (1+z\overline{w})^{N-1},
 \end{equation}
-with respect to the reference measure $\mathrm{d}\omega(z) = \frac{N}{\pi(1+|z|^{2})^{N+1}} \mathrm{d}\lambda(z)$, where $\mathrm{d}\lambda$ is the Lebesgue measure on $\mathbb{C}$.
+with respect to the reference measure $\mathrm{d}\omega(z) = \frac{N}{\pi(1+|z|^{2})^{N+1}} \mathrm{d}\lambda(z)$, where $\lambda$ is the Lebesgue measure on $\mathbb{C}$.
 
 %  and 
 \end{theorem}
@@ -2594,10 +2596,10 @@ Orthogonal Polynomial Ensembles (OPE) on the real line form another class of pro
 \begin{equation}
 \kappa(x,y) = \sum\limits_{n =0}^{N-1} P_{n}(x)P_{n}(y),
 \end{equation}
-where $(P_{n})$ is a family of orthonormal polynomials with respect to some measure $\mathrm{d}\omega$.
+where $(P_{n})$ is a family of orthonormal polynomials with respect to some measure $\omega$.
 
 % are  Projection DPPs corresponding to 
-In particular, when $\mathrm{d}\omega$ is Gaussian, Gamma \cite{DuEd02}, or Beta \cite{KiNe04}, the corresponding DPP can be sampled by tridiagonalizing a matrix with independent entries with a cost that scales as $\mathcal{O}(N^2)$.
+In particular, when $\omega$ is Gaussian, Gamma \parencite{DuEd02}, or Beta \parencite{KiNe04}, the corresponding DPP can be sampled by tridiagonalizing a matrix with independent entries with a cost that scales as $\mathcal{O}(N^2)$.
 We illustrate this technique in Section~\ref{sec:Gaussian_quadrature} in Chapter~\ref{chap:dppkq}. We refer to \parencite{GaBaVa20} for more details on this topic.
 
 Now, in general, there exists an algorithm for the numerical simulation of a projection DPP. This algorithm will be recalled in the following section.
@@ -2605,7 +2607,7 @@ Now, in general, there exists an algorithm for the numerical simulation of a pro
 
 
 \subsubsection{The HKPV algorithm for projection DPPs}
- A universal sampling  algorithm of projection DPPs was proposed by \nparencite*{HoKrPeVi06}. The idea behind the algorithm goes as follow.
+ A universal sampling  algorithm of projection DPPs was proposed by \cite{HoKrPeVi06}. The idea behind the algorithm goes as follow.
 
 Define the projection kernel
 \begin{equation}
@@ -2722,13 +2724,13 @@ The counting measure associated to the set of points constructed by Algorithm~\r
  \scalebox{0.9}{
 \begin{algorithm}{$\Algo{HKPV}\big(\kappa, \mathrm{d}\omega \big)$}
 \Aitem $n \longleftarrow  N$
-\Aitem $\mu(x) \longleftarrow  f_{\kappa,1}(x) \mathrm{d}\omega(x)$ \ar{Initialize the distribution}
+\Aitem $\mathrm{d}\mu(x) \longleftarrow  f_{\kappa,1}(x) \mathrm{d}\omega(x)$ \ar{Initialize the distribution}
 \Aitem $\bm{x} \longleftarrow  \emptyset$
 \Aitem \While $n > 0 $
 \Aitem \mt  Pick $x_{N-n+1}$ in $\mathcal{D}$ from $\mu$ \ar{Sample from the distribution}
 \Aitem \mt  $\bm{x} \longleftarrow  \bm{x} \cup \{x_{N-n+1}\}$
 \Aitem \mt $n \longleftarrow  n-1$
-\Aitem \mt $\mu(x) \longleftarrow f_{\kappa,n}(x) \mathrm{d}\omega(x)$ \ar{Update the distribution}
+\Aitem \mt $\mathrm{d}\mu(x) \longleftarrow f_{\kappa,n}(x) \mathrm{d}\omega(x)$ \ar{Update the distribution}
 \Aitem \Return $\bm{x}$
 \end{algorithm}
  }
@@ -2741,7 +2743,7 @@ The counting measure associated to the set of points constructed by Algorithm~\r
 
 
  \begin{example}[Sampling from a discrete projection DPP]
-Let $\mathcal{D} = [d]$ and $\mathrm{d}\omega = \sum\limits_{x \in \mathcal{D}} \delta_{x}$. Define the matrix
+Let $\mathcal{D} = [d]$ and $\omega = \sum\limits_{x \in \mathcal{D}} \delta_{x}$. Define the matrix
 \begin{equation}
 \bm{K} = \bm{V}\bm{V}^{\Tran},
 \end{equation} 
@@ -2749,7 +2751,7 @@ where $\bm{V}\in \mathbb{R}^{d \times k}$ such that
 \begin{equation}
 \bm{V}^{\Tran}\bm{V} = \mathbb{I}_{k}.
 \end{equation}
-$\bm{K}$ is a projection matrix and define a projection DPP (with respect to $\mathrm{d}\omega$). The HKPV algorithm can be implemented using a sampler from multinomial distributions. In particular, the first density writes
+$\bm{K}$ is a projection matrix and define a projection DPP (with respect to $\omega$). The HKPV algorithm can be implemented using a sampler from multinomial distributions. In particular, the first density writes
 \begin{equation}
 f_{\kappa,1}(x) = \frac{1}{k} \sum\limits_{i \in [k]} \bm{V}_{x,i}^{2},
 \end{equation}
@@ -2784,7 +2786,7 @@ $\dots$ &$ \dots$ & $\dots$\\
 
 \begin{example}[Sampling from the projection DPP associated to the Haar wavelets family]\label{ex:dpp_chapter_haar_family}
 
-Let $\mathcal{D} = [0,1]$ and $\mathrm{d}\omega$ is the uniform measure $\mathcal{D}$. Define the Haar wavelets family $(\psi_{n,m})_{n \in \mathbb{N}, m \in \{0,2^{n}-1\}}$ by
+Let $\mathcal{D} = [0,1]$ and $\omega$ is the uniform measure $\mathcal{D}$. Define the Haar wavelets family $(\psi_{n,m})_{n \in \mathbb{N}, m \in \{0,2^{n}-1\}}$ by
 \begin{equation}
 \psi_{n,m}(x) = 2^{n/2}\psi(2^{n/2}x - m),
 \end{equation}
@@ -2793,7 +2795,7 @@ where
 \psi(x) = \mathbb{1}_{[0,1/2[}(x) - \mathbb{1}_{[1/2,1[}(x).
 \end{equation}
 
-This is an orthonormal family with respect to $\mathrm{d}\omega$. We consider the kernel
+This is an orthonormal family with respect to $\omega$. We consider the kernel
 \begin{equation}
 \kappa(x,y) = \sum\limits_{n = 0}^{\nu}\sum\limits_{m=0}^{2^n-1} \psi_{m,n}(x)\psi_{m,n}(y).
 \end{equation}
@@ -4620,7 +4622,7 @@ We have identified generic conditions on the matrix $\bm{X}$ under which our alg
 As detected in the experimental section, our bounds are sharp except in the large $\beta$ regime. Surprisingly, the actual behaviour of the algorithm remains very close to the case $\beta=1$, which further speaks in favour for the DPP approach. This is a hint that our bounds can probably be refined to more sharply account for large $\beta$s.
 
 
-Although generally studied as an independent task, in practice CSS is often a prelude to a learning algorithm. We have considered linear regression and we have given a bound on the excess risk of a regression performed on the selected columns only. In particular, the sparsity and decay of the $k$-leverage scores are again involved: the more localized the $k$-leverage scores, the smaller the excess risk bounds. Such an analysis of the excess risk in regression further highlights the interest of the DPP: it would be difficult to conduct for either volume sampling or double phase. Future work in this direction includes investigating the importance of the sparsity of the $k$-leverage scores on the performance of other learning algorithms such as spectral clustering or support vector machines. Moreover, our theoretical analysis may found an application in the field of graph signal reconstruction \parencite{TrAmBa17,PuTrGrVa18}, or even in generalized compressed sensing [??].
+Although generally studied as an independent task, in practice CSS is often a prelude to a learning algorithm. We have considered linear regression and we have given a bound on the excess risk of a regression performed on the selected columns only. In particular, the sparsity and decay of the $k$-leverage scores are again involved: the more localized the $k$-leverage scores, the smaller the excess risk bounds. Such an analysis of the excess risk in regression further highlights the interest of the DPP: it would be difficult to conduct for either volume sampling or double phase. Future work in this direction includes investigating the importance of the sparsity of the $k$-leverage scores on the performance of other learning algorithms such as spectral clustering or support vector machines. Moreover, our theoretical analysis may found an application in the field of graph signal reconstruction \parencite{TrAmBa17,PuTrGrVa18}.
 
 
 In terms of computational cost, our algorithms scale with the cost of finding the $k$ first right singular vectors, which is currently the main bottleneck. In line with \cite{DMMW12} and \cite{BoDrMI11}, where the authors estimate the $k$-leverage scores using random projections, we plan to investigate the impact of random projections to estimate the full matrix $\bm{K}$ on the approximation guarantees of our algorithms \parencite{MaZo08}.
@@ -6676,12 +6678,7 @@ The multi-dimensional version was proved by \cite{Hla61}. When $d \geq 2$, the H
 \|f\|_{\mathrm{HK}} = \sum\limits_{S \subset[d], S \neq \emptyset} \int_{[0,1]^{|S|}} \bigg|\frac{\partial^{|S|} f (x_S;1_{\bar{S}})}{\otimes_{s \in S}\partial x_{s}} \bigg| \otimes_{s \in S}\mathrm{d} x_{s}.
 \end{equation}
 
-Other variations of the Koksma-Hlawka inequality exist: the star-discrepancy is replaced by the $\mathbb{L}_{p}$-discrepancies, and the HK variation is replaced by other variation functions; see for example Theorem 3.9 in \parencite{DiPi14}. In particular, the $\mathbb{L}_{2}$-discrepancy has a tractable formula \parencite{War72}:
-\begin{equation}\label{eq:ltwo_discrepancy_formula}
-\Delta_{2}(\bm{x})^{2} = \frac{1}{3^{d}} - \frac{2}{N} \sum\limits_{n = 1}^{N} \prod\limits_{\delta=1}^{d} \frac{1-x_{n,i}^{2}}{2} + \frac{1}{N^2} \sum\limits_{n=1,n'=1}^{N} \prod\limits_{\delta=1}^{d} \min(1-x_{n,\delta},1-x_{n',\delta}).
-\end{equation}
-
-This is to be compared to the star discrepancy for witch no tractable formula is known: the computation of the star discrepancy is an NP-hard problem \parencite{GnSrWi09}. We shall give, in Section~\ref{sec:kernel_quadrature_framework}, an interpretation of \eqref{eq:ltwo_discrepancy_formula} in the context of kernel quadrature.
+Other variations of the Koksma-Hlawka inequality exist: the star-discrepancy is replaced by the $\mathbb{L}_{p}$-discrepancies, and the HK variation is replaced by other variation functions; see for example Theorem 3.9 in \parencite{DiPi14}. In particular, the $\mathbb{L}_{2}$-discrepancy has a tractable formula \parencite{War72}. This is to be compared to the star discrepancy for witch no tractable formula is known: the computation of the star discrepancy is an NP-hard problem \parencite{GnSrWi09}. We shall give, in Section~\ref{sec:kernel_quadrature_framework}, an interpretation of the $\mathbb{L}_{2}$-discrepancy in the context of kernel quadrature.
 
 The decoupling of the upper bound in the Koksma-Hlawka inequality, and its variants, allows to focus only on the discrepancy of the design when the function $f$ is sufficiently regular.
 
@@ -6930,8 +6927,7 @@ Let $(e^{\mathbf{i} \theta_{n}})_{n \in [N]}$ be the CUE and let $g$ be a real-v
 \begin{equation}
 g(e^{\mathbf{i}  \theta}) = \sum_{m =-\infty}^{+\infty} \hat{g}_{m}e^{\mathbf{i}  m \theta},
 \end{equation}
-
- such that $\hat{g}_{0} = 0$ and $\sum_{m \in \mathbb{N}^{*}} m|\hat{g}_{m}|^{2} <+\infty$. Then 
+such that $\hat{g}_{0} = 0$ and $\sum_{m \in \mathbb{N}^{*}} m|\hat{g}_{m}|^{2} <+\infty$. Then 
  \begin{equation}
   \frac{1}{N}\sum_{n \in [N]} g(e^{\mathbf{i}\theta_{n}}) 
   \xrightarrow[N \rightarrow +\infty]{\text{law}} \mathcal{N}(0,\frac{2}{N}\sum_{m \in \mathbb{N}^{*}} m|\hat{g}_{m}|^{2}).
@@ -7240,7 +7236,7 @@ Let $\mathcal{X}$ be a metric space. A function $k: \mathcal{X} \times \mathcal{
 We suppose the following assumptions on the measure$\mathrm{d}\omega$ and the kernel $k$.
 We make the following assumption on $\mathrm{d}\omega$.
 \begin{assumption}\label{hyp:domega_is_nondegenerate}
-$\mathrm{d}\omega$ is a \emph{non-degenerate} measure, i.e. the support of $\mathrm{d}\omega$ is equal to $\X$.
+$\omega$ is a \emph{non-degenerate} measure, i.e. the support of $\mathrm{d}\omega$ is equal to $\X$.
 \end{assumption}
 
 \begin{assumption}\label{hyp:k_is_continuous}
@@ -7814,7 +7810,7 @@ and
 % \hat{\bm{w}} = \bm{K}(\bm{x})^{-1}\mu_{g}(\bm{x}).
 % \end{equation}
 
-In other words, the optimal kernel quadrature $(\bm{x},\hat{\bm{w}})$ controls both the mean and the variance of $\int_{\X}f(x)g(x)\mathrm{d}\omega(x)$. This link was leveraged in~\parencite{BOGOS2019} to establish rates of posterior contraction of Bayesian quadrature based on rates of convergence of optimal kernel quadrature for some specific kernels.
+In other words, the optimal kernel quadrature $(\bm{x},\hat{\bm{w}})$ controls both the mean and the variance of $\int_{\X}f(x)g(x)\mathrm{d}\omega(x)$. This link was leveraged in~\parencite{BOGOS2019} to establish rates of posterior contraction of Bayesian quadrature based on rates of convergence of optimal kernel quadrature.
 
 
 \subsection{Designs for optimal kernel quadrature}
@@ -7830,7 +7826,7 @@ In particular, \cite{BOGOS2019} emphasize that the bound for higher-order digita
 % For optimal kernel quadrature based on Halton sequences, 
 
 
-Scattered data approximation \parencite{Wend04} is another field where quantitative error bounds for kernel interpolation on $\X\subset\mathbb{R}^d$ are investigated; see \parencite{ScWe06} for a modern review. In a few words, these bounds typically depend on quantities such as the \emph{fill-in distance} $\varphi(\bm{x}) = \sup_{y \in \X} \min_{i \in [N]}\|y-x_{i}\|_{2}$,
+Scattered data approximation \parencite{Wend04} is another field where quantitative error bounds for optimal kernel quadrature on $\X\subset\mathbb{R}^d$ are investigated; see \parencite{ScWe06} for a modern review. In a few words, these bounds typically depend on quantities such as the \emph{fill-in distance} $\varphi(\bm{x}) = \sup_{y \in \X} \min_{i \in [N]}\|y-x_{i}\|_{2}$,
 %and the \emph{separation radius} $\rho(\bm{x}) = \frac{1}{2}\min_{i\neq j}\|x_{i}-x_{j}\|_{2}$,
  so that the interpolation error converges to zero  as $N\rightarrow \infty$ if $\varphi(\bm{x})$ goes to zero.
  Any node set can be considered, as long as $\varphi(\bm{x})$ is small.
@@ -7891,7 +7887,7 @@ This approach is reminiscent of Frank-Wolfe algorithm and its different variants
 \end{equation}
  This leads to a fast rate in $\mathcal{O}(1/N)$, but only when the integrand is in a finite-dimensional RKHS \parencite{BaLaOb12}. 
 
- In general, implementing any of these algorithms corresponds to solving several non-convex problems such as \eqref{eq:sbq_step} or \eqref{eq:herding_step}, with many local minima \parencite{HiOe16,Oett17}. We will discuss more in details sequential algorithms in Chapter~\ref{chap:CVS}.
+ In general, implementing any of these algorithms corresponds to solving several non-convex problems such as \eqref{eq:sbq_step} or \eqref{eq:herding_step}, with many local minima \parencite{HiOe16,Oett17}. We will discuss other sequential algorithms in Chapter~\ref{chap:CVS}.
 %  that is to select the nodes $x_{1}$ 
 
 % Many algorithms are based 
@@ -10611,7 +10607,7 @@ We keep the same notation as Chapter~\ref{chap:dppkq}.
 
 \rev{ ???and we denote for $r\geq 0$ $\|\bm{\Sigma}^{-r}f\|_{\mathcal{F}}^{2} = \sum_{m} \langle f,e_{m}^{\mathcal{F}} \rangle_{\mathcal{F}}^{2}/\sigma_{m}^{2r}$.}
 
-% For $\bm{x} \in \X^{N}$, we define $\bm{K}(\bm{x}) := k(x_{i},x_{j})_{i,j \in [N]}$. If $\Det \bm{K}(\bm{x})>0$,  the subspace $\mathcal{T}(\bm{x}) = \Span k(x_{i},.)_{i \in [N]}$ is of dimension $N$; we denote by $\Pi_{\mathcal{T}(\bm{x})}$ the $\langle.,. \rangle_{\F}$-orthogonal projection on $\mathcal{T}(\bm{x})$.
+% For $\bm{x} \in \X^{N}$, we define $\bm{K}(\bm{x}) := k(x_{i},x_{j})_{i,j \in [N]}$. If $\Det \bm{K}(\bm{x})>0$,  the subspace $\mathcal{T}(\bm{x}) = \Span k(x_{i},.)_{i \in [N]}$ is of dimension $N$; we denote by $\bm{\Pi}_{\mathcal{T}(\bm{x})}$ the $\langle.,. \rangle_{\F}$-orthogonal projection on $\mathcal{T}(\bm{x})$.
 For $N \in \Ns$, we will often sum over the sets
 \begin{align}
 	\UNm &=  \{ U \subset \Ns, |U| = N,\: m \notin U \},\\
@@ -11167,6 +11163,51 @@ They also proved bounds on the expected number of rejections, which shows the fe
 % \rev{In addition, the authors showed how to implement this Markov chain in practice: i) the initialization of the chain is done using a crude approximation of $p_{\mathrm{VS}}$ that can be implemented in ... ii) }
 
 % \rev{To sum up, the initialization and the Gibbs steps can be implemented in a fully kernelized way and }
+\subsubsection{The power function: between optimization and sampling.}
+
+As we have seen in Section~\ref{CVS_sec:sequential_algos},  the sequential maximization of the power function was studied in the literature. The numerical implementation of this algorithm relies on solving the optimization problem
+\begin{equation}\label{CVS_eq:power_function_opt_problem}
+\max\limits_{x \in \X} p(x; \bm{x}),
+\end{equation}
+for an arbitrary configuration $\bm{x} \subset \X$. Unfortunately, \eqref{CVS_eq:power_function_opt_problem} is a non-convex problem with many local maxima; see Figure~\ref{CVS_fig:rejection_bounds_Bernoulli} for an illustration on the periodic Sobolev spaces of orders $s \in \{ 1,3,5\}$. In practice, \eqref{CVS_eq:power_function_opt_problem} may be replaced by the surrogate problem
+\begin{equation}\label{CVS_eq:power_function_opt_problem_bricolage}
+\max\limits_{x \in \tilde{\X}} p(x; \bm{x}),
+\end{equation}
+where $\tilde{\X}$ is a large finite subset of $\X$. However, these heuristics do not scale to high-dimensional domains. An alternative strategy would be to replace the optimization step~\eqref{CVS_eq:power_function_opt_problem} by the sampling step
+\begin{equation}\label{CVS_eq:power_function_opt_problem_sample}
+x \sim p(x; \bm{x}).
+\end{equation}
+We can observe that selecting the nodes sequentially using~\eqref{CVS_eq:power_function_opt_problem_sample} is equivalent to running Algorithm~\ref{alg:approx_HKPV_SAMPLER}. Now, the implementation of~\eqref{CVS_eq:power_function_opt_problem_sample} is possible via rejection sampling. Indeed, by observing that
+\begin{equation}\label{CVS_eq:diagonal_bound_sharp}
+\forall x \in \X, \:\: p(x; \bm{x}) \leq k(x,x),
+\end{equation}
+we may use  
+\begin{equation}\label{CVS_eq:proposal_diagonal}
+x \mapsto \frac{1}{\int\limits_{\X} k(x,x) \mathrm{d}\omega(x)} k(x,x)
+\end{equation}
+as a proposal. 
+
+\begin{figure}[!]
+    \centering
+\includegraphics[width= 0.32\textwidth]{img/icml/bernoulli_rejection_bounds/Bernoulli_kernel_rejection_bound_s1_N_0.pdf}~\includegraphics[width= 0.32\textwidth]{img/icml/bernoulli_rejection_bounds/Bernoulli_kernel_rejection_bound_s2_N_0.pdf}~\includegraphics[width= 0.32\textwidth]{img/icml/bernoulli_rejection_bounds/Bernoulli_kernel_rejection_bound_s3_N_0.pdf}\\
+\includegraphics[width= 0.32\textwidth]{img/icml/bernoulli_rejection_bounds/Bernoulli_kernel_rejection_bound_s1_N_1.pdf}~\includegraphics[width= 0.32\textwidth]{img/icml/bernoulli_rejection_bounds/Bernoulli_kernel_rejection_bound_s2_N_1.pdf}~\includegraphics[width= 0.32\textwidth]{img/icml/bernoulli_rejection_bounds/Bernoulli_kernel_rejection_bound_s3_N_1.pdf}\\
+\includegraphics[width= 0.32\textwidth]{img/icml/bernoulli_rejection_bounds/Bernoulli_kernel_rejection_bound_s1_N_2.pdf}~\includegraphics[width= 0.32\textwidth]{img/icml/bernoulli_rejection_bounds/Bernoulli_kernel_rejection_bound_s2_N_2.pdf}~\includegraphics[width= 0.32\textwidth]{img/icml/bernoulli_rejection_bounds/Bernoulli_kernel_rejection_bound_s3_N_2.pdf}\\
+\includegraphics[width= 0.32\textwidth]{img/icml/bernoulli_rejection_bounds/Bernoulli_kernel_rejection_bound_s1_N_3.pdf}~\includegraphics[width= 0.32\textwidth]{img/icml/bernoulli_rejection_bounds/Bernoulli_kernel_rejection_bound_s2_N_3.pdf}~\includegraphics[width= 0.32\textwidth]{img/icml/bernoulli_rejection_bounds/Bernoulli_kernel_rejection_bound_s3_N_3.pdf}\\
+\includegraphics[width= 0.32\textwidth]{img/icml/bernoulli_rejection_bounds/Bernoulli_kernel_rejection_bound_s1_N_4.pdf}~\includegraphics[width= 0.32\textwidth]{img/icml/bernoulli_rejection_bounds/Bernoulli_kernel_rejection_bound_s2_N_4.pdf}~\includegraphics[width= 0.32\textwidth]{img/icml/bernoulli_rejection_bounds/Bernoulli_kernel_rejection_bound_s3_N_4.pdf}\\
+\includegraphics[width= 0.32\textwidth]{img/icml/bernoulli_rejection_bounds/Bernoulli_kernel_rejection_bound_s1_N_5.pdf}~\includegraphics[width= 0.32\textwidth]{img/icml/bernoulli_rejection_bounds/Bernoulli_kernel_rejection_bound_s2_N_5.pdf}~\includegraphics[width= 0.32\textwidth]{img/icml/bernoulli_rejection_bounds/Bernoulli_kernel_rejection_bound_s3_N_5.pdf}\\
+\caption{The power function $p(x;\bm{x})$ in the case of the periodic Sobolev space of orders $s = 1$ (left), $s=2$ (middle) and $s=3$ (right), compared to the diagonal of the kernel $x \mapsto k_{s}(x,x) = k_{s}(0,0)$ (the dashed line).\label{CVS_fig:rejection_bounds_Bernoulli}}
+\end{figure}
+
+
+
+
+
+Interestingly, if $\X \subset \mathbb{R}^{d}$ is bounded and $k$ is translation invariant, then the expected number of rejections scales as $\mathcal{O}(1/\sum_{n = N+1}^{+\infty} \sigma_{n})$, where $N$ is the cardinality of the configuration $\bm{x}$ \parencite{ReGh19}[Lemma 5.3]. In other words, the complexity~\footnote{The complexity expressed in term of the expected value of the number of rejections.} of the step~\eqref{CVS_eq:power_function_opt_problem_sample} using the proposal~\eqref{CVS_eq:proposal_diagonal} increases as $N$ increases. Moreover, for a fixed value of $N$, the smoother the kernel, the higher the complexity of the step~\eqref{CVS_eq:power_function_opt_problem_sample}. Figure~\ref{CVS_fig:rejection_bounds_Bernoulli} illustrates the sharpness of the bound~\eqref{CVS_eq:diagonal_bound_sharp} on the periodic Sobolev spaces of orders $s \in \{ 1,2,3\}$ for $N \in \{ 0,1,2,3,4,5\}$. We observe that for a fixed value of $N$, the smoother the kernel, the larger is the gap between the proposal (the diagonal of the kernel) and the power function.
+
+These observations suggest that for a given family of kernels and for a fixed value of $N$, the complexity of the step~\eqref{CVS_eq:power_function_opt_problem_sample} decreases as the dimension of the domain increases. To illustrate this phenomenon, we consider the case of the Korobov spaces. Remember that the corresponding kernel $k_{d,s}$ writes
+\begin{equation}
+\forall x,y \in [0,1]^{d}, \:\:k_{d,s}(x,y) = \prod\limits_{\delta \in [d]}k_{s}(x_{\delta},y_{\delta}).
+\end{equation}
 
 
 We leave investigating the efficiency of such an MCMC approach to volume sampling for future work.
@@ -11182,7 +11223,6 @@ We leave investigating the efficiency of such an MCMC approach to volume samplin
 % \includegraphics[width= 0.3\textwidth]{figures/EX_VS_err_n_s_3.pdf}\\
 % \caption{The expected value of the $n$-th leverage score under the distribution of Volume Sampling for $n \in \{1,2,3,4\}$ for $s =3$.}
 % \end{figure}
-
 
 
 %%%%%%%%%%%%%%
@@ -11376,8 +11416,70 @@ $\mathcal{B}_{N}(f,g) \rightarrow 0$ as $N \rightarrow +\infty$.
 % \|\mathcal{I} - \mathcal{T}_{N}\|_{op}  \leq \frac{r_{N}}{\sigma_{n}}
 % \end{equation}
 \end{theorem}
-Compared to the upper bound on the integration error given by \eqref{CVS_eq:upper_bound_integration_error}, the bias term in Theorem~\ref{CVS_thm:EX_VS_integration_error} takes into account the interaction between $f$ and $g$. For example, if for all $n \in \Ns$, $\langle f,e_{n} \rangle_{\mathrm{d}\omega} \langle g,e_{n} \rangle_{\mathrm{d}\omega} = 0$, the quadrature is unbiased for every $N$.
-Theorem~\ref{CVS_thm:EX_VS_integration_error} is a generalization of a known property of regression estimators based on volume sampling in the discrete setting \parencite{BeTe90,DeWa17,DeWaHs18,DeWaHs19}.
+Compared to the upper bound on the integration error given by
+\begin{equation}
+\bigg|\int_{\X} f(x)g(x)\mathrm{d}\omega(x) - \sum\limits_{n \in [N]} \hat{w}_{n} f(x_n) \bigg| \leq \|f\|_{\F}\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F},
+\end{equation}
+ the bias term in Theorem~\ref{CVS_thm:EX_VS_integration_error} takes into account the interaction between $f$ and $g$. For example, if
+\begin{equation}
+\forall n \in \Ns, \langle f,e_{n} \rangle_{\mathrm{d}\omega} \langle g,e_{n} \rangle_{\mathrm{d}\omega} = 0,
+\end{equation}
+ the quadrature is unbiased for every $N$. In particular, when $g = e_{n_{0}}$, the estimator is unbiased for every function $f \in e_{n_{0}}^{\perp}$.
+
+Using Theorem~\ref{CVS_thm:EX_VS_integration_error} we can draw the parallel with the determinantal representation ~\eqref{eq:introd_det_repr}  of the pseudo-inverse of a rectangular matrix. This parallelism is summarized in Table~\ref{CVS_table:matrix_operator_parallel}. 
+
+
+% The solution of~\eqref{CVS_eq:equation_integral} is $g$. Similarly to the discrete case, we consider the problem based on sub-sampling that writes
+
+% \begin{equation}\label{CVS_eq:equation_integral_subsample}
+% \min\limits_{\bm{w} \in \mathbb{R}^{N}} \|\mu_{g} - \sum\limits_{n \in [N]} w_{n}k(x_{n},.)\|_{\F}^{2}.
+% \end{equation}
+% The solution of \eqref{CVS_eq:equation_integral_subsample} is $\hat{\bm{w}}(\bm{x}) = \bm{K}(\bm{x})^{-1}\mu_{g}(\bm{x})$, and we can consider the signed measure
+% \begin{equation}
+% \sum\limits_{n \in [N]} \hat{w}_{n}(\bm{x}) \delta_{x_{n}},
+% \end{equation}
+% and define its expectation as 
+
+%  to \eqref{CVS_eq:equation_integral}based on a partial knowledge of $\mu_{g}$
+
+
+
+
+
+% \begin{equation}
+% \int_{\X}f(x)g(x)\mathrm{d}\omega(x) - \sum\limits_{n \in [N]} \hat{w}_{n}f(x_{n}) = 
+% \end{equation}
+
+
+\begin{table}[h]
+\centering
+ \begin{tabular}{| c| c|}
+ \hline
+   Discrete & Continuous\\
+ \hline
+
+  $\bm{y}$ & $\mu_{g}$ \\
+ \hline
+
+  $\bm{X}$& $\bm{\Sigma}$ \\
+\hline
+  $[N]$  & $\mathcal{X}$  \\
+ \hline
+  $S$  & $\bm{x}$  \\
+ \hline
+  $\bm{w}_{S}^{*}$  & $\sum\limits_{n \in [N]} \hat{w}_{n}\delta_{x_n}$  \\
+\hline
+  $\bm{w}^{*}$ & $g$ \\
+ \hline
+  $\EX_{S \sim \VS} \bm{w}_{S}^{*} = \bm{w}^{*}$  & $\lim\limits_{N \rightarrow +\infty} \EX_{\bm{x} \sim \mathrm{CVS}} \sum\limits_{n \in [N]} \hat{w}_{n}\delta_{x_n}(f) =\int_{\X} f(x) g(x) \mathrm{d}\omega(x)$  \\
+\hline
+\end{tabular}
+\caption{A parallelism between the determinantal representation~\eqref{eq:introd_det_repr} of \parencite{BeTe90} and Theorem~\ref{CVS_thm:EX_VS_integration_error}. \label{CVS_table:matrix_operator_parallel}}
+\end{table}
+
+It will be interesting to investigate the implications of this (continuous) determinantal representation in the field of numerical methods of linear integral equations \parencite{Kre99}.
+
+% is a generalization of a known property of regression estimators based on volume sampling in the discrete setting \parencite{BeTe90,DeWa17,DeWaHs18,DeWaHs19}.
 % \pc{I like this revised version, but still not completely satisfied: where is the explicit connection to interpolation in the end?} \rb{Can we just add a sentence whether there is a chance of a similar result for gerneral interpolation of $\mu\in\F$?}
 
 % \begin{figure}[]
@@ -11385,7 +11487,6 @@ Theorem~\ref{CVS_thm:EX_VS_integration_error} is a generalization of a known pro
 % \includegraphics[width= 0.3\textwidth]{figures/EX_VS_err_n_s_3.pdf}\\
 % \caption{The expected value of the $n$-th leverage score under the distribution of Volume Sampling for $n \in \{1,2,3,4\}$ for $s =3$.}
 % \end{figure}
-\paragraph{Intuition???}
 
 
 %%%%%%%%%%%%
@@ -11847,11 +11948,11 @@ For the last result, recall the definition of the (cross-)leverage scores $\tau_
 \begin{lemma}\label{CVS_lemma:lvs_identities}
 Let $\bm{x} \in \X^{N}$ satisfy $\Det \bm{K}(\bm{x}) > 0$. For $m, m_{1}, m_{2} \in \Ns$ such that $m_{1} \neq m_{2}$,
 \begin{equation}\label{CVS_eq:lvs_identity}
-\tau_{m}^{\F}(\bm{x}) = \|\Pi_{\mathcal{T}(\bm{x})}e_{m}^{\F}\|_{\F}^{2} = e_{m}^{\F}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1} e_{m}^{\F}(\bm{x}),
+\tau_{m}^{\F}(\bm{x}) = \|\bm{\Pi}_{\mathcal{T}(\bm{x})}e_{m}^{\F}\|_{\F}^{2} = e_{m}^{\F}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1} e_{m}^{\F}(\bm{x}),
 \end{equation}
 and
 \begin{equation}\label{CVS_eq:cross_lvs_identity}
-\tau_{m_{1},m_{2}}^{\F}(\bm{x}) = \langle \Pi_{\mathcal{T}(\bm{x})}e_{m_{1}}^{\F}, \Pi_{\mathcal{T}(\bm{x})}e_{m_{2}}^{\F} \rangle_{\F} = e_{m_1}^{\F}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1} e_{m_2}^{\F}(\bm{x}).
+\tau_{m_{1},m_{2}}^{\F}(\bm{x}) = \langle \bm{\Pi}_{\mathcal{T}(\bm{x})}e_{m_{1}}^{\F}, \bm{\Pi}_{\mathcal{T}(\bm{x})}e_{m_{2}}^{\F} \rangle_{\F} = e_{m_1}^{\F}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1} e_{m_2}^{\F}(\bm{x}).
 \end{equation}
 In particular,
 \begin{equation}
@@ -11860,7 +11961,7 @@ In particular,
 \end{equation}
 \end{lemma}
 \begin{proof}
-The proof of \eqref{CVS_eq:lvs_identity} is given in \parencite{BeBaCh19}[Lemma 4 of Appendix D]. The proof of \eqref{CVS_eq:cross_lvs_identity} is straightforward following the same lines. $\Pi_{\mathcal{T}(\bm{x})}$ is an orthogonal projection with respect to $\langle .,. \rangle_{\F}$ and
+The proof of \eqref{CVS_eq:lvs_identity} is given in \parencite{BeBaCh19}[Lemma 4 of Appendix D]. The proof of \eqref{CVS_eq:cross_lvs_identity} is straightforward following the same lines. $\bm{\Pi}_{\mathcal{T}(\bm{x})}$ is an orthogonal projection with respect to $\langle .,. \rangle_{\F}$ and
 \begin{equation}
 \|e_{m}^{\F}\|_{\F} = \|e_{m_{1}}^{\F}\|_{\F} = \|e_{m_{2}}^{\F}\|_{\F} = 1,
 \end{equation}
@@ -11926,29 +12027,29 @@ r_{N} \prod\limits_{\ell \in [N]} \sigma_{\ell} & = \sigma_{N} \sum\limits_{m \g
 This immediately yields $\delta_{N} \leq \sigma_{N}/r_{N}$.
 
 \subsection{Proof of Lemma~\ref{CVS_lemma:error_decomposition}}\label{CVS_app:proof_error_decomposition}
-Lemma~\ref{CVS_lemma:error_decomposition} decomposes the interpolation error in terms of (cross-)leverage scores. Let $g \in \Ltwo$ satisfy $\|g\|_{\mathrm{d}\omega} \leq 1$. Since $\Pi_{\mathcal{T}(\bm{x})}$ is an orthogonal projection with respect to $\langle .,. \rangle_{\F}$, we have
+Lemma~\ref{CVS_lemma:error_decomposition} decomposes the interpolation error in terms of (cross-)leverage scores. Let $g \in \Ltwo$ satisfy $\|g\|_{\mathrm{d}\omega} \leq 1$. Since $\bm{\Pi}_{\mathcal{T}(\bm{x})}$ is an orthogonal projection with respect to $\langle .,. \rangle_{\F}$, we have
 \begin{equation}\label{CVS_eq:reconstruction_error}
-\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F}^{2} = \|\mu_{g}\|_{\F}^{2} - \| \Pi_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F}^2
+\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F}^{2} = \|\mu_{g}\|_{\F}^{2} - \| \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F}^2
 \end{equation}
 Now, $\mu_{g} = \bm{\Sigma} g = \sum\limits_{m \in \mathbb{N}^{*}} \sqrt{\sigma_{m}} g_{m} e_{m}^{\F}$, so that \eqref{CVS_eq:reconstruction_error} becomes
 \begin{align}
-\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F}^{2} & = \sum\limits_{m \in \mathbb{N}^{*}} \sigma_{m} g_{m}^{2} - \left\Vert \sum_{m \in \Ns} \Pi_{\mathcal{T}(\bm{x})}  \sqrt{\sigma_{m}} g_{m} e_{m}^{\F}\right\Vert_{\F}^2 \nonumber\\
-& = \sum\limits_{m \in \mathbb{N}^{*}} \sigma_{m} g_{m}^{2} - \sum\limits_{m_{1}, m_2} g_{m_{1}} g_{m_{2}} \sqrt{\sigma_{m_{1}}} \sqrt{\sigma_{m_{2}}} \langle  \Pi_{\mathcal{T}(\bm{x})}   e_{m_{1}}^{\F}, \Pi_{\mathcal{T}(\bm{x})} e_{m_{2}}^{\F} \rangle_{\F}. \label{CVS_eq:reconstruction_norm_mu_onb}
+\|\mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F}^{2} & = \sum\limits_{m \in \mathbb{N}^{*}} \sigma_{m} g_{m}^{2} - \left\Vert \sum_{m \in \Ns} \bm{\Pi}_{\mathcal{T}(\bm{x})}  \sqrt{\sigma_{m}} g_{m} e_{m}^{\F}\right\Vert_{\F}^2 \nonumber\\
+& = \sum\limits_{m \in \mathbb{N}^{*}} \sigma_{m} g_{m}^{2} - \sum\limits_{m_{1}, m_2} g_{m_{1}} g_{m_{2}} \sqrt{\sigma_{m_{1}}} \sqrt{\sigma_{m_{2}}} \langle  \bm{\Pi}_{\mathcal{T}(\bm{x})}   e_{m_{1}}^{\F}, \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{m_{2}}^{\F} \rangle_{\F}. \label{CVS_eq:reconstruction_norm_mu_onb}
 \end{align}
 Lemma~\ref{CVS_lemma:lvs_identities} allows us to recognize leverage scores in \eqref{CVS_eq:reconstruction_norm_mu_onb}. Taking out of the second sum in \eqref{CVS_eq:reconstruction_norm_mu_onb} the terms for which $m_1=m_2$ to put them in the first sum concludes the proof of Lemma~\ref{CVS_lemma:error_decomposition}.
 
-% Noting that $\Pi_{\mathcal{T}(\bm{x})}$ is a projection, it comes
+% Noting that $\bm{\Pi}_{\mathcal{T}(\bm{x})}$ is a projection, it comes
 % \begin{align}
-% \| \Pi_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F}^2 & = \sum\limits_{m_{1}m_2} g_{m_{1}} g_{m_{2}} \sqrt{\sigma_{m_{1}}} \sqrt{\sigma_{m_{2}}} \langle   e_{m_{1}}^{\F}, \Pi_{\mathcal{T}(\bm{x})} e_{m_{2}}^{\F} \rangle_{\F} \nonumber\\
-% & = \sum\limits_{m \in \Ns} \langle   e_{m}^{\F}, \Pi_{\mathcal{T}(\bm{x})} e_{m}^{\F} \rangle_{\F} + \sum\limits_{\substack{m_{1},m_{2} \in \Ns\\ m_{1} \neq m_{2}}} \langle   e_{m_{1}}^{\F}, \Pi_{\mathcal{T}(\bm{x})} e_{m_{2}}^{\F} \rangle_{\F}
+% \| \bm{\Pi}_{\mathcal{T}(\bm{x})} \mu_{g}\|_{\F}^2 & = \sum\limits_{m_{1}m_2} g_{m_{1}} g_{m_{2}} \sqrt{\sigma_{m_{1}}} \sqrt{\sigma_{m_{2}}} \langle   e_{m_{1}}^{\F}, \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{m_{2}}^{\F} \rangle_{\F} \nonumber\\
+% & = \sum\limits_{m \in \Ns} \langle   e_{m}^{\F}, \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{m}^{\F} \rangle_{\F} + \sum\limits_{\substack{m_{1},m_{2} \in \Ns\\ m_{1} \neq m_{2}}} \langle   e_{m_{1}}^{\F}, \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{m_{2}}^{\F} \rangle_{\F}
 % \end{align}
 % Now, by Lemma~\ref{CVS_lemma:lvs_identities}, we have
 % \begin{equation}\label{CVS_eq:reconstruction_norm_mu_e}
-% \langle   e_{m}^{\F}, \Pi_{\mathcal{T}(\bm{x})} e_{m}^{\F} \rangle_{\F} = \tau_{m}^{\F}(\bm{x}) = e_{m}^{\F}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1} e_{m}^{\F}(\bm{x}),
+% \langle   e_{m}^{\F}, \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{m}^{\F} \rangle_{\F} = \tau_{m}^{\F}(\bm{x}) = e_{m}^{\F}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1} e_{m}^{\F}(\bm{x}),
 % \end{equation}
 % and for $m_{1} \neq m_{2}$ we have
 % \begin{equation}\label{CVS_eq:cross_reconstruction_norm_mu_e}
-% \langle   e_{m_{1}}^{\F}, \Pi_{\mathcal{T}(\bm{x})} e_{m_{2}}^{\F} \rangle_{\F} = \tau_{m_{1},m_{2}}^{\F}(\bm{x}) = e_{m_{1}}^{\F}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1} e_{m_{2}}^{\F}(\bm{x}).
+% \langle   e_{m_{1}}^{\F}, \bm{\Pi}_{\mathcal{T}(\bm{x})} e_{m_{2}}^{\F} \rangle_{\F} = \tau_{m_{1},m_{2}}^{\F}(\bm{x}) = e_{m_{1}}^{\F}(\bm{x})^{\Tran} \bm{K}(\bm{x})^{-1} e_{m_{2}}^{\F}(\bm{x}).
 % \end{equation}
 % Combining \eqref{CVS_eq:reconstruction_error}, \eqref{CVS_eq:reconstruction_norm_mu_onb}, \eqref{CVS_eq:reconstruction_norm_mu_e} and \eqref{CVS_eq:cross_reconstruction_norm_mu_e} we get
 % \begin{equation}
@@ -12174,8 +12275,10 @@ We have
 \subsection{Proof of Proposition~\ref{CVS_prop:perturbed_kernels_spectrum}}\label{CVS_app:proof_perturbed_kernels_spectrum}
 % Recall that the purpose of this proposition is to give an explicit description of the spectrum of the integration operators associated to the kernels $k_{t}$, $k_{t}^{+}$ and $k_{t}^{-}$.
 
-We start with deriving the spectrum\footnote{
-All the integration operators in this article, and specifically in this section, are self-adjoint and compact. The spectrum of such operators is the union of $\{0\}$ (the essential spectrum) and the set of eigenvalues \parencite{Bre10}[Theorem 6.8] . Yet, the proof of the Mercer decomposition, only involves the set of eigenvalues \parencite{StSc12}. For this reason, we use the term ``spectrum" to refer to the set of eigenvalues.} of the trace-class, self-adjoint operator
+%\footnote{
+% All the integration operators in this article, and specifically in this section, are self-adjoint and compact. The spectrum of such operators is the union of $\{0\}$ (the essential spectrum) and the set of eigenvalues \parencite{Bre10}[Theorem 6.8] . Yet, the proof of the Mercer decomposition, only involves the set of eigenvalues \parencite{StSc12}. For this reason, we use the term ``spectrum" to refer to the set of eigenvalues.}
+
+We start with deriving the spectrum of the trace-class, self-adjoint operator
 \begin{equation}
 \bm{\Sigma}_{t} = \bm{\Sigma} + t e_{m}^{\F} \otimes e_{m}^{\F},
 \end{equation}
@@ -12550,7 +12653,7 @@ Moreover,
 & = \left|\sum\limits_{\substack{m_{1},m_{2} \in [M]}}  \langle \mu, e_{m_{1}}^{\F} \rangle_{\F} \langle \mu, e_{m_{2}}^{\F} \rangle_{\F} \,\tau_{m_{1},m_{2}}^{\F}(\bm{x}) - \sum\limits_{m \in [M]} \langle \mu, e_{m}^{\F} \rangle_{\F}^{2} \,\tau_{m}^{\F}(\bm{x})\right|  \nonumber\\
  & \leq \left|\sum\limits_{m_{1},m_{2} \in [M]}  \langle \mu, e_{m_{1}}^{\F} \rangle_{\F} \langle \mu, e_{m_{2}}^{\F} \rangle_{\F} \,\tau_{m_{1},m_{2}}^{\F}(\bm{x})\right|
  +  \left|\sum\limits_{m \in [M]} \langle \mu, e_{m}^{\F} \rangle_{\F}^{2} \,\tau_{m}^{\F}(\bm{x})\right| \nonumber\\
-& = \left\| \Pi_{\mathcal{T}(\bm{x})} \sum\limits_{m \in [M]} \langle \mu, e_{m}^{\F} \rangle_{\F} e_{m}^{\F}\right\|_{\F}^{2}  +  \left|\sum\limits_{m \in [M]} \langle \mu, e_{m}^{\F} \rangle_{\F}^{2} \,\tau_{m}^{\F}(\bm{x})\right| \nonumber\\
+& = \left\| \bm{\Pi}_{\mathcal{T}(\bm{x})} \sum\limits_{m \in [M]} \langle \mu, e_{m}^{\F} \rangle_{\F} e_{m}^{\F}\right\|_{\F}^{2}  +  \left|\sum\limits_{m \in [M]} \langle \mu, e_{m}^{\F} \rangle_{\F}^{2} \,\tau_{m}^{\F}(\bm{x})\right| \nonumber\\
 & \leq \left\|\sum\limits_{m \in [M]} \langle \mu, e_{m}^{\F} \rangle_{\F} e_{m}^{\F}\right\|_{\F}^{2}  +  \sum\limits_{m \in [M]} \langle \mu, e_{m}^{\F} \rangle_{\F}^{2} \nonumber \\
 & = 2 \|\mu\|_{\F}^{2} < +\infty.
 \label{CVS_eq:EX_VS_cross_lvs_interpolation_domination}
@@ -12918,7 +13021,7 @@ which is the generic term of a convergent series as $f,g\in\Ltwo$. This conclude
 % We started this manuscript by a review on the recent work on subsampling problems for problems with some linear structure. 
 
 % This thesis has developed studied some subsampling problems with linear structure through the lens of determinantal point process. 
-We started this manuscript by reviewing the exiting work in sub-sampling for problems with a linear structure. These problems appear in many fields such as data analysis, signal processing, machine learning, or statistics; with applications that include continuous signal discretization, numerical integration, dimension reduction, learning on budget, or preconditioning. In particular, we reviewed existing work on randomized sub-sampling based on first-order information: leverage scores, ridge leverage scores... A natural question that arose was to investigate sub-sampling using high-order information such as volumes. In particular, we were questioning whether DPPs would be beneficial for some sub-sampling problems. 
+We started this manuscript by reviewing the existing work in sub-sampling for problems with a linear structure. These problems appear in many fields such as data analysis, signal processing, machine learning, or statistics; with applications that include continuous signal discretization, numerical integration, dimension reduction, learning on budget, or preconditioning. In particular, we reviewed existing work on randomized sub-sampling based on first-order information: leverage scores, ridge leverage scores... A natural question that arose was to investigate sub-sampling using high-order information such as volumes. In particular, we were questioning whether DPPs would be beneficial for some sub-sampling problems. 
 
 % Still, lengths contain only the , and one may expect to improve the quality of sampling by considering 
 
