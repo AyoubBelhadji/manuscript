@@ -27,11 +27,11 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {2.3}{\ignorespaces A realization of the Ginibre ensemble with $N = 100$ (left), $N = 200$ (middle) and $N = 500$ (right). The histogram of the radii $|z|$ of 1000 realization of the Ginibre ensemble compared to the theoretical density $f_{N}$, with $N = 100$ particles (left) $N = 200$ particles (middle) and $N = 500$ particles (right). \relax }}{35}{figure.caption.14}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Three realizations from the spherical ensemble with $N = 50$ particles (top) compared to their stereographic projections on the complex plan (bottom). \relax }}{36}{figure.caption.16}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Three realizations from the spherical ensemble with $N = 50$ particles (top) compared to their stereographic projections on the complex plane (bottom). \relax }}{36}{figure.caption.16}
 \defcounter {refsection}{0}\relax 
 \contentsline {figure}{\numberline {2.5}{\ignorespaces Pseudocode of the HKPV algorithm for sampling from a projection DPP of marginal kernel $\kappa $.\relax }}{38}{figure.caption.19}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {2.6}{\ignorespaces The sharpness of Bernstein inequality for bounding the density $f_{\kappa ,1}$. \relax }}{41}{figure.caption.21}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces The sharpness of Bernstein's inequality for bounding the density $f_{\kappa ,1}$. \relax }}{41}{figure.caption.21}
 \defcounter {refsection}{0}\relax 
 \ttl@tocsep 
 \defcounter {refsection}{0}\relax 
@@ -219,7 +219,7 @@
 \defcounter {refsection}{0}\relax 
 \ttl@tocsep 
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {6.21}{\ignorespaces The spectral rate $\sigma _{N+1}$ compared to the Bakhvalov rate $\sigma _{N+1}/(N+1)$ in the case of the Korobov space of order $s=1$ and $d =2$. \relax }}{197}{figure.caption.131}
+\contentsline {figure}{\numberline {6.21}{\ignorespaces The spectral rate $\sigma _{N+1}$ compared to the Bakhvalov rate $\sigma _{N+1}/N$ in the case of the Korobov space of order $s=1$ and $d =2$. \relax }}{197}{figure.caption.131}
 \defcounter {refsection}{0}\relax 
 \ttl@tocsep 
 \defcounter {refsection}{0}\relax 
