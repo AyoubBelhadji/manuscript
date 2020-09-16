@@ -4,7 +4,10 @@
 \usepackage[english,french]{babel}
 \usepackage{classicthesis}
 
-\usepackage[margin=3cm]{geometry}
+\usepackage[margin=3.05cm]{geometry}
+
+%\usepackage[left=1.5in,right=1in,top=1in,bottom=1in]{geometry}
+
 
 \usepackage[T1]{fontenc}
 \usepackage{relsize}
@@ -195,7 +198,7 @@
 
 \AtBeginEnvironment{subappendices}{%
 \chapter*{Appendix}
-\addcontentsline{toc}{chapter}{Appendices}
+\addcontentsline{toc}{section}{Appendices}
 \counterwithin{figure}{section}
 \counterwithin{table}{section}
 }
@@ -1344,7 +1347,7 @@ In Chapter~\ref{chap:dppkq}, we introduce a new class of quadratures based on pr
 
 
 
-We give a theoretical analysis of this class of quadratures and we show that the convergence rate depends on the eigenvalues $(\sigma_{n})_{n \in \mathbb{N}^{*}}$ of the integration operator as $\mathcal{O}(N\sum_{n \geq N+1} \sigma_n)$, where $N$ is the number of quadrature nodes. Numerical simulations hint that the rate of convergence actually scales as fast as $\mathcal{O}(\sigma_{N})$. This is illustrated in Figure~\ref{fig:introduction_pDPP_results_pSobolev_exp_2}, where we compare the worst interpolation error $\sup_{\|g\|_{\mathrm{d}\omega} \leq 1}\| \mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}\|_{\F}^{2}$ of our quadrature (DPPKQ) compared the rate $\mathcal{O}(\sigma_{N+1})$ and the quadrature based on continuous ridge leverage score sampling (LVSQ) and the quadrature based on uniform grid (UGKQ) and the weights that solve the optimization problem~\eqref{eq:introduction_dppkq_opt_problem} in the case of the periodic Sobolev space of order $s = 3$.
+We give a theoretical analysis of this class of quadratures and we show that the convergence rate depends on the eigenvalues $(\sigma_{n})_{n \in \mathbb{N}^{*}}$ of the integration operator as $\mathcal{O}(N\sum_{n \geq N+1} \sigma_n)$, where $N$ is the number of quadrature nodes. Numerical simulations hint that the rate of convergence actually scales as fast as $\mathcal{O}(\sigma_{N})$. This is illustrated in Figure~\ref{fig:introduction_pDPP_results_pSobolev_exp_2}, where we compare the worst-case interpolation error $\sup_{\|g\|_{\mathrm{d}\omega} \leq 1}\| \mu_{g} - \bm{\Pi}_{\mathcal{T}(\bm{x})}\mu_{g}\|_{\F}^{2}$ of our quadrature (DPPKQ) compared the rate $\mathcal{O}(\sigma_{N+1})$ and the quadrature based on continuous ridge leverage score sampling (LVSQ) and the quadrature based on uniform grid (UGKQ) and the weights that solve the optimization problem~\eqref{eq:introduction_dppkq_opt_problem} in the case of the periodic Sobolev space of order $s = 3$.
 
 From a technical point of view, we harness the geometric intuitions developed in Chapter~\ref{chapter:cssp} to work out the theoretical analysis of these quadratures. In particular, we make use of the notion of principal angles between subspaces to derive a tractable upper bound of the expected value of the squared interpolation error
 \begin{equation}
@@ -1372,7 +1375,7 @@ is based on the following article
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_3_randomvectors_2000_fig_1.pdf}\\
-\caption{The worst interpolation error on the unit ball of $\mathbb{L}_{2}(\mathrm{d}\omega)$ under projection DPP (DPPKQ), continuous ridge leverage score density (LVSQ) and the uniform grid (UGKQ) compared to the eigenvalue of order $\sigma_{N+1}$. The RKHS is the periodic Sobolev space of order $s=3$.
+\caption{The worst-case interpolation error on the unit ball of $\mathbb{L}_{2}(\mathrm{d}\omega)$ under projection DPP (DPPKQ), continuous ridge leverage score density (LVSQ) and the uniform grid (UGKQ) compared to the eigenvalue of order $\sigma_{N+1}$. The RKHS is the periodic Sobolev space of order $s=3$.
 \label{fig:introduction_pDPP_results_pSobolev_exp_2}}
 \end{figure}
 
@@ -1447,7 +1450,7 @@ Table~\ref{table:matrix_operator_duality} situates the contributions of this the
 \end{table}
 
 
-\clearpage
+%\clearpage
 \chapter*{Publications} % Publications page text
 
 %\section*{In This Thesis}
@@ -6260,7 +6263,7 @@ Numerical integration is at the heart of many tasks in applied mathematics and s
 \end{equation}
 
 Integrals that can be written in closed form are the exception; in general the value of~\eqref{eq:general_integral_formula} is only known through approximations. The problem of approximating an integral find its roots in an older problem:
-the evaluation of the perimeter or the area of a domain bounded by curves. For example, the problem of squaring a circle occupied minds for centuries. By approximating a circle by a union of squares, a first estimation of $\pi \approx 256/81 \approx 3.1605$ was already known by Egyptians as it can be witnessed by the Rhind papyrus \parencite{RoSh87}. Archimedes achieved a better approximation of the value of $\pi$ by computing the perimeter of the regular 96-gons and obtained \parencite{Hea03}
+the evaluation of the perimeter or the area of a domain bounded by curves. For example, the problem of squaring a circle occupied minds for centuries. By approximating the volume of a  cylindrical granary by a rectangular one, a first estimation of $\pi \approx 256/81 \approx 3.1605$ was already known by Egyptians as it can be witnessed by the Rhind papyrus \parencite{RoSh87}. Archimedes achieved a better approximation of the value of $\pi$ by computing the perimeter of the regular 96-gons and obtained \parencite{Hea03}
 $$3+\frac{10}{71} < \pi < 3+\frac{1}{7}.$$
 
 % inscribed and circumscribed of ,   [???] 
@@ -6302,7 +6305,7 @@ Monte Carlo methods offer another approach to numerical integration. This class 
 \begin{equation}
 \EX \frac{1}{N}\sum\limits_{n \in [N]} f(x_{n}) = \int_{\mathcal{X}} f(x)g(x) \mathrm{d}\omega(x),
 \end{equation}
-and by the Strong Law of Large Numbers, $ \sum_{n \in [N]} f(x_{n})/N$ converges almost surely to $\int_{\mathcal{X}} f(x)g(x) \mathrm{d}\omega(x)$. Moreover, if $ \int_{\mathcal{X}} f(x)^{2} \mathrm{d}\omega(x) < +\infty$, the variance of $\sum_{n \in [N]} f(x_{n})/N$ scales as $\mathcal{O}(1/N^{2})$, and the estimator satisfies a central limit theorem \parencite{RoCa04}. 
+and by the Strong Law of Large Numbers, $ \sum_{n \in [N]} f(x_{n})/N$ converges almost surely to $\int_{\mathcal{X}} f(x)g(x) \mathrm{d}\omega(x)$. Moreover, if $ \int_{\mathcal{X}} f(x)^{2} \mathrm{d}\omega(x) < +\infty$, the variance of $\sum_{n \in [N]} f(x_{n})/N$ scales as $\mathcal{O}(1/N)$, and the estimator satisfies a central limit theorem \parencite{RoCa04}. 
 Remarkably, this rate of convergence does not depend on the dimension of $\mathcal{X}$ (if $\mathcal{X}$ is a $d$-dimensional manifold). This property gives an advantage, provided that we know how to sample from the density $g$, of Monte Carlo methods over deterministic quadrature rules, that scales poorly for high dimension integration problems. 
 
 It would be fair to claim that deterministic quadratures are very efficient for smooth low dimensional functions, while this smoothness does not improve the Monte Carlo rate. This observation have fueled a multitude of investigations with a common purpose: improving upon the Monte Carlo rate for smooth functions on high dimensional integration problems. Many approaches were proposed in this rich line of research: Quasi-Monte Carlo methods \citep*{DiPi10}, kernel quadrature methods \citep*{Hic98} \parencite{SmGrSoSc07} \parencite{ChWeSm10} \parencite{Bac17} \parencite{BOGOS2019} or  determinantal point processes \parencite{BaHa16}.
@@ -6312,6 +6315,13 @@ We start with a brief review of existing numerical integration approaches in Sec
  In particular, a special attention will be given to kernel quadrature methods that will be reviewed in Section~\ref{sec:kernel_quadrature_framework}.
 
  The contribution of this chapter is the introduction and the theoretical analysis of a new class of quadratures: optimal kernel quadrature based on projection DPPs nodes. The main theoretical results are given in Section~\ref{sec:pDPP_OKQ}. Section~\ref{sec:num_sim_dppkq} is devoted for numerical simulations. The proofs of the theoretical results are detailed in Section~\ref{s:proofs}.
+
+ The material of this chapter
+is based on the following article 
+\begin{itemize}
+\AtNextCitekey{\defcounter{maxnames}{99}}
+\item \fullcite{BeBaCh19}.
+\end{itemize}
  % the contribution of this chapter is to shed the light on the strong connection between determinantal point process and kernel quadrature methods. These methods will be reviewed in Section?? 
 
  
@@ -6386,7 +6396,7 @@ where $\pi_{\bm{x}}$ is the polynomial
 % : $\mathrm{d}\omega$ is the Stieltjes measure associated to a non-decreasing function $\omega: \mathbb{R} \rightarrow \mathbb{R}$ with infinitely many points of increase.
 
 In particular, \cite{Chr1877} generalized the Gauss-Jacobi construction to 
-measures $\mathrm{d}\omega(t) = \omega(t)\mathrm{d}t$ for arbitrary weight functions $\omega$ and his approach is generalizable to even a broader class of measures \parencite{Sze39}. Typically, $\mathrm{d}\omega$ is assumed to have finite moments of all orders, so that the orthonormal polynomials with respect to $\mathrm{d}\omega$ are well defined by
+measures $\mathrm{d}\omega(t) = w(t)\mathrm{d}t$ for arbitrary weight functions $\omega$ and his approach is generalizable to even a broader class of measures \parencite{Sze39}. Typically, $\mathrm{d}\omega$ is assumed to have finite moments of all orders, so that the orthonormal polynomials with respect to $\mathrm{d}\omega$ are well defined by
 \begin{align}
 \forall m \in \mathbb{N}, \: \mathrm{deg} P_{m} & = m, \\
 \forall m,m' \in \mathbb{N}, \: \int_{a}^{b} P_{m}(t)P_{m'}(t) \mathrm{d}\omega(t) & = \delta_{m,m'}.
@@ -6402,9 +6412,7 @@ called the \emph{Christoffel numbers}, satisfy the identity \parencite{Sho29} (s
 \begin{equation}\label{eq:w_n_christoffel_number_formula}
 w_{n} = \frac{1}{\sum\limits_{m =0}^{N-1} P_{m}(x_{n})^{2}}. 
 \end{equation}
-Observe that in \eqref{eq:w_n_christoffel_number_formula}, every $w_{n}$ depends only on the corresponding node $x_{n}$: the Christoffel numbers are the evaluations of  
-the so-called \emph{Christoffel function} at the roots of $P_{N}$. This function has an interesting interpretation in approximation theory that will be recalled in Chapter~\ref{chapter:signal_reconstruction}.
-
+Observe that in \eqref{eq:w_n_christoffel_number_formula}, every $w_{n}$ depends only on the corresponding node $x_{n}$.
 
 % defines a quadrature such that $\displaystyle \sum\limits_{n \in [N]} w_{n} f(x_{n})$ coincides with $\displaystyle  \int_{a}^{b} f(t) \mathrm{d}\omega(t)$ for every polynomial of degree smaller than $2N-1$. The weights of this quadrature 
 %\subsubsection{Jacobi matrices}
@@ -6506,7 +6514,7 @@ Observe that
 \begin{equation}
 \EX \tilde{J}_N = J_N.
 \end{equation}
-It is well known that the eigenvalues $x_{1}, \dots, x_{N}$ of $\tilde{J}_{N}$, seen as a vector of $\mathbb{R}^{d}$, have the following density \parencite{DuEd05} with respect to the Lebesgue measure of $\mathbb{R}^{d}$
+The eigenvalues $x_{1}, \dots, x_{N}$ of $\tilde{J}_{N}$, seen as a vector of $\mathbb{R}^{d}$, have the following density with respect to the Lebesgue measure of $\mathbb{R}^{d}$ \parencite{DuEd05}
 
 \begin{equation}\label{eq:J_tilde_eigenvalue_distribution}
 f(x_{1}, \dots, x_{N}) \propto \prod\limits_{n =1}^{N}e^{-x_{n}^{2}/2} \prod\limits_{1 \leq n<n' \leq N}  |x_{n}-x_{n'}|^{2}.
@@ -6585,7 +6593,7 @@ if the function $f$ is well approximated by low degree polynomials. This is the 
 % Since any polynomial of degree smaller or equal to $N-1$ is equal to its $N-1$-degree interpolant polynomial, the approximation \eqref{eq:Newton_approx} is exact if $f$ is a polynomial of order smaller or equal to $N-1$. 
 
 
-\subsubsection{Gaussian quadrature in high dimension domains}
+\subsubsection{Gaussian quadrature in high-dimensional domains}
 
 
 Finally, there were many attempts to extend Gaussian quadrature to high dimensional domains using common zeros of multidimensional orthogonal polynomials; see \parencite{Xu94} for details on this topic. For example, the construction of a high dimensional Gaussian quadrature would require to work with block Jacobi matrices instead of tridiagonal Jacobi matrices \parencite{Xu94b}. However, this line of research is not developed yet from an algorithmic point of view.
@@ -6995,7 +7003,7 @@ such that $\hat{g}_{0} = 0$ and $\sum_{m \in \mathbb{N}^{*}} m|\hat{g}_{m}|^{2} 
 % \end{theorem}
 
 % This allowed the author to prove the following CLT.
-
+In other words, the quadrature based on CUE nodes converges at the asymptotic rate $\mathcal{O}(1/N^{2})$ compared to the rate $\mathcal{O}(1/N)$ of vanilla Monte Carlo, for every function $g$ satisfying the condition $\sum_{m \in \mathbb{N}^{*}} m|\hat{g}_{m}|^{2} <+\infty$.
 
 
 \subsubsection{Quadratures based on Orthogonal Polynomial Ensembles}
@@ -7018,9 +7026,9 @@ the associated orthonormal polynomials satisfy
 \lim\limits_{m \rightarrow +\infty} a_{m} = 1/2, \:\:\: \lim\limits_{m \rightarrow +\infty} b_{m} = 0.
 \end{equation}
 \end{definition}
-The simplest example of a Nevai class measure is the measure $\mathrm{d}\tilde{\omega}^{*}(x) = \tilde{\omega}^{*}(x) \mathrm{d}x$ with 
+The simplest example of a Nevai class measure is the measure $\mathrm{d}\tilde{\omega}^{*}(x) = \tilde{w}^{*}(x) \mathrm{d}x$ with 
 \begin{equation}\label{eq:omega_star}
-\tilde{\omega}^{*}(x) = \frac{1}{\pi\sqrt{1-x^{2}}}.
+\tilde{w}^{*}(x) = \frac{1}{\pi\sqrt{1-x^{2}}}.
 \end{equation}
 It corresponds to the particular case when $a_{m} = a^{*}_{m} = \frac{1}{2}$ and $b_m =  b^{*}_{m} =0$ for $m \in \mathbb{N}^{*}$: the corresponding orthonormal polynomials are the Chebyshev polynomials of the first kind, that we denote $(T_{m})_{m \in \mathbb{N}}$.
 In a nutshell, the Nevai class contains measures that have three-term recurrence coefficients converging to the corresponding coefficients of $\mathrm{d}\tilde{\omega}^{*}$.
@@ -7046,9 +7054,9 @@ The authors studied the quadrature based on OPE, and for every node $x_{n}$ the 
 \begin{theorem}[Theorem 3 in \parencite{BaHa16}]\label{thm:BaHa_conclusion}
 Let $\bm{x}$ be an OPE with respect to the measure 
 \begin{equation}\label{eq:jacobi_measures}
-\mathrm{d}\omega(x) = \omega(x) \prod\limits_{\delta \in [d]} \mathrm{d}x_{\delta} := \prod\limits_{\delta \in [d]} (1-x_{\delta})^{\alpha_{\delta}}(1+x_{\delta})^{\beta_{\delta}} \mathbb{1}_{[-1,1]}(x_{\delta}) \mathrm{d}x_{\delta},
+\mathrm{d}\omega(x) = w(x) \prod\limits_{\delta \in [d]} \mathrm{d}x_{\delta} := \prod\limits_{\delta \in [d]} (1-x_{\delta})^{\alpha_{\delta}}(1+x_{\delta})^{\beta_{\delta}} \mathbb{1}_{[-1,1]}(x_{\delta}) \mathrm{d}x_{\delta},
 \end{equation}
-where $\alpha_{1}, \beta_{1}, \dots, \alpha_{d}, \beta_{d} > -1$; and denote $ \omega^{*}(x) = \prod_{\delta \in [d]} \tilde{\omega}^{*}(x_{\delta})$, where $\tilde{\omega}^{*}$ is defined in \eqref{eq:omega_star}.
+where $\alpha_{1}, \beta_{1}, \dots, \alpha_{d}, \beta_{d} > -1$; and denote $ w^{*}(x) = \prod_{\delta \in [d]} \tilde{w}^{*}(x_{\delta})$, where $\tilde{w}^{*}$ is defined in \eqref{eq:omega_star}.
 % $\mathrm{d}\omega = \mathrm{d}\omega_{1} \otimes \dots \otimes \mathrm{d}\omega_{d}$, where each $\mathrm{d}\omega_{\delta}$ is Nevai class.
 Let $f$ be a real valued function defined on $[-1,1]^{d}$ that vanishes at the boundary of $[-1,1]^{d}$ and it is of class $\mathcal{C}^{1}$ in $]-1,1[^{d}$. Then
 %Then for every $f \in \mathcal{C}^{1}([-1,1]^{d}, \mathbb{R})$,
@@ -7062,7 +7070,7 @@ and
 \end{equation}
 where
 \begin{equation}
-\sigma^{2}(f) = \frac{1}{2} \sum\limits_{m_{1}, \dots , m_{d} = 0}^{+\infty} (m_{1}+\dots +m_{d}) \widehat{\frac{f \omega}{\omega^{*}}} (m_{1}, \dots, m_{d})^{2},
+\sigma^{2}(f) = \frac{1}{2} \sum\limits_{m_{1}, \dots , m_{d} = 0}^{+\infty} (m_{1}+\dots +m_{d}) \widehat{\frac{f w}{w^{*}}} (m_{1}, \dots, m_{d})^{2},
 \end{equation}
 and 
 \begin{equation}
@@ -7075,7 +7083,7 @@ In other words, the quadrature based on the OPE with the reference measure $\mat
  As we can see, this rate is better than the Monte Carlo rate $\mathcal{O}(N^{-1})$ but the improvement "shrinks" as the dimension increases, because of the term $1/d$. This rate is also valid for tensor products of Nevai measures under some technical conditions as it was proved by the authors. In practice, as we have seen in Section~\ref{sec:num_algos_dpps}, the numerical sampling of a general OPE requires the computation of the orthonormal polynomials $\bm{P}_{\bm{u}(n)}$ with respect to the measure $\mathrm{d}\omega$; which is possible for the measures \eqref{eq:jacobi_measures}, also called \emph{Jacobi measures}. 
 
 
- Moreover, the quadrature, after scaling by the factor $\sqrt{N^{1+1/d}}$, satisfies a CLT with an asymptotic variance $\sigma^{2}(f)$ that depends on the coefficients of the function $\displaystyle f \omega / \omega^{*}$ on the orthonormal basis defined by $\bm{T}_{\bm{u}(n)} = \prod\limits_{ \delta \in [d]} T_{\bm{u}(n)_{\delta}}$. In particular, when $\omega = \omega^{*}$, the asymptotic variance writes
+ Moreover, the quadrature, after scaling by the factor $\sqrt{N^{1+1/d}}$, satisfies a CLT with an asymptotic variance $\sigma^{2}(f)$ that depends on the coefficients of the function $\displaystyle f w / w^{*}$ on the orthonormal basis defined by $\bm{T}_{\bm{u}(n)} = \prod\limits_{ \delta \in [d]} T_{\bm{u}(n)_{\delta}}$. In particular, when $w = w^{*}$, the asymptotic variance writes
 \begin{equation}
 \sigma^{2}(f) = \frac{1}{2} \sum\limits_{m_{1}, \dots , m_{d} = 0}^{+\infty} (m_{1}+\dots +m_{d}) \widehat{f} (m_{1}, \dots, m_{d})^{2},
 \end{equation}
@@ -7188,7 +7196,7 @@ Then, $\hat{I}_{N}(f)$ is an unbiased estimator of $\displaystyle \int_{[0,1]^{d
 \end{equation}
 where
 \begin{equation}
- \hat{f}_{m} = \int_{[0,1]^{d}}f(u_{1}, \dots, u_{d}) e^{- 2\pi i m^{\Tran}u} \otimes_{\delta \in [d]} \mathrm{d}u_{\delta}.
+ \hat{f}_{m} = \int_{[0,1]^{d}}f(u_{1}, \dots, u_{d}) e^{- 2\pi \mathbf{i} m^{\Tran}u} \otimes_{\delta \in [d]} \mathrm{d}u_{\delta}.
 \end{equation}
 
 % where
@@ -7917,19 +7925,19 @@ $g$ is usually assumed to be constant.
 
 % This analysis shows that the optimal kernel quadrature $(\bm{x},\hat{\bm{x}})$ appears naturally in the posterior distribution.  
 
-Sequential algorithms offer another approach to designing a configuration of nodes $\bm{x} = \{x_{1}, \dots, x_{N}\}$ for optimal kernel quadrature. For example, in \parencite{HuDu12}, the authors proposed a greedy minimization approach called \emph{Sequential Bayesian quadrature}: based on a configuration $\bm{x}_{t}$ look for $x^{*} \in \X$ such that
+\emph{Sequential Bayesian quadrature} \parencite{HuDu12} offers another approach to designing a configuration of nodes $\bm{x} = \{x_{1}, \dots, x_{N}\}$ for optimal kernel quadrature:  based on a configuration $\bm{x}_{t}$ look for $x^{*} \in \X$ such that
 \begin{equation}\label{eq:sbq_step}
 \|\mu_{g}- \bm{\Pi}_{\mathcal{T}(\bm{x}_{t} \cup \{x^{*}\})} \mu_{g}\|_{\mathcal{F}} = \min\limits_{x \in \X}\|\mu_{g}- \bm{\Pi}_{\mathcal{T}(\bm{x}_{t} \cup \{x\})} \mu_{g}\|_{\mathcal{F}}^{2},
 \end{equation}
 and put $\bm{x}_{t+1} = \bm{x}_{t} \cup \{ x^{*}\}$. 
 
-This approach is reminiscent of Frank-Wolfe algorithm and its different variants \parencite{BaLaOb12,BrOaGiOs15}. In particular, \emph{kernel herding} \parencite{ChWeSm10} corresponds to greedily minimizing
-\begin{equation}\label{eq:herding_step}
-\|\mu_{g} - \frac{1}{N}\sum\limits_{n \in [N]}k(x_{n},.)\|_{\F}^{2}.
-\end{equation}
- This leads to a fast rate in $\mathcal{O}(1/N)$, but only when the integrand is in a finite-dimensional RKHS \parencite{BaLaOb12}. 
+% This approach is reminiscent of Frank-Wolfe algorithm and its different variants \parencite{BaLaOb12,BrOaGiOs15}. In particular, \emph{kernel herding} \parencite{ChWeSm10} corresponds to greedily minimizing
+% \begin{equation}\label{eq:herding_step}
+% \|\mu_{g} - \frac{1}{N}\sum\limits_{n \in [N]}k(x_{n},.)\|_{\F}^{2}.
+% \end{equation}
+%  This leads to a fast rate in $\mathcal{O}(1/N)$, but only when the integrand is in a finite-dimensional RKHS \parencite{BaLaOb12}. 
 
- In general, implementing any of these algorithms corresponds to solving several non-convex problems such as \eqref{eq:sbq_step} or \eqref{eq:herding_step}, with many local minima \parencite{HiOe16,Oett17}. We will discuss other sequential algorithms in Chapter~\ref{chap:CVS}.
+ Implementing this algorithm corresponds to solving sequentially the  non-convex problems \eqref{eq:sbq_step}, with many local minima. In practice, costly approximations must be employed to run the algorithm \parencite{HiOe16,Oett17}. We will discuss these implementation issues for similar sequential algorithms in Chapter~\ref{chap:CVS}.
 %  that is to select the nodes $x_{1}$ 
 
 % Many algorithms are based 
@@ -8513,7 +8521,7 @@ Let $\mathcal{S}_{s}$ the periodic Sobolev space of order $s \in \mathbb{N}^{*}$
 % k_{s}(x,y) = 1+ 2\sum\limits_{m \in \mathbb{N}^{*}} \frac{1}{m^{2s}} \cos(2\pi m(x-y)),
 % \end{equation}
 % so that $\mathcal{F}=\mathcal{F}_{s}$ is the periodic Sobolev space of order $s$ on $[0,1]$.
-We consider a set of three numerical experiments. In the first one, we consider the approximation of $\mu_{g}$ when $g \equiv 1$, that is $g \equiv e_{1}$ \footnote{We write $e_{m}$ rather than $e^{\mathcal{S}_{s}}_{m}$ to make the notation lighter.}, using several quadratures; in the second one, we consider the approximation of $\mu_{g}$ when $g$ is an arbitrary eigenfunction of $\bm{\Sigma}$ using the optimal kernel quadrature based on the projection DPP; in the third one, we consider the worst interpolation error of the $\mu_g$ when $g$ spans the unit ball of $\mathbb{L}_{2}(\mathrm{d}\omega)$. 
+We consider a set of three numerical experiments. In the first one, we consider the approximation of $\mu_{g}$ when $g \equiv 1$, that is $g \equiv e_{1}$ \footnote{We write $e_{m}$ rather than $e^{\mathcal{S}_{s}}_{m}$ to make the notation lighter.}, using several quadratures; in the second one, we consider the approximation of $\mu_{g}$ when $g$ is an arbitrary eigenfunction of $\bm{\Sigma}$ using the optimal kernel quadrature based on the projection DPP; in the third one, we consider the worst-case  interpolation error of the $\mu_g$ when $g$ spans the unit ball of $\mathbb{L}_{2}(\mathrm{d}\omega)$. 
 \subsubsection{The reconstruction of the embedding of the first eigenfunction}
  We take $g\equiv e_{1}$ so that the embedding $\mu_{g} = e_{1}$. We compare the following algorithms: $(i)$ the quadrature rule DPPKQ we propose in Theorem~\ref{thm:main_theorem} (optimal kernel quadrature based on the projection DPP $(\KDPP, \mathrm{d}\omega)$), $(ii)$ the quadrature rule DPPUQ based on the same projection DPP but with uniform weights $(w_{n} = 1/N)$ \parencite{Joh97}, $(iii)$ the kernel quadrature rule \eqref{eq:reg_kernel_opt_problem} of \cite{Bac17}, which we denote LVSQ for \emph{leverage score quadrature}, without regularization $(\lambda =0)$\footnote{The optimal proposal $q_{\lambda}^*$ is not defined, in a strict sense, when $\lambda = 0$. However, it is constant for $\lambda>0$; so we implement LVSQ $(\lambda = 0)$ using i.i.d. nodes from the uniform distribution of $[0,1]$.}, $(iv)$ sequential Bayesian quadrature (SBQ) \parencite{HuDu12} with regularization to avoid numerical instability, and $(v)$ optimal kernel quadrature on the uniform grid (UGKQ). We take $N \in [5,50]$. Figure~\ref{fig:pDPP_results_pSobolev_exp_1} shows log-log plots of the square of the worst case quadrature error~\eqref{eq:wce_kquadrature} w.r.t. $N$, averaged over 50 samples for each point, for $s \in \{1,3\}$.
 
@@ -8567,7 +8575,7 @@ We investigate this quantity by considering the following surrogate
 where $\mathcal{U}$ is a finite subset of the intersection of the unit ball of $\mathbb{L}_{2}(\mathrm{d}\omega)$ with the subspace $\Span(e_{n})_{n \in [50]}$\footnote{The square of the interpolation error when $g \in \Span(e_{n}^{\mathcal{S}_{s}})_{n \in [50]}^{\perp}$ starts from an initial error lower than $\sigma_{51}$.}. We take $|\mathcal{U}| = 2000$.
 % The quantity~\eqref{eq:surrogate_worst_inerpolation_error} is an approximation of the worst interpolation error. Indeed, if $g = \sum\limits_{\delta \in [\Delta]} \epsilon_{\delta} e_{\delta}$ for some $(\epsilon_{1}, \dots, \epsilon_{\Delta})$, then $\|g\|_{\mathrm{d}\omega} = 1$.
 
-Again, we compare the following quadratures defined in the first experiment: $(i)$ the quadrature rule DPPKQ, $(ii)$ LVSQ with regularization parameter $\lambda \in \{ 0, 0.01,0.1 \}$, and $(iii)$ UGKQ. We take $N \in [5,50]$. Figure~\ref{fig:pDPP_results_pSobolev_exp_3_G6} show log-log plots of the square of the worst interpolation error on $\mathcal{U}$ w.r.t. $N$, averaged over 50 samples for each point, for $s \in \{1,3\}$.  
+Again, we compare the following quadratures defined in the first experiment: $(i)$ the quadrature rule DPPKQ, $(ii)$ LVSQ with regularization parameter $\lambda \in \{ 0, 0.01,0.1 \}$, and $(iii)$ UGKQ. We take $N \in [5,50]$. Figure~\ref{fig:pDPP_results_pSobolev_exp_3_G6} show log-log plots of the square of the worst-case interpolation error on $\mathcal{U}$ w.r.t. $N$, averaged over 50 samples for each point, for $s \in \{1,3\}$.  
 
 
 
@@ -8577,7 +8585,7 @@ Again, we compare the following quadratures defined in the first experiment: $(i
 \includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_3_randomvectors_2000_fig_1.pdf}\\
 % \includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_1_binarycubeM_128_fig_1.pdf}
 % \includegraphics[width=0.45\textwidth]{img/neurips/Sobolev/suponunitball_interpolation_pSobolev_s_3_binarycubeM_128_fig_1.pdf}\\
-\caption{Squared worst interpolation error on $\mathcal{U}$ error vs. number of nodes $N$ for $s = 1$ (left) and $s=3$ (right).
+\caption{Squared worst-case interpolation error on $\mathcal{U}$ error vs. number of nodes $N$ for $s = 1$ (left) and $s=3$ (right).
 \label{fig:pDPP_results_pSobolev_exp_3_G6}}
 \end{figure}
 % \begin{figure}
@@ -10534,7 +10542,7 @@ Finally, we get
 
 
 
-\clearpage
+%\clearpage
 
 \chapter{Kernel interpolation using Volume Sampling}\label{chap:CVS}
 
@@ -10612,7 +10620,14 @@ As we have seen in Chapter~\ref{chapter:cssp}, volume sampling has been used in 
 % \item Control functionals using volume sampling
 % \end{itemize}
 
-The rest of the chapter is organized as follows. Section~\ref{CVS_s:relatedWork} reviews kernel-based interpolation. In Section~\ref{CVS_sec:VS_DPP}, we define continuous volume sampling and relate it to projection determinantal point processes. Section~\ref{CVS_sec:main_results} contains our main results while Section~\ref{CVS_sec:steps_proof} contains sketches of all proofs with pointers to the supplementary material for missing details????. \rev{Section~\ref{CVS_sec:experiment} numerically illustrates our main result.} We conclude in Section~\ref{CVS_sec:discussion}, discussing some consequences beyond kernel interpolation.
+The rest of the chapter is organized as follows. Section~\ref{CVS_s:relatedWork} reviews kernel-based interpolation. In Section~\ref{CVS_sec:VS_DPP}, we define continuous volume sampling and relate it to projection determinantal point processes. Section~\ref{CVS_sec:main_results} contains our main results while Section~\ref{CVS_sec:steps_proof} contains sketches of all proofs with pointers to the Section~\ref{sec:CVS_detailed_proofs} for the details of the proofs. \rev{Section~\ref{CVS_sec:experiment} numerically illustrates our main result.} We conclude in Section~\ref{CVS_sec:discussion}, discussing some consequences beyond kernel interpolation.
+
+The material of this chapter
+is based on the following article 
+\begin{itemize}
+\AtNextCitekey{\defcounter{maxnames}{99}}
+\item \fullcite{BeBaCh20}.
+\end{itemize}
 
 \paragraph{Notation and assumptions.}\label{CVS_paragraph:notation}
 We keep the same notation as Chapter~\ref{chap:dppkq}. 
@@ -10644,7 +10659,7 @@ We keep the same notation as Chapter~\ref{chap:dppkq}.
 % \end{equation}
 % where the convergence is pointwise \parencite{StSc12}. The eigenvalues $(\sigma_m)$ are assumed to be non-increasing. Moreover, for $m \in \mathbb{N}^{*}$, we write $e_{m}^{\mathcal{F}} = \sqrt{\sigma_{m}}e_{m}$. Since $I_{\mathcal{F}}$ is injective, $(e_{m}^{\mathcal{F}})_{m \in \mathbb{N}^{*}}$ is an orthonormal basis of $\mathcal{F}$ \parencite{StSc12}. Unless explicitly stated, we assume that $\mathcal{F}$ is dense in $\mathbb{L}_{2}(\mathrm{d}\omega)$, so that $(e_{m})_{m \in \mathbb{N}^{*}}$ is an orthonormal basis of $\mathbb{L}_{2}(\mathrm{d}\omega)$. For more intuition, under these assumptions, $f \in \mathcal{F}$ if and only if $\sum_m \sigma_{m}^{-1} \langle f,e_{m} \rangle_{\mathbb{L}_{2}(\mathrm{d} \omega)}^{2}$ converges; 
 
-\rev{ ???and we denote for $r\geq 0$ $\|\bm{\Sigma}^{-r}f\|_{\mathcal{F}}^{2} = \sum_{m} \langle f,e_{m}^{\mathcal{F}} \rangle_{\mathcal{F}}^{2}/\sigma_{m}^{2r}$.}
+
 
 % For $\bm{x} \in \X^{N}$, we define $\bm{K}(\bm{x}) := k(x_{i},x_{j})_{i,j \in [N]}$. If $\Det \bm{K}(\bm{x})>0$,  the subspace $\mathcal{T}(\bm{x}) = \Span k(x_{i},.)_{i \in [N]}$ is of dimension $N$; we denote by $\bm{\Pi}_{\mathcal{T}(\bm{x})}$ the $\langle.,. \rangle_{\F}$-orthogonal projection on $\mathcal{T}(\bm{x})$.
 For $N \in \Ns$, we will often sum over the sets
@@ -10677,9 +10692,12 @@ $x \mapsto k(x,x)$ is integrable with respect to $\mathrm{d}\omega$ so that $\ma
 
 
 
-\section{Related Work}\label{CVS_s:relatedWork}
+\section{Three topics on kernel interpolation}\label{CVS_s:relatedWork}
 % \rb{Not sure we should call it sampling}
-This section reviews some results on kernel interpolation to better situate our contributions. The literature on this topic is prolific???? and cannot be covered in details here. In particular, we start by reviewing results on optimal kernel quadrature, a particular case of kernel interpolation.
+
+The literature on kernel interpolation is prolific and cannot be covered in details in this chapter. This section reviews three topics on this field to better situate our contributions. 
+
+% In particular, we start by reviewing results on optimal kernel quadrature, a particular case of kernel interpolation.
 
 %%%%
 % \subsection{Interpolation for optimal kernel quadrature}\label{CVS_sec:review_optimal_kernel_quadrature}
@@ -10725,7 +10743,7 @@ This section reviews some results on kernel interpolation to better situate our 
 
 
 
-Besides the approximation of the embeddings $\mu_{g}$ discussed in Section~\ref{CVS_sec:review_optimal_kernel_quadrature}, theoretical guarantees for the kernel interpolation of a general $\mu\in\F$ are sought \emph{per se}. The Shannon reconstruction formula for bandlimited signals \parencite{Sha48} is implicitly an interpolation by the sinc kernel.
+Besides the approximation of the embeddings $\mu_{g}$ discussed in Section~\ref{subsec:okq_analysis_paradigm}, theoretical guarantees for the kernel interpolation of a general $\mu\in\F$ are sought \emph{per se}. The Shannon reconstruction formula for bandlimited signals \parencite{Sha48} is implicitly an interpolation by the sinc kernel.
 The RKHS approach for sampling in signal processing was introduced in \parencite{Yao67} for the Hilbert space of bandlimited signals;
 %(in the Fourier domain and in the Hankel domain).
 see also \parencite{NaWa91} for generalizations.
@@ -10733,7 +10751,7 @@ Remarkably, in those RKHSs, every $\mu \in \F$ is an embedding $\mu_{g}$ for som
 \begin{equation}
 \|\bm{\Sigma}^{-1/2} \mu_{g}\|_{\F} = \|\bm{\Sigma}^{1/2} g\|_{\F} = \|g\|_{\Ltwo} < +\infty. \nonumber
 \end{equation}
-This condition is more restrictive than what is required for a generic $\mu$ to belong to $\F$, i.e., $\|\mu\|_{\F}< +\infty$, so that kernel interpolation is more general than optimal kernel quadrature. The proposed approach will permit to deal with any $\mu\in\F$.
+This condition is more restrictive than what is required for a generic $\mu$ to belong to $\F$, i.e., $\|\mu\|_{\F}< +\infty$, so that kernel interpolation is more general than optimal kernel quadrature. Compared to Chapter~\ref{chap:dppkq} where we focused on kernel interpolation of the embeddings $\mu_{g}$, we study in this chapter kernel interpolation for any $\mu\in\F$.
 % Mathematically speaking, the analysis of both problems is very similar.
 
 % \cite{NaWa91}
@@ -10966,7 +10984,7 @@ In interpolation, we do use a subspace $Y \subset \F$ spanned by $N$ independent
 \begin{equation}
 \sup\limits_{\|g\|_{\mathrm{d}\omega} \leq 1} \mathcal{E}(\bm{\Sigma} g;\bm{x})^{2} \geq d_{N}(\mathcal{S})^{2}.
 \end{equation}
-Applying \citep[Theorem 2.2, Chapter 4]{Pin12} to the adjoint of the embedding operator $I_{\F}$ \cite{StSc12}[Lemma 2.2], it comes
+Applying \citep[Theorem 2.2, Chapter 4]{Pin12} to the adjoint of the embedding operator $I_{\F} : \F \rightarrow \mathbb{L}_{2}(\mathrm{d}\omega)$, it comes
 %
 % \rb{In the next paragraph, do we actually need the details on this new operator and his $s$-numbers, or can we just cite the result that $d_{N}(\mathcal{S})~=~\sqrt{\sigma_{N+1}}$?}
 % Now, $\mathcal{S}$ is the image of the unit ball of $\Ltwo$ by the compact operator $\hat{\bm{\Sigma}}: \Ltwo \rightarrow \F$.\rb{Did we define this new oeprator somewhere?} The adjoint of this operator is $\hat{\bm{\Sigma}}^{*} = \mathcal{I}_{\F}$ \parencite{StSc12}, so that $\bm{\Sigma} = \hat{\bm{\Sigma}} \mathcal{I}_{\F} = \hat{\bm{\Sigma}} \hat{\bm{\Sigma}}^{*}$.
@@ -11109,6 +11127,7 @@ In particular, if the eigenvalues of $\bm{\Sigma}$ decreases polynomially, then 
 %%%%%
 \subsection{Numerical simulation}
 
+
 % Equation \eqref{CVS_eq:pdpp_definition} is key to understanding DPPs.
 % First, loosely speaking, the probability of seeing a point of $\bm{x}$ in an infinitesimal volume around $x_1$ is $\KDPP(x_1,x_1)\omega(x_1)\mathrm{d} x_1$. Note that when $d=1$ and $(\psi_{n})$ are the family of orthonormal polynomials with respect to $\mathrm{d}\omega$, this marginal probability is related to the optimal proposal $q_\lambda$ in Section~\ref{CVS_s:bach}; see Appendix~\ref{app:christoffel}. Second, the probability of simultaneously seeing a point of $\bm{x}$ in an infinitesimal volume around $x_1$ and one around $x_2$ is
 % \begin{align*}
@@ -11145,13 +11164,7 @@ An alternative solution would be to use a variant of the HKPV algorithm to appro
 & = p(x_{1}; \emptyset) \times p(x_{2}; \{x_{1}\}) \times \dots  \times p(x_{N}; \{x_{1}, \dots, x_{N-1}\}),
 \end{align}
 
-where $p$ is the power function defined in \eqref{CVS_e:power}. Algorithm~\ref{alg:approx_HKPV_SAMPLER} proposed in \parencite{ReGh19} uses this decomposition to approximate continuous volume sampling. 
-% Therefore, by successively sampling proportionally to the power function 
- The output of the algorithm follows a density  $\tilde{f}_{\VS}$ with respect to $\prod_{n \in [N]} \mathrm{d}\omega(x_{n})$ that satisfies \parencite{ReGh19}[Lemma 4.4]
-\begin{equation}\label{CVS_eq:approximate_CVS}
-\forall (x_{1}, \dots, x_{N}) \in \X^{N}, \:\: \tilde{f}_{\VS}(x_{1}, \dots,x_{N}) \leq N!^{2} f_{\VS}(x_{1}, \dots,x_{N}).
-\end{equation} 
-This bound is irrelevant for large values of $N$. In other words, the approximation of continuous volume sampling by the Algorithm~\ref{alg:approx_HKPV_SAMPLER} is very loose. Note however that $\tilde{f}_{\VS} = f_{\VS}$ if $k$ is a projection kernel that defines an integration operator of rank $N$: Algorithm~\ref{alg:approx_HKPV_SAMPLER} coincides with Algorithm~\ref{alg:HKPV_SAMPLER} in this case.
+
 
 
 \begin{figure}[!ht]
@@ -11173,6 +11186,15 @@ This bound is irrelevant for large values of $N$. In other words, the approximat
 \caption{Pseudocode of approximate continuous volume sampling based on a variant of the HKPV.}
 \label{alg:approx_HKPV_SAMPLER}
 \end{figure}
+
+
+where $p$ is the power function defined in \eqref{CVS_e:power}. Algorithm~\ref{alg:approx_HKPV_SAMPLER} proposed in \parencite{ReGh19} uses this decomposition to approximate continuous volume sampling. 
+% Therefore, by successively sampling proportionally to the power function 
+ The output of the algorithm follows a density  $\tilde{f}_{\VS}$ with respect to $\prod_{n \in [N]} \mathrm{d}\omega(x_{n})$ that satisfies \parencite{ReGh19}[Lemma 4.4]
+\begin{equation}\label{CVS_eq:approximate_CVS}
+\forall (x_{1}, \dots, x_{N}) \in \X^{N}, \:\: \tilde{f}_{\VS}(x_{1}, \dots,x_{N}) \leq N!^{2} f_{\VS}(x_{1}, \dots,x_{N}).
+\end{equation} 
+This bound is irrelevant for large values of $N$. In other words, the approximation of continuous volume sampling by the Algorithm~\ref{alg:approx_HKPV_SAMPLER} is very loose. Note however that $\tilde{f}_{\VS} = f_{\VS}$ if $k$ is a projection kernel that defines an integration operator of rank $N$: Algorithm~\ref{alg:approx_HKPV_SAMPLER} coincides with Algorithm~\ref{alg:HKPV_SAMPLER} in this case.
 
 
 
@@ -11216,15 +11238,7 @@ where $\tilde{\X}$ is a large finite subset of $\X$. However, these heuristics d
 \begin{equation}\label{CVS_eq:power_function_opt_problem_sample}
 x \sim p(x; \bm{x}).
 \end{equation}
-We can observe that selecting the nodes sequentially using~\eqref{CVS_eq:power_function_opt_problem_sample} is equivalent to running Algorithm~\ref{alg:approx_HKPV_SAMPLER}. Now, the implementation of~\eqref{CVS_eq:power_function_opt_problem_sample} is possible via rejection sampling. Indeed, by observing that
-\begin{equation}\label{CVS_eq:diagonal_bound_sharp}
-\forall x \in \X, \:\: p(x; \bm{x}) \leq k(x,x),
-\end{equation}
-we may use  
-\begin{equation}\label{CVS_eq:proposal_diagonal}
-x \mapsto \frac{1}{\int\limits_{\X} k(x,x) \mathrm{d}\omega(x)} k(x,x)
-\end{equation}
-as a proposal. 
+We can observe that selecting the nodes sequentially using~\eqref{CVS_eq:power_function_opt_problem_sample} is equivalent to running Algorithm in Figure~\ref{alg:approx_HKPV_SAMPLER}. Now, the implementation of~\eqref{CVS_eq:power_function_opt_problem_sample} is possible via rejection sampling. 
 
 \begin{figure}[!]
     \centering
@@ -11236,20 +11250,39 @@ as a proposal.
 \includegraphics[width= 0.32\textwidth]{img/icml/bernoulli_rejection_bounds/Bernoulli_kernel_rejection_bound_s1_N_5.pdf}~\includegraphics[width= 0.32\textwidth]{img/icml/bernoulli_rejection_bounds/Bernoulli_kernel_rejection_bound_s2_N_5.pdf}~\includegraphics[width= 0.32\textwidth]{img/icml/bernoulli_rejection_bounds/Bernoulli_kernel_rejection_bound_s3_N_5.pdf}\\
 \caption{The power function $p(x;\bm{x})$ in the case of the periodic Sobolev space of orders $s = 1$ (left), $s=2$ (middle) and $s=3$ (right), compared to the diagonal of the kernel $x \mapsto k_{s}(x,x) = k_{s}(0,0)$ (the dashed line).\label{CVS_fig:rejection_bounds_Bernoulli}}
 \end{figure}
-
+Indeed, by observing that
+\begin{equation}\label{CVS_eq:diagonal_bound_sharp}
+\forall x \in \X, \:\: p(x; \bm{x}) \leq k(x,x),
+\end{equation}
+we may use  
+\begin{equation}\label{CVS_eq:proposal_diagonal}
+x \mapsto \frac{1}{\int\limits_{\X} k(x,x) \mathrm{d}\omega(x)} k(x,x)
+\end{equation}
+as a proposal. 
 
 
 
 
 Interestingly, if $\X \subset \mathbb{R}^{d}$ is bounded and $k$ is translation invariant, then the expected number of rejections scales as $\mathcal{O}(1/\sum_{n = N+1}^{+\infty} \sigma_{n})$, where $N$ is the cardinality of the configuration $\bm{x}$ \parencite{ReGh19}[Lemma 5.3]. In other words, the complexity~\footnote{The complexity expressed in term of the expected value of the number of rejections.} of the step~\eqref{CVS_eq:power_function_opt_problem_sample} using the proposal~\eqref{CVS_eq:proposal_diagonal} increases as $N$ increases. Moreover, for a fixed value of $N$, the smoother the kernel, the higher the complexity of the step~\eqref{CVS_eq:power_function_opt_problem_sample}. Figure~\ref{CVS_fig:rejection_bounds_Bernoulli} illustrates the sharpness of the bound~\eqref{CVS_eq:diagonal_bound_sharp} on the periodic Sobolev spaces of orders $s \in \{ 1,2,3\}$ for $N \in \{ 0,1,2,3,4,5\}$. We observe that for a fixed value of $N$, the smoother the kernel, the larger is the gap between the proposal (the diagonal of the kernel) and the power function.
 
-These observations suggest that for a given family of kernels and for a fixed value of $N$, the complexity of the step~\eqref{CVS_eq:power_function_opt_problem_sample} decreases as the dimension of the domain increases. To illustrate this phenomenon, we consider the case of the Korobov spaces. Remember that the corresponding kernel $k_{d,s}$ writes
+
+These observations suggest that the complexity of the step~\eqref{CVS_eq:power_function_opt_problem_sample} decreases as the dimension of the domain increases for a given family of kernels.
+To illustrate this phenomenon, we consider the case of Korobov spaces $\mathcal{K}_{d,s}$ defined for a fixed value of $s \in \mathbb{N}^{*}$. As we have seen in Section~\ref{sec:Korobov_spaces_def}, the larger $d$, the "richer" the spectrum of the integration operator $\bm{\Sigma}$. Therefore, for a fixed value of $N$, the rejection rate
 \begin{equation}
-\forall x,y \in [0,1]^{d}, \:\:k_{d,s}(x,y) = \prod\limits_{\delta \in [d]}k_{s}(x_{\delta},y_{\delta}).
+R_{d,s}(N) = 1/\sum_{n = N+1}^{+\infty} \sigma_{n}^{\mathcal{K}_{d,s}}
 \end{equation}
+is decreasing with respect to $d$. Figure~\ref{CVS_fig:rejection_bounds_Korobov} illustrates this phenomenon for $s \in \{1,2\}$ and $d \in \{2,3,4\}$. We observe that 
+$R_{4,s}(N) < R_{3,s}(N) < R_{2,s}(N)$ for the two values of $s$: the larger the dimension $d$, the smaller the complexity  of the step~\eqref{CVS_eq:power_function_opt_problem_sample} using the proposal~\eqref{CVS_eq:proposal_diagonal}. In other words, the algorithm in Figure~\ref{alg:approx_HKPV_SAMPLER}, that is an approximation of continuous volume sampling, is a viable alternative to the greedy maximization of the power function in high dimensional domains.
+
+As we shall see in Section~\ref{CVS_sec:main_results}, we prove that the squared interpolation error, under continuous volume sampling, scales as $\mathcal{O}(\sigma_{N+1})$ for the embeddings $\mu_{g}$. In other words, there is a trade-off between the approximation problem (reducing the interpolation error) and the sampling problem (reducing the complexity of sampling). We leave investigating alternative samplers that circumvent this trade-off for future work.
 
 
-We leave investigating the efficiency of such an MCMC approach to volume sampling for future work.
+\begin{figure}[!]
+    \centering
+\includegraphics[width= 0.48\textwidth]{img/icml/korobov_rejection/rejection_bounds_for_Korobov_2D_s_1.pdf}~\includegraphics[width= 0.48\textwidth]{img/icml/korobov_rejection/rejection_bounds_for_Korobov_2D_s_2.pdf}\\
+\caption{The function $R_{d,s}(N)$ as a function of $N$ for $s =1$ (left) and $s=2$ (right).\label{CVS_fig:rejection_bounds_Korobov}}
+\end{figure}
+
  % \pc{This is one more advantage of continuous volume sampling.}
 % Now, a naive sampler for volume sampling  , by the fact that (using Hadamard inequality)
 % \begin{equation}
@@ -11329,7 +11362,7 @@ In both cases, the proof uses the fact that
 \begin{equation}
 \beta_{N} \leq [(N-M_{N}+1)\sigma_N]^{-1} \sum_{m \geq M_{N}} \sigma_m,
 \end{equation}
-for a well designed sequence $M_{N}$. For example, if $\sigma_{m}~=~m^{-2s}$, we take $M_{N} = \lceil{N/c \rceil}$ with $c >1$; if $\sigma_{m} = \alpha^{m}$ we take $M_N = N$. We give a detailed proof in Section ???.
+for a well designed sequence $M_{N}$. For example, if $\sigma_{m}~=~m^{-2s}$, we take $M_{N} = \lceil{N/c \rceil}$ with $c >1$; if $\sigma_{m} = \alpha^{m}$ we take $M_N = N$. We give a detailed proof in Section~\ref{sec:CVS_detailed_proofs}.
 % , and discuss extensions of Proposition~\ref{CVS_prop:constant_bound} in Section~\ref{CVS_sec:discussion}.
 % Figure~\ref{CVS_fig:the_only_one_for_the_moment} illustrates the upper bound of Theorem~\ref{CVS_thm:main_result_1} and the constant of Proposition~\ref{CVS_prop:constant_bound} in the case of the periodic Sobolev space of order $s=3$.
 
@@ -11389,7 +11422,8 @@ Let $\mu \in \F$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Assume that $\|\bm{\Sigma}^{-r}\mu \|_{\F} < +\infty$ for some $r \in [0,1/2]$. Then, under Assumption~\ref{CVS_hyp:beta_N_bounded},
+Assume that 
+$\|\bm{\Sigma}^{-r}\mu \|_{\F}^{2} \triangleq \sum_{m} \langle \mu,e_{m}^{\mathcal{F}} \rangle_{\mathcal{F}}^{2}/\sigma_{m}^{2r} < +\infty$ for some $r \in [0,1/2]$. Then, under Assumption~\ref{CVS_hyp:beta_N_bounded},
 \begin{equation}
 \EX_{\VS} \mathcal{E}(\mu;\bm{x})^{2} \leq (2+B) \sigma_{N}^{2r} \|\bm{\Sigma}^{-r} \mu\|_{\F}^{2} = \mathcal{O}(\sigma_{N}^{2r}). \nonumber
 \end{equation}
@@ -11401,7 +11435,7 @@ Assume that $\|\bm{\Sigma}^{-r}\mu \|_{\F} < +\infty$ for some $r \in [0,1/2]$. 
 \end{theorem}
 %
 %
-In other words, the expected interpolation error depends on the smoothness parameter $r$. For $r =1/2$, we exactly recover the rate of Theorem~\ref{CVS_thm:main_result_1}. In contrast, for $r<1/2$, the rate $\mathcal{O}(\sigma_{N}^{2r})$ is slower. For $r=0$, our bound is constant with $N$. Note that assuming more smoothness $(r>1/2)$ does not seem to improve the rate $\mathcal{O}(\sigma_{N})$. The condition $\|\bm{\Sigma}^{-r}\mu \|_{\F} < +\infty$ is satisfied by the elements of the fractional space
+In other words, the expected interpolation error depends on the smoothness parameter $r$. For $r =1/2$, we exactly recover the rate of Theorem~\ref{CVS_thm:main_result_1}. In contrast, for $r<1/2$, the rate $\mathcal{O}(\sigma_{N}^{2r})$ is slower. For $r=0$, our bound is constant with $N$. The condition $\|\bm{\Sigma}^{-r}\mu \|_{\F} < +\infty$ is satisfied by the elements of the fractional space
 \begin{equation}
 \bm{\Sigma}^{r+1/2} \mathbb{L}_{2}(\mathrm{d}\omega) = \Big\{\bm{\Sigma}^{r+1/2} g; \:\: g \in \mathbb{L}(\mathrm{d}\omega)  \Big\}.
 \end{equation}
@@ -11674,6 +11708,7 @@ The proof is based on the observation that the perturbations in \eqref{CVS_eq:k_
 Combining the characterization of $\EX_{\VS} \tau_{m}^{\F}(\bm{x})$ and $\EX_{\VS} \tau_{m_{1},m_{2}}^{\F}(\bm{x})$ given in Proposition~\ref{CVS_thm:EX_lvs_phi}, and Proposition~\ref{CVS_prop:perturbed_kernels_spectrum}, we prove Proposition~\ref{CVS_prop:EX_VS_lvs}; see details in Section~\ref{CVS_sec:proof_EX_VS_lvs}.
 % This completes the proof of Theorem~\ref{CVS_thm:main_result_1}.
 \section{Numerical Simulations}
+\label{CVS_sec:experiment}
 \subsection{Comparing the $\epsilon_{m}(N)$ to the $\sigma_{N}$.}
 In this section, we illustrate the bound of Theorem~\ref{CVS_thm:main_result_1} and the constants of Proposition~\ref{CVS_prop:constant_bound} on more examples.
 %\subsection{The uni-dimensional periodic Sobolev spaces}
@@ -11749,9 +11784,9 @@ the constant $B$ of Proposition~\ref{CVS_prop:constant_bound} is small for low v
 
 \begin{figure}[h]\label{CVS_fig:gaussian}
     \centering
-\includegraphics[width= 0.48\textwidth]{img/icml/app/EX_VS_tau_n_alpha_07.pdf}~\includegraphics[width= 0.48\textwidth]{img/icml/app/EX_VS_err_n_alpha_07_new.pdf}\\
-\includegraphics[width= 0.48\textwidth]{img/icml/app/EX_VS_tau_n_alpha_05.pdf}~\includegraphics[width= 0.48\textwidth]{img/icml/app/EX_VS_err_n_alpha_05_new.pdf}\\
-\includegraphics[width= 0.48\textwidth]{img/icml/app/EX_VS_tau_n_alpha_02.pdf}~\includegraphics[width= 0.48\textwidth]{img/icml/app/EX_VS_err_n_alpha_02_new.pdf}\\
+\includegraphics[width= 0.48\textwidth]{img/icml/app/EX_VS_tau_n_gaussian_alpha_07_new.pdf}~\includegraphics[width= 0.48\textwidth]{img/icml/app/EX_VS_err_n_gaussian_alpha_07_new.pdf}\\
+\includegraphics[width= 0.48\textwidth]{img/icml/app/EX_VS_tau_n_gaussian_alpha_05_new.pdf}~\includegraphics[width= 0.48\textwidth]{img/icml/app/EX_VS_err_n_gaussian_alpha_05_new.pdf}\\
+\includegraphics[width= 0.48\textwidth]{img/icml/app/EX_VS_tau_n_gaussian_alpha_02_new.pdf}~\includegraphics[width= 0.48\textwidth]{img/icml/app/EX_VS_err_n_gaussian_alpha_02_new.pdf}\\
 \caption{The expected value of the $m$-th leverage score $\EX_{\VS} \tau_{m}^{\F}(\bm{x})$ and the expected interpolation error $\EX_{\VS} \mathcal{E}(\mu_{e_{m}};\bm{x})^{2}$ under the distribution of continuous volume sampling for $m \in \{1,2,3,4,5\}$. Every row corresponds to a uni-dimensional Gaussian space ($\sigma_{m} = \alpha^{m}$) with a parameter $\alpha \in \{0.7,0.5,0.2\}$. \label{CVS_fig:gaussian}}
 \end{figure}
 
@@ -11759,26 +11794,27 @@ the constant $B$ of Proposition~\ref{CVS_prop:constant_bound} is small for low v
 \subsection{An MCMC simulation}
 
 
-\label{CVS_sec:experiment}
-To illustrate Theorem~\ref{CVS_thm:main_result_1}, we let $\mathcal{X} = [0,1]$ and $\mathrm{d}\omega$ be the uniform measure on $\mathcal{X}$. Let the RKHS kernel be \parencite{BeTh11}
-\begin{equation}\label{CVS_eq:bernoulli_kernel}
-k_{s}(x,y) = 1+ 2\sum\limits_{m \in \mathbb{N}^{*}} \frac{1}{m^{2s}} \cos(2\pi m(x-y)),
-\end{equation}
-so that $\mathcal{F}=\mathcal{F}_{s}$ is the Sobolev space of order $s$ on $[0,1]$. The Mercer decomposition \eqref{CVS_eq:Mercer_decomp} of $k_{s}$ is such that
+To illustrate Theorem~\ref{CVS_thm:main_result_1}, we 
+%  let $\mathcal{X} = [0,1]$ equipped with the uniform measure $\mathrm{d}\omega$, and we consider the periodic Sobolev space $\mathcal{S}_{s}$ defined in Section??.  Let the RKHS kernel be \parencite{BeTh11}
+% \begin{equation}\label{CVS_eq:bernoulli_kernel}
+% k_{s}(x,y) = 1+ 2\sum\limits_{m \in \mathbb{N}^{*}} \frac{1}{m^{2s}} \cos(2\pi m(x-y)),
+% \end{equation}
+% so that $\mathcal{F}=\mathcal{F}_{s}$ is the Sobolev space of order $s$ on $[0,1]$. The Mercer decomposition \eqref{CVS_eq:Mercer_decomp} of $k_{s}$ is such that
 %\begin{equation}\label{CVS_eq:bernoulli_kernel_mercer}
 %k_{s}(x,y) = \sum\limits_{m \in \mathbb{N}^{*}} \sigma_{m}e_{m}(x)e_{m}(y),
 %\end{equation}
 %where
-$\sigma_{1} = 1$, $e_{1}=1$ is constant and, for $n \geq 1$, $\sigma_{2n} = \sigma_{2n+1} = 1/n^{2s}$,
-\begin{equation}
-\left\{
-    \begin{array}{ll}
-        e_{2n}(x)  & = \sqrt{2} \cos (2\pi n x),\\
-        e_{2n+1}(x)  & = \sqrt{2} \sin (2\pi n x).
-    \end{array}
-\right.
-\end{equation}
- Note that $k_{s}$ can be expressed in closed form using Bernoulli polynomials \parencite{Wah90}. In Theorem~\ref{CVS_thm:main_result_1}, \eqref{CVS_eq:main_result_EX_VS_err_mu} decomposes the expected interpolation error of any $\mu_{g}$ in terms of the interpolation error $\epsilon_{m}(N)$ of the $\mu_{e_{m}}$.
+% $\sigma_{1} = 1$, $e_{1}=1$ is constant and, for $n \geq 1$, $\sigma_{2n} = \sigma_{2n+1} = 1/n^{2s}$,
+% \begin{equation}
+% \left\{
+%     \begin{array}{ll}
+%         e_{2n}(x)  & = \sqrt{2} \cos (2\pi n x),\\
+%         e_{2n+1}(x)  & = \sqrt{2} \sin (2\pi n x).
+%     \end{array}
+% \right.
+% \end{equation}
+ % Note that $k_{s}$ can be expressed in closed form using Bernoulli polynomials \parencite{Wah90}. 
+ In Theorem~\ref{CVS_thm:main_result_1}, \eqref{CVS_eq:main_result_EX_VS_err_mu} decomposes the expected interpolation error of any $\mu_{g}$ in terms of the interpolation error $\epsilon_{m}(N)$ of the $\mu_{e_{m}}$.
  Therefore, it is sufficient to numerically check the values of the $\epsilon_{m}(N)$. As an illustration we consider $g \in \{e_{1}, e_{5}, e_{7}\}$ in \eqref{CVS_eq:main_result_EX_VS_err_mu}, so that $\mu_{e_m} = \bm{\Sigma}e_m = \sigma_{m} e_{m}$, with $m \in \{1,5,7\}$.
  We use the Gibbs sampler proposed by \parencite{ReGh19} to approximate continuous volume sampling.
 
@@ -11798,10 +11834,10 @@ $\sigma_{1} = 1$, $e_{1}=1$ is constant and, for $n \geq 1$, $\sigma_{2n} = \sig
 %%%%%%%%%%%%%%%%%%
 \begin{figure}[]
     \centering
-\includegraphics[width= 0.75\textwidth]{img/icml/simulation/EX_VS_err_n_s_1_th_vs_emp_exp50_2.pdf}\\
-\includegraphics[width= 0.75\textwidth]{img/icml/simulation/EX_VS_err_n_s_2_th_vs_emp_exp50.pdf}
+\includegraphics[width= 0.48\textwidth]{img/icml/simulation/EX_VS_err_n_s_1_th_vs_emp_exp50_2.pdf}~
+\includegraphics[width= 0.48\textwidth]{img/icml/simulation/EX_VS_err_n_s_2_th_vs_emp_exp50.pdf}
 
-\caption{\label{CVS_fig:simulation_one} The empirical estimate of $\EX_{\VS} \mathcal{E}(\mu_{e_{m}};\bm{x})^{2}$ for $m \in \{1,5,7\}$ compared to its expression \eqref{CVS_eq:main_result_EX_VS_err_mu} in the case of the periodic Sobolev space. The smoothness is $s=1$ (top), $s=2$ (bottom).}
+\caption{\label{CVS_fig:simulation_one} The empirical estimate of $\EX_{\VS} \mathcal{E}(\mu_{e_{m}};\bm{x})^{2}$ for $m \in \{1,5,7\}$ compared to its expression \eqref{CVS_eq:main_result_EX_VS_err_mu} in the case of the periodic Sobolev space. The smoothness is $s=1$ (left), $s=2$ (right).}
 \end{figure}
 
 %%%%%%%%%%%%%%%
@@ -11862,7 +11898,7 @@ In the context of interpolation, \parencite{KaSaTa19} propose to use approximate
 \chapter*{Proofs}
 
 
-\section{Proofs}
+\section{Proofs}\label{sec:CVS_detailed_proofs}
 
 \subsection{Technical results borrowed from other papers}
 Thoughout our proof, we use a few technical results from the literature, which we gather here for ease of reference.
@@ -12933,7 +12969,7 @@ which is the generic term of a convergent series as $f,g\in\Ltwo$. This conclude
 
 
 
-\clearpage
+%\clearpage
 
 % \chapter{Continuous signal reconstruction using determinantal sampling}\label{chapter:signal_reconstruction}
 
@@ -13370,7 +13406,7 @@ After matrix concentration inequalities and the Stieltjes transform, the expecte
 % sharp theoretical  unified theoretical analysis ...
 
 
-\clearpage
+%\clearpage
 
 
 
@@ -13392,6 +13428,16 @@ After matrix concentration inequalities and the Stieltjes transform, the expecte
 % \end{itemize}
 % \subsection{Prologue: the infinite column subset selection problem} (1-2 pages)
 
+\chapter*{List of Symbols}
+\addcontentsline{toc}{chapter}{List of Symbols}
+
+\begin{tabular}{cp{0.6\textwidth}}
+  $\bm{X}$ & a real matrix \\
+  $\bm{U}$ & velocity \\
+  $a$ & acceleration \\
+  $t$ & time \\
+  $F$ & force
+\end{tabular}\\
 
 \listoffigures
 
