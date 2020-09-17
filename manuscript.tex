@@ -1,7 +1,7 @@
 
 \documentclass[twoside,11pt]{book}
 
-\usepackage[english,french]{babel}
+\usepackage[french,english]{babel}
 \usepackage{classicthesis}
 
 \usepackage[margin=3.05cm]{geometry}
@@ -14,7 +14,7 @@
 
 
 \usepackage{csquotes}
-\usepackage{epigraph}
+\usepackage{epigraph,varwidth}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{bm}
@@ -92,6 +92,7 @@
 \numberwithin{assumption}{chapter}
 \numberwithin{equation}{chapter}
 \numberwithin{figure}{chapter}
+\numberwithin{table}{chapter}
 
 
 \renewcommand{\appendixname}{Anexo}
@@ -270,6 +271,18 @@
    \begin{center}\bfseries\abstractname\end{center}}
   {\par\bigskip}
 
+\usepackage{calc}
+
+\newcommand{\mytextformat}{\itshape\epigraphsize}
+\newenvironment{mytext}{\mytextformat}{}
+\newenvironment{mysource}{\scshape\hfill}{}
+\renewcommand{\textflush}{mytext} 
+\renewcommand{\sourceflush}{mysource}
+
+\let\originalepigraph\epigraph 
+\renewcommand\epigraph[2]%
+   {\setlength{\epigraphwidth}{\widthof{\mytextformat#1}}\originalepigraph{#1}{#2}}
+
 \begin{document}
 
 \title{Thesis manuscript}
@@ -300,7 +313,7 @@ Dans cette thèse, on étudie l’échantillonnage de sous-espaces à l’aide d
 
 
 \begin{abstract}{english}
-Determinantal point processes are probabilistic models of repulsion. These models were studied in various fields: random matrices, quantum optics, spatial statistics, image processing, machine learning and recently numerical integration. In this thesis, we study subspace sampling using determinantal point processes. This problem takes place within the intersection of three sub-domains of approximation theory: subset selection, kernel quadrature and kernel interpolation. We study these classical topics, through a new interpretation of these probabilistic models: a determinantal point process is a natural way to define a random subspace. Beside giving a unified analysis to numerical integration and interpolation under determinantal point processes, this new perspective allows to work out the theoretical guarantees of several approximation algorithms, and to prove their optimality in some settings.
+Determinantal point processes are probabilistic models of repulsion. These models were studied in various fields: random matrices, quantum optics, spatial statistics, image processing, machine learning, and recently numerical integration. In this thesis, we study subspace sampling using determinantal point processes. This problem takes place within the intersection of three sub-domains of approximation theory: subset selection, kernel quadrature, and kernel interpolation. We study these classical topics, through a new interpretation of these probabilistic models: a determinantal point process is a natural way to define a random subspace. Besides giving a unified analysis to numerical integration and interpolation under determinantal point processes, this new perspective allows to work out the theoretical guarantees of several approximation algorithms and to prove their optimality in some settings.
 \end{abstract}
 
 
@@ -347,13 +360,13 @@ Determinantal point processes are probabilistic models of repulsion. These model
 
 % \paragraph{intro 2}
 Subsampling is a recurrent task in applied mathematics. This paradigm has many applications in data analysis, signal processing, machine learning and statistics: continuous signal discretization, numerical integration, dimension reduction, learning on budget, preconditioning... Seemingly unrelated, these problems can be tackled using the same strategy: looking for the most representative elements in a set. For example,
-the aim of subset selection is to select the most representative elements of a large set to approximate an object that can be scalar, a vector or a matrix. On the other hand, quadrature and interpolation aim to select the most representative elements of a continuous domain to approximate a function or an integral.
-These approximations are conducted, mainly, for three purposes: improving the numerical complexity of an existing algorithm (\emph{numerical issue}), reducing the cost of labelling (\emph{sensing issue}) or making an algorithm more interpretable (\emph{interpretation issue}).
+the aim of subset selection is to select the most representative elements of a large set to approximate an object that can be scalar, a vector, or a matrix. On the other hand, quadrature and interpolation aim to select the most representative elements of a continuous domain to approximate a function or an integral.
+These approximations are conducted, mainly, for three purposes: improving the numerical complexity of an existing algorithm (\emph{numerical issue}), reducing the cost of labelling (\emph{sensing issue}), or making an algorithm more interpretable (\emph{interpretation issue}).
 
 For some problems with linear structure, the set can be embedded in a vector space. A good subset of representatives would have a geometric characterization that can be expressed in a simple way using the spectrum of some linear operator. In other words, the sub-sampling problem boils down to a geometric problem. One way to set up a linear representation on a set is to define a kernel. Indeed, 
-kernels are universal tools that can be defined in discrete sets or continuous domains. Moreover, they combine well with linearisation.
+kernels are universal tools that can be defined on discrete sets or continuous domains. Moreover, they combine well with linearisation.
 
-Once an embedding is defined, one can make use of the abundant tools of linear operators such as linear algebra or functional analysis to solve the geometrical problem that raised from the sub-sampling problem. Under this perspective, we can explain the recourse to random sub-sampling in many problems with linear structure: non-asymptotic random matrix theory offers strong tools to tackle these geometric problems in a universal way. A universality that lacks to deterministic sub-sampling approaches.
+Once an embedding is defined, one can make use of the abundant tools of linear operators such as linear algebra or functional analysis to solve the geometrical problem that corresponds to the sub-sampling problem. Under this perspective, we can explain the recourse to random sub-sampling in many problems with linear structure: non-asymptotic random matrix theory offers strong tools to tackle these geometric problems in a universal way. A universality that lacks to deterministic sub-sampling approaches.
 
 
  % these linear spaces, the task of looking for representatives boils down to approximating a sum of matrices or operators using a smaller sum; and randomized averaging was extensively used for its versatility and its strong theoretical guarantees.
@@ -375,9 +388,9 @@ Once an embedding is defined, one can make use of the abundant tools of linear o
 % One way to set up this strategy is to look for a linear representation of the set and to make use of the abundant tools of linear algebra and functional analysis.  In these linear spaces, the task of looking for representatives boils down to approximating a sum of matrices or operators using a smaller sum; and randomized averaging was extensively used for its versatility and its strong theoretical guarantees. 
 
 
-Until now, sampling proportionally to lengths was the gold standard of randomized subsampling. Indeed, lengths are amenable to fast evaluation, approximation, and sampling. Moreover, these simple sub-sampling schemes come with relatively strong guarantees. Still, lengths contain only the first-order information about the set to be sampled. One may expect to improve the quality of sampling by considering high-order information such as volumes.
+Until now, sampling vectors independently, with a probability proportional to their (squared) length was the gold standard of randomized subsampling. Indeed, lengths are amenable to fast evaluation, approximation, and sampling. Moreover, these simple sub-sampling schemes come with relatively strong guarantees. Still, lengths contain only first-order information about the set to be sampled. One may expect to improve the quality of sampling by considering high-order information such as volumes.
 
-Indeed, a good subset of representatives would capture the substance of the information avoiding any unnecessary redundancy. This redundancy may be measured by the volume spanned by these elements. Intuitively, a subset would be redundant if defining a polytope with small volume, and it would be non-redundant if defining a polytope with large volume. It turns out that there exists a family of probabilistic models that define random subsets with a repulsion property: informally, the probability of appearance of a subset is proportional to the volume it defines in the vector space. These models are called determinantal point processes and they were the topic of intense research in various fields: random matrices, quantum optics, spatial statistics, image processing, machine learning and recently numerical integration. These probabilistic models seem to furnish the plausible framework for the study of sub-sampling using high-order information. Indeed, these probabilistic models are expressed using the language of linear operators and kernels: they naturally extend first-order sub-sampling schemes.
+Indeed, a good subset of representatives would capture the substance of the information avoiding any unnecessary redundancy. This redundancy may be measured by the volume spanned by these elements. Intuitively, a subset of vectors would be redundant if defining a polytope with small volume, and it would be non-redundant if defining a polytope with large volume. It turns out that there exists a family of probabilistic models that define random subsets with a repulsion property: informally, the probability of appearance of a subset is proportional to the squared volume it defines in the vector space. These models are called determinantal point processes and they were the topic of intense research in various fields: random matrices, quantum optics, spatial statistics, image processing, machine learning and recently numerical integration. These probabilistic models seem to furnish the plausible framework for the study of sub-sampling using high-order information. Indeed, these probabilistic models are expressed using the language of linear operators and kernels: they naturally extend first-order sub-sampling schemes.
 
 
 
@@ -1299,7 +1312,7 @@ In Chapter~\ref{chapter:cssp}, we propose and analyze a new column subset select
 In particular, we compare a particular projection DPP with volume sampling, and we prove that this projection DPP can lead to better theoretical guarantees and empirical results under a condition called \emph{the sparsity of the $k$-leverage scores}. Moreover, we prove theoretical guarantees under a more realistic condition called \emph{the relaxed sparsity of the $k$-leverage scores}. Interestingly, the introduction of this notion of sparsity is inspired from an analysis that we conducted of a worst-case example in the literature \parencite{DeRa10}. Our novel analysis proves that it is possible to bypass this lower bound if we assume a sparsity condition. These sparsity conditions are shown to be satisfied by several datasets. 
 % Moreover, we check that these conditions are satisfied in several datasets. 
 A major contribution of this chapter is to highlight the importance of geometric parameters called the principal angles between subspaces. Besides their geometric intuition, the introduction of these parameters enables closed form calculation of some upper bounds of the expected approximation error under the projection DPP distribution.
-This new parametrization also allows to give a simultaneous analysis under the Frobenius norm and the spectral norm. Moreover, the conducted analysis allows the study of the  regression bias.
+This new parametrization also allows to give a simultaneous analysis under the Frobenius norm and the spectral norm. Moreover, the conducted analysis allows the study of the  regression bias. Figure~\ref{fig:intro_chapter_cssp_snapshot} illustrates the bound of the projection DPP, that improves when the sparsity of the $k$-leverage scores is small,  compared to the bound of volume sampling on toy datasets.
 % The advantage of thisimprovement is expressed both using the Frobenius and the spectral norm. 
 % Another interesting feature about this theoretical analysis is its ver
 %  relaxed sparsity   on the sparisiy of show the influence of the choi using a specific choice of projection DPP, the theoretical guarantees  ac allows to improve both and the empirical results 
@@ -3047,7 +3060,10 @@ In a sense, the DPP we propose is a nonindependent generalization of the multino
 
 
 %\subsection{Outline of the paper}
-The chapter is organized as follows. Section~\ref{s:notation} introduces our notations. Section~\ref{s:relatedwork} is a survey of column subset selection, up to the state of the art to which we later compare. In Section~\ref{s:dppsection}, we discuss determinantal point processes and their connection to volume sampling. Section~\ref{sec:main_results} contains our main results, in the form of both classical bounds on the approximation error and risk bounds when CSS is a prelude to linear regression. In Section~\ref{s:numexpesection}, we numerically compare CSS algorithms, using in particular a routine that samples random matrices with prescribed $k$-leverage scores.
+The chapter is organized as follows. Section~\ref{s:notation} introduces our notations. Section~\ref{s:relatedwork} is a survey of column subset selection, up to the state of the art to which we later compare. In Section~\ref{s:dppsection}, we discuss determinantal point processes and their connection to volume sampling. Section~\ref{sec:main_results} contains our main results, in the form of both classical bounds on the approximation error and risk bounds when CSS is a prelude to linear regression. In Section~\ref{s:numexpesection}, we numerically illustrate the theoretical results. We conclude with the discussion in Section~\ref{sec:CSSP_discussion}. The details of the proofs are gathered in Section~\ref{sec:CSSP_proofs}.
+\begin{center}
+\noindent\rule{8cm}{0.4pt}
+\end{center}
 
 The material of this chapter
 is based on the following article 
@@ -4657,7 +4673,7 @@ The performance of our projection DPP algorithm has been compared to state-of-th
 
 
 
-\section{Discussion} 
+\section{Discussion} \label{sec:CSSP_discussion}
 
 
 We have proposed, analysed, and empirically investigated a new randomized column subset selection (CSS) algorithm. The crux of our algorithm is a discrete determinantal point process (DPP) that selects a diverse set of $k$ columns of a matrix $\bm{X}$. This DPP is tailored to CSS through its parametrization by the marginal kernel $\bm{K} = \bm{V}_{k}\bm{V}_{k}^{\Tran}$, where $\bm{V}_{k}$ are the first $k$ right singular vectors of the matrix $\bm{X}$. This specific kernel is related to volume sampling, the state-of-the-art for CSS guarantees in Frobenius and spectral norm.
@@ -4682,7 +4698,7 @@ In terms of computational cost, our algorithms scale with the cost of finding th
 
 \chapter*{Proofs}
 
-\section{Proofs}
+\section{Proofs}\label{sec:CSSP_proofs}
 \label{app:proofs}
 
 
@@ -5476,6 +5492,8 @@ and yield \eqref{eq:prediction_bound_dpp2}.
 \begin{subappendices}
 % \def\thesection{Appendix aaa}
 
+In Section~\ref{app:principal_angles} we recall the definition of principal angles between subspaces along with some results that we use in the proofs of our theoretical results. In Section~\ref{app:majorization}, we recall some notions of majorization and Schur-convexity necessary for the proofs. In Section~\ref{app:statisticalInterpretationOfLVSs}, we give another possible interpretation of the $k$-leverage scores. In Section~\ref{app:framebuilding}, we describe an algorithm
+that generates orthogonal matrices with a prescribed diagonal. This algorithm was used in Section~\ref{s:numexpesection} to construct matrices $\bm{X}$ with realistic right eigenvectors.
 
 
 \section{Principal angles and the Cosine Sine decomposition}
@@ -6252,12 +6270,12 @@ Figure~\ref{f:gt_generator_outputs} displays a few samples from our algorithm, w
 \end{figure}
 %\clearpage
 \end{subappendices}
-\counterwithin{figure}{section}
-\counterwithin{table}{section}
+\numberwithin{figure}{chapter}
+\numberwithin{table}{chapter}
 
 \chapter{Kernel quadrature using DPPs}\label{chap:dppkq}
-\section{Introduction}
-Numerical integration is at the heart of many tasks in applied mathematics and statistics, like Bayesian inference \parencite{RoCa04}, option pricing \parencite{Gla13} or solving integral equations \parencite{KrMaKo89}. Indeed, all these tasks involve, at some level, the evaluation of an integral
+%\section{Introduction}
+Numerical integration is at the heart of many tasks in applied mathematics, and statistics, like Bayesian inference \parencite{RoCa04} or option pricing \parencite{Gla13}. Indeed, all these tasks involve, at some level, the evaluation of an integral
 \begin{equation}\label{eq:general_integral_formula}
 \int_{\mathcal{X}}f(x)\mathrm{d}\omega(x).
 \end{equation}
@@ -6280,7 +6298,7 @@ $$3+\frac{10}{71} < \pi < 3+\frac{1}{7}.$$
 \begin{equation}\label{eq:interpolation_step}
 p_{N-1}(t) = \sum\limits_{n \in [N]} f(x_{n}) \ell_{n,\bm{x}}(t) \in \mathbb{R}_{N-1}[t],
 \end{equation}
-where $\ell_{n,\bm{x}}$ are the Lagrange polynomial  \footnote{ At that time, Newton considered divided differences interpolation polynomial \parencite{BuFa97}.} basis polynomials defined by \parencite{BuFa97}
+where $\ell_{n,\bm{x}}$ are the Lagrange polynomial  \footnote{ At that time, Newton considered divided differences interpolation polynomial \parencite{BuFa97}.} polynomials \parencite{BuFa97}
 \begin{equation}
 \ell_{n,\bm{x}}(t) = \frac{\prod\limits_{m \in [N], m \neq n }(t-x_{m})}{\prod\limits_{m \in [N], m \neq n }(x_{n}-x_{m})}.
 \end{equation}
@@ -6301,7 +6319,7 @@ This observation gave birth to the Gaussian quadrature and the field of numerica
  % The explicit values of the weights $w_{n}$ wIn the case of the \emph{Newton-Cotes formula}, the explicit values of the weights $w_{n}$ were calculated by Cotes for small values of $N$.
 As we shall see, these techniques are not amenable to be generalized to  high-dimensional domains.
 
-Monte Carlo methods offer another approach to numerical integration. This class of methods, introduced by \cite{MeUl49},  relies on randomized averaging. Given a sequence of random variables $x_{1}, \dots, x_{N}$ generated from a density g with respect to $\mathrm{d}\omega$, it comes
+Monte Carlo methods offer another approach to numerical integration. This class of methods, introduced by \cite{MeUl49},  relies on randomized averaging. Given a sequence of random variables $x_{1}, \dots, x_{N}$ generated from a density g, it comes
 \begin{equation}
 \EX \frac{1}{N}\sum\limits_{n \in [N]} f(x_{n}) = \int_{\mathcal{X}} f(x)g(x) \mathrm{d}\omega(x),
 \end{equation}
@@ -6314,8 +6332,11 @@ We start with a brief review of existing numerical integration approaches in Sec
 % a  is given with an emphasis on the connections between these methods.
  In particular, a special attention will be given to kernel quadrature methods that will be reviewed in Section~\ref{sec:kernel_quadrature_framework}.
 
- The contribution of this chapter is the introduction and the theoretical analysis of a new class of quadratures: optimal kernel quadrature based on projection DPPs nodes. The main theoretical results are given in Section~\ref{sec:pDPP_OKQ}. Section~\ref{sec:num_sim_dppkq} is devoted for numerical simulations. The proofs of the theoretical results are detailed in Section~\ref{s:proofs}.
-
+ The contribution of this chapter is the introduction and the theoretical analysis of a new class of quadratures: optimal kernel quadrature based on projection DPPs nodes. The main theoretical results are given in Section~\ref{sec:pDPP_OKQ}. Section~\ref{sec:num_sim_dppkq} is devoted for numerical simulations. The proofs of the theoretical results are detailed in Section~\ref{s:proofs}.\\
+ \vspace{-0.9cm}
+\begin{center}
+\noindent\rule{8cm}{0.4pt}
+\end{center}
  The material of this chapter
 is based on the following article 
 \begin{itemize}
@@ -6478,9 +6499,9 @@ The roots of the $P_{N}$ are the eigenvalues of the tridiagonal matrix $J_{N}$, 
 
 We illustrate the construction of Gaussian quadrature based on the spectral decomposition of $J_N$ in the special case of the Gaussian measure on the real line. The aim of this illustration is to highlight a connection between Gaussian quadrature and DPPs.
 
-Now, let $\mathrm{d}\omega(t) = \omega(t) \mathrm{d}t$ be the Gaussian measure on $\mathbb{R}$ with
+Now, let $\mathrm{d}\omega(t) = w(t) \mathrm{d}t$ be the Gaussian measure on $\mathbb{R}$ with
 \begin{equation}
-\omega(t) = \frac{1}{\sqrt{2\pi}} e^{-t^{2}/2}.
+w(t) = \frac{1}{\sqrt{2\pi}} e^{-t^{2}/2}.
 \end{equation}
  % through  in the case of  This illustration will and we 
 It is well known, that the corresponding orthonormal polynomials are proportional to the probabilist Hermite polynomials, and the corresponding Jacobi matrix writes
@@ -10620,8 +10641,10 @@ As we have seen in Chapter~\ref{chapter:cssp}, volume sampling has been used in 
 % \item Control functionals using volume sampling
 % \end{itemize}
 
-The rest of the chapter is organized as follows. Section~\ref{CVS_s:relatedWork} reviews kernel-based interpolation. In Section~\ref{CVS_sec:VS_DPP}, we define continuous volume sampling and relate it to projection determinantal point processes. Section~\ref{CVS_sec:main_results} contains our main results while Section~\ref{CVS_sec:steps_proof} contains sketches of all proofs with pointers to the Section~\ref{sec:CVS_detailed_proofs} for the details of the proofs. \rev{Section~\ref{CVS_sec:experiment} numerically illustrates our main result.} We conclude in Section~\ref{CVS_sec:discussion}, discussing some consequences beyond kernel interpolation.
-
+The rest of the chapter is organized as follows. Section~\ref{CVS_s:relatedWork} reviews kernel-based interpolation. In Section~\ref{CVS_sec:VS_DPP}, we define continuous volume sampling and relate it to projection determinantal point processes. Section~\ref{CVS_sec:main_results} contains our main results while Section~\ref{CVS_sec:steps_proof} contains sketches of all proofs with pointers to the Section~\ref{sec:CVS_detailed_proofs} for the details of the proofs. \rev{Section~\ref{CVS_sec:experiment} numerically illustrates our main result.} We conclude this chapter in Section~\ref{CVS_sec:discussion}.\\
+\begin{center}
+\noindent\rule{8cm}{0.4pt}
+\end{center}
 The material of this chapter
 is based on the following article 
 \begin{itemize}
@@ -10963,6 +10986,23 @@ Finally, we emphasize that these algorithms require the knowledge of a Mercer-ty
 % % For example, when $\mathrm{d}\omega$ is the uniform measure on $[0,1]^{d}$ and $\mathcal{F}$ is the Sobolev space of order $s$, the approximation error is of order $\mathcal{O}(N^{-s/d})$.
 % % On the other hand, when $\mathrm{d}\omega$ is the Gaussian measure on $\mathbb{R}^{d}$ and $\mathcal{F}$ is the RKHS associated to the Gaussian kernel, the approximation error is geometric in $N$.
 % %%%%
+Table~\ref{CVS_table:random_det_parallel} puts in perspective our work compared to the optimization approaches: the projection DPP of Chapter~\ref{chap:dppkq} is the stochastic version of approximate Fekete points, continuous volume sampling of this chapter is the stochastic version of Fekete points.
+
+\begin{table}[h]
+\centering
+ \begin{tabular}{| c| c| c| c|}
+ \hline
+  Objective function / Approach & Optimization & Sampling\\
+ \hline
+ $\Det^{2} \bm{E}_{N}(\bm{x})$& Approximate Fekete points & Projection DPP\\
+ & \parencite{KaSaTa19} & \parencite{BeBaCh19}\\ 
+ \hline
+ $\Det \bm{K}(\bm{x})$& Fekete points & CVS\\
+ & \parencite{Tan19}& \parencite{BeBaCh20} \\
+\hline
+\end{tabular}
+\caption{The determinantal approaches for the construction of kernel interpolation nodes.\label{CVS_table:random_det_parallel}}
+\end{table}
 
 \subsection{Lower bounds}\label{CVS_sec:lower_bounds}
 When investigating upper bounds for kernel interpolation errors, it is useful to remember existing lower bounds, so as to evaluate the tightness of one's results. In particular, $N$-widths theory \parencite{Pin12} implies lower bounds for kernel interpolation errors, which once again show the importance of the spectrum of $\bm{\Sigma}$.
@@ -11112,7 +11152,7 @@ Z_{N}(k) = \mathrm N! \sum\limits_{ U \in \mathcal{U}_{N}} \prod\limits_{u \in U
 
 In other words, $f_{\VS}$ is a mixture of the projection DPPs associated to the kernels $\mathfrak{K}_{U}$  and the reference measure $\mathrm{d}\omega$.
 
-The proof of this proposition is given in Appendix~\ref{CVS_sec:proof_VS_decomposition}.???
+The proof of this proposition is given in Section~\ref{CVS_sec:proof_VS_decomposition}.
 
 The largest weight in the mixture \eqref{CVS_e:mixture} corresponds to the projection DPP of kernel $\mathfrak{K}_{[N]}$ proposed in Chapter~\ref{chap:dppkq}. The following lemma gives an upper bound on this maximal weight using the eigenvalues of $\bm{\Sigma}$.
 \begin{proposition}\label{CVS_lemma:projection_DPP_weight}
@@ -11280,7 +11320,7 @@ As we shall see in Section~\ref{CVS_sec:main_results}, we prove that the squared
 \begin{figure}[!]
     \centering
 \includegraphics[width= 0.48\textwidth]{img/icml/korobov_rejection/rejection_bounds_for_Korobov_2D_s_1.pdf}~\includegraphics[width= 0.48\textwidth]{img/icml/korobov_rejection/rejection_bounds_for_Korobov_2D_s_2.pdf}\\
-\caption{The function $R_{d,s}(N)$ as a function of $N$ for $s =1$ (left) and $s=2$ (right).\label{CVS_fig:rejection_bounds_Korobov}}
+\caption{$R_{d,s}(N)$ as a function of $N$ for $s =1$ (left) and $s=2$ (right).\label{CVS_fig:rejection_bounds_Korobov}}
 \end{figure}
 
  % \pc{This is one more advantage of continuous volume sampling.}
@@ -11828,7 +11868,7 @@ To illustrate Theorem~\ref{CVS_thm:main_result_1}, we
 
   % \rb{I'm commenting out the next sentence because we don't understand what it means.}
   % This corresponds roughly to the empirical mixing time observed in \parencite{ReGh19} that was showed to scale as $\mathcal{O}(N^{2})$ (compared to the theoretical scaling in $\mathcal{O}(N^{5})$).
- For both values of the smoothness parameter $s$, we observe a close fit of the estimate with the actual expected error.
+ For both values of the smoothness parameter $s$, we observe a close fit of the estimate with the actual expected error: the mismatch between the two is due to approximate sampling. 
 
 %%%%%%% The figure
 %%%%%%%%%%%%%%%%%%
@@ -11880,18 +11920,19 @@ To illustrate Theorem~\ref{CVS_thm:main_result_1}, we
 % >>>>>>> 61e96cdae8f901477a628ad15ca6d0146565b7e4
 
 We deal with interpolation in RKHSs using random nodes and optimal weights. This problem is intimately related to kernel quadrature, though interpolation is more general.
-We introduced continuous volume sampling (VS), a repulsive point process that is a mixture of DPPs, although not a DPP itself.
-VS comes with a set of advantages. First, interpretable bounds on the interpolation error can be derived under minimalistic assumptions. Our bounds are close to optimal since they share the same decay rate as known lower bounds. Moreover, we provide explicit evaluations of the constants appearing in our bounds for some particular RKHSs (e.g., Sobolev, Gaussian).
-\rev{
-Second, while the eigen-decomposition of the integration operator plays an important role in the analysis, the definition of the density function of volume sampling only involves kernel evaluations. In that sense, VS is a fully kernelized approach. Unlike previous work on random design, this may permit sampling without knowing the Mercer decomposition of the kernel \parencite{ReGh19}, as demonstrated in Section~\ref{CVS_sec:experiment}. Investigating efficient samplers and their impact on bounds is deferred to future work; the current paper is a theoretical motivation for further methodological research.
-}
+We introduced continuous volume sampling (CVS), a repulsive point process that is a mixture of DPPs, although not a DPP itself.
+CVS comes with a set of advantages. First, interpretable bounds on the interpolation error can be derived under minimalistic assumptions. Our bounds are close to optimal since they share the same decay rate as known lower bounds. Moreover, we provide explicit evaluations of the constants appearing in our bounds for some particular RKHSs (e.g., Sobolev, Gaussian).
+
+Second, while the eigen-decomposition of the integration operator plays an important role in the analysis, the definition of the density function of volume sampling only involves kernel evaluations. In that sense, CVS is a fully kernelized approach. Unlike previous work on random design, this may permit sampling without knowing the Mercer decomposition of the kernel \parencite{ReGh19}, as demonstrated in Section~\ref{CVS_sec:experiment}. 
+
+We highlighted the trade-off between the interpolation problem and the sampling problem. In particular, approximate continuous volume sampling given by Algorithm~\ref{alg:approx_HKPV_SAMPLER} may replace greedy maximization in high-dimensional domains. 
+
+Investigating other efficient samplers and their impact on bounds is deferred to future work; the current chapter is a theoretical motivation for further methodological research.
+
 % algorithms is beyond the scope of this article.
  % Continuous volume sampling have many advantages over existing deterministic optimisation algorithms discussed in Section~\ref{CVS_sec:sequential_algos}. First, our theoretical analysis requires minimal assumptions: Assumption~\ref{CVS_hyp:integrable_diagonal} is satisfied by all the kernels used in practice, while Assumption~\ref{CVS_hyp:beta_N_bounded} .... This is to be compared to the theoretical toolbox of scattered data approximation \parencite{Wend04} that assumes that the domain $\X$ is compact and the design is not proposed in general. Second, the implementation of these deterministic algorithms require approximations that can make the ...
 %selecting features in linear regression
 
-\rev{We conclude with a few general remarks.}
-\rev{
-In the context of interpolation, \parencite{KaSaTa19} propose to use approximate Fekete points. In comparison, our analysis yields a sharper upper bound while circumventing the analysis of the Lebesgue constant, a central quantity in interpolation theory. Yet, it would be interesting to analyze the distribution of the Lebesgue constant under continuous volume sampling, to provide an assessment of the numerical stability of our approach. }
 
 %\begin{subproofs}
 
@@ -12036,7 +12077,9 @@ In particular,
 \end{equation}
 \end{lemma}
 \begin{proof}
-The proof of \eqref{CVS_eq:lvs_identity} is given in \parencite{BeBaCh19}[Lemma 4 of Appendix D]. The proof of \eqref{CVS_eq:cross_lvs_identity} is straightforward following the same lines. $\bm{\Pi}_{\mathcal{T}(\bm{x})}$ is an orthogonal projection with respect to $\langle .,. \rangle_{\F}$ and
+The proof is straightforward following the same lines as the proof of Lemma~\ref{lemma:interpolation_error_matricial_form}. 
+
+The operator $\bm{\Pi}_{\mathcal{T}(\bm{x})}$ is an orthogonal projection with respect to $\langle .,. \rangle_{\F}$ and
 \begin{equation}
 \|e_{m}^{\F}\|_{\F} = \|e_{m_{1}}^{\F}\|_{\F} = \|e_{m_{2}}^{\F}\|_{\F} = 1,
 \end{equation}
@@ -13428,16 +13471,66 @@ After matrix concentration inequalities and the Stieltjes transform, the expecte
 % \end{itemize}
 % \subsection{Prologue: the infinite column subset selection problem} (1-2 pages)
 
-\chapter*{List of Symbols}
-\addcontentsline{toc}{chapter}{List of Symbols}
+\chapter*{Notations}
+\addcontentsline{toc}{chapter}{Notations}
+The symbols with the indication$(**)$ appear in Chapter~\ref{chapter:cssp} and they have a different meaning in Chapter~\ref{chap:dppkq} and Chapter~\ref{chap:CVS}. 
+% They 
+% We adopted a different notation between Chapter this chapter that will change in the next chapters. The rationale behind this choice is to keep the notation as close as possible to the usual ones in the corresponding literatures.
+\section*{Linear algebra}
+%This notation is used in Chapter~\ref{chapter:cssp}\\
+\begin{tabular}[!]{cp{0.8\textwidth}}
+  $\mathbb{I}_{\delta}$ & Identity matrix of dimension $\delta$\\
+  $\bm{\Pi}_{\mathcal{P}}$ & Orthogonal projection onto the subspace $\mathcal{P}$\\
+  $\bm{X}$ & Real matrix \\
 
-\begin{tabular}{cp{0.6\textwidth}}
-  $\bm{X}$ & a real matrix \\
-  $\bm{U}$ & velocity \\
-  $a$ & acceleration \\
-  $t$ & time \\
-  $F$ & force
-\end{tabular}\\
+  $\bm{X}_{:,S}$ & Sub-matrix of $\bm{X}$ containing the columns $S$\\
+  $\bm{X}_{S,:}$ & Sub-matrix of $\bm{X}$ containing the rows $S$\\
+  $\bm{X}_{S,S'}$ & Sub-matrix of $\bm{X}$ defined by the rows $S$ and the columns $S'$\\
+  $\bm{U}$ & Left eigenvectors of $\bm{X}$ \\
+  $\bm{\Sigma}$ (**) & Matrix of singular values of $\bm{X}$ \\
+  $\bm{V}$ & Right eigenvectors of $\bm{X}$ \\
+  $N$ (**) & Number of the rows of $\bm{X}$\\
+  $d$ & Number of the columns of $\bm{X}$\\
+  $k$ (**) & Spectral cut-off \\
+  $\bm{X}^{+}$ & Moore-Penrose pseudo-inverse of $\bm{X}$ \\
+  $\|.\|_{2}$ &  Spectral norm\\
+  $\|.\|_{\Fr}$ & Frobenius norm\\
+\end{tabular}
+
+\section*{Functional analysis}
+%This notation is used in Chapter~\ref{chap:dppkq} and Chapter~\ref{chap:CVS}\\
+\begin{tabular}[!]{cp{0.8\textwidth}}
+  $\mathcal{X}$ & Metric space\\
+  $x_{1}, \dots, x_{N}$ & Elements of $\X$ (even if $\X$ is a high dimensional domain)\\
+  $\bm{x}$ & Discrete subset of $\mathcal{X}$: $\bm{x} = \{ x_{1}, \dots, x_{N} \} \subset \X$. It may be seen as an element of $\mathcal{X}^{N}$. In this case we write $ \bm{x} =  (x_{1}, \dots, x_{N})$. \\
+  $\omega$, $\mathrm{d}\omega$ & Measure on $\mathcal{X}$. We use the two interchangeably\\
+  $\omega^{\otimes L}$, $\mathrm{d}\omega^{\otimes L}$ & Tensor product of the measure $\omega$ defined on $\mathcal{X}^{L}$\\
+  $w(t)$ & The density of an absolutely continuous measure with respect to the Lebesgue measure: $\mathrm{d}\omega(t) = w(t) \mathrm{d}t$\\
+  $N$ (**) &  Cardinality of $\bm{x}$\\
+  $k$ (**)& Kernel defined $\mathcal{X}$\\
+  $\bm{K}(\bm{x})$ & Kernel matrix $(k(x_{i},x_{i'})_{i,i' \in [N]})$ \\
+
+  $\F$ & RKHS associated to $k$\\
+  $\mathbb{L}_{2}(\mathrm{d}\omega)$ & The set of square-integrable functions with respect to $\mathrm{d}\omega$ (or $\omega$) \\
+  $\mathbb{L}_{2}([0,1]^{d})$ & The set of square-integrable functions with respect to the Lebesgue measure on $[0,1]^{d}$. \\
+  $\mathbb{I}_{\mathcal{H}}$ & Identity operator of a Hilbert space $\mathcal{H}$\\
+\end{tabular}
+
+
+
+\section*{Functional analysis}
+%This notation is used in Chapter~\ref{chap:dppkq} and Chapter~\ref{chap:CVS}\\
+\begin{tabular}[!]{cp{0.8\textwidth}}
+  $\bm{\Pi}_{\mathcal{P}}$ & Orthogonal projection onto the subspace $\mathcal{P}$\\
+  $\|.\|_{\mathrm{d}\omega}, \langle.,.\rangle_{\mathrm{d}\omega}$ & Norm and bilinear form defined by $\mathrm{d}\omega$ (or $\omega$)\\
+  $\|.\|_{\mathcal{F}}, \langle.,.\rangle_{\mathcal{F}}$ & Norm and bilinear form of $\F$\\
+  $\bm{\Sigma}$ (**) & The integration operator associated to $k$ and $\mathrm{d}\omega$\\
+  $\sigma_{m}$ & The m-th eigenvalue of $\bm{\Sigma}$ \\
+  $e_{m}$ & The m-th eigenfunction of $\bm{\Sigma}$ with $\|e_{m}\|_{\mathrm{d}\omega} = 1$ \\
+  $e_{m}^{\F}$ & The scaled m-th eigenfunction of $\bm{\Sigma}$ with $\|e_{m}^{\F}\|_{\F} = 1$ \\
+  $\mu_{g}$ & Embedding of $g$ equivalently the mean-element of the measure $g\mathrm{d}\omega$
+\end{tabular}
+
 
 \listoffigures
 
