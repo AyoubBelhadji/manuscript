@@ -1,0 +1,207 @@
+
+\documentclass[twoside,11pt]{article}
+%\usepackage{classicthesis}
+
+\usepackage[margin=3cm]{geometry}
+
+\usepackage[T1]{fontenc}
+\usepackage{relsize}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{bbm}
+\usepackage{natbib}
+\usepackage{bibentry}
+\usepackage{cancel}
+
+
+\usepackage{appendix}
+%\usepackage{chngcntr}
+\usepackage{etoolbox}
+%\usepackage{subcaption}
+
+\def\twofig{.49\textwidth}
+
+
+%\usepackage[style=numeric,natbib=true]{biblatex}
+
+\usepackage{myAlgorithm}
+
+\setcounter{MaxMatrixCols}{20}
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{darkgreen}{rgb}{0,.5,.2}
+% \newcommand{\rev}[1]{\textcolor{darkgreen}{#1}}
+\newcommand{\rev}[1]{\textcolor{black}{#1}}
+
+
+\bibliographystyle{chicago}
+
+% \RequirePackage[colorlinks=true,citecolor=blue,allbordercolors={1 1 1}]{hyperref}
+
+
+
+%\addbibresource{bibliography.bib}
+%\bibliography{bibliography}
+\usepackage{todonotes} 
+
+\usepackage{subfig}
+
+\usetikzlibrary{bayesnet,calc,angles,quotes}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{decorations.pathreplacing}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsthm}
+\newtheorem{corollary}{Corollary}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{claim}{Claim}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{assumption}{Assumption}
+\newtheorem{problem}{Problem}
+\newtheorem{example}{Example}
+
+%\newtheorem{assumption}{Assumption}
+%\renewcommand*{\theassumption}{\Alph{assumption}}
+
+
+
+
+%\DeclareMathOperator{\dim}{\mathrm{dim}}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\St}{St}
+\DeclareMathOperator{\Sp}{\mathrm{Sp}}
+\DeclareMathOperator{\Diam}{\mathrm{Diam}}
+\DeclareMathOperator{\Diag}{\mathrm{Diag}}
+\DeclareMathOperator{\rank}{\mathrm{rk}}
+\DeclareMathOperator{\Det}{Det}
+\DeclareMathOperator{\Vol}{Vol}
+\DeclareMathOperator{\Adj}{Adj}
+\DeclareMathOperator{\Span}{\mathrm{Span}}
+\DeclareMathOperator{\Conf}{\mathrm{Conf}}
+\DeclareMathOperator{\Fr}{\mathrm{Fr}}
+\DeclareMathOperator{\DPP}{\mathrm{DPP}}
+
+\DeclareMathOperator{\Cor}{\mathrm{Cor}}
+\DeclareMathOperator{\VS}{\mathrm{VS}}
+\DeclareMathOperator{\HS}{\mathrm{HS}}
+\DeclareMathOperator{\OP}{\mathrm{op}}
+\DeclareMathOperator{\eff}{\mathrm{eff}}
+\DeclareMathOperator{\Tran}{\intercal}
+\newcommand{\dataset}{{\cal D}}
+\newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
+\DeclareMathOperator{\EX}{\mathbb{E}}
+\DeclareMathOperator{\Var}{\mathbb{V}}
+\DeclareMathOperator{\Prb}{\mathbb{P}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\KDPP}{\mathfrak{K}}
+
+\DeclareMathOperator{\F}{\mathcal{F}}
+\DeclareMathOperator{\X}{\mathcal{X}}
+% Expectation symbol
+
+\DeclareMathOperator{\DPh}{\mathrm{DPh}}
+
+\DeclareMathOperator{\Kerspace}{\mathrm{Ker}}
+\DeclareMathOperator{\Imspace}{\mathrm{Im}}
+
+\DeclareMathOperator{\Sinmatrix}{\mathcal{S}}
+\DeclareMathOperator{\Cosmatrix}{\mathcal{C}}
+\DeclareMathOperator{\Tanmatrix}{\mathcal{T}}
+\DeclareMathOperator{\LtwoR}{\mathbb{L}_{2}(\mathbb{R})}
+
+
+\def\rk{\text{rk}}
+% Expectation symbol
+
+%\DeclareRobustCommand{\bbone}{\text{\usefont{U}{bbold}{m}{n}1}}
+%\DeclareMathOperator{\Ltwo}{\mathbb{L}_{2}(\mathrm{d} \omega)}
+
+\def\Ltwo{\mathbb{L}_{2}(\mathrm{d} \omega)}
+
+\DeclareMathOperator{\Mu}{\mathrm{d}\omega(x)}
+\DeclareMathOperator{\MuTen}{\otimes\mathrm{d}\omega(x_{i})}
+\DeclareMathOperator{\Ns}{\mathbb{N}^{*}}
+\def\UN{\:\mathcal{U}_N}
+\def\UNm{\:\mathcal{U}_N^m}
+\def\ind{\mathbbm{1}}
+
+
+\newcommand{\ar}[1]{\textcolor{magenta}{~\algoremark{#1}}}
+
+
+\newcommand{\ab}[1]{\textcolor{red}{#1}}
+\newcommand{\pc}[1]{\textcolor{blue}{#1}}
+\newcommand{\rb}[1]{\textcolor{magenta}{#1}}
+
+
+\usepackage{bbold}
+
+
+\newcommand*\newprec{\vcenter{\hbox{\includegraphics[width=0.5cm]{img/cssp/macros/newprec.png}}}}
+
+\newcommand*\newtiltedprec{\vcenter{\hbox{\rotatebox{-30}{\includegraphics[width=0.5cm]{img/cssp/macros/newtiltedprec.png}}}}}
+% Definitions of handy macros can go here
+
+
+
+% Expectation symbol
+
+%\DeclareRobustCommand{\bbone}{\text{\usefont{U}{bbold}{m}{n}1}}
+
+
+% Heading arguments are {volume}{year}{pages}{date submitted}{date published}{paper id}{author-full-names}
+
+
+
+% Short headings should be running head and authors last names
+
+%\firstpageno{1}
+
+\AtBeginEnvironment{subappendices}{%
+\chapter*{Appendix}
+\addcontentsline{toc}{chapter}{Appendices}
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+}
+
+\AtEndEnvironment{subappendices}{%
+\counterwithout{figure}{section}
+\counterwithout{table}{section}
+}
+
+\begin{document}
+
+\title{Résumé en français de\\ "A determinantal point process for column subset selection"}
+
+%\input{ugly_title_page.tex}
+%\maketitleGM
+\author{Ayoub Belhadji} %if necessary, replace with your course title
+ 
+\maketitle
+%\author{\name Authors}
+
+%\editor{Editors}
+
+%\maketitle
+
+%\begin{abstract}%   <- trailing '%' for backward compatibility of .sty file
+%aaa
+%\end{abstract}
+
+
+
+
+%\section{Introduction en français}
+
+
+
+%\section{Résume CSSP}
+La réduction de dimension est une tâche récurrente de l'analyse des signaux en grande dimension. Les axes principaux de l'analyse en composantes principales sont difficilement interprétables. Lorsqu'on souhaite préserver l’interprétabilité des dimensions, la sélection d'attributs est préférable, mais implique a priori une optimisation combinatoire très coûteuse. Cet article contourne la difficulté en proposant un nouvel algorithme de sélection aléatoire d’attributs, ou de manière équivalente, de colonnes de la matrice des données. On utilise pour cela un processus ponctuel déterminantal sur les indices des colonnes, dont le noyau est contrôlé par la structure des données.
+
+
+\end{document}

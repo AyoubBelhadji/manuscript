@@ -3,7 +3,8 @@
 
 \usepackage[french,english]{babel}
 \usepackage{classicthesis}
-
+%\usepackage{amssymb}
+%\usepackage{bbold}
 \usepackage[margin=3.05cm]{geometry}
 
 %\usepackage[left=1.5in,right=1in,top=1in,bottom=1in]{geometry}
@@ -17,6 +18,8 @@
 \usepackage{epigraph,varwidth}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage[bb=boondox]{mathalfa}
+
 \usepackage{bm}
 \usepackage{bbm}
 %\usepackage{natbib}
@@ -313,7 +316,7 @@ Dans cette thèse, on étudie l’échantillonnage de sous-espaces à l’aide d
 
 
 \begin{abstract}{english}
-Determinantal point processes are probabilistic models of repulsion. These models were studied in various fields: random matrices, quantum optics, spatial statistics, image processing, machine learning, and recently numerical integration. In this thesis, we study subspace sampling using determinantal point processes. This problem takes place within the intersection of three sub-domains of approximation theory: subset selection, kernel quadrature, and kernel interpolation. We study these classical topics, through a new interpretation of these probabilistic models: a determinantal point process is a natural way to define a random subspace. Besides giving a unified analysis to numerical integration and interpolation under determinantal point processes, this new perspective allows to work out the theoretical guarantees of several approximation algorithms and to prove their optimality in some settings.
+Determinantal point processes are probabilistic models of repulsion. These models were studied in various fields: random matrices, quantum optics, spatial statistics, image processing, machine learning, and recently numerical integration. In this thesis, we study subspace sampling using determinantal point processes. This problem takes place within the intersection of three sub-domains of approximation theory: subset selection, kernel quadrature, and kernel interpolation. We study these classical topics, through a new interpretation of these probabilistic models: a determinantal point process is a natural way to define a random subspace. Besides giving a unified analysis to numerical integration and interpolation under determinantal point processes, this new perspective allows to work out the theoretical guarantees of several approximation algorithms and to prove their optimality in some setting
 \end{abstract}
 
 
@@ -3951,7 +3954,7 @@ Now, one could argue that, in practice, sparsity is never exact: it can well be 
     Finally, let $\mathcal{A}_\theta$ be the event $\{S \cap T_{p_{\eff}(\theta)} = \emptyset\}$. \rev{Then, the probability of  $\mathcal{A}_{\theta}$ is lower bounded}
 %on the one hand
     \begin{equation}\label{eq:rejection_probability}
-        \Prb_{\DPP}\left( \mathcal{A}_\theta\right) \geq \frac{1}{\theta},
+        \Prb_{\DPP}\left( \mathcal{A}_\theta\right) \geq \frac{1}{\theta} \:\:,
     \end{equation}
     \rev{and conditionally on $\mathcal{A}_{\theta}$,}
 %, \rev{it holds},
@@ -5042,7 +5045,7 @@ Then, with the functions $\phi,\psi$ introduced in Lemma~\ref{symmetric_schur_co
 \begin{equation}
     \left\{
     \begin{array}{ll}
-    	\psi(\bm{\lambda})  & \displaystyle{\geq \frac{1}{\theta},}\\
+    	\psi(\bm{\lambda})  & \displaystyle{\geq \frac{1}{\theta} \:\:,}\\
 	\phi(\bm{\lambda})  & \leq k-1 +\theta.
     \end{array}
     \right.
@@ -6692,7 +6695,7 @@ Now, for a finite number of nodes, one would measure how far is the sequence fro
 \end{equation}  
 The term $\frac{1}{N}\sum_{n \in [N]} \mathbb{1}_{[\bm{0},u]}(x_{n})$ in \eqref{def:discrepancy} counts the fraction of the nodes $x_{n}$ that falls into $[\bm{0},u]$; while the second term measures the volume of $[\bm{0},u]$: $\mathcal{D}_{\bm{x}}$ measures the difference between the relative number of points that belongs to $[\bm{0},u]$ and its volume. A configuration $\bm{x}$ would be "well-spread" if the discrepancy function $\mathcal{D}_{\bm{x}}$ takes small values on $\X$. For example, the value of the $\|.\|_{p}$ norm~\footnote{This norm is well defined for $p \in [1,\infty]$, $\mathcal{D}_{\bm{x}} \in \mathbb{L}_{p}(\mathbb{R}^{d})$ because $\X = [0,1]^{d}$ is a compact set of $\mathbb{R}^{d}$} of $\mathcal{D}_{\bm{x}}$ is a measure of "well-spreadness" of $\bm{x}$ called the \emph{$\mathbb{L}_{p}$-discrepancy} of $\bm{x}$
 \begin{equation}
-\Delta_{p}(\bm{x}) = \bigg(\int_{[0,1]^{d}}\mathcal{D}_{\bm{x}}(u)^{p} \otimes_{\delta \in [d]} \mathrm{d}u_{\delta}\bigg)^{1/p}.
+\Delta_{p}(\bm{x}) = \bigg(\int_{[0,1]^{d}}|\mathcal{D}_{\bm{x}}(u)|^{p} \otimes_{\delta \in [d]} \mathrm{d}u_{\delta}\bigg)^{1/p}.
 \end{equation}
 In particular, the $\|.\|_{\infty}$ norm of the local discrepancy \eqref{def:discrepancy} is called the \emph{star-discrepancy} and it is denoted $\Delta_{*}(\bm{x})$.
 
@@ -7304,7 +7307,7 @@ Let $\mathcal{X}$ be a metric space. A function $k: \mathcal{X} \times \mathcal{
 \forall (x,f) \in \mathcal{X}\times\mathcal{F}, \: f(x) = \langle f, k(x,.) \rangle_{\mathcal{F}}. \nonumber
 \end{equation}
 \end{itemize}
-We suppose the following assumptions on the measure$\mathrm{d}\omega$ and the kernel $k$.
+We suppose the following assumptions on the measure $\mathrm{d}\omega$ and the kernel $k$.
 We make the following assumption on $\mathrm{d}\omega$.
 \begin{assumption}\label{hyp:domega_is_nondegenerate}
 $\omega$ is a \emph{non-degenerate} measure, i.e. the support of $\omega$ is equal to $\X$.
@@ -7602,7 +7605,7 @@ and
 \sigma_{n}^{\mathcal{K}_{d,s}} = \prod\limits_{\delta \in [d]} \sigma_{u_{\delta}^{n}}^{\mathcal{S}_{s}}.
 \end{equation}
 
-The left of Figure~\ref{f:rates} illustrates the eigenvalues $\sigma_{N+1}$ ordered according to the spectral order $\prec_{\mathcal{K}_{d,s}}$ compared to the rate $\mathcal{O}(\log^{2s(d-1)} N^{-2s})$ proved in \parencite{Bac17}: the eigenvalues $\sigma_{N+1}$ decreases in plateaus and the size of each plateau corresponds to the multiplicity of the respective eigenvalues. Moreover, the rate $\mathcal{O}(\log^{2s(d-1)} N^{-2s})$ matches the asymptotic behaviour of $\sigma_{N}$ for $N \rightarrow +\infty$.
+The left of Figure~\ref{f:rates} illustrates the eigenvalues $\sigma_{N+1}$ ordered according to the spectral order $\prec_{\mathcal{K}_{d,s}}$ compared to the rate $\mathcal{O}((\log N)^{2s(d-1)} N^{-2s})$ proved in \parencite{Bac17}: the eigenvalues $\sigma_{N+1}$ decreases in plateaus and the size of each plateau corresponds to the multiplicity of the respective eigenvalues. Moreover, the rate $\mathcal{O}((\log N)^{2s(d-1)} N^{-2s})$ matches the asymptotic behaviour of $\sigma_{N}$ for $N \rightarrow +\infty$.
 
 % Moreover, we define the eigenfunctions $e_{1}, e_{2}, \dots$ and the corresponding eigenvalues $\sigma_{1}, \sigma_{2}, \dots$ as follows
 
